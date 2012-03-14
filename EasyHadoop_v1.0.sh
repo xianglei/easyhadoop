@@ -55,7 +55,7 @@ else
 
 	chown -R hadoop:hadoop  /opt/modules/hadoop/
 
-	cp hadoop-0.20.203.0.tar.gz /opt/modules/hadoop/
+	cp $HADOOP/hadoop/hadoop-0.20.203.0.tar.gz /opt/modules/hadoop/
 	cd /opt/modules/hadoop/ && tar -xzvf hadoop-0.20.203.0.tar.gz
 	sed -i "s/^<value>6<\/value>/<value>${map}<\/value>/g" /opt/modules/hadoop/hadoop-0.20.203.0/conf/mapred-site.xml
 	sed -i "s/^<value>2<\/value>/<value>${reduce}<\/value>/g" /opt/modules/hadoop/hadoop-0.20.203.0/conf/mapred-site.xml
