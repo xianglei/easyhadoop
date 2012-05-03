@@ -1,11 +1,13 @@
 #!/bin/sh
+# version 1.1
 if [ $# -lt 3 ]; then
-	echo "Usage: $0 map.tasks.maximum reduce.tasks.maximum memory child.java.opts"
+	echo "Usage: $0 map.tasks.maximum reduce.tasks.maximum memory(child.java.opts)"
 else
 	map=$1
 	reduce=$2
 	mem=$3
-	yum -y install lrzsz gcc gcc-c++ libstdc++-devel
+	yum -y install lrzsz gcc gcc-c++ libstdc++-devel ntp
+	ntpdate cn.pool.ntp.org
 	/usr/sbin/groupadd hadoop
 	/usr/sbin/useradd hadoop -g hadoop
 	mkdir -p /opt/modules/hadoop/
@@ -29,8 +31,6 @@ else
 	wget http://221.238.27.164/hadoop/hadoop-0.20.203.0.tar.gz
 	wget http://221.238.27.164/hadoop/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm
 	wget http://221.238.27.164/hadoop/jdk-6u21-linux-amd64.rpm
-	wget http://221.238.27.164/hadoop/lrzsz-0.12.20-19.x86_64.rpm
-	wget http://221.238.27.164/hadoop/lzo-2.04-1.el5.rf.x86_64.rpm
 	wget http://221.238.27.164/hadoop/lzo-2.06.tar.gz
 	wget http://221.238.27.164/hadoop/lzop-1.03.tar.gz
 
@@ -41,7 +41,6 @@ else
 
 	rpm -ivh jdk-6u21-linux-amd64.rpm
 	rpm -ivh lrzsz-0.12.20-19.x86_64.rpm
-	rpm -ivh lzo-2.04-1.el5.rf.x86_64.rpm
 	rpm -ivh hadoop-gpl-packaging-0.2.8-1.x86_64.rpm
 
 	tar xzvf lzo-2.06.tar.gz
@@ -64,7 +63,7 @@ else
 	chown -R hadoop:hadoop /opt/modules/hadoop/
 	chown -R hadoop:hadoop /home/hadoop/
 
-	#sudo -u hadoop /opt/modules/hadoop/hadoop-0.20.203.0/bin/hadoop namenode -format
+	sudo -u hadoop /opt/modules/hadoop/hadoop-0.20.203.0/bin/hadoop namenode -format
 	sudo -u hadoop /opt/modules/hadoop/hadoop-0.20.203.0/bin/hadoop-daemon.sh start namenode
 	sudo -u hadoop /opt/modules/hadoop/hadoop-0.20.203.0/bin/hadoop-daemon.sh start jobtracker
 
