@@ -40,7 +40,7 @@ else
 	cd $HADOOP/hadoop
 
 	rpm -ivh jdk-6u21-linux-amd64.rpm
-	rpm -ivh lrzsz-0.12.20-19.x86_64.rpm
+	yum -y install lrzsz
 	rpm -ivh hadoop-gpl-packaging-0.2.8-1.x86_64.rpm
 
 	tar xzvf lzo-2.06.tar.gz
