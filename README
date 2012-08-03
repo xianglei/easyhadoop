@@ -12,4 +12,4 @@ Usage:
 [root@localhost]./this_shell_script.sh
 
 Note: You must use root user to run this script, do not use sudo!!!
-And use "su root" or "sudo su -" change to root, do not use "sudo -s"
+And use "su root" or "sudo su -" to change to root, do not use "sudo -s"
