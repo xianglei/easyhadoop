@@ -2,7 +2,7 @@
 
 ################
 #Use root to run this shell script, do not use sudo
-#ÇëÊ¹ÓÃrootÖ´ÐÐ½Å±¾£¬²»ÒªÊ¹ÓÃsudo·½Ê½
+#ï¿½ï¿½Ê¹ï¿½ï¿½rootÖ´ï¿½Ð½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½ï¿½sudoï¿½ï¿½Ê½
 ################
 
 ##Download && install packages##
@@ -25,8 +25,8 @@ fi
 if [ ! -f "lzop-1.03.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzop-1.03.tar.gz
 fi
-if [ ! -f "hadoop-gpl-packaging-0.2.8-1.x86_64.tar.gz" ]; then
-	wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
+if [ ! -f "hadoop-gpl-packaging-0.5.3-1.x86_64.tar.gz" ]; then
+	wget http://113.11.199.230/resources/hadoop-gpl-packaging-0.5.3-1.x86_64.tar.gz
 fi
 if [ ! -f "lzo-2.06.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzo-2.06.tar.gz
@@ -43,7 +43,7 @@ rm -f "$TMP"
 
 if [ $TYPE = "S" ]; then
 	dpkg -i hadoop_1.0.3-1_x86_64.deb
-	tar zxf hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
+	hadoop-gpl-packaging-0.5.3-1.x86_64.tar.gz
 	mv hadoopgpl /opt/
 	
 	cp -rf /opt/hadoopgpl/lib/* /usr/lib64
