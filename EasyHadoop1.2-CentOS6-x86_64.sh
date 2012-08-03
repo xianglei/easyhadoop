@@ -130,8 +130,11 @@ if [ $TYPE = "S" ]; then
 	sudo -u hadoop hadoop dfsadmin -safemode leave
 	
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> ~/.bashrc
+	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> /home/hadoop/.bashrc
+	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> /etc/bashrc
+	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	
 	$DIALOG --title "EasyHadoop 1.2" --menu "Install utilities" 0 0 0 H "Hive data warehouse" 2>$TMP
 	UTIL_TYPE=$(cat $TMP)
@@ -153,6 +156,7 @@ if [ $TYPE = "S" ]; then
 		echo "If there is no HADOOP_CLASSPATH set, then run: \"export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar\" manually"
 		echo "#################################################"
 		export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar
+		export JAVA_HOME=$JAVA_HOME:/usr/java/default
 	else
 		echo "Exit"
 	fi
