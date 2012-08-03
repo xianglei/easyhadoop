@@ -1,14 +1,14 @@
-It's a simply shell to install hadoop on CentOS 5.X which can made 
-hadoop installation easier and faster.
+It's a simply shell to install hadoop and Hive, Pig... on CentOS 5 and 6 which 
+can made hadoop installation easier and faster.
 
 The hadoop installed with this script would be a fake distributed,
 but you can comment some lines to use it with real distributed 
 network.
 
-It support lzo compressed data file by default, so enjoy it.
+It support lzo compressed data file by default, enjoy it.
 
 Usage:
-[root@yourhost]#chmod +x EasyHadoop.sh
-[root@yourhost]#EasyHadoop.sh 6 2 512
+[root@localhost]#chmod +x this_shell_script.sh
+[root@localhost]./this_shell_script.sh
 
-The arguments means: 6(max map tasks) 2(max reduce tasks) 512(max java memory usage)
+Note: You must use root user to run this script, do not use sudo!!!

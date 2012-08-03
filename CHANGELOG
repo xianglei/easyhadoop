@@ -1,3 +1,10 @@
+v1.2 20120803
+Use rpm to install hadoop 1.0.3
+Rewrite all script, add Hive support by default
+Add monitoring script for hive, and mysql connector in $HIVE_HOME/lib/
+Support CentOS5.x and 6.x
+Namenode and Datanode installation are under development
+
 v1.1 20120503
 add ntpdate time correct action
 remove some useless package
