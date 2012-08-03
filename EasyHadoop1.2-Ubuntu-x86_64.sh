@@ -26,7 +26,7 @@ if [ ! -f "lzop-1.03.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzop-1.03.tar.gz
 fi
 if [ ! -f "hadoop-gpl-packaging-0.2.8-1.x86_64.tar.gz" ]; then
-	wget http://113.11.199.230/resources/hadoop-gpl-packaging-0.2.8-1.x86_64.tar.gz
+	wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
 fi
 if [ ! -f "lzo-2.06.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzo-2.06.tar.gz
@@ -43,7 +43,7 @@ rm -f "$TMP"
 
 if [ $TYPE = "S" ]; then
 	dpkg -i hadoop_1.0.3-1_x86_64.deb
-	tar zxf hadoop-gpl-packaging-0.2.8-1.x86_64.tar.gz
+	tar zxf hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
 	mv hadoopgpl /opt/
 	
 	cp -rf /opt/hadoopgpl/lib/* /usr/lib64
