@@ -6,6 +6,9 @@
 ################
 
 ##Download && install packages##
+echo "#######################################"
+echo "Download and Install environment"
+echo "#######################################"
 yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel
 ntpdate cn.pool.ntp.org
 cd ~/
@@ -16,9 +19,6 @@ mkdir hadoop
 cd hadoop/
 if [ ! -f "hadoop-1.0.3-1.x86_64.rpm" ]; then
 	wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm
-fi
-if [ ! -f "hive-0.9.0-bin.tar.gz" ]; then
-	wget http://113.11.199.230/utils/hive-0.9.0-bin.tar.gz
 fi
 if [ ! -f "lzop-1.03.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzop-1.03.tar.gz
@@ -42,7 +42,7 @@ fi
 DIALOG='/bin/env dialog'
 
 TMP="/tmp/menu.$$"
-$DIALOG --title "EasyHadoop 1.1" --menu "Installation mode" 0 0 0 S "Single Node" N "Namenode and Jobtracker" D "Datanode and Tasktracker" 2>$TMP
+$DIALOG --title "EasyHadoop 1.2" --menu "Installation mode" 0 0 0 S "Single Node" N "Namenode and Jobtracker" D "Datanode and Tasktracker" 2>$TMP
 
 TYPE=$(cat $TMP)
 

@@ -1,4 +1,4 @@
-#!/bin/env bash
+#!/usr/bin/env bash
 
 ################
 #Use root to run this shell script, do not use sudo
@@ -9,48 +9,43 @@
 echo "#######################################"
 echo "Download and Install environment"
 echo "#######################################"
-yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel
+apt-get -y install dialog lrzsz gcc cpp libstdc++6 make automake autoconf ntp wget libpcre3 libpcre3-dev openjdk-6-jdk liblzo2-2 liblzo2-dev lzop
 ntpdate cn.pool.ntp.org
 cd ~/
 /usr/sbin/groupadd hadoop
 /usr/sbin/useradd hadoop -g hadoop
+mkdir /home/hadoop
+chown -R hadoop:hadoop /home/hadoop
 
 mkdir hadoop
 cd hadoop/
-if [ ! -f "hadoop-1.0.3-1.x86_64.rpm" ]; then
-	wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm
+if [ ! -f "hadoop_1.0.3-1_x86_64.deb" ]; then
+	wget http://113.11.199.230/hadoop/hadoop_1.0.3-1_x86_64.deb
 fi
 if [ ! -f "lzop-1.03.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzop-1.03.tar.gz
 fi
-if [ ! -f "hadoop-gpl-packaging-0.2.8-1.x86_64.rpm" ]; then
-	wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm
+if [ ! -f "hadoop-gpl-packaging-0.2.8-1.x86_64.tar.gz" ]; then
+	wget http://113.11.199.230/resources/hadoop-gpl-packaging-0.2.8-1.x86_64.tar.gz
 fi
 if [ ! -f "lzo-2.06.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzo-2.06.tar.gz
 fi
-if [ ! -f "jdk-7u5-linux-x64.rpm" ]; then
-	wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm
-fi
-if [ ! -f "lzo-2.06-1.el5.rf.x86_64.rpm" ]; then
-	wget http://113.11.199.230/resources/x64/lzo-2.06-1.el5.rf.x86_64.rpm
-fi
-if [ ! -f "lzo-devel-2.06-1.el5.rf.x86_64.rpm" ]; then
-	wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el5.rf.x86_64.rpm
-fi
 
-DIALOG='/bin/env dialog'
+DIALOG='/usr/bin/env dialog'
 
 TMP="/tmp/menu.$$"
-$DIALOG --title "EasyHadoop 1.2" --menu "请选择安装方式" 10 40 10 S "Single Node" N "Namenode and Jobtracker" D "Datanode and Tasktracker" 2>$TMP
+$DIALOG --title "EasyHadoop 1.2" --menu "Installation mode" 0 0 0 S "Single Node" N "Namenode and Jobtracker" D "Datanode and Tasktracker" 2>$TMP
 
 TYPE=$(cat $TMP)
 
 rm -f "$TMP"
 
 if [ $TYPE = "S" ]; then
-	rpm -ivh jdk-7u5-linux-x64.rpm lzo-2.06-1.el5.rf.x86_64.rpm lzo-devel-2.06-1.el5.rf.x86_64.rpm hadoop-gpl-packaging-0.2.8-1.x86_64.rpm hadoop-1.0.3-1.x86_64.rpm
-
+	dpkg -i hadoop_1.0.3-1_x86_64.deb
+	tar zxf hadoop-gpl-packaging-0.2.8-1.x86_64.tar.gz
+	mv hadoopgpl /opt/
+	
 	cp -rf /opt/hadoopgpl/lib/* /usr/lib64
 	cp /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64
 	cp /opt/hadoopgpl/native/Linux-i386-32/* /usr/lib
@@ -121,6 +116,7 @@ if [ $TYPE = "S" ]; then
     <value>-Djava.library.path=/opt/hadoopgpl/lib</value>
   </property>
 </configuration>" > /etc/hadoop/mapred-site.xml
+	ln -s /usr/lib/jvm/java-6-openjdk-amd64 /usr/lib/jvm/java-6-sun
 	sudo -u hadoop hadoop namenode -format
 	sudo -u hadoop hadoop-daemon.sh start namenode
 	sudo -u hadoop hadoop-daemon.sh start secondarynamenode
@@ -130,11 +126,8 @@ if [ $TYPE = "S" ]; then
 	sudo -u hadoop hadoop dfsadmin -safemode leave
 	
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> ~/.bashrc
-	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> /home/hadoop/.bashrc
-	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> /etc/bashrc
-	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	
 	$DIALOG --title "EasyHadoop 1.2" --menu "Install utilities" 0 0 0 H "Hive data warehouse" 2>$TMP
 	UTIL_TYPE=$(cat $TMP)
@@ -156,7 +149,6 @@ if [ $TYPE = "S" ]; then
 		echo "If there is no HADOOP_CLASSPATH set, then run: \"export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar\" manually"
 		echo "#################################################"
 		export HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar
-		export JAVA_HOME=$JAVA_HOME:/usr/java/default
 	else
 		echo "Exit"
 	fi
