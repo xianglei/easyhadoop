@@ -147,6 +147,7 @@ if [ $TYPE = "S" ]; then
 		fi
 		tar zxf hive-0.9.0-bin.tar.gz
 		mv hive-0.9.0-bin /opt/hive
+		cp /opt/hive/conf/hive-default.xml.template /opt/hive/conf/hive-site.xml
 		/opt/hive/bin/daemon.py start
 		echo "#################################################"
 		echo "Hive install complete, Have been started Thrift on port 10000"
