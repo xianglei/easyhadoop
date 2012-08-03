@@ -42,7 +42,7 @@ fi
 DIALOG='/bin/env dialog'
 
 TMP="/tmp/menu.$$"
-$DIALOG --title "EasyHadoop 1.2" --menu "请选择安装方式" 10 40 10 S "Single Node" N "Namenode and Jobtracker" D "Datanode and Tasktracker" 2>$TMP
+$DIALOG --title "EasyHadoop 1.2" --menu "Installation mode" 10 40 10 S "Single Node" N "Namenode and Jobtracker" D "Datanode and Tasktracker" 2>$TMP
 
 TYPE=$(cat $TMP)
 

@@ -48,7 +48,6 @@ if [ $TYPE = "S" ]; then
 	
 	cp -rf /opt/hadoopgpl/lib/* /usr/lib64
 	cp /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64
-	cp /opt/hadoopgpl/native/Linux-i386-32/* /usr/lib
 
 	tar zxf lzo-2.06.tar.gz
 	cd lzo-2.06
