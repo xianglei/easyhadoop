@@ -9,7 +9,7 @@
 echo "#######################################"
 echo "Download and Install environment"
 echo "#######################################"
-yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel
+yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo
 ntpdate cn.pool.ntp.org
 cd ~/
 /usr/sbin/groupadd hadoop
@@ -134,6 +134,8 @@ if [ $TYPE = "S" ]; then
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> /home/hadoop/.bashrc
 	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> /etc/bashrc
+	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
+	echo "HADOOP_CLASSPATH=$HADOOP_CLASSPATH:/usr/lib64/hadoop-lzo.jar" >> /etc/profile
 	echo "JAVA_HOME=$JAVA_HOME:/usr/java/default"
 	
 	$DIALOG --title "EasyHadoop 1.2" --menu "Install utilities" 0 0 0 H "Hive data warehouse" 2>$TMP
