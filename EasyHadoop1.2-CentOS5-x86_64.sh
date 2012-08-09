@@ -9,7 +9,7 @@
 echo "#######################################"
 echo "Download and Install environment"
 echo "#######################################"
-yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo
+yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo > /dev/null
 ntpdate cn.pool.ntp.org
 cd ~/
 /usr/sbin/groupadd hadoop

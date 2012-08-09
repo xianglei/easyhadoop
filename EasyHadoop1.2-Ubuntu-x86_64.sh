@@ -43,7 +43,7 @@ rm -f "$TMP"
 
 if [ $TYPE = "S" ]; then
 	dpkg -i hadoop_1.0.3-1_x86_64.deb
-	hadoop-gpl-packaging-0.5.3-1.x86_64.tar.gz
+	tar zxf hadoop-gpl-packaging-0.5.3-1.x86_64.tar.gz
 	mv hadoopgpl /opt/
 	
 	cp -rf /opt/hadoopgpl/lib/* /usr/lib64

@@ -9,7 +9,7 @@
 echo "#######################################"
 echo "Download and Install environment"
 echo "#######################################"
-yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo
+yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo > /dev/null
 ntpdate cn.pool.ntp.org
 cd ~/
 /usr/sbin/groupadd hadoop
@@ -49,7 +49,7 @@ TYPE=$(cat $TMP)
 rm -f "$TMP"
 
 if [ $TYPE = "S" ]; then
-	rpm -ivh jdk-7u5-linux-x64.rpm lzo-2.06-1.el6.rfx.x86_64.rpm lzo-devel-2.06-1.el6.rfx.x86_64.rpm hadoop-gpl-packaging-0.5.3-1.x86_64.rpm hadoop-1.0.3-1.x86_64.rpm
+	rpm -ivh jdk-7u5-linux-x64.rpm lzo-2.06-1.el6.rfx.x86_64.rpm lzo-devel-2.06-1.el6.rfx.x86_64.rpm hadoop-gpl-packaging-0.5.3-1.x86_64.rpm hadoop-1.0.3-1.x86_64.rpm > /dev/null
 	
 	cp -rf /opt/hadoopgpl/lib/* /usr/lib64
 	cp /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64
