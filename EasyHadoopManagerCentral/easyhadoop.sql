@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `ehm_hosts` (
   `host_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `hostname` varchar(255) NOT NULL,
   `ip` varchar(255) NOT NULL,
+  `role` varchar(255) NOT NULL,
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`host_id`),
   KEY `hostname` (`hostname`,`ip`)
