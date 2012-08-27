@@ -17,10 +17,12 @@ elseif($_GET['action'] == "Install")
 	<div class="btn-toolbar">
 	<div class="btn-group">
 	
-	<a href="Install.php?action=Install&which=Evironment class="btn btn-secondary">'.$lang['installEvironment'].'</a>
-	<a href="Install.php?action=Install&which=Java class="btn">'.$lang['installJava'].'</a>
-	<a href="Install.php?action=Install&which=Hadoop class="btn">'.$lang['installHadoop'].'</a>
-	<a href="Install.php?action=Install&which=Lzo class="btn">'.$lang['installLzo'].'</a>
+	<a href="Install.php?action=Install&which=Evironment" class="btn btn-secondary">'.$lang['installEvironment'].'</a>
+	<a href="Install.php?action=Install&which=Java" class="btn">'.$lang['installJava'].'</a>
+	<a href="Install.php?action=Install&which=Hadoop" class="btn">'.$lang['installHadoop'].'</a>
+	<a href="Install.php?action=Install&which=Lzo" class="btn">'.$lang['installLzo'].'</a>
+	<a href="Install.php?action=Install&which=Lzop" class="btn">'.$lang['installLzop'].'</a>
+	<a href="Install.php?action=Install&which=Hadoopgpl" class="btn">'.$lang['installHadoopgpl'].'</a>
 	
 	</div>
 	</div>
@@ -34,10 +36,10 @@ elseif($_GET['action'] == "Uninstall")
 	<div class="btn-toolbar">
 	<div class="btn-group">
 	
-	<a href="Install.php?action=Uninstall&which=Evironment class="btn">'.$lang['uninstallEvironment'].'</a>
-	<a href="Install.php?action=Uninstall&which=Java class="btn">'.$lang['uninstallJava'].'</a>
-	<a href="Install.php?action=Uninstall&which=Hadoop class="btn">'.$lang['uninstallHadoop'].'</a>
-	<a href="Install.php?action=Uninstall&which=Lzo class="btn">'.$lang['uninstallLzo'].'</a>
+	<a href="Install.php?action=Uninstall&which=Evironment" class="btn">'.$lang['uninstallEvironment'].'</a>
+	<a href="Install.php?action=Uninstall&which=Java" class="btn">'.$lang['uninstallJava'].'</a>
+	<a href="Install.php?action=Uninstall&which=Hadoop" class="btn">'.$lang['uninstallHadoop'].'</a>
+	<a href="Install.php?action=Uninstall&which=Lzo" class="btn">'.$lang['uninstallLzo'].'</a>
 	
 	</div>
 	</div>
