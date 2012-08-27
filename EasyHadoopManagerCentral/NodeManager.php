@@ -17,7 +17,6 @@ if(!@$_GET['action'])
 	}
 	echo '</div>
 	</div>
-	</div>
 	</div>';
 }
 elseif ($_GET['action'] == "AddNode")
@@ -41,7 +40,6 @@ elseif ($_GET['action'] == "AddNode")
 		</form>
 		</div>
 		</div>
-		</div>
 		</div>';
 	}
 	else
@@ -53,8 +51,7 @@ elseif ($_GET['action'] == "AddNode")
 		$sql = "insert ehm_hosts set hostname = '".$hostname."', ip = '".$ipaddr."', role = '".$role."', create_time=current_timestamp()";
 		echo $sql;
 		$mysql->Query($sql);
-		echo '</div></div>
-		</div>
+		echo '</div>
 		</div>';
 	}
 }
