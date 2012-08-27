@@ -13,21 +13,58 @@ if(!@$_GET['action'])
 
 elseif($_GET['action'] == "Install")
 {
-	echo '<div class="span10">
-	<div class="btn-toolbar">
-	<div class="btn-group">
+	if(!$_GET['ip'])
+	{
+		echo '<h2>Choose a host to install</h2>';
+		echo '<div class=span10>';
 	
-	<a href="Install.php?action=Install&which=Evironment" class="btn btn-secondary">'.$lang['installEvironment'].'</a>
-	<a href="Install.php?action=Install&which=Java" class="btn">'.$lang['installJava'].'</a>
-	<a href="Install.php?action=Install&which=Hadoop" class="btn">'.$lang['installHadoop'].'</a>
-	<a href="Install.php?action=Install&which=Lzo" class="btn">'.$lang['installLzo'].'</a>
-	<a href="Install.php?action=Install&which=Lzop" class="btn">'.$lang['installLzop'].'</a>
-	<a href="Install.php?action=Install&which=Hadoopgpl" class="btn">'.$lang['installHadoopgpl'].'</a>
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                <tr>
+                  <th>#</th>
+                  <th>'.$lang['hostname'].'</th>
+                  <th>'.$lang['ipAddr'].'</th>
+                  <th>'.$lang['nodeRole'].'</th>
+                  <th>'.$lang['createTime'].'</th>
+                </tr>
+                </thead>
+                <tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td><a href=Install.php?action=Install&ip='.$arr['ip'].'>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}
+	else
+	{
+		$ip = $_GET['ip'];
+		echo '<div class="span10">
+		<div class="btn-toolbar">
+		<div class="btn-group">
 	
-	</div>
-	</div>
-	choose button above for next step.
-	</div>';
+		<a href="Install.php?action=Install&which=Evironment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEvironment'].'</a>
+		<a href="Install.php?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
+		<a href="Install.php?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
+		<a href="Install.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
+		<a href="Install.php?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
+		<a href="Install.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>
+	
+		</div>
+		</div>
+		The Chosen host is '.$ip.';
+		</div>';
+	}	
 }
 
 elseif($_GET['action'] == "Uninstall")
