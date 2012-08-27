@@ -69,13 +69,30 @@ elseif($_GET['action'] == "Install")
 		if(@$_GET['which'])
 		{
 			echo '<pre>';
+			
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
-			$sock = new Socket;
+			/*$sock = new Socket;
 			$sock->Connect($ip, 30050 , 60);
 			$str = $sock->SendCommand($action);
 			$str = str_replace("\n","<br />",$str);
-			$sock->DisConnect();
+			$sock->DisConnect();*/
+			
+			if($fp = fsockopen($ip, 30050, $errno, $errstr, 5))
+			{
+				fwrite($fp, $action."\n");
+				while(!feof($fp))
+				{
+					$str .= fread($fp,1024);
+				}
+				echo str_replace("\n","<br/>",$str);
+				fclose($fp);
+			}
+			else
+			{
+				echo "无法连接到节点，请确认Agent已开启。";
+			}
+			
 			echo '</pre>';
 		}
 		echo "<br />";
