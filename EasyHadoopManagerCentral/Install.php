@@ -60,9 +60,14 @@ elseif($_GET['action'] == "Install")
 		<a href="Install.php?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
 		<a href="Install.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
 		<a href="Install.php?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
-		<a href="Install.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>
+		<a href="Install.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
+		
+		if(@$_GET['which'])
+		{
+			$action = $_GET['action'].$_GET['which'];echo $action;
+		}
 	
-		</div>
+		echo '</div>
 		</div>
 		The Chosen host is '.$ip.';
 		</div>';
@@ -112,9 +117,9 @@ elseif($_GET['action'] == "Uninstall")
 <br/>--> 
 
 <?php
-if(@$_GET['ip'])
+/*if(@$_GET['which'] && @$_GET['ip'])
 {
-	$action = @$_GET['action'];
+	$action = @$_GET['action'].$_GET['which'];
 	$node_ip = @$_GET['ip'];
 	if($fp = fsockopen($node_ip, 30050, $errno, $errstr, 5))
 	{
@@ -130,7 +135,7 @@ if(@$_GET['ip'])
 	{
 		echo "无法连接到节点，请确认Agent已开启。";
 	}
-}
+}*/
 
 include_once "templates/footer.html";
 ?>
