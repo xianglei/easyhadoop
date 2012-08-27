@@ -41,7 +41,7 @@ elseif ($_GET['action'] == "AddNode")
 	}
 	else
 	{
-		echo '<div class="span10">';
+		echo '<div class="span5">';
 		$hostname = $_POST['hostname'];
 		$ipaddr = $_POST['ipaddr'];
 		$role = $_POST['role'];
