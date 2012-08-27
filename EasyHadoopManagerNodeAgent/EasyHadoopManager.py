@@ -26,7 +26,7 @@ class Install:
 		self.stdin = stdin
 		self.stdout = stdout
 		self.stderr = stderr
-		
+
 	def VerifyPlatform( self ):
 		tmp = platform.platform()
 		if tmp.find("el5") > 0:
@@ -43,18 +43,18 @@ class Install:
 		tmp = os.popen("yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo && ntpdate cn.pool.ntp.org").readlines()
 		title.extend(tmp)
 		return title
-			
+
 	def InstallJava( self ):
 		title = ['Installing JDK...\n']
 		if os.path.isfile("/home/hadoop/jdk-7u5-linux-x64.rpm") == False:
 			tmp = os.popen("/usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop && mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm").readlines()
 		else:
 			tmp = os.popen("cd /home/hadoop/ && rpm -Uvh jdk-7u5-linux-x64.rpm").readlines()
-		
+
 		os.popen('echo "JAVA_HOME=/usr/java/default" >> /etc/profile && echo "JAVA_HOME=/usr/java/default" >> /root/.bashrc && echo "JAVA_HOME=/usr/java/default" >> /home/hadoop/.bashrc')
 		title.extend(tmp)
 		return title
-			
+
 	def InstallHadoop( self ):
 		title = ['Installing Hadoop...\n']
 		if os.path.isfile("/home/hadoop/hadoop-1.0.3-1.x86_64.rpm") == False:
@@ -63,7 +63,7 @@ class Install:
 			tmp = os.popen("cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
 		title.extend(tmp)
 		return title
-	
+
 	def InstallLzo( self ):
 		title = ['Installing LZO libary...\n']
 		if os.path.isfile("/home/hadoop/lzo-2.06.tar.gz") == False:
@@ -77,12 +77,12 @@ class Install:
 				lzo = os.popen("mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm").readlines()
 			else:
 				lzo = os.popen("cd /home/hadoop && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm").readlines()
-			
+
 			if os.path.isfile("/home/hadoop/lzo-devel-2.06-1.el5.rf.x86_64.rpm") == False:
 				lzo_dev = os.popen("mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm").readlines()
 			else:
 				lzo_dev = os.popen("cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm").readlines()
-				
+
 			title.extend(lzo)
 			title.extend(lzo_dev)
 		elif system_ver.find("el6") > 0:
@@ -90,18 +90,18 @@ class Install:
 				lzo = os.popen("mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm").readlines()
 			else:
 				lzo = os.popen("cd /home/hadoop/ && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm").readlines()
-				
+
 			if os.path.isfile("/home/hadoop/lzo-devel-2.06-1.el6.rfx.x86_64.rpm") == False:
 				lzo_dev = os.popen("mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm").readlines()
 			else:
 				lzo_dev = os.popen("cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm").readlines()
-			
+
 			title.extend(lzo)
 			title.extend(lzo_dev)
 		else:
 			tmp = ['Unknown Operating System\n']
 			title.extend(tmp)
-			
+
 		return title
 
 	def InstallLzop( self ):
@@ -112,7 +112,7 @@ class Install:
 			tmp = os.popen("cd /home/hadoop/ && tar zxf lzop-1.03.tar.gz && cd lzop-1.03 && ./configure && make && make install").readlines()
 		title.extend(tmp)
 		return title
-		
+
 	def InstallHadoopgpl( self ):
 		title = ['Installing hadoopgpl...\n']
 		if os.path.isfile("/home/hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm") == False:
@@ -122,18 +122,18 @@ class Install:
 		self.CopyHadoopgplFiles()
 		title.extend(tmp)
 		return title
-		
+
 	def CopyHadoopgplFiles(self):
 		title = ['Installing hadoopgpl...\n']
 		tmp = os.popen("cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/").readlines()
 		title.extend(tmp)
 		return title
-		
+
 	def ChangeSudoer( self ):
 		os.popen("chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers")
 		title = ['Make sudoers modify done']
 		return title
-	
+
 	def UninstallHadoop( self ):
 		title = ['Uninstalling Hadoop']
 		rpm = os.popen("rpm -qa | grep hadoop-1.0.3-1").readline().strip()
@@ -143,7 +143,7 @@ class Install:
 			tmp = ['No Hadoop found']
 		title.extend(tmp)
 		return title
-				
+
 	def UninstallHadoopgpl( self ):
 		title = ['Uninstalling Hadoopgpl']
 		rpm = os.popen("rpm -qa | grep hadoop-gpl-packaging-0.5.3-1").readline().strip()
@@ -153,7 +153,7 @@ class Install:
 			tmp = ['No Hadoopgpl found']
 		title.extend(tmp)
 		return title
-		
+
 	def UninstallJava( self ):
 		title = ['Uninstalling Oracle JDK']
 		rpm = os.popen("rpm -qa | grep jdk-1.7.0_05-fcs").readline().strip()
@@ -435,7 +435,7 @@ class ClientThread( threading.Thread ):
 			cmd = self.readline()
 		self.client.close()
 		return
-		
+
 	def FileTransport( self, filename ):
 		res = ''
 		f = open ( filename , "wb")
@@ -447,19 +447,19 @@ class ClientThread( threading.Thread ):
 		f.flush()
 		f.close()
 		return
-		
+
 	def readline( self ):
 		result = self.client.recv( 1024 )
 		if( None != result ):
 			result = result.strip()
 		return result
-		
+
 	def writeline( self, text ):
 		try:
 			self.client.send( text.strip() + '\n' )
 		except Exception, e:
 			print e
-		
+
 class Daemon:
 	def __init__(self, pidfile, stdin='/dev/stdin', stdout='/dev/stdout', stderr='/dev/stderr'):
 		self.stdin = stdin
@@ -510,15 +510,15 @@ class Daemon:
 			pf.close()
 		except IOError:
 			pid = None
-				
+
 		if pid: 
 			message = 'pidfile %s already exist. Daemon already running?\n'
 			sys.stderr.write(message % self.pidfile)
 			sys.exit(1)
-				
+
 		self._daemonize()
 		self._run()
-		
+
 	def stop(self):
 		try:	
 			pf = file(self.pidfile,'r')
@@ -530,7 +530,7 @@ class Daemon:
 				print str(err)
 		except IOError:
 			pid = None
-				
+
 		if not pid:
 			message = 'pidfile %s does not exist. Daemon not running?\n'
 			sys.stderr.write(message % self.pidfile)
@@ -541,7 +541,7 @@ class Daemon:
 				time.sleep(0.1) 
 				server = Server()
 				server.close()
-				
+
 		except OSError, err:
 			err = str(err)
 			if err.find('No such process') > 0:
@@ -550,7 +550,7 @@ class Daemon:
 				else:   
 					print str(err)
 					sys.exit(1)
-		
+
 	def restart(self):
 		self.stop()
 		self.start()
@@ -563,7 +563,7 @@ class Server:
 	def __init__( self ):
 		self.sock = None
 		self.thread_list = []
-		
+
 	def close ( self ):
 		del self.sock
 		sys.exit(1)

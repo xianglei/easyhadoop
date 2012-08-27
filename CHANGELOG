@@ -1,3 +1,8 @@
+v1.2.1 20120826
+Add distributed node agent daemon script
+Add GPV v3 LICENSE file
+Add Bootstrap and a test central console php webpage
+
 v1.2 20120803
 Use rpm to install hadoop 1.0.3
 Rewrite all script, add Hive support by default
