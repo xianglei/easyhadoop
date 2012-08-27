@@ -137,7 +137,8 @@ class Install:
 	def UninstallHadoop( self ):
 		title = ['Uninstalling Hadoop']
 		rpm = os.popen("rpm -qa | grep hadoop-1.0.3-1").readline().strip()
-		if (rpm == "hadoop-1.0.3-1"):
+		if (rpm[0:14] == "hadoop-1.0.3-1"):
+			#On CentOS 5 is hadoop-1.0.3-1, On Centos 6 is hadoop-1.0.3-1.x86_64
 			tmp = os.popen("rpm -e hadoop-1.0.3-1 && rm -rf /etc/hadoop /usr/share/hadoop").readlines()
 		else:
 			tmp = ['No Hadoop found']
@@ -147,7 +148,8 @@ class Install:
 	def UninstallHadoopgpl( self ):
 		title = ['Uninstalling Hadoopgpl']
 		rpm = os.popen("rpm -qa | grep hadoop-gpl-packaging-0.5.3-1").readline().strip()
-		if (rpm == "hadoop-gpl-packaging-0.5.3-1"):
+		if (rpm[0:28] == "hadoop-gpl-packaging-0.5.3-1"):
+			#On CentOS 5 is hadoop-gpl-packaging-0.5.3-1, On Centos 6 is hadoop-gpl-packaging-0.5.3-1.x86_64
 			tmp = os.popen("rpm -e hadoop-gpl-packaging-0.5.3-1 && rm -rf /usr/share/hadoop/lib/cdh4.0.1 /usr/share/hadoop/lib/guava-12.0.jar /usr/share/hadoop/lib/hadoop-lzo-0.4.17.jar /usr/share/hadoop/lib/hadoop-lzo.jar /usr/share/hadoop/lib/pig* /usr/share/hadoop/lib/native /usr/share/hadoop/lib/protobuf-java-2.4.1.jar /usr/share/hadoop/lib/slf4j-api-1.5.8.jar /usr/share/hadoop/lib/slf4j-log4j12-1.5.10.jar /usr/share/hadoop/lib/yamlbeans-0.9.3.jar").readlines()
 		else:
 			tmp = ['No Hadoopgpl found']
@@ -157,7 +159,8 @@ class Install:
 	def UninstallJava( self ):
 		title = ['Uninstalling Oracle JDK']
 		rpm = os.popen("rpm -qa | grep jdk-1.7.0_05-fcs").readline().strip()
-		if (rpm == "jdk-1.7.0_05-fcs"):
+		if (rpm[0:16] == "jdk-1.7.0_05-fcs"):
+			#On CentOS 5 is jdk-1.7.0_05-fcs, On Centos 6 is jdk-1.7.0_05-fcs.x86_64
 			tmp = os.popen("rpm -e jdk-1.7.0_05-fcs && rm -rf /usr/java").readlines()
 		else:
 			tmp = ['No Jdk found']
