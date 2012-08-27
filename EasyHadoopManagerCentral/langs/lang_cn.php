@@ -1,7 +1,7 @@
 <?php
 $lang["title"] = "EasyHadoop 管理中心";
 $lang["indexPage"] = "首页";
-$lang['nodeManage'] = "节点管理";
+$lang['nodeManager'] = "节点管理";
 $lang['nodeMonitor'] = "节点监控";
 $lang['welcome'] = "欢迎来到EasyHadoop";
 $lang['addNode'] = "添加节点";

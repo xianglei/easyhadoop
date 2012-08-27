@@ -1,5 +1,5 @@
 <?php
-include_once "class.socket.php";
+include_once "classes/class.socket.php";
 
 define("MYSQL_HOST","127.0.0.1");
 define("MYSQL_PORT","3306");
