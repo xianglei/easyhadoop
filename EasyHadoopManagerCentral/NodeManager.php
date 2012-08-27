@@ -32,8 +32,7 @@ elseif ($_GET['action'] == "AddNode")
 				<input type="text" placeholder="'.$lang['roleName'].'" name="role" /><br />
 				<input type="hidden" name="action" value="'.$_GET['action'].'" />
 				<button type="submit" class="btn">'.$lang['submit'].'</button>
-		</form>
-		</div>';
+		</form>';
 	}
 	else
 	{
@@ -43,7 +42,6 @@ elseif ($_GET['action'] == "AddNode")
 		$sql = "insert ehm_hosts set hostname = '".$hostname."', ip = '".$ipaddr."', role = '".$role."', create_time=current_timestamp()";
 		echo $sql;
 		$mysql->Query($sql);
-		echo '</div>';
 	}
 }
 
