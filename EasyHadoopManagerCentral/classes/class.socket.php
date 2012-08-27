@@ -37,7 +37,7 @@ class Socket
 		{
 			while(!feof($this->mSocketHandle))
 			{
-				$str .= fread($fp,1024);
+				$str .= fread($this->mSocketHandle,1024);
 			}
 			
 			return $str;
