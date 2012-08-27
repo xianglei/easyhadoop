@@ -54,12 +54,12 @@ elseif($_GET['action'] == "Install")
 		<div class="btn-toolbar">
 		<div class="btn-group">
 	
-		<a href="Install.phpManager?action=Install&which=Environment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEnvironment'].'</a>
-		<a href="Install.phpManager?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
-		<a href="Install.phpManager?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
-		<a href="Install.phpManager?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
-		<a href="Install.phpManager?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
-		<a href="Install.phpManager?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
+		<a href="InstallManager.php?action=Install&which=Environment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEnvironment'].'</a>
+		<a href="InstallManager.php?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
+		<a href="InstallManager.php?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
+		<a href="InstallManager.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
+		<a href="InstallManager.php?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
+		<a href="InstallManager.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
 		
 		echo '</div>
 		</div>';//btn-toolbar
