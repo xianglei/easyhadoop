@@ -62,15 +62,16 @@ elseif($_GET['action'] == "Install")
 		<a href="Install.php?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
 		<a href="Install.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
 		
+		echo '</div>
+		</div>';
+		
 		if(@$_GET['which'])
 		{
 			$action = $_GET['action'].$_GET['which'];echo $action;
 		}
-	
-		echo '</div>
-		</div>
-		The Chosen host is '.$ip.';
-		</div>';
+
+		echo 'The Chosen host is '.$ip;
+		echo '</div>';
 	}	
 }
 
