@@ -33,7 +33,6 @@ if(!@$_GET['action'])
                   <td>'.$arr['role'].'</td>
                   <td>'.$arr['create_time'].'</td>
                 </tr>';
-		echo $arr["hostname"]."</br>";
 		$i++;
 	}
 	echo '</tbody></table>';
