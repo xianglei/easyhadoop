@@ -13,7 +13,7 @@ if(!@$_GET['action'])
 
 elseif($_GET['action'] == "Install")
 {
-	echo 'div class="span10">
+	echo '<div class="span10">
 	<div class="btn-toolbar">
 	<div class="btn-group">
 	
