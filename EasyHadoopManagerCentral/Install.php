@@ -6,14 +6,14 @@ include_once "templates/install_sidebar.html";
 
 if(!@$_GET['action'])
 {
-	echo '<div class="span9">
+	echo '<div class="span10">
 	Choose left sidebar for next step.
 	</div>';
 }
 
-elseif(!$_GET['action'] == "Install")
+elseif($_GET['action'] == "Install")
 {
-	echo 'div class="span9">
+	echo 'div class="span10">
 	<div class="btn-toolbar">
 	<div class="btn-group">
 	
@@ -28,7 +28,7 @@ elseif(!$_GET['action'] == "Install")
 	</div>';
 }
 
-elseif(!$_GET['action'] == "Uninstall")
+elseif($_GET['action'] == "Uninstall")
 {
 	echo 'div class="span9">
 	<div class="btn-toolbar">
