@@ -63,15 +63,21 @@ elseif($_GET['action'] == "Install")
 		<a href="Install.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
 		
 		echo '</div>
-		</div>';
+		</div>';//btn-toolbar
 		
+		echo '<code>';
 		if(@$_GET['which'])
 		{
-			$action = $_GET['action'].$_GET['which'];echo $action;
+			$action = $_GET['action'].$_GET['which'];
+			$ip = $_GET['ip'];
+			$sock = new Socket;
+			$sock->Connect($ip, 30050 , 60);
+			$str = $sock->SendCommand($action);
+			$sock->DisConnect();
 		}
-
+		echo '</code>';
 		echo 'The Chosen host is '.$ip;
-		echo '</div>';
+		echo '</div>';// span10
 	}	
 }
 
