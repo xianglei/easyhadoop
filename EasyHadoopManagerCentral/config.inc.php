@@ -7,4 +7,5 @@ define('MYSQL_USER', 'root');
 define("MYSQL_PASS",'');
 define("MYSQL_NAME", "easyhadoop");
 
+include_once "langs/lang_cn.php";
 ?>
