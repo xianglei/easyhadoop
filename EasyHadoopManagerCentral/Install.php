@@ -17,9 +17,8 @@ elseif($_GET['action'] == "Install")
 {
 	if(!$_GET['ip'])
 	{
-		echo '<h2>Choose a host to install</h2>';
 		echo '<div class=span10>';
-	
+		echo '<h2>Choose a host to install</h2>';
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
@@ -107,9 +106,8 @@ elseif($_GET['action'] == "Uninstall")
 {
 	if(!$_GET['ip'])
 	{
-		echo '<h2>Choose a host to install</h2>';
 		echo '<div class=span10>';
-	
+		echo '<h2>Choose a host to install</h2>';
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
