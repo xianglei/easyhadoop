@@ -17,8 +17,8 @@ class Mysql
 		$this->mDbPass = MYSQL_PASS;
 		$this->mDbName = MYSQL_NAME;
 		$this->mDbPass = MYSQL_PORT;
-		$this->connect();
-    }
+		$this->Connect();
+	}
 	
 	public function Connect()
 	{
