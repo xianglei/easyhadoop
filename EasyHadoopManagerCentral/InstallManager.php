@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 include_once "config.inc.php";
 
 include_once "templates/header.html";
@@ -77,7 +78,7 @@ elseif($_GET['action'] == "Install")
 			$str = str_replace("\n","<br />",$str);
 			$sock->DisConnect();*/
 			
-			if($fp = fsockopen($ip, 30050, $errno, $errstr, 5))
+			if($fp = fsockopen($ip, 30050, $errno, $errstr, 300))
 			{
 				fwrite($fp, $action."\n");
 				while(!feof($fp))
@@ -164,7 +165,7 @@ elseif($_GET['action'] == "Uninstall")
 			$str = str_replace("\n","<br />",$str);
 			$sock->DisConnect();*/
 			
-			if($fp = fsockopen($ip, 30050, $errno, $errstr, 5))
+			if($fp = fsockopen($ip, 30050, $errno, $errstr, 300))
 			{
 				fwrite($fp, $action."\n");
 				while(!feof($fp))
