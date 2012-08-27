@@ -41,12 +41,14 @@ elseif ($_GET['action'] == "AddNode")
 	}
 	else
 	{
+		echo '<div class="span10">';
 		$hostname = $_POST['hostname'];
 		$ipaddr = $_POST['ipaddr'];
 		$role = $_POST['role'];
 		$sql = "insert ehm_hosts set hostname = '".$hostname."', ip = '".$ipaddr."', role = '".$role."', create_time=current_timestamp()";
 		echo $sql;
 		$mysql->Query($sql);
+		echo '</div></div>';
 	}
 }
 
