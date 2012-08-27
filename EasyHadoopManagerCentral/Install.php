@@ -2,7 +2,7 @@
 include_once "config.inc.php";
 
 include_once "templates/header.html";
-include_once "templates/node_manager_sidebar.html";
+include_once "templates/install_sidebar.html";
 
 if(!@$_GET['action'])
 {
