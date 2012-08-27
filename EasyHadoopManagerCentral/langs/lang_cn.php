@@ -34,11 +34,11 @@ $lang['ipAddr'] = "IP地址";
 $lang['roleName'] = "节点注释(Namenode,Jobtracker...)";
 $lang['createTime'] = "创建时间";
 $lang['pingNode'] = 'Agent连通测试';
-$lang['install'] = '安装';
-$lang['uninstall'] = '卸载';
+$lang['install'] = '安装Hadoop相关';
+$lang['uninstall'] = '卸载Hadoop相关';
 $lang['pushFiles'] = '推送配置文件';
 
-$lang['installEvironment'] = '安装环境依赖';
+$lang['installEnvironment'] = '安装环境依赖';
 $lang['installJava'] = '安装JDK';
 $lang['installHadoop'] = '安装Hadoop';
 $lang['installLzo'] = '安装LZO库';

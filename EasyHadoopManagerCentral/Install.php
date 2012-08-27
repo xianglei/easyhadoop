@@ -55,7 +55,7 @@ elseif($_GET['action'] == "Install")
 		<div class="btn-toolbar">
 		<div class="btn-group">
 	
-		<a href="Install.php?action=Install&which=Evironment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEvironment'].'</a>
+		<a href="Install.php?action=Install&which=Environment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEnvironment'].'</a>
 		<a href="Install.php?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
 		<a href="Install.php?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
 		<a href="Install.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
@@ -105,19 +105,89 @@ elseif($_GET['action'] == "Install")
 
 elseif($_GET['action'] == "Uninstall")
 {
-	echo 'div class="span9">
-	<div class="btn-toolbar">
-	<div class="btn-group">
+	if(!$_GET['ip'])
+	{
+		echo '<h2>Choose a host to install</h2>';
+		echo '<div class=span10>';
 	
-	<a href="Install.php?action=Uninstall&which=Evironment" class="btn">'.$lang['uninstallEvironment'].'</a>
-	<a href="Install.php?action=Uninstall&which=Java" class="btn">'.$lang['uninstallJava'].'</a>
-	<a href="Install.php?action=Uninstall&which=Hadoop" class="btn">'.$lang['uninstallHadoop'].'</a>
-	<a href="Install.php?action=Uninstall&which=Lzo" class="btn">'.$lang['uninstallLzo'].'</a>
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                <tr>
+                  <th>#</th>
+                  <th>'.$lang['hostname'].'</th>
+                  <th>'.$lang['ipAddr'].'</th>
+                  <th>'.$lang['nodeRole'].'</th>
+                  <th>'.$lang['createTime'].'</th>
+                </tr>
+                </thead>
+                <tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td><a href=Install.php?action=Install&ip='.$arr['ip'].'>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}
+	else
+	{
+		$ip = $_GET['ip'];
+		echo '<div class="span10">
+		<div class="btn-toolbar">
+		<div class="btn-group">
 	
-	</div>
-	</div>
-	choose button above for next step.
-	</div>';
+		<a href="Install.php?action=Uninstall&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
+		<a href="Install.php?action=Uninstall&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
+		<a href="Install.php?action=Uninstall&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
+		
+		echo '</div>
+		</div>';//btn-toolbar
+		
+		
+		if(@$_GET['which'])
+		{
+			echo '<pre>';
+			
+			$action = $_GET['action'].$_GET['which'];
+			$ip = $_GET['ip'];
+			/*$sock = new Socket;
+			$sock->Connect($ip, 30050 , 60);
+			$str = $sock->SendCommand($action);
+			$str = str_replace("\n","<br />",$str);
+			$sock->DisConnect();*/
+			
+			if($fp = fsockopen($ip, 30050, $errno, $errstr, 5))
+			{
+				fwrite($fp, $action."\n");
+				while(!feof($fp))
+				{
+					$str .= fread($fp,1024);
+				}
+				echo str_replace("\n","<br/>",$str);
+				fclose($fp);
+			}
+			else
+			{
+				echo "无法连接到节点，请确认Agent已开启。";
+			}
+			
+			echo '</pre>';
+		}
+		echo "<br />";
+		echo "<pre>";
+		echo 'The Chosen host is '.$ip;
+		echo "</pre>";
+		echo '</div>';// span10
+	}
 }
 ?>
 
