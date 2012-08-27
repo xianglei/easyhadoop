@@ -14,13 +14,14 @@ if(!@$_GET['action'])
 	{
 		echo $arr["hostname"]."</br>";
 	}
+	echo '</div>
+	</div>';
 }
 elseif ($_GET['action'] == "AddNode")
 {
 	if(!$_POST['ip'] && !$_POST['hostname'] && !$_POST['role'])
 	{
-		echo '
-		<div class="page-header">
+		echo '<div class="page-header">
             <h1>'.$lang['addNode'].'</h1>
         </div>
         
