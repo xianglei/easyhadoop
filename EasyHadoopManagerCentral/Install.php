@@ -46,7 +46,7 @@ elseif(!$_GET['action'] == 'Uninstall')
 }
 ?>
 
- <a class="btn btn-secondary" href=Install.php?action=InstallEnvironment&ip=127.0.0.1>安装环境依赖</a>
+<!--<a class="btn btn-secondary" href=Install.php?action=InstallEnvironment&ip=127.0.0.1>安装环境依赖</a>
  <a class="btn" href=Install.php?action=InstallJava&ip=127.0.0.1>安装JDK</a>
  <a class="btn" href=Install.php?action=InstallHadoop&ip=127.0.0.1>安装Hadoop</a>
  <a class="btn" href=Install.php?action=InstallLzo&ip=127.0.0.1>安装Lzo</a>
@@ -68,7 +68,7 @@ elseif(!$_GET['action'] == 'Uninstall')
 <a class="btn" href=Install.php?action=UninstallHadoopgpl&ip=127.0.0.1>卸载Hadoopgpl</a>
 
 
-<br/> 
+<br/>--> 
 
 <?php
 if(@$_GET['ip'])
