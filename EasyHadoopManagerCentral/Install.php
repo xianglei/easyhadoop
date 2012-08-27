@@ -65,7 +65,7 @@ elseif($_GET['action'] == "Install")
 		echo '</div>
 		</div>';//btn-toolbar
 		
-		echo '<code>';
+		echo '<pre>';
 		if(@$_GET['which'])
 		{
 			$action = $_GET['action'].$_GET['which'];
@@ -75,7 +75,7 @@ elseif($_GET['action'] == "Install")
 			$str = $sock->SendCommand($action);
 			$sock->DisConnect();
 		}
-		echo '</code>';
+		echo '</pre>';
 		echo 'The Chosen host is '.$ip;
 		echo '</div>';// span10
 	}	
