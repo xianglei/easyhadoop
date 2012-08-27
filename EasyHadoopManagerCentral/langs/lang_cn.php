@@ -51,7 +51,7 @@ $lang['installHadoopgpl'] = '安装Hadoopgpl';
 
 $lang['uninstallJava'] = '卸载JDK';
 $lang['uninstallHadoop'] = '卸载Hadoop';
-$lang['uninstallLzo'] = '卸载Hadoopgpl';
+$lang['uninstallHadoopgpl'] = '卸载Hadoopgpl';
 
 $lang['chooseInstallHost'] = '选择安装节点';
 $lang['chooseUninstallHost'] = '选择卸载节点';
