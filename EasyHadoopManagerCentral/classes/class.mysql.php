@@ -50,7 +50,8 @@ class Mysql
 	{
 		if($this->mResult)
 		{
-			retrun mysql_fetch_array($this->mResult);
+			#$arr = mysql_fetch_array($this->mResult);
+			return mysql_fetch_array($this->mResult);
 		}
 		else
 		{
