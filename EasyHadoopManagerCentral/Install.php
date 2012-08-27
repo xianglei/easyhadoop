@@ -11,13 +11,13 @@ if(!@$_GET['action'])
 	</div>';
 }
 
-elseif(!$_GET['action'] == 'Install')
+elseif(!$_GET['action'] == "Install")
 {
 	echo 'div class="span9">
 	<div class="btn-toolbar">
 	<div class="btn-group">
 	
-	<a href="Install.php?action=Install&which=Evironment class="btn">'.$lang['installEvironment'].'</a>
+	<a href="Install.php?action=Install&which=Evironment class="btn btn-secondary">'.$lang['installEvironment'].'</a>
 	<a href="Install.php?action=Install&which=Java class="btn">'.$lang['installJava'].'</a>
 	<a href="Install.php?action=Install&which=Hadoop class="btn">'.$lang['installHadoop'].'</a>
 	<a href="Install.php?action=Install&which=Lzo class="btn">'.$lang['installLzo'].'</a>
@@ -28,7 +28,7 @@ elseif(!$_GET['action'] == 'Install')
 	</div>';
 }
 
-elseif(!$_GET['action'] == 'Uninstall')
+elseif(!$_GET['action'] == "Uninstall")
 {
 	echo 'div class="span9">
 	<div class="btn-toolbar">
