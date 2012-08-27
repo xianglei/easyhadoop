@@ -46,5 +46,5 @@ elseif ($_GET['action'] == "AddNode")
 	}
 }
 
-include_once "footer.html";
+include_once "templates/footer.html";
 ?>

@@ -30,4 +30,4 @@ $lang['nodeRole'] = '节点角色';
 $lang['lang'] = "cn";
 $lang['hostname'] = "主机名称";
 $lang['ipAddr'] = "IP地址";
-$lang['roleName'] = "角色名称(英文逗号分隔)";
+$lang['roleName'] = "节点注释(Namenode,Jobtracker...)";
