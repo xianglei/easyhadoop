@@ -33,10 +33,7 @@ elseif ($_GET['action'] == "AddNode")
 				<input type="text" placeholder="'.$lang['roleName'].'" name="role" /><br />
 				<input type="hidden" name="action" value="'.$_GET['action'].'" />
 				<button type="submit" class="btn">'.$lang['submit'].'</button>
-			</form>
-		</div>
-    	</div>
-  		</div>';
+		</form>';
 	}
 	else
 	{
