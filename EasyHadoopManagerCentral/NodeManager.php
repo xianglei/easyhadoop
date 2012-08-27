@@ -17,7 +17,7 @@ if(!@$_GET['action'])
 }
 elseif ($_GET['action'] == "AddNode")
 {
-	if(!$_POST['ip'] || !$_POST['hostname'] || !$_POST['role'])
+	if(!$_POST['ip'] && !$_POST['hostname'] && !$_POST['role'])
 	{
 		echo '
 		<div class="page-header">
