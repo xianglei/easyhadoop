@@ -8,7 +8,7 @@ $mysql = new Mysql();
 
 if(!@$_GET['action'])
 {
-	echo '<div class=span3>';
+	echo '<div class=span10>';
 	$sql = "select * from ehm_hosts order by create_time desc";
 	$mysql->Query($sql);
 	while($arr = $mysql->FetchArray())
@@ -21,7 +21,7 @@ elseif ($_GET['action'] == "AddNode")
 {
 	if(!$_POST['ip'] && !$_POST['hostname'] && !$_POST['role'])
 	{
-		echo '<div class="span3">
+		echo '<div class="span10">
             <h1>'.$lang['addNode'].'</h1>
             <form method=POST>
 				<label>'.$lang['hostname'].'</label><br />
@@ -37,7 +37,7 @@ elseif ($_GET['action'] == "AddNode")
 	}
 	else
 	{
-		echo '<div class=span3>';
+		echo '<div class=span10>';
 		$hostname = $_POST['hostname'];
 		$ipaddr = $_POST['ipaddr'];
 		$role = $_POST['role'];
