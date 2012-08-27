@@ -28,3 +28,6 @@ $lang['cancel'] = '取消';
 $lang['submit'] = '提交';
 $lang['nodeRole'] = '节点角色';
 $lang['lang'] = "cn";
+$lang['hostname'] = "主机名称";
+$lang['ipAddr'] = "IP地址";
+$lang['roleName'] = "角色名称(英文逗号分隔)";
