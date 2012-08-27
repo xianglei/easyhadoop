@@ -1,24 +1,50 @@
-<!DOCTYPE html>
-<html lang="cn">
-  <head>
-    <meta charset="utf-8">
-    <title>EasyHadoop 管理中心</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="xianglei">
+<?php
+include_once "config.inc.php";
 
-    <!-- Le styles -->
-    <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/bootstrap-responsive.css" rel="stylesheet">
-    <link href="js/google-code-prettify/prettify.css" rel="stylesheet">
+include_once "templates/header.html";
+include_once "templates/node_manager_sidebar.html";
 
-    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
-    <!--[if lt IE 9]>
-      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+if(!@$_GET['action'])
+{
+	echo '<div class="span9">
+	Choose left sidebar for next step.
+	</div>';
+}
 
-    <!-- Le fav and touch icons -->
-  </head>
+elseif(!$_GET['action'] == 'Install')
+{
+	echo 'div class="span9">
+	<div class="btn-toolbar">
+	<div class="btn-group">
+	
+	<a href="Install.php?action=Install&which=Evironment class="btn">'.$lang['installEvironment'].'</a>
+	<a href="Install.php?action=Install&which=Java class="btn">'.$lang['installJava'].'</a>
+	<a href="Install.php?action=Install&which=Hadoop class="btn">'.$lang['installHadoop'].'</a>
+	<a href="Install.php?action=Install&which=Lzo class="btn">'.$lang['installLzo'].'</a>
+	
+	</div>
+	</div>
+	choose button above for next step.
+	</div>';
+}
+
+elseif(!$_GET['action'] == 'Uninstall')
+{
+	echo 'div class="span9">
+	<div class="btn-toolbar">
+	<div class="btn-group">
+	
+	<a href="Install.php?action=Uninstall&which=Evironment class="btn">'.$lang['uninstallEvironment'].'</a>
+	<a href="Install.php?action=Uninstall&which=Java class="btn">'.$lang['uninstallJava'].'</a>
+	<a href="Install.php?action=Uninstall&which=Hadoop class="btn">'.$lang['uninstallHadoop'].'</a>
+	<a href="Install.php?action=Uninstall&which=Lzo class="btn">'.$lang['uninstallLzo'].'</a>
+	
+	</div>
+	</div>
+	choose button above for next step.
+	</div>';
+}
+?>
 
  <a class="btn btn-secondary" href=Install.php?action=InstallEnvironment&ip=127.0.0.1>安装环境依赖</a>
  <a class="btn" href=Install.php?action=InstallJava&ip=127.0.0.1>安装JDK</a>
@@ -64,4 +90,6 @@ if(@$_GET['ip'])
 		echo "无法连接到节点，请确认Agent已开启。";
 	}
 }
+
+include_once "templates/footer.html";
 ?>

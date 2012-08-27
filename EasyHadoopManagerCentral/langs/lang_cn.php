@@ -7,7 +7,7 @@ $lang['welcome'] = "欢迎来到EasyHadoop";
 $lang['addNode'] = "添加节点";
 $lang['removeNode'] = "删除节点";
 $lang['modifyNode'] = "修改节点";
-$lang['installNode'] = "安装节点";
+$lang['installManager'] = "节点安装管理";
 $lang['startNamenode'] = "启动 Namenode";
 $lang['startSecondayNamenode'] = "启动Secondary Namenode";
 $lang['startDatanode'] = "启动Datanode";
@@ -33,3 +33,18 @@ $lang['hostname'] = "主机名称";
 $lang['ipAddr'] = "IP地址";
 $lang['roleName'] = "节点注释(Namenode,Jobtracker...)";
 $lang['createTime'] = "创建时间";
+$lang['pingNode'] = 'Agent连通测试';
+$lang['install'] = '安装';
+$lang['uninstall'] = '卸载';
+$lang['pushFiles'] = '推送配置文件';
+
+$lang['installEvironment'] = '安装环境依赖';
+$lang['installJava'] = '安装JDK';
+$lang['installHadoop'] = '安装Hadoop';
+$lang['installLzo'] = '安装LZO库';
+$lang['installLzop'] = '安装Lzop';
+$lang['installHadoopgpl'] = '安装Hadoopgpl';
+
+$lang['uninstallJava'] = '卸载JDK';
+$lang['uninstallHadoop'] = '卸载Hadoop';
+$lang['uninstallLzo'] = '卸载Hadoopgpl';

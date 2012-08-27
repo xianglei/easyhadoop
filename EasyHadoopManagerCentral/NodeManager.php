@@ -23,7 +23,7 @@ if(!@$_GET['action'])
                 </tr>
                 </thead>
                 <tbody>';
-	$i = 0;
+	$i = 1;
 	while($arr = $mysql->FetchArray())
 	{
 		echo '<tr>
@@ -70,6 +70,8 @@ elseif ($_GET['action'] == "AddNode")
 		echo '</div>';
 	}
 }
+
+
 
 include_once "templates/footer.html";
 ?>
