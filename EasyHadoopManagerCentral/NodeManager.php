@@ -23,10 +23,13 @@ elseif ($_GET['action'] == "AddNode")
 		<div class="page-header">
             <h1>'.$lang['addNode'].'</h1>
         </div>
-        <label>'.$lang['addNode'].'</label>
+        
 		<form method=POST>
+				<label>'.$lang['hostname'].'</label><br />
 				<input type="text" placeholder="'.$lang['hostname'].'" name="hostname" /><br />
+				<label>'.$lang['ipAddr'].'</label><br />
 				<input type="text" placeholder="'.$lang['ipAddr'].'" name="ipaddr" /><br />
+				<label>'.$lang['roleName'].'</label><br />
 				<input type="text" placeholder="'.$lang['roleName'].'" name="role" /><br />
 				<input type="hidden" name="action" value="'.$_GET['action'].'" />
 				<button type="submit" class="btn">'.$lang['submit'].'</button>
