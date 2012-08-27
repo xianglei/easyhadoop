@@ -2,7 +2,7 @@
 include_once "config.inc.php";
 
 include_once "templates/header.html";
-include_once "templates/install_sidebar.html";
+include_once "templates/install_manager_sidebar.html";
 
 $mysql = new Mysql();
 
@@ -18,7 +18,7 @@ elseif($_GET['action'] == "Install")
 	if(!$_GET['ip'])
 	{
 		echo '<div class=span10>';
-		echo '<h2>Choose a host to install</h2>';
+		echo '<h2>'.$lang['chooseInstallHost'].'</h2>';
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
@@ -37,7 +37,7 @@ elseif($_GET['action'] == "Install")
 		{
 			echo '<tr>
                   	<td>'.$i.'</td>
-                  	<td><a href=Install.php?action=Install&ip='.$arr['ip'].'>'.$arr['hostname'].'</td>
+                  	<td><a href=InstallManager.php?action=Install&ip='.$arr['ip'].'>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
@@ -54,12 +54,12 @@ elseif($_GET['action'] == "Install")
 		<div class="btn-toolbar">
 		<div class="btn-group">
 	
-		<a href="Install.php?action=Install&which=Environment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEnvironment'].'</a>
-		<a href="Install.php?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
-		<a href="Install.php?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
-		<a href="Install.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
-		<a href="Install.php?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
-		<a href="Install.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
+		<a href="Install.phpManager?action=Install&which=Environment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEnvironment'].'</a>
+		<a href="Install.phpManager?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
+		<a href="Install.phpManager?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
+		<a href="Install.phpManager?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
+		<a href="Install.phpManager?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
+		<a href="Install.phpManager?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
 		
 		echo '</div>
 		</div>';//btn-toolbar
@@ -107,7 +107,7 @@ elseif($_GET['action'] == "Uninstall")
 	if(!$_GET['ip'])
 	{
 		echo '<div class=span10>';
-		echo '<h2>Choose a host to install</h2>';
+		echo '<h2>'.$lang['chooseUninstallHost'].'</h2>';
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
@@ -126,14 +126,15 @@ elseif($_GET['action'] == "Uninstall")
 		{
 			echo '<tr>
                   	<td>'.$i.'</td>
-                  	<td><a href=Install.php?action=Install&ip='.$arr['ip'].'>'.$arr['hostname'].'</td>
+                  	<td><a href=InstallManager.php?action=Uninstall&ip='.$arr['ip'].'>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
                 	</tr>';
 			$i++;
 		}
-		echo '</tbody></table>';
+		echo '</tbody>
+			</table>';
 		echo '</div>';
 	}
 	else
@@ -143,9 +144,9 @@ elseif($_GET['action'] == "Uninstall")
 		<div class="btn-toolbar">
 		<div class="btn-group">
 	
-		<a href="Install.php?action=Uninstall&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
-		<a href="Install.php?action=Uninstall&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
-		<a href="Install.php?action=Uninstall&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
+		<a href="InstallManager.php?action=Uninstall&which=Java&ip='.$ip.'" class="btn">'.$lang['uninstallJava'].'</a>
+		<a href="InstallManager.php?action=Uninstall&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['uninstallHadoop'].'</a>
+		<a href="InstallManager.php?action=Uninstall&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['uninstallHadoopgpl'].'</a>';
 		
 		echo '</div>
 		</div>';//btn-toolbar

@@ -71,7 +71,5 @@ elseif ($_GET['action'] == "AddNode")
 	}
 }
 
-
-
 include_once "templates/footer.html";
 ?>
