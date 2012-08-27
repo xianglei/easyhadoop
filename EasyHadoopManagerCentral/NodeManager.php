@@ -8,19 +8,20 @@ $mysql = new Mysql();
 
 if(!@$_GET['action'])
 {
+	echo '<div class="span10">';
 	$sql = "select * from ehm_hosts order by create_time desc";
 	$mysql->Query($sql);
 	while($arr = $mysql->FetchArray())
 	{
 		echo $arr["hostname"]."</br>";
 	}
-	echo '</div>
-	</div>';
+	echo '</div></div>';
 }
 elseif ($_GET['action'] == "AddNode")
 {
 	if(!$_POST['ip'] && !$_POST['hostname'] && !$_POST['role'])
 	{
+		echo '<div class="span10">';
 		echo '<div class="page-header">
             <h1>'.$lang['addNode'].'</h1>
         </div>
