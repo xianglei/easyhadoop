@@ -101,7 +101,7 @@ elseif ($_GET['action'] == "RemoveNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-remove></i><a class="btn btn-danger" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'>'.$lang['removeNode'].'</a></td>
+                  	<td><i class=icon-remove></i><a class="btn btn-danger" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'>'.$lang['removeNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
@@ -110,7 +110,11 @@ elseif ($_GET['action'] == "RemoveNode")
 	}
 	else
 	{
-		$sql = "delete from ehm_hosts where host_id='".$_GET['nodeid']."'";
+		$host_id = $_GET['nodeid'];
+		$ip = $_GET['ip'];
+		$sql = "delete from ehm_hosts where host_id='".$host_id."'";
+		$mysql->Query($sql);
+		$sql = "delete from ehm_host_settings where ip='".$ip."'";
 		$mysql->Query($sql);
 		echo "<script>alert('".$lang['nodeRemoved']."'); this.location='NodeManager.php?action=RemoveNode';</script>";
 	}
