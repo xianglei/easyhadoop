@@ -248,37 +248,41 @@ elseif($_GET['action'] == 'NodeSettings')
 		}
 		else
 		{
-			$ip = $_GET['ip'];
-			$sql = "select host_id from ehm_hosts where ip='".$ip."'";
-			$mysql->Query($sql);
-			$arr = $mysql->FetchArray();
-			$host_id = $arr['host_id'];
-			$sql = "select * from ehm_host_settings where host_id = ".$host_id;
-			$mysql->Query($sql);
-			$arr = $mysql->FetchArray();
+			if(!$_POST['set_id'])
+			{
+				$ip = $_GET['ip'];
+				$set_id = $_GET['set_id'];
+				$sql = "select host_id from ehm_hosts where ip='".$ip."'";
+				$mysql->Query($sql);
+				$arr = $mysql->FetchArray();
+				$host_id = $arr['host_id'];
+				$sql = "select * from ehm_host_settings where host_id = ".$host_id;
+				$mysql->Query($sql);
+				$arr = $mysql->FetchArray();
 		
-			echo '<div class=span10>';
-			echo '<h1>'.$lang['modifySettings'].'</h1>';
-			echo "<form method=POST>";
-			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
-			echo '<label>'.$lang['content'].'</label><br />';
-			echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
-			echo '<input type=hidden name=action value="NodeSettings">';
-			echo '<input type=hidden name=host_id value="'.$host_id.'">';
-			echo '<input type=hidden name=do value=Edit>';
-			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
-			echo "</form>";
-			echo '</div>';
+				echo '<div class=span10>';
+				echo '<h1>'.$lang['modifySettings'].'</h1>';
+				echo "<form method=POST>";
+				echo '<label>'.$lang['filename'].'</label><br />';
+				echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
+				echo '<label>'.$lang['content'].'</label><br />';
+				echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
+				echo '<input type=hidden name=action value="NodeSettings">';
+				echo '<input type=hidden name=do value=Edit>';
+				echo '<input type=hidden name=set_id value='.$set_id.'>';
+				echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
+				echo "</form>";
+				echo '</div>';
+			}
 		}
 	}
 	else
 	{
-		$host_id = $_POST['host_id'];
+		$host_id = $_POST['set_id'];
 		$filename = $_POST['filename'];
 		$content = $_POST['content'];
 		
-		$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where host_id = ".$host_id;
+		$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
 		$mysql->Query($sql);
 		echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
 	}
