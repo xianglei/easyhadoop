@@ -76,7 +76,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		}
 		else
 		{
-			echo $sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), ip='0'";
+			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), ip='0'";
 			$mysql->Query($sql);
 			echo "<script>alert('".$lang['settingAdded']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
@@ -110,7 +110,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		}
 		else
 		{
-			echo $sql = "update ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."' where set_id='".$set_id."'";
+			$sql = "update ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."' where set_id='".$set_id."'";
 			$mysql->Query($sql);
 			echo "<script>alert('".$lang['settingUpdated']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
@@ -290,6 +290,14 @@ elseif($_GET['action'] == 'NodeSettings')
 				echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 			}
 		}
+	}
+	elseif ($_GET['do'] == "Remove")
+	{
+		$set_id = $_GET['set_id'];
+		$ip = $_GET['ip'];
+		$sql = "delete from ehm_host_settings where set_id=".$set_id." and ip = '".$ip."'";
+		$mysql->Query($sql);
+		echo "<script>alert('".$lang['settingRemoved']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 	}
 }
 

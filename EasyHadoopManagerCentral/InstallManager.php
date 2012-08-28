@@ -43,7 +43,7 @@ elseif($_GET['action'] == "Install")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><a class="btn" href="InstallManager.php?action=Install&ip='.$arr['ip'].'">'.$lang['installButton'].'</td>
+                  	<td><a class="btn" href="InstallManager.php?action=Install&ip='.$arr['ip'].'">'.$lang['installButton'].'</a></td>
                 	</tr>';
 			$i++;
 		}
@@ -115,6 +115,7 @@ elseif($_GET['action'] == "Uninstall")
                   <th>'.$lang['ipAddr'].'</th>
                   <th>'.$lang['nodeRole'].'</th>
                   <th>'.$lang['createTime'].'</th>
+                  <th>'.$lang['action'].'</th>
                 </tr>
                 </thead>
                 <tbody>';
@@ -127,6 +128,9 @@ elseif($_GET['action'] == "Uninstall")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
+                  	<td>
+                  	<a class="btn" href="InstallManager.php?action=Uninstall&ip='.$arr['ip'].'">'.$lang['uninstallButton'].'</a>
+                  	</td>
                 	</tr>';
 			$i++;
 		}
