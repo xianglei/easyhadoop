@@ -98,15 +98,18 @@ elseif($_GET['action'] == "Install")
 			{
 				if($action == "InstallJava" || $action == "InstallHadoop" || $action == "InstallLzop" || $action == "InstallHadoopgpl")
 				{
-					fwrite($fp, $command."\n");
-					sleep(1);
-					$fd = fopen($filename, "rb");
-					while (!feof($fd))
+					if(file_exists($filename))#如果hadoop文件夹下存在文件则推送文件，否则直接执行命令进行下载
 					{
-						$a = fread($fd,1024);
-						fwrite($fp,$a);
+						fwrite($fp, $command."\n");
+						sleep(1);
+						$fd = fopen($filename, "rb");
+						while (!feof($fd))
+						{
+							$a = fread($fd,1024);
+							fwrite($fp,$a);
+						}
+						fclose($fd);
 					}
-					fclose($fd);
 					fclose($fp);
 
 					$fp = @fsockopen($ip, 30050, $errno, $errstr, 60);
@@ -233,7 +236,45 @@ elseif($_GET['action'] == "Uninstall")
 }
 elseif($_GET['action'] == "PushFiles")
 {
-	
+	if(!$_GET['ip'])
+	{
+		echo '<div class=span10>';
+		echo '<h2>'.$lang['pushFiles'].'</h2>';
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                <tr>
+                  <th>#</th>
+                  <th>'.$lang['hostname'].'</th>
+                  <th>'.$lang['ipAddr'].'</th>
+                  <th>'.$lang['nodeRole'].'</th>
+                  <th>'.$lang['createTime'].'</th>
+                  <th>'.$lang['action'].'</th>
+                </tr>
+                </thead>
+                <tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td><a href=InstallManager.php?action=PushFiles&ip='.$arr['ip'].'&do=Global>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                  	<td>
+					<div class="btn-group">
+   						 <a class="btn btn-warning" href="InstallManager.php?action=PushFiles&do=Global&ip='.$arr['ip'].'">'.$lang['pushGlobalSettings'].'</a>
+   						 <a class="btn btn-danger" href="InstallManager.php?action=PushFiles&do=Remove&setid='.$arr['set_id'].'">'.$lang['pushHadoopSettings'].'</a>
+                  	</div>
+                  	</td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}
 }
 else
 {

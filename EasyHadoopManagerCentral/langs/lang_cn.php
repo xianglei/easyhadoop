@@ -46,6 +46,8 @@ $lang['pingNode'] = 'Agent连通测试';
 $lang['install'] = '安装Hadoop相关';
 $lang['uninstall'] = '卸载Hadoop相关';
 $lang['pushFiles'] = '推送配置文件';
+$lang['pushGlobalSettings'] = '推送全局配置';
+$lang['pushHadoopSettings'] = '推送自身配置';
 
 $lang['installEnvironment'] = '安装环境依赖';
 $lang['installJava'] = '安装JDK';
@@ -73,3 +75,5 @@ $lang['content'] = '内容';
 $lang['settingAdded'] = '配置已添加';
 $lang['settingUpdated'] = '配置已修改';
 $lang['settingRemoved'] = '配置已删除';
+$lang['edit'] = '编辑';
+$lang['remove'] = '移除';

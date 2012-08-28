@@ -42,8 +42,8 @@ elseif($_GET['action'] == "GlobalSettings")
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
                   	<div class="btn-group">
-   						 <a class="btn" href="HostSettings.php?action=GlobalSettings&do=Edit&setid='.$arr['set_id'].'">编辑</a>
-   						 <a class="btn btn-danger" href="HostSettings.php?action=GlobalSettings&do=Remove&setid='.$arr['set_id'].'">删除</a>
+   						 <a class="btn" href="HostSettings.php?action=GlobalSettings&do=Edit&setid='.$arr['set_id'].'">'.$lang['edit'].'</a>
+   						 <a class="btn btn-danger" href="HostSettings.php?action=GlobalSettings&do=Remove&setid='.$arr['set_id'].'">'.$lang['remove'].'</a>
                   	</div>
                   	</td>
                 	</tr>';
