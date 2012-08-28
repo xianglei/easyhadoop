@@ -87,10 +87,10 @@ elseif($_GET['action'] == "GlobalSettings")
 		if(!$_POST['content'])
 		{
 			echo '<div class=span10>';
-			echo '<h1>'.$lang['addSettings'].'</h1>';
+			echo '<h1>'.$lang['modifySettings'].'</h1>';
 			echo "<form method=POST>";
 			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hosts...)" name=filename value="'.$arr['filename'].'"> <br />';
+			echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
 			echo '<label>'.$lang['content'].'</label><br />';
 			echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
 			echo '<input type=hidden name=action value="GlobalSettings">';
