@@ -42,14 +42,12 @@ elseif($_GET['action'] == "GlobalSettings")
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
                   	
-					<div class="btn-group">
   						<button class="btn dropdown-toggle" data-toggle="dropdown">'.$lang['action'].' <span class="caret"></span></button>
   						<ul class="dropdown-menu">
    						 <li><a href="HostSettings.php?action=GlobalSettings&do=Edit&setid='.$arr['set_id'].'">编辑</a></li>
    						 <li class="divider"></li>
    						 <li><a href="HostSettings.php?action=GlobalSettings&do=Remove&setid='.$arr['set_id'].'">删除</a></li>
   						</ul>
-					</div>
                   	
                   	</td>
                 	</tr>';
@@ -80,8 +78,11 @@ elseif($_GET['action'] == "GlobalSettings")
 		{
 			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), host_id=0";
 			$mysql->Query($sql);
+			echo "<script>alert('".$lang['settingAdded']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
 	}
 }
 
+
+include_once "templates/footer.html";
 ?>

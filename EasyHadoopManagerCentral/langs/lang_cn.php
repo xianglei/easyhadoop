@@ -71,3 +71,4 @@ $lang['deleteSettings'] = '删除配置';
 $lang['modifySettings'] = '修改配置';
 $lang['addSettings'] = '添加配置';
 $lang['content'] = '内容';
+$lang['settingAdded'] = '配置已添加';
