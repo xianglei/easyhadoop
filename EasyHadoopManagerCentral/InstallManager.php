@@ -330,6 +330,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 	}
 	else
 	{
+		$ip = $_GET['ip'];
 		if ($handle = opendir('./hadoop'))
 		{
 			$i = 0;
@@ -359,7 +360,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			}
 			else
 			{
-				die ("<script>alert('".$lang['notConnected']."');</script>");
+				die ("<script>alert('".$lang['notConnected']."');this.location='InstallManager.php?action=PushHadoopFiles';<</script>");
 			}
 		}
 		echo "<script>alert('".$lang['pushComplete']."'); this.location='InstallManager.php?action=Install';</script>";
