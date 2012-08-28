@@ -364,6 +364,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 				die ("<script>alert('".$lang['notConnected']."');</script>");
 			}
 		}
+		echo "<script>alert('".$lang['pushComplete']."'); this.location='InstallManager.php?action=Install';</script>";
 	}
 }
 else
