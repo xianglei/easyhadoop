@@ -80,27 +80,30 @@ elseif($_GET['action'] == "Install")
 				case 'InstallHadoop':
 					$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm\n";
 					$filename = "hadoop/hadoop-1.0.3-1.x86_64.rpm";
+				case 'InstallLzop':
+					$command = "FileTransport:/home/hadoop/lzop-1.03.tar.gz\n";
+					$filename = "hadoop/lzop-1.03.tar.gz";
 				default:
 					echo "Invalid Socket Command";
 					break;
 			}
 			
-			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 300))
+			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 			{
-				if($action == "InstallJava" || $action == "InstallHadoop")
+				if($action == "InstallJava" || $action == "InstallHadoop" ||$action == "InstallLzop")
 				{
 					fwrite($fp, $command);
 					sleep(1);
 					$fd = fopen($filename,"rb");
 					while (!feof($fd))
 					{
-						$a = fread($fd,4096);
+						$a = fread($fd,1024);
 						fwrite($fp,$a);
 					}
 					fclose($fd);
 					fclose($fp);
 			
-					$fp = @fsockopen($ip, 30050, $errno, $errstr, 300);
+					$fp = @fsockopen($ip, 30050, $errno, $errstr, 60);
 					fwrite($fp, $command);
 					while(!feof($fp))
 					{
@@ -198,7 +201,7 @@ elseif($_GET['action'] == "Uninstall")
 			$str = str_replace("\n","<br />",$str);
 			$sock->DisConnect();*/
 			
-			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 300))
+			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 			{
 				fwrite($fp, $action."\n");
 				while(!feof($fp))
