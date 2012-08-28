@@ -71,48 +71,9 @@ elseif($_GET['action'] == "Install")
 			
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
-			switch ($action)
-			{
-				case 'InstallJava':
-					$command = "FileTransport:/home/hadoop/jdk-7u5-linux-x64.rpm";
-					$filename = "./hadoop/jdk-7u5-linux-x64.rpm";
-					break;
-				case 'InstallHadoop':
-					$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm";
-					$filename = "./hadoop/hadoop-1.0.3-1.x86_64.rpm";
-					break;
-				case 'InstallLzop':
-					$command = "FileTransport:/home/hadoop/lzop-1.03.tar.gz\n";
-					$filename = "./hadoop/lzop-1.03.tar.gz";
-					break;
-				case 'InstallHadoopgpl':
-					$command = "FileTransport:/home/hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm\n";
-					$filename = "./hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm";
-					break;
-				default:
-					echo "Invalid Socket Command";
-					break;
-			}
 			
 			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 			{
-				if($action == "InstallJava" || $action == "InstallHadoop" || $action == "InstallLzop" || $action == "InstallHadoopgpl")
-				{
-					if(file_exists($filename))#如果hadoop文件夹下存在文件则推送文件，否则直接执行命令进行下载
-					{
-						fwrite($fp, $command."\n");
-						sleep(1);
-						$fd = fopen($filename, "rb");
-						while (!feof($fd))
-						{
-							$a = fread($fd,1024);
-							fwrite($fp,$a);
-						}
-						fclose($fd);
-					}
-					fclose($fp);
-
-					$fp = @fsockopen($ip, 30050, $errno, $errstr, 60);
 					fwrite($fp, $action);
 					while(!feof($fp))
 					{
@@ -120,18 +81,6 @@ elseif($_GET['action'] == "Install")
 					}
 					echo str_replace("\n","<br/>",$str);
 					fclose($fp);
-				}
-				else
-				{
-					fwrite($fp,$action."\n");
-					while(!feof($fp))
-					{
-						$str .= fread($fp,1024);
-					}
-					echo str_replace("\n","<br/>",$str);
-					fclose($fp);
-				}
-				
 			}
 			else
 			{
@@ -340,9 +289,9 @@ elseif($_GET['action'] == "PushHadoopFiles")
 	if(!$_GET['ip'])
 	{
 		echo '<div class=span10>';
-		echo '<h2>'.$lang['chooseInstallHost'].'</h2>';
+		echo '<h2>'.$lang['pushHadoopFiles'].'</h2>';
 		echo "<pre>";
-		echo "";
+		echo $lang['pushTips'];
 		echo "</pre>";
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
@@ -376,6 +325,23 @@ elseif($_GET['action'] == "PushHadoopFiles")
 		echo '</tbody>
 			</table>';
 		echo '</div>';
+	}
+	else
+	{
+		if ($handle = opendir('./hadoop'))
+		{
+			$i = 0;
+			while (FALSE !== ($file = readdir($handle)))
+			{
+				if ($file != "." && $file != "..")
+				{
+					$arr[$i] = $file;
+					$i++;
+				}
+			}
+			closedir($handle);
+		}
+		echo $arr;
 	}
 }
 else
