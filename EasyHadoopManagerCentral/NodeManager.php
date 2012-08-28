@@ -6,6 +6,7 @@ include_once "templates/node_manager_sidebar.html";
 
 $mysql = new Mysql();
 
+##默认页面
 if(!@$_GET['action'])
 {
 	echo '<div class=span10>';
@@ -39,7 +40,7 @@ if(!@$_GET['action'])
 	echo '</div>';
 }
 
-
+##添加节点到数据库
 elseif ($_GET['action'] == "AddNode")
 {
 	if(!$_POST['ip'] && !$_POST['hostname'] && !$_POST['role'])
@@ -70,7 +71,7 @@ elseif ($_GET['action'] == "AddNode")
 		echo "<script>alert('".$lang['nodeAdded']."'); this.location='NodeManager.php?action=RemoveNode';</script>";
 	}
 }
-
+#从数据库中删除节点
 elseif ($_GET['action'] == "RemoveNode")
 {
 	if(!$_GET['nodeid'])
@@ -114,7 +115,7 @@ elseif ($_GET['action'] == "RemoveNode")
 		echo "<script>alert('".$lang['nodeRemoved']."'); this.location='NodeManager.php?action=RemoveNode';</script>";
 	}
 }
-
+##连通性测试
 elseif($_GET['action'] == "PingNode")
 {
 	if(!$_GET['nodeid'])
@@ -158,7 +159,7 @@ elseif($_GET['action'] == "PingNode")
 		$arr = $mysql->FetchArray();
 		if($fp = @fsockopen($arr['ip'], 30050, $errstr, $errno, 30))
 		{
-			fclose($fp);
+			@fclose($fp);
 			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php';</script>";
 		}
 		else
