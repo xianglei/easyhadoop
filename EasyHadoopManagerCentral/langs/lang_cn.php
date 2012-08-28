@@ -59,6 +59,7 @@ $lang['installHadoop'] = '安装Hadoop';
 $lang['installLzo'] = '安装LZO库';
 $lang['installLzop'] = '安装Lzop';
 $lang['installHadoopgpl'] = '安装Hadoopgpl';
+$lang['installButton'] = '安装';
 
 $lang['uninstallJava'] = '卸载JDK';
 $lang['uninstallHadoop'] = '卸载Hadoop';
