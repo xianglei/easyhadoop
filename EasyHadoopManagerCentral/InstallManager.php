@@ -235,7 +235,7 @@ elseif($_GET['action'] == "PushFiles")
 		if($_GET['do'] == "Global")
 		{
 			$ip = $_GET['ip'];
-			$sql = 'select * from ehm_host_settings where host_id=0';
+			$sql = "select * from ehm_host_settings where ip='0'";
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
@@ -259,10 +259,7 @@ elseif($_GET['action'] == "PushFiles")
 		elseif ($_GET['do'] == 'Node')
 		{
 			$ip = $_GET['ip'];
-			$sql = "select host_id from ehm_hosts where ip='".$ip."'";
-			$mysql->Query($sql);
-			$arr = $mysql->FetchArray();
-			$sql = "select * from ehm_host_settings where host_id=".$arr['host_id'];
+			$sql = "select * from ehm_host_settings where ip='".$ip."'";
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
