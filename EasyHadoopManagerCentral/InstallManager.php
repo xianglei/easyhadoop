@@ -92,11 +92,11 @@ elseif($_GET['action'] == "Install")
 			
 			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 			{
-				//if($action == "InstallJava" || $action == "InstallHadoop" ||$action == "InstallLzop")
-				//{
+				if($action == "InstallJava" || $action == "InstallHadoop" ||$action == "InstallLzop")
+				{
 					fwrite($fp, $command."\n");
 					sleep(1);
-					$fd = fopen("hadoop/lzop-1.03.tar.gz", "rb");
+					$fd = fopen($filename, "rb");
 					while (!feof($fd))
 					{
 						$a = fread($fd,1024);
@@ -106,24 +106,24 @@ elseif($_GET['action'] == "Install")
 					fclose($fp);
 
 					$fp = @fsockopen($ip, 30050, $errno, $errstr, 60);
-					fwrite($fp, $command);
+					fwrite($fp, $action);
 					while(!feof($fp))
 					{
 						$str .= fread($fp,1024);
 					}
 					echo str_replace("\n","<br/>",$str);
 					fclose($fp);
-				//}
-				//else
-				//{
-				//	fwrite($fp,$action."\n");
-				//	while(!feof($fp))
-				//	{
-				//		$str .= fread($fp,1024);
-				//	}
-				//	echo str_replace("\n","<br/>",$str);
-				//	fclose($fp);
-				//}
+				}
+				else
+				{
+					fwrite($fp,$action."\n");
+					while(!feof($fp))
+					{
+						$str .= fread($fp,1024);
+					}
+					echo str_replace("\n","<br/>",$str);
+					fclose($fp);
+				}
 				
 			}
 			else
