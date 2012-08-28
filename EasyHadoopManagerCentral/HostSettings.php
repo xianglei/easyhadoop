@@ -43,10 +43,7 @@ elseif($_GET['action'] == "GlobalSettings")
                   	<td>
                   	
 					<div class="btn-group">
-  						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-    					'.$lang['action'].'
-    						<span class="caret"></span>
- 						</a>
+  						<button class="btn dropdown-toggle" data-toggle="dropdown">'.$lang['action'].' <span class="caret"></span></button>
   						<ul class="dropdown-menu">
    						 <li><a href="HostSettings.php?action=GlobalSettings&do=Edit&setid='.$arr['set_id'].'">编辑</a></li>
    						 <li class="divider"></li>
