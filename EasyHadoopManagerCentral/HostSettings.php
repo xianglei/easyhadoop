@@ -76,7 +76,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		}
 		else
 		{
-			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), ip='0'";
+			echo $sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), ip='0'";
 			$mysql->Query($sql);
 			echo "<script>alert('".$lang['settingAdded']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
@@ -110,7 +110,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		}
 		else
 		{
-			$sql = "update ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."' where set_id='".$set_id."'";
+			echo $sql = "update ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."' where set_id='".$set_id."'";
 			$mysql->Query($sql);
 			echo "<script>alert('".$lang['settingUpdated']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
