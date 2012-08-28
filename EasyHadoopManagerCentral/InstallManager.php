@@ -80,7 +80,15 @@ elseif($_GET['action'] == "Install")
 			
 			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 300))
 			{
-				fwrite($fp, $action."\n");
+				fwrite($fp, "FileTransport:/home/hadoop/lzop-1.03.tar.gz"."\n");
+				sleep(1);
+				$fd = fopen("hadoop/lzop-1.03.tar.gz","rb");
+				while (!feof($fd))
+				{
+					$str = fread($fd,4096);
+					fwrite($fp,4096);
+				}
+				fclose($fd);
 				while(!feof($fp))
 				{
 					$str .= fread($fp,1024);
