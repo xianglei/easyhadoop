@@ -212,7 +212,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			
 			echo '<div class=span10>';
 			echo '<h2>'.$lang['hostSettings'].'</h2>';
-			$sql = "select * from ehm_hosts_settings where host_id = ".$arr['host_id']." order by create_time desc";
+			$sql = "select * from ehm_host_settings where host_id = ".$arr['host_id']." order by create_time desc";
 			$mysql->Query($sql);
 			echo '<table class="table table-striped">';
 			echo '<thead>
