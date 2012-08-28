@@ -144,7 +144,7 @@ elseif($_GET['action'] == "PingNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-remove></i><a class="btn btn-info" href=NodeManager.php?action=PingNode&nodeid='.$arr['host_id'].'>'.$lang['pingNode'].'</a></td>
+                  	<td><i class=icon-play></i><a class="btn btn-info" href=NodeManager.php?action=PingNode&nodeid='.$arr['host_id'].'>'.$lang['pingNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
@@ -156,13 +156,12 @@ elseif($_GET['action'] == "PingNode")
 		$sql = "select ip from ehm_hosts where host_id='".$_GET['nodeid']."'";
 		$mysql->Query($sql);
 		$arr = $mysql->FetchArray();
-		try
+		if($fp = fsockopen($arr['ip'], 30050, $errstr, $errno, 30))
 		{
-			$fp = fsockopen($arr['ip'], 30050, $errstr, $errno, 30);
 			fclose($fp);
 			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php';</script>";
 		}
-		catch(exception $e)
+		else
 		{
 			echo "<script>alert('".$lang['notConnected']."'); this.location='NodeManager.php';</script>";
 		}
