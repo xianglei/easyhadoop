@@ -77,6 +77,48 @@ elseif($_GET['action'] == "GlobalSettings")
 			echo "<script>alert('".$lang['settingAdded']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
 	}
+	
+	elseif ($_GET['do'] == "Edit")
+	{
+		$set_id = $_GET['set_id'];
+		$sql = "select * from ehm_host_settings where set_id='".$set_id."'";
+		$mysql->Query($sql);
+		$arr = $mysql->FetchArray();
+		if(!$_POST['content'])
+		{
+			echo '<div class=span10>';
+			echo '<h1>'.$lang['addSettings'].'</h1>';
+			echo "<form method=POST>";
+			echo '<label>'.$lang['filename'].'</label><br />';
+			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hosts...)" name=filename value="'.$arr['filename'].'"> <br />';
+			echo '<label>'.$lang['content'].'</label><br />';
+			echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
+			echo '<input type=hidden name=action value="GlobalSettings">';
+			echo '<input type=hidden name=set_id value="'.$set_id.'"';
+			echo '<input type=hidden name=do value=Edit>';
+			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
+			echo "</form>";
+			echo '</div>';
+		}
+		else
+		{
+			$sql = "update ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', where set_id='".$_POST['set_id']."'";
+			$mysql->Query($sql);
+			echo "<script>alert('".$lang['settingUpdated']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
+		}
+	}
+
+	elseif ($_GET['do'] == "Remove")
+	{
+		$set_id = $_GET['set_id'];
+		$sql = "delete from ehm_host_settings where set_id = '".$set_id."'";
+		$mysql->Query($sql);
+		echo "<script>alert('".$lang['settingRemoved']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
+	}
+	else
+	{
+		echo "Unknown Command";	
+	}
 }
 
 
