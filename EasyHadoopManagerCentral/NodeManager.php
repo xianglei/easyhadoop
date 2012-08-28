@@ -65,9 +65,9 @@ elseif ($_GET['action'] == "AddNode")
 		$ipaddr = $_POST['ipaddr'];
 		$role = $_POST['role'];
 		$sql = "insert ehm_hosts set hostname = '".$hostname."', ip = '".$ipaddr."', role = '".$role."', create_time=current_timestamp()";
-		echo $sql;
 		$mysql->Query($sql);
 		echo '</div>';
+		echo "<script>alert('".$lang['nodeAdded']."'); this.location='NodeManager.php?action=RemoveNode';</script>";
 	}
 }
 
@@ -100,7 +100,7 @@ elseif ($_GET['action'] == "RemoveNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-remove></i><a class="btn btn-warning" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'>'.$lang['removeNode'].'</a></td>
+                  	<td><i class=icon-remove></i><a class="btn btn-danger" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'>'.$lang['removeNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
@@ -111,7 +111,61 @@ elseif ($_GET['action'] == "RemoveNode")
 	{
 		$sql = "delete from ehm_hosts where host_id='".$_GET['nodeid']."'";
 		$mysql->Query($sql);
-		echo "<script>alert('Removed'); this.location='NodeManager.php?action=RemoveNode';</script>";
+		echo "<script>alert('".$lang['nodeRemoved']."'); this.location='NodeManager.php?action=RemoveNode';</script>";
+	}
+}
+
+elseif($_GET['action'] == "PingNode")
+{
+	if(!$_GET['nodeid'])
+	{
+		echo '<div class=span10>';
+	
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                	<tr>
+                  	<th>#</th>
+                  	<th>'.$lang['hostname'].'</th>
+                  	<th>'.$lang['ipAddr'].'</th>
+                  	<th>'.$lang['nodeRole'].'</th>
+                  	<th>'.$lang['createTime'].'</th>
+                  	<th>'.$lang['removeNode'].'</th>
+                	</tr>
+                	</thead>
+                	<tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                  	<td><i class=icon-remove></i><a class="btn btn-info" href=NodeManager.php?action=PingNode&nodeid='.$arr['host_id'].'>'.$lang['pingNode'].'</a></td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}
+	else
+	{
+		$sql = "select ip from ehm_hosts where host_id='".$_GET['nodeid']."'";
+		$mysql->Query($sql);
+		$arr = $mysql->FetchArray();
+		try
+		{
+			$fp = fsockopen($arr['ip'], 30050, $errstr, $errno, 30);
+			fclose($fp);
+			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php';</script>";
+		}
+		catch(exception $e)
+		{
+			echo "<script>alert('".$lang['notConnected']."'); this.location='NodeManager.php';</script>";
+		}
 	}
 }
 

@@ -7,6 +7,11 @@ $lang['welcome'] = "欢迎来到EasyHadoop";
 $lang['addNode'] = "添加节点";
 $lang['removeNode'] = "删除节点";
 $lang['modifyNode'] = "修改节点";
+$lang['nodeAdded'] = '节点已添加';
+$lang['nodeRemoved'] = '节点已删除';
+$lang['pingNode'] = 'Ping';
+$lang['notConnected'] = '无法连接到节点';
+$lang['connected'] = '连接成功'; 
 
 $lang['installManager'] = "节点安装管理";
 
