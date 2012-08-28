@@ -60,3 +60,10 @@ $lang['uninstallHadoopgpl'] = '卸载Hadoopgpl';
 
 $lang['chooseInstallHost'] = '选择安装节点';
 $lang['chooseUninstallHost'] = '选择卸载节点';
+$lang['hostSettings'] = '节点配置管理';
+
+$lang['settingsForAll'] = '全局配置项';
+$lang['settingsForHadoop'] = 'Hadoop配置项';
+$lang['globalSettings'] = '通用配置项';
+$lang['filename'] = '文件名';
+$lang['action'] = '操作';

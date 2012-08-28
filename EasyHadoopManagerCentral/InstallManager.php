@@ -85,6 +85,10 @@ elseif($_GET['action'] == "Install")
 					$command = "FileTransport:/home/hadoop/lzop-1.03.tar.gz\n";
 					$filename = "./hadoop/lzop-1.03.tar.gz";
 					break;
+				case 'InstallHadoopgpl':
+					$command = "FileTransport:/home/hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm\n";
+					$filename = "./hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm";
+					break;
 				default:
 					echo "Invalid Socket Command";
 					break;
@@ -92,7 +96,7 @@ elseif($_GET['action'] == "Install")
 			
 			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 			{
-				if($action == "InstallJava" || $action == "InstallHadoop" ||$action == "InstallLzop")
+				if($action == "InstallJava" || $action == "InstallHadoop" || $action == "InstallLzop" || $action == "InstallHadoopgpl")
 				{
 					fwrite($fp, $command."\n");
 					sleep(1);
@@ -226,6 +230,14 @@ elseif($_GET['action'] == "Uninstall")
 		echo "</pre>";
 		echo '</div>';// span10
 	}
+}
+elseif($_GET['action'] == "PushFiles")
+{
+	
+}
+else
+{
+	die("Unknown Command");
 }
 ?>
 
