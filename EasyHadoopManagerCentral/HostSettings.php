@@ -19,6 +19,15 @@ elseif($_GET['action'] == "GlobalSettings")
 		$sql = "select set_id, filename, create_time from ehm_host_settings where host_id = 0 order by create_time desc";
 		$mysql->Query($sql);
 		echo '<div class=span10>';
+		
+		echo '<div class="btn-toolbar">
+		<div class="btn-group">
+	
+		<a href="HostSettings.php?action=GlobalSettings&do=Add class="btn">'.$lang['addSettings'].'</a>';
+		
+		echo '</div>
+		</div>';
+		
 		echo '<h2>'.$lang['globalSettings'].'</h2>';
 		echo '<table class="table table-striped">';
 		echo '<thead>
@@ -59,7 +68,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		echo '</div>';
 	}#not any action
 
-	elseif ($_GET['do'] == "Edit")
+	elseif ($_GET['do'] == "Add")
 	{
 		
 	}

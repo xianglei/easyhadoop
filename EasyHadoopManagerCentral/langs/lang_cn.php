@@ -67,3 +67,6 @@ $lang['settingsForHadoop'] = 'Hadoop配置项';
 $lang['globalSettings'] = '通用配置项';
 $lang['filename'] = '文件名';
 $lang['action'] = '操作';
+$lang['deleteSettings'] = '删除配置';
+$lang['modifySettings'] = '修改配置';
+$lang['addSettings'] = '添加配置';
