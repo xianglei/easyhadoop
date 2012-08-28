@@ -89,6 +89,8 @@ elseif($_GET['action'] == "Install")
 					fwrite($fp,$a);
 				}
 				fclose($fd);
+				sleep(1);
+				fwrite($fp, "InstallLzop"."\n");
 				while(!feof($fp))
 				{
 					$str .= fread($fp,1024);
