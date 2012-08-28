@@ -153,9 +153,8 @@ elseif($_GET['action'] == 'NodeSettings')
                   	<td>
                   	
 					<div class="btn-group">
-						<a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>
+						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>
    						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
-   						 <a class="btn btn-danger" href="HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'">'.$lang['remove'].'</a>
                   	</div>
                   	
                   	</td>
@@ -180,7 +179,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo '<h1>'.$lang['addSettings'].'</h1>';
 			echo "<form method=POST>";
 			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hadoop/hdfs-site.xml...)" name=filename> <br />';
+			echo '<input type=text placeholder="with path: /etc/hadoop/hdfs-site.xml..." name=filename> <br />';
 			echo '<label>'.$lang['content'].'</label><br />';
 			echo '<textarea name=content></textarea><br />';
 			echo '<input type=hidden name=action value="NodeSettings">';
@@ -219,9 +218,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo '<thead>
 	                <tr>
                  		<th>#</th>
-                 		<th>'.$lang['hostname'].'</th>
-                 		<th>'.$lang['ipAddr'].'</th>
-                		<th>'.$lang['nodeRole'].'</th>
+                 		<th>'.$lang['filename'].'</th>
                  		<th>'.$lang['createTime'].'</th>
                  		<th>'.$lang['action'].'</th>
                		</tr>
@@ -232,15 +229,13 @@ elseif($_GET['action'] == 'NodeSettings')
 			{
 				echo '<tr>
 	                  	<td>'.$i.'</td>
-                 			<td>'.$arr['hostname'].'</td>
-                 			<td>'.$arr['ip'].'</td>
-                 			<td>'.$arr['role'].'</td>
+                 			<td>'.$arr['filename'].'</td>
                  			<td>'.$arr['create_time'].'</td>
                  			<td>
                  	
 						<div class="btn-group">
-					 		<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
-					 		<a class="btn btn-danger" href="HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'">'.$lang['remove'].'</a>
+					 		<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'"&set_id='.$arr['set_id'].'>'.$lang['edit'].'</a>
+					 		<a class="btn btn-danger" href="HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'"&set_id='.$arr['set_id'].'>'.$lang['remove'].'</a>
                			</div>
                   	
                			</td>
@@ -253,28 +248,28 @@ elseif($_GET['action'] == 'NodeSettings')
 		}
 		else
 		{
-		$ip = $_GET['ip'];
-		$sql = "select host_id from ehm_hosts where ip='".$ip."'";
-		$mysql->Query($sql);
-		$arr = $mysql->FetchArray();
-		$host_id = $arr['host_id'];
-		$sql = "select * from ehm_host_settings where host_id = ".$host_id;
-		$mysql->Query($sql);
-		$arr = $mysql->FetchArray();
+			$ip = $_GET['ip'];
+			$sql = "select host_id from ehm_hosts where ip='".$ip."'";
+			$mysql->Query($sql);
+			$arr = $mysql->FetchArray();
+			$host_id = $arr['host_id'];
+			$sql = "select * from ehm_host_settings where host_id = ".$host_id;
+			$mysql->Query($sql);
+			$arr = $mysql->FetchArray();
 		
-		echo '<div class=span10>';
-		echo '<h1>'.$lang['modifySettings'].'</h1>';
-		echo "<form method=POST>";
-		echo '<label>'.$lang['filename'].'</label><br />';
-		echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
-		echo '<label>'.$lang['content'].'</label><br />';
-		echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
-		echo '<input type=hidden name=action value="NodeSettings">';
-		echo '<input type=hidden name=host_id value="'.$host_id.'">';
-		echo '<input type=hidden name=do value=Edit>';
-		echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
-		echo "</form>";
-		echo '</div>';
+			echo '<div class=span10>';
+			echo '<h1>'.$lang['modifySettings'].'</h1>';
+			echo "<form method=POST>";
+			echo '<label>'.$lang['filename'].'</label><br />';
+			echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
+			echo '<label>'.$lang['content'].'</label><br />';
+			echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
+			echo '<input type=hidden name=action value="NodeSettings">';
+			echo '<input type=hidden name=host_id value="'.$host_id.'">';
+			echo '<input type=hidden name=do value=Edit>';
+			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
+			echo "</form>";
+			echo '</div>';
 		}
 	}
 	else
