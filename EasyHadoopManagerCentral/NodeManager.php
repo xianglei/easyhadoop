@@ -64,7 +64,7 @@ elseif ($_GET['action'] == "AddNode")
 		echo '<div class=span10>';
 		$hostname = $_POST['hostname'];
 		$ipaddr = $_POST['ipaddr'];
-		$role = $_POST['role'];
+		$role = strtolower($_POST['role']);
 		$sql = "insert ehm_hosts set hostname = '".$hostname."', ip = '".$ipaddr."', role = '".$role."', create_time=current_timestamp()";
 		$mysql->Query($sql);
 		echo '</div>';
