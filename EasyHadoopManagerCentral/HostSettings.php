@@ -20,13 +20,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		$mysql->Query($sql);
 		echo '<div class=span10>';
 		
-		echo '<div class="btn-toolbar">
-		<div class="btn-group">
-	
-		<a href="HostSettings.php?action=GlobalSettings&do=Add class="btn">'.$lang['addSettings'].'</a>';
-		
-		echo '</div>
-		</div>';
+		echo '<a href="HostSettings.php?action=GlobalSettings&do=Add class="btn">'.$lang['addSettings'].'</a>';
 		
 		echo '<h2>'.$lang['globalSettings'].'</h2>';
 		echo '<table class="table table-striped">';
