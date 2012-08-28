@@ -74,6 +74,7 @@ $lang['hostSettings'] = '节点配置管理';
 
 $lang['settingsForNode'] = '节点配置项';
 $lang['globalSettings'] = '通用配置项';
+$lang['etchostsSettings'] = "生成/etc/hosts文件";
 $lang['filename'] = '文件名';
 $lang['action'] = '操作';
 $lang['deleteSettings'] = '删除配置';

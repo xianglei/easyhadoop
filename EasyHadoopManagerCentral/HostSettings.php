@@ -21,6 +21,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		echo '<div class=span10>';
 		
 		echo '<a href="HostSettings.php?action=GlobalSettings&do=Add" class="btn">'.$lang['addSettings'].'</a>';
+		echo '<a href="HostSettings.php?action=GlobalSettings&do=EtcHosts" class="btn">'.$lang['etchostsSettings'].'</a>';
 		
 		echo '<h2>'.$lang['globalSettings'].'</h2>';
 		echo '<table class="table table-striped">';
@@ -123,6 +124,20 @@ elseif($_GET['action'] == "GlobalSettings")
 		$mysql->Query($sql);
 		echo "<script>alert('".$lang['settingRemoved']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 	}
+	elseif($_GET['do'] == "EtcHosts")
+	{
+		echo '<div class=span10>';
+		echo '<h1>'.$lang['etchostsSettings'].'</h1>';
+		$sql = "select * from ehm_hosts";
+		$mysql->Query($sql);
+		echo "<pre>";
+		while($arr = $mysql->FetchArray())
+		{
+			echo $arr['ip']."\t".$arr['hostname']."<br />";
+		}
+		echo "</pre>";
+		echo '</div>';
+	}
 	else
 	{
 		echo "Unknown Command";	
@@ -205,7 +220,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			
 			$sql = "insert ehm_host_settings set filename='".$filename."', content = '".$content."', create_time=current_timestamp(), ip = '".$ip."'";
 			$mysql->Query($sql);
-			echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
+			echo "<script>alert('".$lang['settingAdded']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 		}
 	}
 	elseif ($_GET['do'] == "Edit")
