@@ -132,7 +132,7 @@ elseif ($_GET['action'] == "ModifyNode")
                   	<th>'.$lang['ipAddr'].'</th>
                   	<th>'.$lang['nodeRole'].'</th>
                   	<th>'.$lang['createTime'].'</th>
-                  	<th>'.$lang['modifyNode'].'</th>
+                  	<th>'.$lang['action'].'</th>
                 	</tr>
                 	</thead>
                 	<tbody>';
@@ -145,7 +145,7 @@ elseif ($_GET['action'] == "ModifyNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-pencil></i><a class="btn btn-warning" href=NodeManager.php?action=ModifyNode&nodeid='.$arr['host_id'].'>'.$lang['modifyNode'].'</a></td>
+                  	<td><i class=icon-pencil></i><a class="btn btn-warning" href=NodeManager.php?action=ModifyNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'>'.$lang['modifyNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
