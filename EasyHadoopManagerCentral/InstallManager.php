@@ -259,7 +259,7 @@ elseif($_GET['action'] == "PushFiles")
 		{
 			echo '<tr>
                   	<td>'.$i.'</td>
-                  	<td><a href=InstallManager.php?action=PushFiles&ip='.$arr['ip'].'&do=Global>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
@@ -280,7 +280,7 @@ elseif($_GET['action'] == "PushFiles")
 		if($_GET['do'] == "Global")
 		{
 			$ip = $_GET['ip'];
-			$sql = 'select * from ehm_host_settings where host_id=0';
+			$sql = 'select * from ehm_host_settings where host_id=0';echo $sql;
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
@@ -299,7 +299,7 @@ elseif($_GET['action'] == "PushFiles")
 					echo $lang['notConnected'];
 				}
 			}
-			echo "<script>this.location='InstallManager.php?action=PushFiles';</script>";
+			//echo "<script>this.location='InstallManager.php?action=PushFiles';</script>";
 		}
 		elseif ($_GET['do'] == 'Hadoop') {
 	
