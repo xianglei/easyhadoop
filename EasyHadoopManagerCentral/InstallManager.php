@@ -266,7 +266,7 @@ elseif($_GET['action'] == "PushFiles")
                   	<td>
 					<div class="btn-group">
    						 <a class="btn btn-warning" href="InstallManager.php?action=PushFiles&do=Global&ip='.$arr['ip'].'">'.$lang['pushGlobalSettings'].'</a>
-   						 <a class="btn btn-danger" href="InstallManager.php?action=PushFiles&do=Remove&setid='.$arr['set_id'].'">'.$lang['pushHadoopSettings'].'</a>
+   						 <a class="btn btn-danger" href="InstallManager.php?action=PushFiles&do=Hadoop&ip='.$arr['ip'].'">'.$lang['pushHadoopSettings'].'</a>
                   	</div>
                   	</td>
                 	</tr>';
@@ -275,6 +275,41 @@ elseif($_GET['action'] == "PushFiles")
 		echo '</tbody></table>';
 		echo '</div>';
 	}
+	else
+	{
+		if($_GET['do'] == "Global")
+		{
+			$ip = $_GET['ip'];
+			$sql = 'select * from ehm_host_settings where host_id=0';
+			$mysql->Query($sql);
+			while ($arr = $mysql->FetchArray())
+			{
+				if($fp = @fopen($ip, 30050, $errstr, $errno, 60))
+				{
+					$command = "FileTransport:".$arr['filename']."\n";
+					$content = $arr['content'];
+					fwrite($fp, $command);
+					sleep(1);
+					fwrite($fp, $content);
+					fclose($fp);
+					echo "<script>alert('".$arr['filename']." pushed');</script>";
+				}
+				else
+				{
+					echo $lang['notConnected'];
+				}
+			}
+			echo "<script>this.location='InstallManager.php?action=PushFiles';</script>";
+		}
+		elseif ($_GET['do'] == 'Hadoop') {
+	
+		}
+		else
+		{
+			echo "Unknown Command";
+		}
+	}
+	
 }
 else
 {
