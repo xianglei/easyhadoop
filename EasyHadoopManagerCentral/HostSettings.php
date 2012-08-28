@@ -16,7 +16,7 @@ elseif($_GET['action'] == "GlobalSettings")
 {
 	if(!@$_GET['do'])
 	{
-		$sql = "select set_id, filename, create_time from ehm_host_settings where host_id = 0 order by create_time desc";
+		$sql = "select set_id, filename, create_time from ehm_host_settings where host_id = '0' order by create_time desc";
 		$mysql->Query($sql);
 		echo '<div class=span10>';
 		
