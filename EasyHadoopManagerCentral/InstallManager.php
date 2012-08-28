@@ -43,7 +43,7 @@ elseif($_GET['action'] == "Install")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><a class="btn" href="InstallManager.php?action=Install&ip='.$arr['ip'].'">'.$lang['install'].'</td>
+                  	<td><a class="btn" href="InstallManager.php?action=Install&ip='.$arr['ip'].'">'.$lang['installButton'].'</td>
                 	</tr>';
 			$i++;
 		}
@@ -343,7 +343,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			}
 			closedir($handle);
 		}
-		echo $arr;
+		var_dump( $arr);
 	}
 }
 else
