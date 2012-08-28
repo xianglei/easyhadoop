@@ -48,7 +48,7 @@ $lang['uninstall'] = '卸载Hadoop相关';
 $lang['pushFiles'] = '推送配置文件';
 $lang['pushGlobalSettings'] = '推送通用配置';
 $lang['pushHadoopSettings'] = '推送自身配置';
-$lang['pushHadoopFiles'] = '推送Hadoop文件';
+$lang['pushHadoopFiles'] = '推送Hadoop文件夹';
 $lang['choosePushNode'] = '选择推送节点';
 $lang['push'] = "推送";
 $lang['pushTips'] = "请确认并且EasyHadoopManager的./hadoop/文件夹下有相关文件存在。";
@@ -59,6 +59,7 @@ $lang['installHadoop'] = '安装Hadoop';
 $lang['installLzo'] = '安装LZO库';
 $lang['installLzop'] = '安装Lzop';
 $lang['installHadoopgpl'] = '安装Hadoopgpl';
+$lang['install'] = '安装';
 
 $lang['uninstallJava'] = '卸载JDK';
 $lang['uninstallHadoop'] = '卸载Hadoop';

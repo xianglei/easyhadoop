@@ -30,6 +30,7 @@ elseif($_GET['action'] == "Install")
                   <th>'.$lang['ipAddr'].'</th>
                   <th>'.$lang['nodeRole'].'</th>
                   <th>'.$lang['createTime'].'</th>
+                  <th>'.$lang['action'].'</th>
                 </tr>
                 </thead>
                 <tbody>';
@@ -42,6 +43,7 @@ elseif($_GET['action'] == "Install")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
+                  	<td><a class="btn" href="InstallManager.php?action=Install&ip='.$arr['ip'].'">'.$lang['install'].'</td>
                 	</tr>';
 			$i++;
 		}
@@ -317,7 +319,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
-                  	<a class="btn btn-success" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'>'.$lang['push'].'</a>
+                  	<a class="btn btn-success" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>
                   	</td>
                 	</tr>';
 			$i++;
