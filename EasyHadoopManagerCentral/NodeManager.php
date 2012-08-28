@@ -68,7 +68,7 @@ elseif ($_GET['action'] == "AddNode")
 		$sql = "insert ehm_hosts set hostname = '".$hostname."', ip = '".$ipaddr."', role = '".$role."', create_time=current_timestamp()";
 		$mysql->Query($sql);
 		echo '</div>';
-		echo "<script>alert('".$lang['nodeAdded']."'); this.location='NodeManager.php?action=RemoveNode';</script>";
+		echo "<script>alert('".$lang['nodeAdded']."'); this.location='NodeManager.php';</script>";
 	}
 }
 #从数据库中删除节点

@@ -76,7 +76,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		}
 		else
 		{
-			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), host_id=0";
+			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), host_id='0'";
 			$mysql->Query($sql);
 			echo "<script>alert('".$lang['settingAdded']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
@@ -175,13 +175,9 @@ elseif($_GET['action'] == 'NodeSettings')
 	}
 	elseif($_GET['do'] == "Add")
 	{
-		if(!$_POST['host_id'])
+		if(!$_POST['ip'])
 		{
 			$ip = $_GET['ip'];
-			$sql = "select host_id from ehm_hosts where ip='".$ip."'";
-			$mysql->Query($sql);
-			$arr = $mysql->FetchArray();
-			$host_id = $arr['host_id'];
 			
 			echo '<div class=span10>';
 			echo '<h1>'.$lang['addSettings'].'</h1>';
@@ -195,7 +191,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo '<label>'.$lang['content'].'</label><br />';
 			echo '<textarea name=content></textarea><br />';
 			echo '<input type=hidden name=action value="NodeSettings">';
-			echo '<input type=hidden name=host_id value="'.$host_id.'">';
+			echo '<input type=hidden name=ip value="'.$ip.'">';
 			echo '<input type=hidden name=do value=Add>';
 			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
 			echo "</form>";
@@ -203,11 +199,11 @@ elseif($_GET['action'] == 'NodeSettings')
 		}
 		else
 		{
-			$host_id = $_POST['host_id'];
+			$ip = $_POST['ip'];
 			$filename = $_POST['filename'];
 			$content = $_POST['content'];
 			
-			$sql = "insert ehm_host_settings set filename='".$filename."', content = '".$content."', create_time=current_timestamp(), host_id = ".$host_id;
+			$sql = "insert ehm_host_settings set filename='".$filename."', content = '".$content."', create_time=current_timestamp(), ip = ".$ip;
 			$mysql->Query($sql);
 			echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
 		}
@@ -218,13 +214,9 @@ elseif($_GET['action'] == 'NodeSettings')
 		{
 			$ip = $_GET['ip'];
 			
-			$sql = "select * from ehm_hosts where ip='".$ip."'";
-			$mysql->Query($sql);
-			$arr = $mysql->FetchArray();
-			
 			echo '<div class=span10>';
 			echo '<h2>'.$lang['hostSettings'].'</h2>';
-			$sql = "select * from ehm_host_settings where host_id = ".$arr['host_id']." order by create_time desc";
+			$sql = "select * from ehm_host_settings where ip = ".$ip." order by create_time desc";
 			$mysql->Query($sql);
 			echo '<table class="table table-striped">';
 			echo '<thead>
@@ -264,11 +256,8 @@ elseif($_GET['action'] == 'NodeSettings')
 			{
 				$ip = $_GET['ip'];
 				$set_id = $_GET['set_id'];
-				$sql = "select host_id from ehm_hosts where ip='".$ip."'";
-				$mysql->Query($sql);
-				$arr = $mysql->FetchArray();
 				$host_id = $arr['host_id'];
-				$sql = "select * from ehm_host_settings where host_id = ".$host_id;
+				$sql = "select * from ehm_host_settings where ip = ".$ip;
 				$mysql->Query($sql);
 				$arr = $mysql->FetchArray();
 		
