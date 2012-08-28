@@ -76,7 +76,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		}
 		else
 		{
-			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), host_id='0'";
+			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), ip='0'";
 			$mysql->Query($sql);
 			echo "<script>alert('".$lang['settingAdded']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
@@ -203,7 +203,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			$filename = $_POST['filename'];
 			$content = $_POST['content'];
 			
-			$sql = "insert ehm_host_settings set filename='".$filename."', content = '".$content."', create_time=current_timestamp(), ip = ".$ip;
+			$sql = "insert ehm_host_settings set filename='".$filename."', content = '".$content."', create_time=current_timestamp(), ip = '".$ip."'";
 			$mysql->Query($sql);
 			echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
 		}
@@ -216,7 +216,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			
 			echo '<div class=span10>';
 			echo '<h2>'.$lang['hostSettings'].'</h2>';
-			$sql = "select * from ehm_host_settings where ip = ".$ip." order by create_time desc";
+			$sql = "select * from ehm_host_settings where ip = '".$ip."' order by create_time desc";
 			$mysql->Query($sql);
 			echo '<table class="table table-striped">';
 			echo '<thead>
