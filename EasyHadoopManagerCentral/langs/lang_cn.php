@@ -78,3 +78,6 @@ $lang['settingRemoved'] = '配置已删除';
 $lang['add'] = '添加';
 $lang['edit'] = '编辑';
 $lang['remove'] = '移除';
+$lang['filenameTips'] = '文件名填写提示:';
+$lang['hostSettingFilenameTips'] = "hdfs-site.xml位于/etc/hadoop/hdfs-site.xml\n mapred-site.xml位于/etc/hadoop/mapred-site.xml";
+$lang['globalSettingFilenameTips'] = 'hosts位于/etc/hosts\n core-site.xml位于/etc/hadoop/core-site.xml';
