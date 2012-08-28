@@ -74,16 +74,16 @@ elseif($_GET['action'] == "Install")
 			switch ($action)
 			{
 				case 'InstallJava':
-					$command = "FileTransport:/home/hadoop/jdk-7u5-linux-x64.rpm\n";
-					$filename = "hadoop/jdk-7u5-linux-x64.rpm";
+					$command = "FileTransport:/home/hadoop/jdk-7u5-linux-x64.rpm";
+					$filename = "./hadoop/jdk-7u5-linux-x64.rpm";
 					break;
 				case 'InstallHadoop':
-					$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm\n";
-					$filename = "hadoop/hadoop-1.0.3-1.x86_64.rpm";
+					$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm";
+					$filename = "./hadoop/hadoop-1.0.3-1.x86_64.rpm";
 					break;
 				case 'InstallLzop':
 					$command = "FileTransport:/home/hadoop/lzop-1.03.tar.gz\n";
-					$filename = "hadoop/lzop-1.03.tar.gz";
+					$filename = "./hadoop/lzop-1.03.tar.gz";
 					break;
 				default:
 					echo "Invalid Socket Command";
@@ -94,7 +94,7 @@ elseif($_GET['action'] == "Install")
 			{
 				if($action == "InstallJava" || $action == "InstallHadoop" ||$action == "InstallLzop")
 				{echo $action;
-					fwrite($fp, $command);
+					fwrite($fp, $command."\n");
 					sleep(1);
 					$fd = fopen($filename,"rb");
 					while (!feof($fd))
