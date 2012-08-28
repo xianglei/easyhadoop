@@ -80,9 +80,11 @@ elseif($_GET['action'] == "Install")
 				case 'InstallHadoop':
 					$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm\n";
 					$filename = "hadoop/hadoop-1.0.3-1.x86_64.rpm";
+					break;
 				case 'InstallLzop':
 					$command = "FileTransport:/home/hadoop/lzop-1.03.tar.gz\n";
 					$filename = "hadoop/lzop-1.03.tar.gz";
+					break;
 				default:
 					echo "Invalid Socket Command";
 					break;
