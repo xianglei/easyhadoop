@@ -107,6 +107,12 @@ elseif ($_GET['action'] == "RemoveNode")
 		echo '</tbody></table>';
 		echo '</div>';
 	}
+	else
+	{
+		$sql = "delete from ehm_hosts where host_id='".$_GET['nodeid']."'";
+		$mysql->Query($sql);
+		echo "<script>alert('Removed'); this.location='NodeManager.php?action=RemoveNode';</script>";
+	}
 }
 
 include_once "templates/footer.html";
