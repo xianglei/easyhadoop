@@ -156,7 +156,7 @@ elseif($_GET['action'] == "PingNode")
 		$sql = "select ip from ehm_hosts where host_id='".$_GET['nodeid']."'";
 		$mysql->Query($sql);
 		$arr = $mysql->FetchArray();
-		if($fp = fsockopen($arr['ip'], 30050, $errstr, $errno, 30))
+		if($fp = @fsockopen($arr['ip'], 30050, $errstr, $errno, 30))
 		{
 			fclose($fp);
 			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php';</script>";
