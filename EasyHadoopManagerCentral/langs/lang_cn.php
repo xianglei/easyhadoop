@@ -51,7 +51,7 @@ $lang['pushHadoopSettings'] = '推送自身配置';
 $lang['pushHadoopFiles'] = '推送Hadoop文件夹';
 $lang['choosePushNode'] = '选择推送节点';
 $lang['push'] = "推送";
-$lang['pushTips'] = "请确认并且EasyHadoopManager的./hadoop/文件夹下有相关文件存在。";
+$lang['pushTips'] = "请确认EasyHadoopManager的./hadoop/文件夹下有相关文件存在。";
 $lang['pushComplete'] = "推送完成，可以开始安装Hadoop";
 
 $lang['installEnvironment'] = '安装环境依赖';

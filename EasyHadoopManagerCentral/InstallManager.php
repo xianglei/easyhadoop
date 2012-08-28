@@ -293,11 +293,9 @@ elseif($_GET['action'] == "PushHadoopFiles")
 		echo '<div class=span10>';
 		echo '<h2>'.$lang['pushHadoopFiles'].'</h2>';
 		echo '<div class="alert alert-error">';
-		echo "<pre>";
 		echo $lang['pushTips'];
-		echo "</pre>";
 		echo '</div>';
-		echo $sql = "select * from ehm_hosts order by create_time desc";
+		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
 		echo '<thead>
