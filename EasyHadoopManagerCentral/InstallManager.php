@@ -293,7 +293,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 		echo "<pre>";
 		echo $lang['pushTips'];
 		echo "</pre>";
-		$sql = "select * from ehm_hosts order by create_time desc";
+		echo $sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
 		echo '<thead>
@@ -317,7 +317,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
-                  	<a class="btn" href="InstallManager.php?action=PushHadoopFiles&ip="'.$arr['ip'].'">'.$lang['push'].'</a>
+                  	<a class="btn btn-success" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'>'.$lang['push'].'</a>
                   	</td>
                 	</tr>';
 			$i++;
