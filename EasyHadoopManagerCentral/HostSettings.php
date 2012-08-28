@@ -41,14 +41,11 @@ elseif($_GET['action'] == "GlobalSettings")
                   	<td>'.$arr['filename'].'</td>
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
-                  	
-  						<button class="btn dropdown-toggle" data-toggle="dropdown">'.$lang['action'].' <span class="caret"></span></button>
-  						<ul class="dropdown-menu">
-   						 <li><a href="HostSettings.php?action=GlobalSettings&do=Edit&setid='.$arr['set_id'].'">编辑</a></li>
-   						 <li class="divider"></li>
-   						 <li><a href="HostSettings.php?action=GlobalSettings&do=Remove&setid='.$arr['set_id'].'">删除</a></li>
+                  	<div class="btn-group">
+   						 <li><a class="btn" href="HostSettings.php?action=GlobalSettings&do=Edit&setid='.$arr['set_id'].'">编辑</a></li>
+   						 <li><a class="btn" href="HostSettings.php?action=GlobalSettings&do=Remove&setid='.$arr['set_id'].'">删除</a></li>
   						</ul>
-                  	
+                  	</div>
                   	</td>
                 	</tr>';
 			$i++;
