@@ -20,7 +20,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		$mysql->Query($sql);
 		echo '<div class=span10>';
 		
-		echo '<a href="HostSettings.php?action=GlobalSettings&do=Add class="btn">'.$lang['addSettings'].'</a>';
+		echo '<a href="HostSettings.php?action=GlobalSettings&do=Add" class="btn">'.$lang['addSettings'].'</a>';
 		
 		echo '<h2>'.$lang['globalSettings'].'</h2>';
 		echo '<table class="table table-striped">';
@@ -64,7 +64,26 @@ elseif($_GET['action'] == "GlobalSettings")
 
 	elseif ($_GET['do'] == "Add")
 	{
-		
+		if(!$_POST['content'])
+		{
+			echo '<div class=span10>';
+			echo '<h1>'.$lang['addSettings'].'</h1>';
+			echo "<form method=POST>";
+			echo '<label>'.$lang['filename'].'</label><br />';
+			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hosts...)" name=filename> <br />';
+			echo '<label>'.$lang['content'].'</label><br />';
+			echo '<textarea name=content></textarea><br />';
+			echo '<input type=hidden name=action value="GlobalSettings">';
+			echo '<input type=hidden name=do value=Add>';
+			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
+			echo "</form>";
+			echo '</div>';
+		}
+		else
+		{
+			$sql = "insert ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', create_time=current_timestamp(), host_id=0";
+			$mysql->Query($sql);
+		}
 	}
 }
 
