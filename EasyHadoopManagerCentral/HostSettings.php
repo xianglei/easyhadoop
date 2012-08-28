@@ -61,7 +61,7 @@ elseif($_GET['action'] == "GlobalSettings")
 			echo '<h1>'.$lang['addSettings'].'</h1>';
 			echo "<form method=POST>";
 			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hosts...)" name=filename> <br />';
+			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hosts...)" name=filename rel="popover" title="'.$lang['filenameTips'].'" data-content="'.$lang['globalSettingFilenameTips'].'"> <br />';
 			echo '<label>'.$lang['content'].'</label><br />';
 			echo '<textarea name=content></textarea><br />';
 			echo '<input type=hidden name=action value="GlobalSettings">';
@@ -179,7 +179,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo '<h1>'.$lang['addSettings'].'</h1>';
 			echo "<form method=POST>";
 			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<input type=text placeholder="with path: /etc/hadoop/hdfs-site.xml..." name=filename> <br />';
+			echo '<input type=text placeholder="with path: /etc/hadoop/hdfs-site.xml..." name=filename rel="popover" title="'.$lang['filenameTips'] .'" data-content="'.$lang['hostSettingFilenameTips'].'"> <br />';
 			echo '<label>'.$lang['content'].'</label><br />';
 			echo '<textarea name=content></textarea><br />';
 			echo '<input type=hidden name=action value="NodeSettings">';
@@ -264,7 +264,7 @@ elseif($_GET['action'] == 'NodeSettings')
 				echo '<h1>'.$lang['modifySettings'].'</h1>';
 				echo "<form method=POST>";
 				echo '<label>'.$lang['filename'].'</label><br />';
-				echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
+				echo '<input type=text name=filename value="'.$arr['filename'].'" rel="popover" title="'.$lang['filenameTips'].'" data-content="'.$lang['hostSettingFilenameTips'].'"> <br />';
 				echo '<label>'.$lang['content'].'</label><br />';
 				echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
 				echo '<input type=hidden name=action value="NodeSettings">';
