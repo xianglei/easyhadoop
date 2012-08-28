@@ -280,11 +280,11 @@ elseif($_GET['action'] == "PushFiles")
 		if($_GET['do'] == "Global")
 		{
 			$ip = $_GET['ip'];
-			$sql = 'select * from ehm_host_settings where host_id=0';echo $sql;
+			$sql = 'select * from ehm_host_settings where host_id=0';
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
-				if($fp = @fopen($ip, 30050, $errstr, $errno, 60))
+				if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
 				{
 					$command = "FileTransport:".$arr['filename']."\n";
 					$content = $arr['content'];
@@ -299,7 +299,7 @@ elseif($_GET['action'] == "PushFiles")
 					echo $lang['notConnected'];
 				}
 			}
-			//echo "<script>this.location='InstallManager.php?action=PushFiles';</script>";
+			echo "<script>this.location='InstallManager.php?action=PushFiles';</script>";
 		}
 		elseif ($_GET['do'] == 'Hadoop') {
 	
