@@ -71,5 +71,43 @@ elseif ($_GET['action'] == "AddNode")
 	}
 }
 
+elseif ($_GET['action'] == "RemoveNode")
+{
+	if(!$_GET['nodeid'])
+	{
+		echo '<div class=span10>';
+	
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                	<tr>
+                  	<th>#</th>
+                  	<th>'.$lang['hostname'].'</th>
+                  	<th>'.$lang['ipAddr'].'</th>
+                  	<th>'.$lang['nodeRole'].'</th>
+                  	<th>'.$lang['createTime'].'</th>
+                  	<th>'.$lang['removeNode'].'</th>
+                	</tr>
+                	</thead>
+                	<tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                  	<td><i class=icon-remove></i><a class="btn btn-warning" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['id'].'>'.$lang['removeNode'].'</a></td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}
+}
+
 include_once "templates/footer.html";
 ?>
