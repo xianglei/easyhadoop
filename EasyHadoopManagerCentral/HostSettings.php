@@ -123,10 +123,10 @@ elseif($_GET['action'] == "GlobalSettings")
 
 elseif($_GET['action'] == 'NodeSettings')
 {
-	if(!$_GET['ip'])
+	if(!$_GET['do'])
 	{
 		echo '<div class=span10>';
-		echo '<h2>'.$lang['chooseUninstallHost'].'</h2>';
+		echo '<h2>'.$lang['hostSettings'].'</h2>';
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
@@ -166,6 +166,80 @@ elseif($_GET['action'] == 'NodeSettings')
 			</table>';
 		echo '</div>';
 	}
+	elseif($_GET['do'] == "Add")
+	{
+		if(!$_POST['host_id'])
+		{
+			$ip = $_GET['ip'];
+			$sql = "select host_id from ehm_hosts where ip='".$ip."'";
+			$mysql->Query($sql);
+			$arr = $mysql->FetchArray();
+			$host_id = $arr['host_id'];
+			
+			echo '<div class=span10>';
+			echo '<h1>'.$lang['addSettings'].'</h1>';
+			echo "<form method=POST>";
+			echo '<label>'.$lang['filename'].'</label><br />';
+			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hadoop/hdfs-site.xml...)" name=filename> <br />';
+			echo '<label>'.$lang['content'].'</label><br />';
+			echo '<textarea name=content></textarea><br />';
+			echo '<input type=hidden name=action value="NodeSettings">';
+			echo '<input type=hidden name=host_id value="'.$host_id.'">';
+			echo '<input type=hidden name=do value=Add>';
+			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
+			echo "</form>";
+			echo '</div>';
+		}
+		else
+		{
+			$host_id = $_POST['host_id'];
+			$filename = $_POST['filename'];
+			$content = $_POST['content'];
+			
+			$sql = "insert ehm_host_settings set filename='".$filename."', content = '".$content."', create_time=current_timestamp(), host_id = ".$host_id;
+			$mysql->Query($sql);
+			echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
+		}
+	}
+	elseif ($_GET['do'] == "Edit")
+	{
+		if(!$_POST['host_id'])
+		{
+			$ip = $_GET['ip'];
+			$sql = "select host_id from ehm_hosts where ip='".$ip."'";
+			$mysql->Query($sql);
+			$arr = $mysql->FetchArray();
+			$host_id = $arr['host_id'];
+			$sql = "select * from ehm_host_settings where host_id = ".$host_id;
+			$mysql->Query($sql);
+			$arr = $mysql->FetchArray();
+			
+			echo '<div class=span10>';
+			echo '<h1>'.$lang['modifySettings'].'</h1>';
+			echo "<form method=POST>";
+			echo '<label>'.$lang['filename'].'</label><br />';
+			echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
+			echo '<label>'.$lang['content'].'</label><br />';
+			echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
+			echo '<input type=hidden name=action value="NodeSettings">';
+			echo '<input type=hidden name=host_id value="'.$host_id.'">';
+			echo '<input type=hidden name=do value=Edit>';
+			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
+			echo "</form>";
+			echo '</div>';
+		}
+		else
+		{
+			$host_id = $_POST['host_id'];
+			$filename = $_POST['filename'];
+			$content = $_POST['content'];
+			
+			$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where host_id = ".$host_id;
+			$mysql->Query($sql);
+			echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
+		}
+	}
+	
 }
 
 
