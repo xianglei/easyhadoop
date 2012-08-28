@@ -115,6 +115,79 @@ elseif ($_GET['action'] == "RemoveNode")
 		echo "<script>alert('".$lang['nodeRemoved']."'); this.location='NodeManager.php?action=RemoveNode';</script>";
 	}
 }
+
+elseif ($_GET['action'] == "ModifyNode")
+{
+	if(!$_GET['ip'])
+	{
+		echo '<div class=span10>';
+	
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                	<tr>
+                  	<th>#</th>
+                  	<th>'.$lang['hostname'].'</th>
+                  	<th>'.$lang['ipAddr'].'</th>
+                  	<th>'.$lang['nodeRole'].'</th>
+                  	<th>'.$lang['createTime'].'</th>
+                  	<th>'.$lang['modifyNode'].'</th>
+                	</tr>
+                	</thead>
+                	<tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                  	<td><i class=icon-remove></i><a class="btn btn-danger" href=NodeManager.php?action=ModifyNode&nodeid='.$arr['host_id'].'>'.$lang['modifyNode'].'</a></td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}
+	else
+	{
+		$ip = $_GET['ip'];
+		$sql = "select * from ehm_hosts where ip='".$ip."'";
+		$mysql->Query($sql);
+		$arr = $mysql->FetchArray();
+		if(!$_POST['ip'] && !$_POST['hostname'] && !$_POST['role'])
+		{
+			echo '<div class="span10">
+            	<h1>'.$lang['modifyNode'].'</h1>
+            	<form method=POST>
+					<label>'.$lang['hostname'].'</label><br />
+					<input type="text" name="hostname" value="'.$arr['hostname'].'" /><br />
+					<label>'.$lang['ipAddr'].'</label><br />
+					<input type="text" name="ipaddr" value="'.$arr['ip'].'" /><br />
+					<label>'.$lang['roleName'].'</label><br />
+					<input type="text" name="role" value="'.$arr['role'].'" /><br />
+					<input type="hidden" name="action" value="'.$_GET['action'].'" />
+					<input type="hidden" name="host_id" value="'.$arr['host_id'].'" />
+					<button type="submit" class="btn">'.$lang['submit'].'</button>
+			</form>
+			</div>';
+		}
+		else
+		{
+			$hostname = $_POST['hostname'];
+			$ip = $_POST['ipaddr'];
+			$role = $_POST['role'];
+			$host_id = $_POST['host_id'];
+			$sql = "update ehm_hosts set hostname='".$hostname."', ip='".$ip."', role='".$role."' where host_id=".$host_id;
+			$mysql->Query($sql);
+			echo "<script>alert('".$lang['nodeModified']."'); this.location='NodeManager.php?action=ModifyNode';</script>";
+		}
+	}
+}
+
 ##连通性测试
 elseif($_GET['action'] == "PingNode")
 {
@@ -132,7 +205,7 @@ elseif($_GET['action'] == "PingNode")
                   	<th>'.$lang['ipAddr'].'</th>
                   	<th>'.$lang['nodeRole'].'</th>
                   	<th>'.$lang['createTime'].'</th>
-                  	<th>'.$lang['removeNode'].'</th>
+                  	<th>'.$lang['action'].'</th>
                 	</tr>
                 	</thead>
                 	<tbody>';

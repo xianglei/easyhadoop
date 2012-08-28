@@ -297,7 +297,7 @@ elseif($_GET['action'] == 'NodeSettings')
 		$ip = $_GET['ip'];
 		$sql = "delete from ehm_host_settings where set_id=".$set_id." and ip = '".$ip."'";
 		$mysql->Query($sql);
-		echo "<script>alert('".$lang['settingRemoved']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
+		echo "<script>alert('".$lang['settingRemoved']."'); this.location='HostSettings.php?action=NodeSettings';</script>";
 	}
 }
 
