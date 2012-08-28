@@ -80,7 +80,7 @@ elseif($_GET['action'] == "GlobalSettings")
 	
 	elseif ($_GET['do'] == "Edit")
 	{
-		$set_id = $_GET['set_id'];
+		$set_id = $_GET['setid'];
 		$sql = "select * from ehm_host_settings where set_id='".$set_id."'";
 		$mysql->Query($sql);
 		$arr = $mysql->FetchArray();
@@ -110,7 +110,7 @@ elseif($_GET['action'] == "GlobalSettings")
 
 	elseif ($_GET['do'] == "Remove")
 	{
-		$set_id = $_GET['set_id'];
+		$set_id = $_GET['setid'];
 		$sql = "delete from ehm_host_settings where set_id = '".$set_id."'";
 		$mysql->Query($sql);
 		echo "<script>alert('".$lang['settingRemoved']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
