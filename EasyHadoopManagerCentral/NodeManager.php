@@ -145,7 +145,7 @@ elseif ($_GET['action'] == "ModifyNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-remove></i><a class="btn btn-danger" href=NodeManager.php?action=ModifyNode&nodeid='.$arr['host_id'].'>'.$lang['modifyNode'].'</a></td>
+                  	<td><i class=icon-pencil></i><a class="btn btn-warning" href=NodeManager.php?action=ModifyNode&nodeid='.$arr['host_id'].'>'.$lang['modifyNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
