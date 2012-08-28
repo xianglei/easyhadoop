@@ -335,6 +335,49 @@ elseif($_GET['action'] == "PushFiles")
 	}
 	
 }
+elseif($_GET['action'] == "PushHadoopFiles")
+{
+	if(!$_GET['ip'])
+	{
+		echo '<div class=span10>';
+		echo '<h2>'.$lang['chooseInstallHost'].'</h2>';
+		echo "<pre>";
+		echo "";
+		echo "</pre>";
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                <tr>
+                  <th>#</th>
+                  <th>'.$lang['hostname'].'</th>
+                  <th>'.$lang['ipAddr'].'</th>
+                  <th>'.$lang['nodeRole'].'</th>
+                  <th>'.$lang['createTime'].'</th>
+                  <th>'.$lang['action'].'</th>
+                </tr>
+                </thead>
+                <tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                  	<td>
+                  	<a class="btn" href="InstallManager.php?action=PushHadoopFiles&ip="'.$arr['ip'].'">'.$lang['push'].'</a>
+                  	</td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody>
+			</table>';
+		echo '</div>';
+	}
+}
 else
 {
 	die("Unknown Command");

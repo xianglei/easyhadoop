@@ -48,6 +48,10 @@ $lang['uninstall'] = '卸载Hadoop相关';
 $lang['pushFiles'] = '推送配置文件';
 $lang['pushGlobalSettings'] = '推送通用配置';
 $lang['pushHadoopSettings'] = '推送自身配置';
+$lang['pushHadoopFiles'] = '推送Hadoop文件';
+$lang['choosePushNode'] = '选择推送节点';
+$lang['push'] = "推送";
+$lang['pushTips'] = "请确认并且EasyHadoopManager的./hadoop/文件夹下有相关文件存在。";
 
 $lang['installEnvironment'] = '安装环境依赖';
 $lang['installJava'] = '安装JDK';

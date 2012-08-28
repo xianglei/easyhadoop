@@ -63,6 +63,16 @@ class Install:
 			tmp = os.popen("cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
 		title.extend(tmp)
 		return title
+		
+	def GetSystemVer( self ):
+		system_ver = platform.platform()
+		if system_ver.find("el5") > 0:
+			title = '5'
+		elif system_ver.find("el6") > 0:
+			title = '6'
+		else:
+			title = 'Not CentOS'
+		return title
 
 	def InstallLzo( self ):
 		title = ['Installing LZO libary...\n']
@@ -224,6 +234,13 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
+				self.client.close()
+			elif 'GetSystemVer' == cmd:
+				'''
+				Get system version
+				'''
+				tmp = install.GetSystemVer()
+				self.writeline(tmp)
 				self.client.close()
 			elif 'InstallEnvironment' == cmd:
 				'''
