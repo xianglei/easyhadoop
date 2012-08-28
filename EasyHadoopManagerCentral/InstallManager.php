@@ -93,7 +93,7 @@ elseif($_GET['action'] == "Install")
 			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 			{
 				if($action == "InstallJava" || $action == "InstallHadoop" ||$action == "InstallLzop")
-				{
+				{echo $action;
 					fwrite($fp, $command);
 					sleep(1);
 					$fd = fopen($filename,"rb");
@@ -104,7 +104,7 @@ elseif($_GET['action'] == "Install")
 					}
 					fclose($fd);
 					fclose($fp);
-			
+			echo "socket sended";
 					$fp = @fsockopen($ip, 30050, $errno, $errstr, 60);
 					fwrite($fp, $command);
 					while(!feof($fp))
