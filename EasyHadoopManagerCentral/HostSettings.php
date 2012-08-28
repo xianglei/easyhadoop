@@ -121,7 +121,7 @@ elseif($_GET['action'] == "GlobalSettings")
 	}
 }
 
-elseif($_GET['NodeSettings'])
+elseif($_GET['action'] == 'NodeSettings')
 {
 	if(!$_GET['ip'])
 	{
