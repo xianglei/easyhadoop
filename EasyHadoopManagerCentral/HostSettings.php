@@ -102,7 +102,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		}
 		else
 		{
-			$sql = "update ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."', where set_id='".$set_id."'";
+			$sql = "update ehm_host_settings set filename='".$_POST['filename']."', content = '".$_POST['content']."' where set_id='".$set_id."'";
 			$mysql->Query($sql);
 			echo "<script>alert('".$lang['settingUpdated']."'); this.location='HostSettings.php?action=GlobalSettings';</script>";
 		}
