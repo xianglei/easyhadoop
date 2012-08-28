@@ -6,8 +6,9 @@ define('MYSQL_USER', 'root');
 define("MYSQL_PASS","");
 define("MYSQL_NAME", "easyhadoop");
 
-include_once "classes/class.socket.php";
+//include_once "classes/class.socket.php";
 include_once "classes/class.mysql.php";
+include_once "classes/class.etc.php";
 
 include_once "langs/lang_cn.php";
 ?>

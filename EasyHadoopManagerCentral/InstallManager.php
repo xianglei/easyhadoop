@@ -55,16 +55,15 @@ elseif($_GET['action'] == "Install")
 		<div class="btn-toolbar">
 		<div class="btn-group">
 	
-		<a href="InstallManager.php?action=Install&which=Environment&ip='.$ip.'" class="btn btn-secondary">'.$lang['installEnvironment'].'</a>
-		<a href="InstallManager.php?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
-		<a href="InstallManager.php?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>
 		<a href="InstallManager.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
 		<a href="InstallManager.php?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
-		<a href="InstallManager.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>';
+		<a href="InstallManager.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>
+		<a href="InstallManager.php?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
+		<a href="InstallManager.php?action=Install&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['installHadoop'].'</a>';
+		
 		
 		echo '</div>
 		</div>';//btn-toolbar
-		
 		
 		if(@$_GET['which'])
 		{
@@ -72,44 +71,68 @@ elseif($_GET['action'] == "Install")
 			
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
-			/*$sock = new Socket;
-			$sock->Connect($ip, 30050 , 60);
-			$str = $sock->SendCommand($action);
-			$str = str_replace("\n","<br />",$str);
-			$sock->DisConnect();*/
-			
-			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 300))
+			if($_GET['which'] == "Java" || $_GET['which'] == "Hadoop")
 			{
-				fwrite($fp, "FileTransport:/home/hadoop/lzop-1.03.tar.gz"."\n");
-				sleep(1);
-				$fd = fopen("hadoop/lzop-1.03.tar.gz","rb");
-				while (!feof($fd))
+				switch ($action)
 				{
-					$a = fread($fd,4096);
-					fwrite($fp,$a);
+					case 'InstallJava':
+						$command = "FileTransport:/home/hadoop/jdk-7u5-linux-x64.rpm\n";
+						$filename = "hadoop/jdk-7u5-linux-x64.rpm";
+						break;
+					case 'InstallHadoop':
+						$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm\n";
+						$filename = "hadoop/hadoop-1.0.3-1.x86_64.rpm";
+					default:
+						echo "Invalid Socket Command";
+						break;
 				}
-				fclose($fd);
-				/*while(!feof($fp))
+			
+				if($fp = @fsockopen($ip, 30050, $errno, $errstr, 300))
 				{
-					$str .= fread($fp,1024);
-				}
-				echo str_replace("\n","<br/>",$str);*/
-				fclose($fp);
+					if($action == "InstallJava" || $action == "InstallHadoop")
+					{
+						fwrite($fp, $command);
+						sleep(1);
+						$fd = fopen($filename,"rb");
+						while (!feof($fd))
+						{
+							$a = fread($fd,4096);
+							fwrite($fp,$a);
+						}
+						fclose($fd);
+						fclose($fp);
 				
-				$fp = @fsockopen($ip, 30050, $errno, $errstr, 300);
-				fwrite($fp, "InstallLzop"."\n");
-				while(!feof($fp))
-				{
-					$str .= fread($fp,1024);
-				}
-				echo str_replace("\n","<br/>",$str);
-				fclose($fp);
+						$fp = @fsockopen($ip, 30050, $errno, $errstr, 300);
+						fwrite($fp, $command);
+						while(!feof($fp))
+						{
+							$str .= fread($fp,1024);
+						}
+						echo str_replace("\n","<br/>",$str);
+						fclose($fp);
+					}
+					else
+					{
+						fwrite($fp,$action."\n");
+						while(!feof($fp))
+						{
+							$str .= fread($fp,1024);
+						}
+						echo str_replace("\n","<br/>",$str);
+						fclose($fp);
+					}
 				
+				}
+				else
+				{
+					echo $lang['notConnected'];
+				}
 			}
 			else
 			{
-				echo "无法连接到节点，请确认Agent已开启。";
+				echo "Unknown command";
 			}
+		
 			
 			echo '</pre>';
 		}
@@ -195,7 +218,7 @@ elseif($_GET['action'] == "Uninstall")
 			}
 			else
 			{
-				echo "无法连接到节点，请确认Agent已开启。";
+				echo $lang['notConnected'];
 			}
 			
 			echo '</pre>';
