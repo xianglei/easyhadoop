@@ -100,7 +100,7 @@ elseif ($_GET['action'] == "RemoveNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-remove></i><a class="btn btn-warning" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['id'].'>'.$lang['removeNode'].'</a></td>
+                  	<td><i class=icon-remove></i><a class="btn btn-warning" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'>'.$lang['removeNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
