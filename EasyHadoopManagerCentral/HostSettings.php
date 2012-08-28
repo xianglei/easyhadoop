@@ -274,17 +274,17 @@ elseif($_GET['action'] == 'NodeSettings')
 				echo "</form>";
 				echo '</div>';
 			}
-		}
-	}
-	else
-	{
-		$host_id = $_POST['set_id'];
-		$filename = $_POST['filename'];
-		$content = $_POST['content'];
+			else
+			{
+				$host_id = $_POST['set_id'];
+				$filename = $_POST['filename'];
+				$content = $_POST['content'];
 		
-		$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
-		$mysql->Query($sql);
-		echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
+				$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
+				$mysql->Query($sql);
+				echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
+			}
+		}
 	}
 }
 
