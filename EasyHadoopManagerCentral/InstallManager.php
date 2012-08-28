@@ -89,7 +89,14 @@ elseif($_GET['action'] == "Install")
 					fwrite($fp,$a);
 				}
 				fclose($fd);
-				sleep(1);
+				/*while(!feof($fp))
+				{
+					$str .= fread($fp,1024);
+				}
+				echo str_replace("\n","<br/>",$str);*/
+				fclose($fp);
+				
+				$fp = @fsockopen($ip, 30050, $errno, $errstr, 300);
 				fwrite($fp, "InstallLzop"."\n");
 				while(!feof($fp))
 				{
@@ -97,6 +104,7 @@ elseif($_GET['action'] == "Install")
 				}
 				echo str_replace("\n","<br/>",$str);
 				fclose($fp);
+				
 			}
 			else
 			{
