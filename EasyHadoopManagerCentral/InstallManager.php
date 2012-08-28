@@ -85,8 +85,8 @@ elseif($_GET['action'] == "Install")
 				$fd = fopen("hadoop/lzop-1.03.tar.gz","rb");
 				while (!feof($fd))
 				{
-					$str = fread($fd,4096);
-					fwrite($fp,4096);
+					$a = fread($fd,4096);
+					fwrite($fp,$a);
 				}
 				fclose($fd);
 				while(!feof($fp))
