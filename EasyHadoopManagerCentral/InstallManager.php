@@ -292,9 +292,11 @@ elseif($_GET['action'] == "PushHadoopFiles")
 	{
 		echo '<div class=span10>';
 		echo '<h2>'.$lang['pushHadoopFiles'].'</h2>';
+		echo '<div class="alert alert-error">';
 		echo "<pre>";
 		echo $lang['pushTips'];
 		echo "</pre>";
+		echo '</div>';
 		echo $sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
@@ -343,7 +345,25 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			}
 			closedir($handle);
 		}
-		var_dump( $arr);
+		foreach ($arr as $key => $value)
+		{
+			if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
+			{
+				fwrite($fp,"FileTransport:/home/hadoop/".$value."\n");
+				sleep(1);
+				$fd = fopen("./hadoop/".$value, "rb");
+				while(!feof($fd))
+				{
+					$str = fread($fd,1024);
+					fwrite($fp,$str);
+				}
+				fclose($fp);
+			}
+			else
+			{
+				die ("<script>alert('".$lang['notConnected']."');</script>");
+			}
+		}
 	}
 }
 else
