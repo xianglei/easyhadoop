@@ -280,9 +280,9 @@ elseif($_GET['action'] == 'NodeSettings')
 				$filename = $_POST['filename'];
 				$content = $_POST['content'];
 		
-				$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
+				echo $sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
 				$mysql->Query($sql);
-				echo "<script>this.location='HostSettings.php?action=NodeSettings';</script>";
+				echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 			}
 		}
 	}
