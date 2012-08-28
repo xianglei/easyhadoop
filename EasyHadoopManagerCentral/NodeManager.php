@@ -160,11 +160,11 @@ elseif($_GET['action'] == "PingNode")
 		if($fp = @fsockopen($arr['ip'], 30050, $errstr, $errno, 30))
 		{
 			@fclose($fp);
-			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php';</script>";
+			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php?action=PingNode';</script>";
 		}
 		else
 		{
-			echo "<script>alert('".$lang['notConnected']."'); this.location='NodeManager.php';</script>";
+			echo "<script>alert('".$lang['notConnected']."'); this.location='NodeManager.php?action=PingNode';</script>";
 		}
 	}
 }

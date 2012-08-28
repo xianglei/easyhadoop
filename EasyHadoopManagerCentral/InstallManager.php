@@ -71,69 +71,61 @@ elseif($_GET['action'] == "Install")
 			
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
-			if($_GET['which'] == "Java" || $_GET['which'] == "Hadoop")
+			switch ($action)
 			{
-				switch ($action)
-				{
-					case 'InstallJava':
-						$command = "FileTransport:/home/hadoop/jdk-7u5-linux-x64.rpm\n";
-						$filename = "hadoop/jdk-7u5-linux-x64.rpm";
-						break;
-					case 'InstallHadoop':
-						$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm\n";
-						$filename = "hadoop/hadoop-1.0.3-1.x86_64.rpm";
-					default:
-						echo "Invalid Socket Command";
-						break;
-				}
+				case 'InstallJava':
+					$command = "FileTransport:/home/hadoop/jdk-7u5-linux-x64.rpm\n";
+					$filename = "hadoop/jdk-7u5-linux-x64.rpm";
+					break;
+				case 'InstallHadoop':
+					$command = "FileTransport:/home/hadoop/hadoop-1.0.3-1.x86_64.rpm\n";
+					$filename = "hadoop/hadoop-1.0.3-1.x86_64.rpm";
+				default:
+					echo "Invalid Socket Command";
+					break;
+			}
 			
-				if($fp = @fsockopen($ip, 30050, $errno, $errstr, 300))
+			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 300))
+			{
+				if($action == "InstallJava" || $action == "InstallHadoop")
 				{
-					if($action == "InstallJava" || $action == "InstallHadoop")
+					fwrite($fp, $command);
+					sleep(1);
+					$fd = fopen($filename,"rb");
+					while (!feof($fd))
 					{
-						fwrite($fp, $command);
-						sleep(1);
-						$fd = fopen($filename,"rb");
-						while (!feof($fd))
-						{
-							$a = fread($fd,4096);
-							fwrite($fp,$a);
-						}
-						fclose($fd);
-						fclose($fp);
-				
-						$fp = @fsockopen($ip, 30050, $errno, $errstr, 300);
-						fwrite($fp, $command);
-						while(!feof($fp))
-						{
-							$str .= fread($fp,1024);
-						}
-						echo str_replace("\n","<br/>",$str);
-						fclose($fp);
+						$a = fread($fd,4096);
+						fwrite($fp,$a);
 					}
-					else
+					fclose($fd);
+					fclose($fp);
+			
+					$fp = @fsockopen($ip, 30050, $errno, $errstr, 300);
+					fwrite($fp, $command);
+					while(!feof($fp))
 					{
-						fwrite($fp,$action."\n");
-						while(!feof($fp))
-						{
-							$str .= fread($fp,1024);
-						}
-						echo str_replace("\n","<br/>",$str);
-						fclose($fp);
+						$str .= fread($fp,1024);
 					}
-				
+					echo str_replace("\n","<br/>",$str);
+					fclose($fp);
 				}
 				else
 				{
-					echo $lang['notConnected'];
+					fwrite($fp,$action."\n");
+					while(!feof($fp))
+					{
+						$str .= fread($fp,1024);
+					}
+					echo str_replace("\n","<br/>",$str);
+					fclose($fp);
 				}
+				
 			}
 			else
 			{
-				echo "Unknown command";
+				echo $lang['notConnected'];
 			}
-		
-			
+
 			echo '</pre>';
 		}
 		echo "<br />";
