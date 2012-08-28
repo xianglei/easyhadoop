@@ -276,11 +276,11 @@ elseif($_GET['action'] == 'NodeSettings')
 			}
 			else
 			{
-				$host_id = $_POST['set_id'];
+				$set_id = $_POST['set_id'];
 				$filename = $_POST['filename'];
 				$content = $_POST['content'];
 		
-				echo $sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
+				$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
 				$mysql->Query($sql);
 				echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 			}
