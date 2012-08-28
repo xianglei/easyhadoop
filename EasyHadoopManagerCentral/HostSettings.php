@@ -121,6 +121,53 @@ elseif($_GET['action'] == "GlobalSettings")
 	}
 }
 
+elseif($_GET['NodeSettings'])
+{
+	if(!$_GET['ip'])
+	{
+		echo '<div class=span10>';
+		echo '<h2>'.$lang['chooseUninstallHost'].'</h2>';
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                <tr>
+                  <th>#</th>
+                  <th>'.$lang['hostname'].'</th>
+                  <th>'.$lang['ipAddr'].'</th>
+                  <th>'.$lang['nodeRole'].'</th>
+                  <th>'.$lang['createTime'].'</th>
+                  <th>'.$lang['action'].'</th>
+                </tr>
+                </thead>
+                <tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td><a href=HostSettings.php?action=NodeSettings&ip='.$arr['ip'].'>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>
+                  	<td>'.$arr['role'].'</td>
+                  	<td>'.$arr['create_time'].'</td>
+                  	<td>
+                  	
+					<div class="btn-group">
+						<a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>
+   						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
+   						 <a class="btn btn-danger" href="HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'">'.$lang['remove'].'</a>
+                  	</div>
+                  	
+                  	</td>
+                	</tr>';
+			$i++;
+		}
+		echo '</tbody>
+			</table>';
+		echo '</div>';
+	}
+}
+
 
 include_once "templates/footer.html";
 ?>

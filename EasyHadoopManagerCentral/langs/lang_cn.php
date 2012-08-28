@@ -46,7 +46,7 @@ $lang['pingNode'] = 'Agent连通测试';
 $lang['install'] = '安装Hadoop相关';
 $lang['uninstall'] = '卸载Hadoop相关';
 $lang['pushFiles'] = '推送配置文件';
-$lang['pushGlobalSettings'] = '推送全局配置';
+$lang['pushGlobalSettings'] = '推送通用配置';
 $lang['pushHadoopSettings'] = '推送自身配置';
 
 $lang['installEnvironment'] = '安装环境依赖';
@@ -64,7 +64,7 @@ $lang['chooseInstallHost'] = '选择安装节点';
 $lang['chooseUninstallHost'] = '选择卸载节点';
 $lang['hostSettings'] = '节点配置管理';
 
-$lang['settingsForHadoop'] = '单独配置项';
+$lang['settingsForNode'] = '节点配置项';
 $lang['globalSettings'] = '通用配置项';
 $lang['filename'] = '文件名';
 $lang['action'] = '操作';
@@ -75,5 +75,6 @@ $lang['content'] = '内容';
 $lang['settingAdded'] = '配置已添加';
 $lang['settingUpdated'] = '配置已修改';
 $lang['settingRemoved'] = '配置已删除';
+$lang['add'] = '添加';
 $lang['edit'] = '编辑';
 $lang['remove'] = '移除';
