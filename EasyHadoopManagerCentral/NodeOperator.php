@@ -114,7 +114,7 @@ elseif($_GET['action'] == "Operate")
 		$ip = $_GET['ip'];
 		if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 		{
-			fwrite($fp, $action."\n");
+			fwrite($fp, $action);
 			while(!feof($fp))
 			{
 				$str .= fread($fp,1024);

@@ -512,7 +512,7 @@ class ClientThread( threading.Thread ):
 				self.client.close()
 
 			cmd = self.readline()
-		#self.client.close()
+		self.client.close()
 		return
 
 	def FileTransport( self, filename ):
