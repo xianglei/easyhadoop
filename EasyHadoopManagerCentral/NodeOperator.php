@@ -52,8 +52,6 @@ elseif($_GET['action'] == "Operate")
                 		<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                 		<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'">'.$lang['start'].$value.'</a></li>
-                  		<li><a href="#">Another action</a></li>
-                  		<li><a href="#">Something else here</a></li>
                   		<li class="divider"></li>
                   		<li><a href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'">'.$lang['stop'].$value.'</a></li>
 					 	<li><a href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'">'.$lang['restart'].$value.'</a></li>
@@ -68,5 +66,67 @@ elseif($_GET['action'] == "Operate")
 		echo '</tbody></table>';
 		echo '</div>';
 	}#not any action
+	else
+	{
+		switch ($_GET['do'])
+		{
+			case 'Start':
+				$command_1 = "Start";
+				break;
+			case 'Stop':
+				$command_1 = "Stop";
+				break;
+			case 'Restart':
+				$command_1 = "Restart";
+				break;
+			
+			default:
+				die("<pre>Unknown Command</pre>");
+				break;
+		}
+		
+		switch ($_GET['role'])
+		{
+			case 'namenode':
+				$command_2 = "Namenode";
+				break;
+			case 'jobtracker':
+				$command = "Jobtracker";
+				break;
+			case 'secondarynamenode':
+				$command = "SecondaryNamenode";
+				break;
+			case 'tasktracker':
+				$command = "Tasktracker";
+				break;
+			case 'datanode':
+				$command = "Datanode";
+				break;
+			
+			default:
+				die("<pre>Unknown Command</pre>");
+				break;
+		}
+
+		echo '<pre>';
+		$action = $command_1.$command_2;
+		$ip = $_GET['ip'];
+		if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
+		{
+			fwrite($fp, $action);
+			while(!feof($fp))
+			{
+				$str .= fread($fp,1024);
+			}
+			echo str_replace("\n","<br/>",$str);
+			fclose($fp);
+		}
+		else
+		{
+			echo $lang['notConnected'];
+		}
+
+		echo '</pre>';
+	}
 }
 ?>

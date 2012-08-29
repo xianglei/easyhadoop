@@ -186,6 +186,17 @@ class Install:
 		title.extend(tmp)
 		return title
 	##########################
+	#Restart Hadoop Functions
+	##########################
+	def RestartHadoop ( self, type ):
+		title = ['Starting Namenode...\n']
+		t = type.strip()
+		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh stop " + t).readlines()
+		time.sleep(1)
+		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh start " + t).readlines()
+		title.extend(tmp)
+		return title
+	##########################
 	#Stop Hadoop Functions
 	##########################
 	def StopHadoop ( self, type ):
@@ -403,6 +414,54 @@ class ClientThread( threading.Thread ):
 				Stopping Tasktracker
 				'''
 				tmp = install.StopHadoop("tasktracker")
+				for line in tmp:
+					self.writeline( line + "\n" )
+				self.writeline("Tasktracker stopped")
+				self.client.close()
+			##########################
+			#Restart Hadoop Modules
+			##########################
+			elif 'RestartNamenode' == cmd:
+				'''
+				Restarting Namenode
+				'''
+				tmp = install.RestartHadoop("namenode")
+				for line in tmp:
+					self.writeline( line + "\n" )
+				self.writeline("Namenode stopped")
+				self.client.close()
+			elif 'RestartSecondaryNamenode' == cmd:
+				'''
+				Restarting SecondaryNamenode
+				'''
+				tmp = install.RestartHadoop("secondarynamenode")
+				for line in tmp:
+					self.writeline( line + "\n" )
+				self.writeline("SecondaryNamenode stopped")
+				self.client.close()
+			elif 'RestartDatanode' == cmd:
+				'''
+				Restarting Datanode
+				'''
+				tmp = install.RestartHadoop("datanode")
+				for line in tmp:
+					self.writeline( line + "\n" )
+				self.writeline("Datanode stopped")
+				self.client.close()
+			elif 'RestartJobtracker' == cmd:
+				'''
+				Restarting Jobtracker
+				'''
+				tmp = install.RestartHadoop("jobtracker")
+				for line in tmp:
+					self.writeline( line + "\n" )
+				self.writeline("Jobtracker stopped")
+				self.client.close()
+			elif 'RestartTasktracker' == cmd:
+				'''
+				Restarting Tasktracker
+				'''
+				tmp = install.RestartHadoop("tasktracker")
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Tasktracker stopped")
