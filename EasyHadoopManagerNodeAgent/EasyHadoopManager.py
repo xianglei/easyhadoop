@@ -213,6 +213,14 @@ class Install:
 		tmp = os.popen("Y|sudo -u hadoop hadoop namenode -format").readlines()
 		title.extend(tmp)   
 		return title
+	##########################
+	#Tail Logs
+	##########################
+	def TailLogs (self, type, hostname)
+		title = ['Cat hadoop logs...\n']
+		tmp = os.popen("tail -f -n 1000 /var/log/hadoop/hadoop-hadoop-"+type+"-"+hostname+".log")
+		title.extend(tmp)
+		return title
 
 class ClientThread( threading.Thread ):
 	def __init__( self, client_sock ):
@@ -369,6 +377,22 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Tasktracker started")
+				self.client.close()
+			##########################
+			#Cat Hadoop Logs
+			##########################
+			elif 'TailLogs' == cmd[:8]:
+				'''
+				Cat hadoop Logs
+				Command is TailLogs:datanode:hostname
+				'''
+				str = cmd.split(":")
+				type = str[1]
+				hostname = str[2]
+				tmp = install.TailLogs(type, hostname)
+				for line in tmp:
+					self.writeline( line + "\n" )
+				self.writeline("Namenode stopped")
 				self.client.close()
 			##########################
 			#Stop Hadoop Modules
