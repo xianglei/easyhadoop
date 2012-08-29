@@ -129,7 +129,21 @@ elseif($_GET['action'] == "Uninstall")
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
-                  	<a class="btn" href="InstallManager.php?action=Uninstall&ip='.$arr['ip'].'">'.$lang['uninstallButton'].'</a>
+                  	<div class="btn-group">
+  						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+    					'.$lang['uninstallButton'].'
+    					<span class="caret"></span>
+  						</a>
+  						<ul class="dropdown-menu">
+    						<!-- dropdown menu links -->
+    						<li><a href="InstallManager.php?action=Uninstall&which=Java&ip='.$ip.'" class="btn">'.$lang['uninstallJava'].'</a></li>
+    						<li class="divider"></li>
+							<li><a href="InstallManager.php?action=Uninstall&which=Hadoop&ip='.$ip.'" class="btn">'.$lang['uninstallHadoop'].'</a></li>
+							<li class="divider"></li>
+							<li><a href="InstallManager.php?action=Uninstall&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['uninstallHadoopgpl'].'</a></li>
+  						</ul>
+						</div>
+                  	<!--<a class="btn" href="InstallManager.php?action=Uninstall&ip='.$arr['ip'].'">'.$lang['uninstallButton'].'</a>-->
                   	</td>
                 	</tr>';
 			$i++;
@@ -140,7 +154,7 @@ elseif($_GET['action'] == "Uninstall")
 	}
 	else
 	{
-		$ip = $_GET['ip'];
+		/*$ip = $_GET['ip'];
 		echo '<div class="span10">
 		<div class="btn-toolbar">
 		<div class="btn-group">
@@ -150,7 +164,7 @@ elseif($_GET['action'] == "Uninstall")
 		<a href="InstallManager.php?action=Uninstall&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['uninstallHadoopgpl'].'</a>';
 		
 		echo '</div>
-		</div>';//btn-toolbar
+		</div>';//btn-toolbar*/
 		
 		
 		if(@$_GET['which'])
