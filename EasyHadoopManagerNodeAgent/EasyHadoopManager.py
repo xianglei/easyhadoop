@@ -211,7 +211,7 @@ class ClientThread( threading.Thread ):
 	def run( self ):
 		global QUIT
 		done = False
-		cmd = self.readsocket()
+		cmd = self.readline()
 		install = Install()
 		while not done:
 			if 'finish' == cmd :
@@ -452,8 +452,8 @@ class ClientThread( threading.Thread ):
 				self.writeline( "Unknown Command" )
 				self.client.close()
 
-			cmd = self.readsocket()
-		self.client.close()
+			cmd = self.readline()
+		#self.client.close()
 		return
 
 	def FileTransport( self, filename ):
@@ -468,7 +468,7 @@ class ClientThread( threading.Thread ):
 		f.close()
 		return
 
-	def readsocket( self ):
+	def readline( self ):
 		result = self.client.recv( 1024 )
 		if( None != result ):
 			result = result.strip()
