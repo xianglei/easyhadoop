@@ -97,6 +97,9 @@ $lang['filenameTips'] = '文件名填写提示:';
 $lang['hostSettingFilenameTips'] = "hdfs-site.xml位于/etc/hadoop/hdfs-site.xml<br />mapred-site.xml位于/etc/hadoop/mapred-site.xml";
 $lang['globalSettingFilenameTips'] = 'hosts位于/etc/hosts<br />core-site.xml位于/etc/hadoop/core-site.xml';
 
-$lang['namenodeFormatWarn'] = '由于可能造成误操作，暂不开放Namenode Format功能';
+$lang['namenodeFormatWarn'] = '由于可能造成误操作，暂不开放Namenode Format功能<br />请自行登录Namenode服务器执行"hadoop namenode -format命令"';
 $lang['unknownCommand'] = '无法识别的命令：';
 $lang['chooseLeftSidebar'] = '选择左面的菜单继续下一步';
+
+$lang['viewLogs'] = '查看日志';
+$lang['globalSettingTips'] = '通用配置项意味这该列表中的所有设定文件为Hadoop集群通用，而非单独配置。<br />如需单独配置项管理例如针对不同硬件配置所单独设置的hdfs-site.xml或mapred-site.xml，请使用节点配置菜单';

@@ -24,6 +24,11 @@ elseif($_GET['action'] == "GlobalSettings")
 		echo '<a href="HostSettings.php?action=GlobalSettings&do=EtcHosts" class="btn">'.$lang['etchostsSettings'].'</a>';
 		
 		echo '<h2>'.$lang['globalSettings'].'</h2>';
+		
+		echo '<div class="alert alert-error">';
+		echo $lang['globalSettingTips'];
+		echo '</div>';
+		
 		echo '<table class="table table-striped">';
 		echo '<thead>
                 <tr>
