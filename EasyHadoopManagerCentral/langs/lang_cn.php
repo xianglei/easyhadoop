@@ -101,7 +101,8 @@ $lang['namenodeFormatWarn'] = '由于可能造成误操作，暂不开放Namenod
 $lang['unknownCommand'] = '无法识别的命令：';
 $lang['chooseLeftSidebar'] = '选择左面的菜单继续下一步';
 
-$lang['viewLogs'] = '查看日志';
+$lang['viewLogs'] = '查看节点日志';
+$lang['logs'] = '日志';
 
 $lang['globalSettingTips'] = '通用配置项意味这该列表中的所有设定文件为Hadoop集群通用，而非单独配置。<br />如需单独配置项管理例如针对不同硬件配置所单独设置的hdfs-site.xml或mapred-site.xml，请使用节点配置菜单';
 $lang['nodeSettingTips'] = '节点配置项意味着该设定仅针对用户所选择的服务器，例如针对不同的硬件配置的节点所使用的不同设置，如hdfs-site.xml或mapred-site.xml';
@@ -109,3 +110,4 @@ $lang['addNodeTips'] = '增加集群中的节点，主机名称为该节点所�
 $lang['removeNodeTips'] = '删除节点，请注意：<br />删除节点并不能停止和卸载该节点上的Hadoop，如需卸载请选择安装节点中的卸载菜单。<br />删除节点将删除该节点的元数据和与节点相关的节点配置项。';
 $lang['modifyNodeTips'] = '修改节点设置：<br />修改节点设置请慎重，除非你确定需要修改其IP，角色或主机名称。<br />且修改节点不会影响到节点的配置项，如需修改配置，请到节点配置中进行修改，并重新推送配置到Hadoop节点上。';
 $lang['pushSettingFileTips'] = '推送配置文件是将目前在EasyHadoopManager中保存的配置文件推送到选定节点上。<br />推送通用文件意味着将所有全局可用的配置推送到该节点，比如/etc/hosts。<br />推送自身配置意味着将推动在节点设置中针对该节点所配置的独立配置项的全部文件。';
+

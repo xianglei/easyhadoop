@@ -137,6 +137,86 @@ elseif ($_GET['action'] == "FormatNamenode")
 	echo "<h1>".$lang['namenodeFormatWarn']."</h1>";
 	echo "</div>";
 }
+elseif ($_GET['action'] == "ViewLogs")
+{
+	if(!$_GET['ip'])
+	{
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<div class=span10>';
+		
+		echo '<h2>'.$lang['operateNode'].'</h2>';
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                <tr>
+                  <th>#</th>
+                  <th>'.$lang['hostname'].'</th>
+                  <th>'.$lang['ipAddr'].'</th>
+                  <th>'.$lang['action'].'</th>
+                </tr>
+                </thead>
+                <tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			$role = $arr['role'];
+			$arr_role = explode(",",$role);
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>';
+                  	
+                  	
+			foreach($arr_role as $key => $value)
+			{
+					 echo '<td>';
+					 
+					 echo '
+					 <div class="btn-group">
+                  		<a class="btn" href="NodeOperator.php?action=ViewLogs&ip='.$arr['ip'].'&role='.$value.'&hostname='.$arr['hostname'].'">'.$value.$lang['logs']'</a>
+              				</div>';
+            		echo '</td>';
+	        }
+			
+            echo '</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}#not any action
+	else
+	{
+		$hostname = $_GET['hostname'];
+		$ip = $_GET['ip'];
+		$action = $_GET['action'];
+		$role = $_GET['role'];
+		
+		$command = "TailLogs:".$role.":".$hostname;
+		echo '<div class=span10>';
+		echo '<pre>';
+			
+		$action = $_GET['action'].$_GET['which'];
+		$ip = $_GET['ip'];
+			
+		if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
+		{
+				fwrite($fp, $action."\n");
+				while(!feof($fp))
+				{
+					$str .= fread($fp,1024);
+				}
+				echo str_replace("\n","<br/>",$str);
+				fclose($fp);
+		}
+		else
+		{
+			echo $lang['notConnected'];
+		}
+
+		echo '</pre>';
+		echo '</div>';
+	}
+}
 else
 {
 	echo '<div class=span10>';
