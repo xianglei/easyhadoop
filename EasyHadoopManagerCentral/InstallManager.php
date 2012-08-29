@@ -195,6 +195,11 @@ elseif($_GET['action'] == "PushFiles")
 	{
 		echo '<div class=span10>';
 		echo '<h2>'.$lang['pushFiles'].'</h2>';
+		
+		echo '<div class="alert alert-error">';
+		echo $lang['pushSettingFileTips'];
+		echo '</div>';
+		
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
