@@ -174,19 +174,10 @@ elseif($_GET['action'] == 'NodeSettings')
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
-                  	<div class="btn-group">
-                	<button class="btn dropdown-toggle" data-toggle="dropdown">'.$lang['action'].' <span class="caret"></span></button>
-                	<ul class="dropdown-menu">
-                  	<li><a href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a></li>
-                   	 <li class="divider"></li>
-                  	<li><a href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a></li>
-                	</ul>
-              		</div>
-					
-					<!--<div class="btn-group">
+					<div class="btn-group">
 						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>
    						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
-                  	</div>-->
+                  	</div>
                   	
                   	</td>
                 	</tr>';
