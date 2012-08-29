@@ -9,7 +9,7 @@ $mysql = new Mysql();
 if(!@$_GET['action'])
 {
 	echo '<div class="span10">
-	Choose left sidebar for next step.
+	'.$lang['chooseLeftSidebar'].'
 	</div>';
 }
 elseif($_GET['action'] == "GlobalSettings")

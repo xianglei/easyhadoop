@@ -294,7 +294,10 @@ elseif($_GET['action'] == "PushHadoopFiles")
 		echo '<div class=span10>';
 		echo '<h2>'.$lang['pushHadoopFiles'].'</h2>';
 		echo '<div class="alert alert-error">';
-		echo $lang['pushTips'];
+		echo $lang['pushTipsDanger'];
+		echo '</div>';
+		echo '<div class="alert">';
+		echo $lang['pushTipsWarn'];
 		echo '</div>';
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
