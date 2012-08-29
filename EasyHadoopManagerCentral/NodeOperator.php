@@ -45,9 +45,9 @@ elseif($_GET['action'] == "Operate")
    					 <a class="btn" href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'">'.$lang['start'].$value.'</a>
    					 <a class="btn" href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'">'.$lang['stop'].$value.'</a>
 					 <a class="btn" href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'">'.$lang['restart'].$value.'</a>';
-	        	echo '</div>
+	        	echo '</div>';
 	        }
-            			</td>
+            echo '</td>
                			</tr>';
 			$i++;
 		}
