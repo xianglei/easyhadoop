@@ -68,6 +68,7 @@ elseif($_GET['action'] == "Operate")
 	}#not any action
 	else
 	{
+		echo '<div class=span10>';
 		switch ($_GET['do'])
 		{
 			case 'Start':
@@ -127,6 +128,7 @@ elseif($_GET['action'] == "Operate")
 		}
 
 		echo '</pre>';
+		echo '</div>';
 	}
 }
 ?>
