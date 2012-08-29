@@ -48,7 +48,7 @@ elseif($_GET['action'] == "Operate")
 					 echo '<td>';
 					 
 					 echo '<div class="btn-group">
-                		<button class="btn">'.$lang['action'].'</button>
+                		<button class="btn">'.$value.'</button>
                 		<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                 		<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'">'.$lang['start'].$value.'</a></li>
