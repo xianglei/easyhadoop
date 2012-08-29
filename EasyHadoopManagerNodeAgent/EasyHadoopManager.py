@@ -218,11 +218,11 @@ class ClientThread( threading.Thread ):
 				self.writeline( 'Finish EasyHadoop Manager' )
 				QUIT = True
 				done = True
-				#self.client.close()
+				self.client.close()
 			elif 'bye' == cmd:
 				self.writeline( 'Quit Install Process' )
 				done = True
-				#self.client.close()
+				self.client.close()
 			##########################
 			#Install Modules
 			##########################
@@ -234,14 +234,14 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
-				#self.client.close()
+				self.client.close()
 			elif 'GetSystemVer' == cmd:
 				'''
 				Get system version
 				'''
 				tmp = install.GetSystemVer()
 				self.writeline(tmp)
-				#self.client.close()
+				self.client.close()
 			elif 'InstallEnvironment' == cmd:
 				'''
 				Installing environment
@@ -253,7 +253,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
-				#self.client.close()
+				self.client.close()
 			elif 'InstallJava' == cmd:
 				'''
 				Installing Java JDK
@@ -262,7 +262,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
-				#self.client.close()
+				self.client.close()
 			elif 'InstallLzo' == cmd:
 				'''
 				Installing Lzo libary
@@ -271,7 +271,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
-				#self.client.close()
+				self.client.close()
 			elif 'InstallLzop' == cmd:
 				'''
 				Installing Lzop libary
@@ -280,7 +280,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
-				#self.client.close()
+				self.client.close()
 			elif 'InstallHadoopgpl' == cmd:
 				'''
 				Installing hadoopgpl libary
@@ -289,7 +289,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
-				#self.client.close()
+				self.client.close()
 			elif 'CopyHadoopgplFiles' == cmd:
 				'''
 				copy gpl files to /usr/share/hadoop/lib/
@@ -298,7 +298,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline(cmd + " installed")
-				#self.client.close()
+				self.client.close()
 			##########################
 			#Format namenode module, do not use this
 			##########################
@@ -310,7 +310,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Namenode formatted")
-				#self.client.close()
+				self.client.close()
 			##########################
 			#Start Hadoop Modules
 			##########################
@@ -322,7 +322,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Namenode started")
-				#self.client.close()
+				self.client.close()
 			elif 'StartSecondaryNamenode' == cmd:
 				'''
 				Starting SecondaryNamenode
@@ -331,7 +331,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("SecondaryNamenode started")
-				#self.client.close()
+				self.client.close()
 			elif 'StartDatanode' == cmd:
 				'''
 				Starting Datanode
@@ -340,7 +340,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Datanode started")
-				#self.client.close()
+				self.client.close()
 			elif 'StartJobtracker' == cmd:
 				'''
 				Starting Jobtracker
@@ -349,7 +349,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Jobtracker started")
-				#self.client.close()
+				self.client.close()
 			elif 'StartTasktracker' == cmd:
 				'''
 				Starting Tasktracker
@@ -358,7 +358,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Tasktracker started")
-				#self.client.close()
+				self.client.close()
 			##########################
 			#Stop Hadoop Modules
 			##########################
@@ -370,7 +370,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Namenode stopped")
-				#self.client.close()
+				self.client.close()
 			elif 'StopSecondaryNamenode' == cmd:
 				'''
 				Stopping SecondaryNamenode
@@ -379,7 +379,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("SecondaryNamenode stopped")
-				#self.client.close()
+				self.client.close()
 			elif 'StopDatanode' == cmd:
 				'''
 				Stopping Datanode
@@ -388,7 +388,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Datanode stopped")
-				#self.client.close()
+				self.client.close()
 			elif 'StopJobtracker' == cmd:
 				'''
 				Stopping Jobtracker
@@ -397,7 +397,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Jobtracker stopped")
-				#self.client.close()
+				self.client.close()
 			elif 'StopTasktracker' == cmd:
 				'''
 				Stopping Tasktracker
@@ -406,7 +406,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Tasktracker stopped")
-				#self.client.close()
+				self.client.close()
 			##########################
 			#Uninstall Hadoop and Java Modules
 			##########################
@@ -418,7 +418,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Uninstall Hadoopgpl finished")
-				#self.client.close()
+				self.client.close()
 			elif 'UninstallHadoop' == cmd:
 				'''
 				Uninstalling Hadoop
@@ -427,7 +427,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Uninstall Hadoop finished")
-				#self.client.close()
+				self.client.close()
 			elif 'UninstallJava' == cmd:
 				'''
 				Uninstalling Java
@@ -436,7 +436,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Uninstall JDK finished")
-				#self.client.close()
+				self.client.close()
 			##########################
 			elif 'FileTransport' == cmd[0:13]:
 				'''
@@ -447,13 +447,13 @@ class ClientThread( threading.Thread ):
 				filename = cmd[15:].strip()
 				self.FileTransport( filename )
 				self.writeline( filename + "Updated")
-				#self.client.close()
+				self.client.close()
 			else:
 				self.writeline( "Unknown Command" )
-				#self.client.close()
+				self.client.close()
 
 			cmd = self.readline()
-		self.client.close()
+		#self.client.close()
 		return
 
 	def FileTransport( self, filename ):
@@ -635,7 +635,7 @@ class Server:
 			print 'Exception caught: %s\nClosing...' % err
 		for thread in self.thread_list:
 			thread.join( 1.0 )
-		self.sock.close()
+		#self.sock.close()
 
 if "__main__" == __name__:
 	#server = Server()
