@@ -33,6 +33,11 @@ $lang['restartJobtracker'] = "重启Jobtracker";
 $lang['restartTasktracker'] = "重启Tasktracker";
 $lang['operateNode'] = '节点操作管理';
 
+$lang['formatNamenode'] = '格式化Namenode';
+$lang['start'] = '启动';
+$lang['stop'] = '停止';
+$lang['restart'] = '重启';
+
 $lang['nodeStatus'] = "节点状态";
 $lang['confirm'] = '确认';
 $lang['cancel'] = '取消';

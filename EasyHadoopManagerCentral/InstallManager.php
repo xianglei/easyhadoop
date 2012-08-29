@@ -56,8 +56,8 @@ elseif($_GET['action'] == "Install")
 		echo '<div class="span10">
 		<div class="btn-toolbar">
 		<div class="btn-group">
-	
-		<a href="InstallManager.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>
+		<a href="InstallManager.php?action=Install&which=Environment&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>	
+		<a href="InstallManager.php?action=Install&which=Lzo&ip='.$ip.'" class="btn">'.$lang['installLzo'].'</a>		
 		<a href="InstallManager.php?action=Install&which=Lzop&ip='.$ip.'" class="btn">'.$lang['installLzop'].'</a>
 		<a href="InstallManager.php?action=Install&which=Hadoopgpl&ip='.$ip.'" class="btn">'.$lang['installHadoopgpl'].'</a>
 		<a href="InstallManager.php?action=Install&which=Java&ip='.$ip.'" class="btn">'.$lang['installJava'].'</a>
