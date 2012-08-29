@@ -452,7 +452,7 @@ class ClientThread( threading.Thread ):
 				self.writeline( "Unknown Command" )
 				self.client.close()
 
-		cmd = self.readline()
+			cmd = self.readline()
 		#self.client.close()
 		return
 
