@@ -635,7 +635,7 @@ class Server:
 			print 'Exception caught: %s\nClosing...' % err
 		for thread in self.thread_list:
 			thread.join( 1.0 )
-		#self.sock.close()
+		self.sock.close()
 
 if "__main__" == __name__:
 	#server = Server()
