@@ -46,8 +46,13 @@ elseif ($_GET['action'] == "AddNode")
 	if(!$_POST['ip'] && !$_POST['hostname'] && !$_POST['role'])
 	{
 		echo '<div class="span10">
-            <h1>'.$lang['addNode'].'</h1>
-            <form method=POST>
+            <h1>'.$lang['addNode'].'</h1>';
+            
+        echo '<div class="alert alert-error">';
+		echo $lang['addNodeTips'];
+		echo '</div>';
+			
+        echo '<form method=POST>
 				<label>'.$lang['hostname'].'</label><br />
 				<input type="text" placeholder="'.$lang['hostname'].'" name="hostname" /><br />
 				<label>'.$lang['ipAddr'].'</label><br />

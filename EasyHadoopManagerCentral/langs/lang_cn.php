@@ -102,4 +102,7 @@ $lang['unknownCommand'] = '无法识别的命令：';
 $lang['chooseLeftSidebar'] = '选择左面的菜单继续下一步';
 
 $lang['viewLogs'] = '查看日志';
+
 $lang['globalSettingTips'] = '通用配置项意味这该列表中的所有设定文件为Hadoop集群通用，而非单独配置。<br />如需单独配置项管理例如针对不同硬件配置所单独设置的hdfs-site.xml或mapred-site.xml，请使用节点配置菜单';
+$lang['nodeSettingTips'] = '节点配置项意味着该设定仅针对用户所选择的服务器，例如针对不同的硬件配置的节点所使用的不同设置，如hdfs-site.xml或mapred-site.xml';
+$lang['addNodeTips'] = '增加集群中的节点，主机名称为该节点所使用的hostname，例如hadoopmaster。<br />IP地址为该节点所配置的IP<br />角色为该节点在集群中所担负的任务。例如namenode或者jobtracker或datanode等。<br />请使用小写输入节点角色，多个角色之间用英文半角逗号分隔。';

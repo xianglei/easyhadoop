@@ -155,6 +155,11 @@ elseif($_GET['action'] == 'NodeSettings')
 	{
 		echo '<div class=span10>';
 		echo '<h2>'.$lang['hostSettings'].'</h2>';
+		
+		echo '<div class="alert alert-error">';
+		echo $lang['nodeSettingTips'];
+		echo '</div>';
+		
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
