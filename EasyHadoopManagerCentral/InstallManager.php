@@ -184,7 +184,7 @@ elseif($_GET['action'] == "Uninstall")
 		}
 		echo "<br />";
 		echo "<pre>";
-		echo 'The Chosen host is '.$ip;
+		echo 'The Chosen host is <div class="alert alert-error">'.$ip."</div>";
 		echo "</pre>";
 		echo '</div>';// span10
 	}
