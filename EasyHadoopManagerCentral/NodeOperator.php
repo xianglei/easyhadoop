@@ -173,7 +173,7 @@ elseif ($_GET['action'] == "ViewLogs")
 					 
 					 echo '
 					 <div class="btn-group">
-                  		<a class="btn" href="NodeOperator.php?action=ViewLogs&ip='.$arr['ip'].'&role='.$value.'&hostname='.$arr['hostname'].'">'.$value.$lang['logs']'</a>
+                  		<a class="btn" href="NodeOperator.php?action=ViewLogs&ip='.$arr['ip'].'&role='.$value.'&hostname='.$arr['hostname'].'">'.$value.$lang['logs'].'</a>
               				</div>';
             		echo '</td>';
 	        }
