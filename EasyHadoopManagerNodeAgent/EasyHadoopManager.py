@@ -180,8 +180,8 @@ class Install:
 	#Start Hadoop Functions
 	##########################
 	def StartHadoop ( self, type ):
-		title = ['Starting Namenode...\n']
 		t = type.strip()
+		title = ['Starting '+ t +'...\n']
 		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh start " + t).readlines()
 		title.extend(tmp)
 		return title
@@ -189,8 +189,8 @@ class Install:
 	#Restart Hadoop Functions
 	##########################
 	def RestartHadoop ( self, type ):
-		title = ['Starting Namenode...\n']
 		t = type.strip()
+		title = ['Starting '+ t +'...\n']
 		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh stop " + t).readlines()
 		time.sleep(1)
 		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh start " + t).readlines()
@@ -200,8 +200,8 @@ class Install:
 	#Stop Hadoop Functions
 	##########################
 	def StopHadoop ( self, type ):
-		title = ['Stopping Namenode...\n']
 		t = type.strip()
+		title = ['Starting '+ t +'...\n']
 		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh stop " + t).readlines()
 		title.extend(tmp)
 		return title
