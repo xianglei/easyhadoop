@@ -4,6 +4,8 @@ include_once "config.inc.php";
 include_once "templates/header.html";
 include_once "templates/node_operator_sidebar.html";
 
+$mysql = new Mysql();
+
 if(!@$_GET['action'])
 {
 	echo '<div class="span10">
