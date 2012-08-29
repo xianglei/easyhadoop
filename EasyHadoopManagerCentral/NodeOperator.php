@@ -41,14 +41,16 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>
                   	<td>';
+                  	echo '<div class="btn-group">';
 			foreach($arr_role as $key => $value)
 			{
-            	echo '<div class="btn-group">			
-   					 <a class="btn" href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'">'.$lang['start'].$value.'</a>
-   					 <a class="btn" href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'">'.$lang['stop'].$value.'</a>
-					 <a class="btn" href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'">'.$lang['restart'].$value.'</a>';
-	        	echo '</div>';
+            			
+   					 echo '<a class="btn" href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'">'.$lang['start'].$value.'</a>
+   					 <a class="btn btn-danger" href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'">'.$lang['stop'].$value.'</a>
+					 <a class="btn btn-danger" href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'">'.$lang['restart'].$value.'</a>';
+	        	
 	        }
+			echo '</div>';
             echo '</td>
                			</tr>';
 			$i++;
