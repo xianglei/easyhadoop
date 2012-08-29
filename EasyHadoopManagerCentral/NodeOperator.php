@@ -28,6 +28,7 @@ elseif($_GET['action'] == "Operate")
                   <th>'.$lang['hostname'].'</th>
                   <th>'.$lang['ipAddr'].'</th>
                   <th>'.$lang['action'].'</th>
+                  <th>'.$lang['action'].'</th>
                 </tr>
                 </thead>
                 <tbody>';
@@ -39,20 +40,21 @@ elseif($_GET['action'] == "Operate")
 			echo '<tr>
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
-                  	<td>'.$arr['ip'].'</td>
-                  	<td>';
-                  	echo '<div class="btn-group">';
+                  	<td>'.$arr['ip'].'</td>';
+                  	
+                  	
 			foreach($arr_role as $key => $value)
 			{
-            			
+					 echo '<td>';
+            		 echo '<div class="btn-group">';
    					 echo '<a class="btn" href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'">'.$lang['start'].$value.'</a>
    					 <a class="btn btn-danger" href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'">'.$lang['stop'].$value.'</a>
 					 <a class="btn btn-danger" href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'">'.$lang['restart'].$value.'</a>';
-	        	
+	        		echo '</div>';
+            		echo '</td>';
 	        }
-			echo '</div>';
-            echo '</td>
-               			</tr>';
+			
+            echo '</tr>';
 			$i++;
 		}
 		echo '</tbody></table>';
