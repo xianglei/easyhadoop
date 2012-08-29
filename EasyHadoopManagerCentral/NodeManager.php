@@ -82,9 +82,14 @@ elseif ($_GET['action'] == "RemoveNode")
 	if(!$_GET['nodeid'])
 	{
 		echo '<div class=span10>';
-	
+		echo '<h1>'.$lang['removeNode'].'</h1>';
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
+		
+		echo '<div class="alert alert-error">';
+		echo $lang['addNodeTips'];
+		echo '</div>';
+		
 		echo '<table class="table table-striped">';
 		echo '<thead>
                 	<tr>
@@ -130,7 +135,12 @@ elseif ($_GET['action'] == "ModifyNode")
 	if(!$_GET['ip'])
 	{
 		echo '<div class=span10>';
-	
+		echo '<h1>'.$lang['modifyNode'].'</h1>';
+		
+		echo '<div class="alert alert-error">';
+		echo $lang['modifyNodeTips'];
+		echo '</div>';
+		
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<table class="table table-striped">';
