@@ -508,7 +508,7 @@ class ClientThread( threading.Thread ):
 				self.writeline( filename + "Updated")
 				self.client.close()
 			else:
-				self.writeline( "Unknown Command" )
+				self.writeline( "Unknown Command: " + cmd )
 				self.client.close()
 
 			cmd = self.readline()

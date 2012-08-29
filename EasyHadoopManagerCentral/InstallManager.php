@@ -76,7 +76,7 @@ elseif($_GET['action'] == "Install")
 			
 			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 			{
-					fwrite($fp, $action);
+					fwrite($fp, $action."\n");
 					while(!feof($fp))
 					{
 						$str .= fread($fp,1024);
