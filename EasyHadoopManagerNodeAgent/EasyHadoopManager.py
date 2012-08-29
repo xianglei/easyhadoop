@@ -211,7 +211,7 @@ class ClientThread( threading.Thread ):
 	def run( self ):
 		global QUIT
 		done = False
-		cmd = self.readline()
+		cmd = self.readsocket()
 		install = Install()
 		while not done:
 			if 'finish' == cmd :
@@ -452,7 +452,7 @@ class ClientThread( threading.Thread ):
 				self.writeline( "Unknown Command" )
 				self.client.close()
 
-			cmd = self.readline()
+			cmd = self.readsocket()
 		self.client.close()
 		return
 
@@ -468,7 +468,7 @@ class ClientThread( threading.Thread ):
 		f.close()
 		return
 
-	def readline( self ):
+	def readsocket( self ):
 		result = self.client.recv( 1024 )
 		if( None != result ):
 			result = result.strip()
