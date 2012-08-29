@@ -9,7 +9,7 @@ $mysql = new Mysql();
 if(!@$_GET['action'])
 {
 	echo '<div class="span10">
-	Choose left sidebar for next step.
+	'.$lang['chooseLeftSidebar'].'
 	</div>';
 }
 elseif($_GET['action'] == "Operate")
@@ -82,7 +82,7 @@ elseif($_GET['action'] == "Operate")
 				break;
 			
 			default:
-				die("<pre>Unknown Command</pre>");
+				die("<pre>".$lang['unknownCommand']."</pre>");
 				break;
 		}
 		
@@ -105,7 +105,7 @@ elseif($_GET['action'] == "Operate")
 				break;
 			
 			default:
-				die("<pre>Unknown Command</pre>");
+				die("<pre>".$lang['unknownCommand']."</pre>");
 				break;
 		}
 
@@ -131,4 +131,18 @@ elseif($_GET['action'] == "Operate")
 		echo '</div>';
 	}
 }
+elseif ($_GET['action'] == "FormatNamenode")
+{
+	echo '<div class=span10>';
+	echo "<h1>".$lang['namenodeFormatWarn']."</h1>";
+	echo "</div>";
+}
+else
+{
+	echo '<div class=span10>';
+	echo "<h1>".$lang['unknownCommand']."</h1>";
+	echo "</div>";
+}
+
+include_once "templates/footer.html";
 ?>
