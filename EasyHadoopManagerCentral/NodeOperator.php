@@ -203,11 +203,11 @@ elseif ($_GET['action'] == "CheckHadoopProcess")
                	$str = $node->CheckHadoopProcess($arr['ip'], $value);
 				if($str == "")
 				{
-					echo $value." -> ".<span class=\"label label-important\">".$lang['notStarted']."</span>";
+					echo $value." -> <span class=\"label label-important\">".$lang['notStarted']."</span>";
 				}
 				else
 				{
-					echo $value." -> ".<span class=\"label label-success\">".$lang['processId'].":".$str."</span>";
+					echo $value." -> <span class=\"label label-success\">".$lang['processId'].":".$str."</span>";
 				}
 				
            		echo '</td>';
