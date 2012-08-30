@@ -303,7 +303,7 @@ class Install extends Socket
 		}
 		else
 		{
-			return $this->mRpmName. "not installed";
+			return $this->mRpmName. " not installed";
 		}
 	}
 	
@@ -328,7 +328,7 @@ class Install extends Socket
 		}
 		else
 		{
-			return $this->mRpmName. "not installed";
+			return $this->mRpmName. " not installed";
 		}
 	}
 	
@@ -353,7 +353,7 @@ class Install extends Socket
 		}
 		else
 		{
-			return $this->mRpmName. "not installed";
+			return $this->mRpmName. " not installed";
 		}
 	}
 
