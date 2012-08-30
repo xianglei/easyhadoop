@@ -32,7 +32,7 @@ class Install:
 		print command
 		tmp_in,tmp_out = os.popen4( command )
 		tmp = tmp_out.readlines()
-		title = title.extend(tmp_out)
+		title = title.extend(tmp)
 		return title
 	
 	def CheckFileStatus(self, filename):
