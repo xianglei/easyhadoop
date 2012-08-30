@@ -83,11 +83,11 @@ class Install extends Socket
 		$this->mFilename = "/home/hadoop/hadoop-1.0.3-1.x86_64.rpm";
 		if($this->CheckFileExists())
 		{
-			$this->mCommand = $this->cAgentRunShell.":/usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop && cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers";
+			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop";
 		}
 		else
 		{
-			$this->mCommand = $this->cAgentRunShell.":/usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop && mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers";
+			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop";
 		}
 		sleep(1);
 		if($str = $this->SocketCommand())
@@ -279,6 +279,7 @@ class Install extends Socket
 		{
 			return $lang['notConnected'];
 		}
+		return $ret;
 		sleep(1);
 		$this->mCommand = $this->cAgentRunShell.":cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		if($str = $this->SocketCommand())
@@ -289,7 +290,6 @@ class Install extends Socket
 		{
 			return $lang['notConnected'];
 		}
-		return $ret;
 	}
 
 	############################################
