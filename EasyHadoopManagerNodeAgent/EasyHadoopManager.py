@@ -216,7 +216,7 @@ class Install:
 	##########################
 	#Tail Logs
 	##########################
-	def TailLogs (self, type, hostname)
+	def TailLogs (self, type, hostname):
 		title = ['Cat hadoop logs...\n']
 		tmp = os.popen("tail -f -n 1000 /var/log/hadoop/hadoop-hadoop-"+type+"-"+hostname+".log")
 		title.extend(tmp)
