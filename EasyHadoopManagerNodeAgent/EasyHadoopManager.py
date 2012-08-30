@@ -37,7 +37,7 @@ class Install:
 	def CheckFileStatus(self, filename):
 		if os.path.isfile( filename ) == False:
 			title = ["FALSE"]
-		else
+		else:
 			title = ["TRUE"];
 			return title
 

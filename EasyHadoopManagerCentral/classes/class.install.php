@@ -9,7 +9,7 @@ class Install extends Socket
 	
 	private $cAgentRunShell = "RunShellScript";
 	private $cGetSystemVer = "GetSystemVer";
-	private $cGetFileStatus = "CheckFileStatus";
+	private $cCheckFileStatus = "CheckFileStatus";
 	
 	/*
 	 * 继承socket类
@@ -368,7 +368,7 @@ class Install extends Socket
 	###########################################
 	private function CheckFileExists()
 	{
-		$this->mCommand = $this->cGetFileStatus.":".$this->mFilename;
+		$this->mCommand = $this->cCheckFileStatus.":".$this->mFilename;
 		
 		$str = $this->SocketCommand();
 		if(trim($str) == "TRUE")
