@@ -292,7 +292,6 @@ class Install extends Socket
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
 			sleep(1);
-			$str = $this->SocketCommand();
 			if($str = $this->SocketCommand())
 			{
 				return $str;
