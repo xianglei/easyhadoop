@@ -30,7 +30,8 @@ class Install:
 	def RunShellScript(self, command):
 		title = ['Run shell script...\n']
 		print command
-		tmp_in,tmp_out = os.popen4( command ).readlines()
+		tmp_in,tmp_out = os.popen4( command )
+		tmp = tmp_out.readlines()
 		title = title.extend(tmp_out)
 		return title
 	
