@@ -16,14 +16,6 @@ class Socket
 				$str .= fread($fp,1024);
 			}
 			fclose($fp);
-			if($str == "")
-			{
-				$str = "Return Null";
-			}
-			else
-			{
-				$str = $str;
-			}
 			return $str;
 		}
 		else
