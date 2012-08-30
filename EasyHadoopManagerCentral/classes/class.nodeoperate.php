@@ -7,7 +7,7 @@ class Node extends Socket
 	public function HadoopStart($pHost, $pRole)
 	{
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":hadoop-daemon.sh start ".$pRole;
+		$this->mCommand = $this->cAgentRunShell.":sudo -u hadoop hadoop-daemon.sh start ".$pRole;
 		
 		if($this->SocketCommand())
 		{
@@ -23,7 +23,7 @@ class Node extends Socket
 	public function HadoopStop($pHost, $pRole)
 	{
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":hadoop-daemon.sh stop ".$pRole;
+		$this->mCommand = $this->cAgentRunShell.":sudo -u hadoop hadoop-daemon.sh stop ".$pRole;
 		
 		if($this->SocketCommand())
 		{
@@ -39,7 +39,7 @@ class Node extends Socket
 	public function HadoopRestart($pHost, $pRole)
 	{
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":hadoop-daemon.sh stop ".$pRole;
+		$this->mCommand = $this->cAgentRunShell.":sudo -u hadoop hadoop-daemon.sh stop ".$pRole;
 		
 		if($this->SocketCommand())
 		{
@@ -51,7 +51,7 @@ class Node extends Socket
 		}
 		sleep(3);
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":hadoop-daemon.sh start ".$pRole;
+		$this->mCommand = $this->cAgentRunShell.":sudo -u hadoop hadoop-daemon.sh start ".$pRole;
 		
 		if($this->SocketCommand())
 		{
