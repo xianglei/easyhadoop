@@ -108,7 +108,7 @@ class Install extends Socket
 		global $lang;
 		$this->mHost = $pHost;
 		$ver = $this->GetSystemVer();
-		if($ver == "5")
+		if(trim($ver) == "5")
 		{
 			$this->mFilename = "/home/hadoop/lzo-2.06-1.el5.rf.x86_64.rpm";
 			if($this->CheckFileExists())
@@ -167,7 +167,7 @@ class Install extends Socket
 				$ret =  $lang['notConnected'];
 			}
 		}
-		elseif($ver == "6")
+		elseif(trim($ver) == "6")
 		{
 			$this->mFilename = "/home/hadoop/lzo-2.06-1.el6.rfx.x86_64.rpm";
 			if($this->CheckFileExists())
@@ -225,6 +225,10 @@ class Install extends Socket
 			{
 				$ret =  $lang['notConnected'];
 			}
+		}
+		elseif($ver == $lang['notConnected'])
+		{
+			$ret = $lang['notConnected'];
 		}
 		else
 		{
@@ -317,7 +321,7 @@ class Install extends Socket
 		}
 		else
 		{
-			$str = FALSE;
+			$str = $lang['notConnected'];
 		}
 		return $str;
 	}
