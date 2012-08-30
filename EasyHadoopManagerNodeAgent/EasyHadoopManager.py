@@ -381,7 +381,7 @@ class ClientThread( threading.Thread ):
 			##########################
 			#Cat Hadoop Logs
 			##########################
-			elif 'TailLogs' == cmd[:8]:
+			elif 'ViewLogs' == cmd[:8]:
 				'''
 				Cat hadoop Logs
 				Command is TailLogs:datanode:hostname
