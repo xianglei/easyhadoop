@@ -149,7 +149,8 @@ elseif($_GET['action'] == "Uninstall")
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
 			
-			$install->$action($ip);
+			$str = $install->$action($ip);
+			echo $str;
 			
 			echo '</pre>';
 		}
