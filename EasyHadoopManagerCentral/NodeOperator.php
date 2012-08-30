@@ -191,7 +191,7 @@ elseif ($_GET['action'] == "ViewLogs")
 		$action = $_GET['action'];
 		$role = $_GET['role'];
 		
-		$command = "TailLogs:".$role.":".$hostname;
+		$command = "ViewLogs:".$role.":".$hostname;
 		echo '<div class=span10>';
 		echo '<pre>';
 			
