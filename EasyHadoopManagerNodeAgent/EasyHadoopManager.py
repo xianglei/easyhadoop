@@ -31,7 +31,7 @@ class Install:
 		title = ['Run shell script...\n']
 		print command
 		tmp = os.popen("command").readlines()
-		title = extend(tmp)
+		title = title.extend(tmp)
 		return title
 	
 	def CheckFileStatus(self, filename):
