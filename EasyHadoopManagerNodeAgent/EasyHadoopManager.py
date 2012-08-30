@@ -30,10 +30,10 @@ class Install:
 	def RunShellScript(self, command):
 		print command
 		tmp_in,tmp_out,tmp_err = os.popen3( command )
-		tmp_out = tmp_out.readlines()
-		tmp_err = tmp_err.readlines()
-		tmp_out = tmp_out.extend(tmp_err)
-		tmp = tmp_out
+		aout = tmp_out.readlines()
+		aerr = tmp_err.readlines()
+		a = aout + aerr
+		tmp = a
 		return tmp
 	
 	def CheckFileStatus(self, filename):
