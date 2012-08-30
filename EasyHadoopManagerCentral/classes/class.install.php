@@ -287,7 +287,8 @@ class Install extends Socket
 		global $lang;
 		$this->mHost = $pHost;
 		$this->mRpmName = "jdk-1.7.0_05-fcs";
-		if(($str = $this->GetRpmStatus()))
+		$str = $this->GetRpmStatus();
+		if($str != "")
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
 			sleep(1);
@@ -302,7 +303,7 @@ class Install extends Socket
 		}
 		else
 		{
-			return $lang['notConnected'];
+			return $this->mRpmName. "not installed";
 		}
 	}
 	
@@ -311,7 +312,8 @@ class Install extends Socket
 	{
 		$this->mHost = $pHost;
 		$this->mRpmName = "hadoop-1.0.3-1";
-		if(($str = $this->GetRpmStatus()))
+		$str = $this->GetRpmStatus();
+		if($str != "")
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
 			sleep(1);
@@ -326,7 +328,7 @@ class Install extends Socket
 		}
 		else
 		{
-			return $lang['notConnected'];
+			return $this->mRpmName. "not installed";
 		}
 	}
 	
@@ -335,7 +337,8 @@ class Install extends Socket
 	{
 		$this->mHost = $pHost;
 		$this->mRpmName = "hadoop-gpl-packaging-0.5.3-1";
-		if(($str = $this->GetRpmStatus()))
+		$str = $this->GetRpmStatus();
+		if($str != "")
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
 			sleep(1);
@@ -350,7 +353,7 @@ class Install extends Socket
 		}
 		else
 		{
-			return $lang['notConnected'];
+			return $this->mRpmName. "not installed";
 		}
 	}
 

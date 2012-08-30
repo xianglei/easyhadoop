@@ -32,8 +32,7 @@ class Install:
 		tmp_in,tmp_out,tmp_err = os.popen3( command )
 		aout = tmp_out.readlines()
 		aerr = tmp_err.readlines()
-		a = aout + aerr
-		tmp = a
+		tmp = aout + aerr
 		return tmp
 	
 	def CheckFileStatus(self, filename):
