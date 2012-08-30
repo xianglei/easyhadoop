@@ -63,7 +63,7 @@ class Install extends Socket
 		{
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm";
 		}
-		
+		sleep(1);
 		if($str = $this->SocketCommand())
 		{
 			return $str;
@@ -88,6 +88,7 @@ class Install extends Socket
 		{
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop";
 		}
+		sleep(1);
 		if($str = $this->SocketCommand())
 		{
 			return $str;
@@ -289,6 +290,7 @@ class Install extends Socket
 		if(($str = $this->GetRpmStatus()))
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
+			sleep(1);
 			if($str = $this->SocketCommand())
 			{
 				return $str;
@@ -312,6 +314,7 @@ class Install extends Socket
 		if(($str = $this->GetRpmStatus()))
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
+			sleep(1);
 			if($str = $this->SocketCommand())
 			{
 				return $str;
@@ -335,6 +338,7 @@ class Install extends Socket
 		if(($str = $this->GetRpmStatus()))
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
+			sleep(1);
 			if($str = $this->SocketCommand())
 			{
 				return $str;
