@@ -37,7 +37,7 @@ class Install extends Socket
 		global $lang;
 		$this->mHost = $pHost;
 		$this->mCommand = $this->cAgentRunShell.":yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo && ntpdate cn.pool.ntp.org";
-		if($str = $this->SocketCommand() && $str != FALSE)
+		if($str = $this->SocketCommand())
 		{
 			return $str;
 		}
@@ -65,7 +65,7 @@ class Install extends Socket
 		}
 		sleep(1);
 		
-		if($str = $this->SocketCommand() && $str != FALSE)
+		if($str = $this->SocketCommand())
 		{
 			return $str;
 		}
@@ -90,7 +90,7 @@ class Install extends Socket
 			$this->mCommand = $this->cAgentRunShell.":/usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop && mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers";
 		}
 		sleep(1);
-		if($str = $this->SocketCommand() && $str != FALSE)
+		if($str = $this->SocketCommand())
 		{
 			return $str;
 		}
@@ -118,7 +118,7 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				$str;
 			}
@@ -137,7 +137,7 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				$str .= $str;
 			}
@@ -156,7 +156,7 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzo-2.06.tar.gz && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				$str .= $str;
 			}
@@ -177,7 +177,7 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				$str;
 			}
@@ -196,7 +196,7 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				$str .= $str;
 			}
@@ -215,7 +215,7 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzo-2.06.tar.gz && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				$str .= $str;
 			}
@@ -246,7 +246,7 @@ class Install extends Socket
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzop-1.03.tar.gz && tar zxf lzop-1.03.tar.gz && cd lzop-1.03 && ./configure && make && make install";
 		}
 		sleep(1);
-		if($str = $this->SocketCommand() && $str != FALSE)
+		if($str = $this->SocketCommand())
 		{
 			return $str;
 		}
@@ -271,7 +271,7 @@ class Install extends Socket
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm";
 		}
 		sleep(1);
-		if($str = $this->SocketCommand() && $str != FALSE)
+		if($str = $this->SocketCommand())
 		{
 			$str;
 		}
@@ -281,7 +281,7 @@ class Install extends Socket
 		}
 		sleep(1);
 		$this->mCommand = $this->cAgentRunShell."cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
-		if($str = $this->SocketCommand() && $str != FALSE)
+		if($str = $this->SocketCommand())
 		{
 			$str .= $str;
 		}
@@ -297,12 +297,12 @@ class Install extends Socket
 		global $lang;
 		$this->mHost = $pHost;
 		$this->mRpmName = "jdk-1.7.0_05-fcs";
-		if(($str = $this->GetRpmStatus()) && $str != FALSE)
+		if(($str = $this->GetRpmStatus()))
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
 			sleep(1);
 			$str = $this->SocketCommand();
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				return $str;
 			}
@@ -322,11 +322,11 @@ class Install extends Socket
 	{
 		$this->mHost = $pHost;
 		$this->mRpmName = "hadoop-1.0.3-1";
-		if(($str = $this->GetRpmStatus()) && $str != FALSE)
+		if(($str = $this->GetRpmStatus()))
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				return $str;
 			}
@@ -346,11 +346,11 @@ class Install extends Socket
 	{
 		$this->mHost = $pHost;
 		$this->mRpmName = "hadoop-gpl-packaging-0.5.3-1";
-		if(($str = $this->GetRpmStatus()) && $str != FALSE)
+		if(($str = $this->GetRpmStatus()))
 		{
 			$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
 			sleep(1);
-			if($str = $this->SocketCommand() && $str != FALSE)
+			if($str = $this->SocketCommand())
 			{
 				return $str;
 			}
