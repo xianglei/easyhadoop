@@ -103,7 +103,7 @@ $lang['chooseLeftSidebar'] = '选择左面的菜单继续下一步';
 
 $lang['viewLogs'] = '查看节点日志';
 $lang['logs'] = '日志';
-$lang['runShellCommand'] = '在节点执行系统命令';
+$lang['runShellCommand'] = '执行系统命令';
 $lang['checkHadoopProcess'] = "查看节点状态";
 $lang['notStarted'] = "未启动";
 $lang['processId'] = "进程ID";
