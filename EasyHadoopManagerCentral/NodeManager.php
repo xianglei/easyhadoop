@@ -111,7 +111,7 @@ elseif ($_GET['action'] == "RemoveNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-remove></i><a class="btn btn-danger" href=NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'>'.$lang['removeNode'].'</a></td>
+                  	<td><i class=icon-remove></i><a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['removeConfirm'].'\', \'NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['removeNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}

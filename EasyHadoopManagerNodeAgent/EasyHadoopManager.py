@@ -41,13 +41,14 @@ class Install:
 	def InstallEnvironment( self ):
 		title = ['Installing Environment...\n']
 		tmp = os.popen("yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo && ntpdate cn.pool.ntp.org").readlines()
+		os.popen("/usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop")
 		title.extend(tmp)
 		return title
 
 	def InstallJava( self ):
 		title = ['Installing JDK...\n']
 		if os.path.isfile("/home/hadoop/jdk-7u5-linux-x64.rpm") == False:
-			tmp = os.popen("/usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop && mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm").readlines()
+			tmp = os.popen("mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm").readlines()
 		else:
 			tmp = os.popen("cd /home/hadoop/ && rpm -Uvh jdk-7u5-linux-x64.rpm").readlines()
 

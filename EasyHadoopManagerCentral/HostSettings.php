@@ -268,7 +268,7 @@ elseif($_GET['action'] == 'NodeSettings')
                  	
 						<div class="btn-group">
 					 		<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$ip.'&set_id='.$arr['set_id'].'">'.$lang['edit'].'</a>
-					 		<a class="btn btn-danger" href="HostSettings.php?action=NodeSettings&do=Remove&ip='.$ip.'&set_id='.$arr['set_id'].'">'.$lang['remove'].'</a>
+					 		<a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['removeConfirm'].'\',\'HostSettings.php?action=NodeSettings&do=Remove&ip='.$ip.'&set_id='.$arr['set_id'].'\');return false;" href="#">'.$lang['remove'].'</a>
                			</div>
                   	
                			</td>
