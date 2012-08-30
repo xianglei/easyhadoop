@@ -14,6 +14,7 @@ import threading
 import time
 import atexit
 import os
+import subprocess
 import string
 import platform
 
@@ -29,10 +30,10 @@ class Install:
 
 	def RunShellScript(self, command):
 		print command
-		tmp_in,tmp_out,tmp_err = os.popen3( command )
-		aout = tmp_out.readlines()
-		aerr = tmp_err.readlines()
-		tmp = aout + aerr
+		a = subprocess.Popen( command, shell=True, stdin=subprocess.PIPE, stdout=subprocee.PIPE, stderr=subprocess.PIPE )
+		tmp_out = a.stdout.readlines()
+		tmp_err = a.stderr.readlines()
+		tmp = tmp_out + tmp_err
 		return tmp
 	
 	def CheckFileStatus(self, filename):
@@ -42,15 +43,6 @@ class Install:
 			title = ["TRUE"];
 			return title
 
-	#def InstallHadoop( self ):
-	#	title = ['Installing Hadoop...\n']
-	#	if os.path.isfile("/home/hadoop/hadoop-1.0.3-1.x86_64.rpm") == False:
-	#		tmp = os.popen("mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
-	#	else:
-	#		tmp = os.popen("cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
-	#	title.extend(tmp)
-	#	return title
-		
 	def GetSystemVer( self ):
 		system_ver = platform.platform()
 		if system_ver.find("el5") > 0:
@@ -60,52 +52,7 @@ class Install:
 		else:
 			title = 'Not CentOS'
 		return title
-
-	##########################
-	#Start Hadoop Functions
-	##########################
-	def StartHadoop ( self, type ):
-		t = type.strip()
-		title = ['Starting '+ t +'...\n']
-		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh start " + t).readlines()
-		title.extend(tmp)
-		return title
-	##########################
-	#Restart Hadoop Functions
-	##########################
-	def RestartHadoop ( self, type ):
-		t = type.strip()
-		title = ['Starting '+ t +'...\n']
-		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh stop " + t).readlines()
-		time.sleep(1)
-		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh start " + t).readlines()
-		title.extend(tmp)
-		return title
-	##########################
-	#Stop Hadoop Functions
-	##########################
-	def StopHadoop ( self, type ):
-		t = type.strip()
-		title = ['Starting '+ t +'...\n']
-		tmp = os.popen("sudo -u hadoop hadoop-daemon.sh stop " + t).readlines()
-		title.extend(tmp)
-		return title
-	##########################
-	#Format Namenode Function, do not use this
-	##########################
-	def FormatNamenode ( self ):
-		title = ['Formatting Namenode...\n']
-		tmp = os.popen("Y|sudo -u hadoop hadoop namenode -format").readlines()
-		title.extend(tmp)   
-		return title
-	##########################
-	#Tail Logs
-	##########################
-	def TailLogs (self, type, hostname):
-		title = ['Cat hadoop logs...\n']
-		tmp = os.popen("tail -n 1000 /var/log/hadoop/hadoop/hadoop-hadoop-"+type+"-"+hostname+".log")
-		title.extend(tmp)
-		return title
+		
 
 class ClientThread( threading.Thread ):
 	def __init__( self, client_sock ):
@@ -127,6 +74,7 @@ class ClientThread( threading.Thread ):
 				self.writeline( 'Quit Install Process' )
 				done = True
 				self.client.close()
+
 			##########################
 			#Install Modules
 			##########################
@@ -151,179 +99,7 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n"	)
 				self.client.close()
-				
-			##########################
-			#Format namenode module, do not use this
-			##########################
-			elif 'FormatNamenode' == cmd:
-				'''
-				Format Namenode
-				'''
-				tmp = install.FormatNamenode()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Namenode formatted")
-				self.client.close()
-			##########################
-			#Start Hadoop Modules
-			##########################
-			elif 'StartNamenode' == cmd:
-				'''
-				Starting Namenode
-				'''
-				tmp = install.StartHadoop("namenode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Namenode started")
-				self.client.close()
-			elif 'StartSecondaryNamenode' == cmd:
-				'''
-				Starting SecondaryNamenode
-				'''
-				tmp = install.StartHadoop("secondarynamenode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("SecondaryNamenode started")
-				self.client.close()
-			elif 'StartDatanode' == cmd:
-				'''
-				Starting Datanode
-				'''
-				tmp = install.StartHadoop("datanode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Datanode started")
-				self.client.close()
-			elif 'StartJobtracker' == cmd:
-				'''
-				Starting Jobtracker
-				'''
-				tmp = install.StartHadoop("jobtracker")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Jobtracker started")
-				self.client.close()
-			elif 'StartTasktracker' == cmd:
-				'''
-				Starting Tasktracker
-				'''
-				tmp = install.StartHadoop("tasktracker")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Tasktracker started")
-				self.client.close()
-			##########################
-			#Cat Hadoop Logs
-			##########################
-			elif 'ViewLogs' == cmd[0:8]:
-				'''
-				Cat hadoop Logs
-				Command is TailLogs:datanode:hostname
-				'''
-				str = cmd.split(":")
-				type = str[1]
-				hostname = str[2]
-				tmp = install.TailLogs(type, hostname)
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Namenode stopped")
-				self.client.close()
-			##########################
-			#Stop Hadoop Modules
-			##########################
-			elif 'StopNamenode' == cmd:
-				'''
-				Stopping Namenode
-				'''
-				tmp = install.StopHadoop("namenode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Namenode stopped")
-				self.client.close()
-			elif 'StopSecondaryNamenode' == cmd:
-				'''
-				Stopping SecondaryNamenode
-				'''
-				tmp = install.StopHadoop("secondarynamenode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("SecondaryNamenode stopped")
-				self.client.close()
-			elif 'StopDatanode' == cmd:
-				'''
-				Stopping Datanode
-				'''
-				tmp = install.StopHadoop("datanode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Datanode stopped")
-				self.client.close()
-			elif 'StopJobtracker' == cmd:
-				'''
-				Stopping Jobtracker
-				'''
-				tmp = install.StopHadoop("jobtracker")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Jobtracker stopped")
-				self.client.close()
-			elif 'StopTasktracker' == cmd:
-				'''
-				Stopping Tasktracker
-				'''
-				tmp = install.StopHadoop("tasktracker")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Tasktracker stopped")
-				self.client.close()
-			##########################
-			#Restart Hadoop Modules
-			##########################
-			elif 'RestartNamenode' == cmd:
-				'''
-				Restarting Namenode
-				'''
-				tmp = install.RestartHadoop("namenode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Namenode stopped")
-				self.client.close()
-			elif 'RestartSecondaryNamenode' == cmd:
-				'''
-				Restarting SecondaryNamenode
-				'''
-				tmp = install.RestartHadoop("secondarynamenode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("SecondaryNamenode stopped")
-				self.client.close()
-			elif 'RestartDatanode' == cmd:
-				'''
-				Restarting Datanode
-				'''
-				tmp = install.RestartHadoop("datanode")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Datanode stopped")
-				self.client.close()
-			elif 'RestartJobtracker' == cmd:
-				'''
-				Restarting Jobtracker
-				'''
-				tmp = install.RestartHadoop("jobtracker")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Jobtracker stopped")
-				self.client.close()
-			elif 'RestartTasktracker' == cmd:
-				'''
-				Restarting Tasktracker
-				'''
-				tmp = install.RestartHadoop("tasktracker")
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Tasktracker stopped")
-				self.client.close()
+
 			##########################
 			elif 'FileTransport' == cmd[0:13]:
 				'''
