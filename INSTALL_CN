@@ -1,0 +1,212 @@
+EasyHadoopManager(以下简称EHM)安装和使用说明
+
+本软件完全开源免费，并遵循GNU GPLv3协议
+版本1.3beta1，支持节点服务器系统为CentOS 5.x和CentOS 6.x
+本软件使用
+lzo 2.06
+lzop 1.03
+hadoop 1.0.3-1
+hadoopgpl 0.5.3-1
+jdk-7u5
+
+安装说明
+1. 一台作为管理中心页面使用的服务器，可以使用任何操作系统。
+
+2. 安装Nginx，php，mysql，并加载php的socket库，apache web server
+由于使用模块方式加载php在测试中没有通过。作为推荐，建议使用
+Nginx，php，mysql
+
+建议的nginx和php配置：
+由于安装hadoop依赖环境需要使用yum，这取决于你的服务器网速，如网速
+较慢可能造成网页超时，因此建议在webserver和php中添加如下设置
+
+NGINX 中的 php fastcgi 相关设置段:
+	fastcgi_connect_timeout 300;
+	fastcgi_send_timeout 300;
+	fastcgi_read_timeout 300;
+	fastcgi_buffer_size 64k;
+	fastcgi_buffers 4 64k;
+
+PHP 的 php.ini 设置：
+	default_socket_timeout = 300
+	的php-fpm.conf设置：
+	request_terminate_timeout = 300
+	
+3. 在mysql中创建easyhadoop库，并将easyhadoop.sql导入到mysql中
+mysql -uxxx -pxxx easyhadoop < easyhadoop.sql
+
+4. 修改config.inc.php，让EHM可以连接到mysql数据库，并调整你的
+nginx和php设置，直到他们正常工作。
+
+5.从网页中访问web服务器，直到你看见EHM的界面出现。
+
+########使用说明########
+
+说明前的说明：
+你可以使用EHM根路径下的download.sh来提前下载hadoop相关文件，这样可以极大的
+提高节点的安装速度。你也可以不使用download.sh来进行预下载。节点上agent会自动
+检测安装文件是否存在，并从EasyHadoop网站上下载相关的安装文件。
+
+一、节点管理说明
+
+1. 以下内容，请sudo -s 或sudo su -来使用root权限操作，而非sudo -u root
+
+2. 将EasyHadoopManagerNodeAgent中的python脚本分别上传至每台待安装的
+节点服务器的任意路径下，并依次执行下列命令：
+------------
+chmod +x EasyHadoopManager.py
+EasyHadoopManager.py start
+------------
+注：执行前请确认30050端口没有被其他程序所占用，且iptables处于关闭状态。
+
+3. 回到EHM的管理页面，选择节点管理->添加节点
+
+输入待添加的节点主机名称，例如hadoopmaster或者hadoopslave1
+主机名称很重要，涉及到未来推送配置文件，所以请务必正确填写
+输入该节点IP地址
+输入该节点未来在集群中所担负的角色。如namenode或datanode，小写输入，
+如该节点同时担负多种角色。假如同时担任namenode和jobtracker，则名称
+使用小写，并用英文半角逗号分隔，例如namenode,jobtracker。
+注：在Hadoop 1.0.x中，角色名称通常分为以下五种
+namenode
+datanode
+tasktracker
+jobtracker
+secondarynamenode
+添加完成后，点击确认。
+注：节点角色很重要，涉及到未来针对节点所进行的操作，如启动停止，
+查看日志等功能，请务必正确填写。
+
+点击导航栏首页，可以看到出现上次添加的节点主机列表。
+
+4. 点击节点连通测试，在列表中找到上次添加的节点主机，并点击测试按钮。
+如提示连通成功，则EHM与agent之间通信一切正常，可以继续下一步。
+如提示接连失败，请检查步骤2时候已经执行，且iptables没有拦截30050端口。
+
+5. 删除节点，将删除该节点在元数据库中的记录，并删除与该节点相关的独立
+配置文件内容，请务必慎重。
+
+6. 修改节点，请务必慎重，如修改节点IP，则与该节点相关的独立配置将无法
+重新找到。其他输入同添加节点。
+
+二、节点配置项管理说明
+
+节点配置项为针对hadoop节点的相关设置。
+
+1. 通用配置项设置可以理解为，该项目下的所有文件，为hadoop集群所通用，不需单独的
+特殊设置。通常这样的设置包括/etc/hosts文件，/etc/hadoop/core-site.xml文件。
+添加通用配置项中，文件名需要输入linux中的文件名和完整路径。即说明该文件存储在
+何处。例如你需要输入/etc/hosts这样的文件名。这样未来在推送配置文件过程中，不会
+将配置文件推送到错误的路径下。
+内容为该配置文件的内容，针对/etc/hosts，还有单独的工具来用节点添加中所加入的主机
+名和IP来生成/etc/hosts文件内容。
+提交后即可生成通用配置文件列表。
+
+2. 节点配置项为针对某个hadoop集群中的节点进行特殊配置的文件列表。当集群中的服务器
+硬件配置不同时，这个配置会显得非常有用。例如，硬盘配置不相同，你就需要配置一个
+/etc/hadoop/hdfs-site.xml，内存不同时，你需要配置不同的/etc/hadoop/mapred-site.xml
+尽管通常情况下，你们会尽量保证硬件配置统一，但是这并不是绝对的，所以你需要建立这种
+的配置项。
+
+注：在确定所有硬件全部一样的情况下，你可以把这些配置放入通用配置中进行推送。
+提示：
+EHM所使用的hadoop版本的配置文件及路径列表和设置建议：
+/etc/hosts [建议使用通用配置]
+/etc/hadoop/core-site.xml [建议使用通用配置] 
+/etc/hadoop/capacity-scheduler.xml [建议使用节点配置，可只配置jobtracker节点]
+/etc/hadoop/fair-scheduler.xml [建议使用独立配置，可只配置jobtracker节点]
+/etc/hadoop/hadoop-metrics2.properties [建议使用通用配置]
+/etc/hadoop/hdfs-site.xml [建议使用节点配置]
+/etc/hadoop/mapred-site.xml [建议使用节点配置]
+/etc/hadoop/masters [建议使用通用配置]
+/etc/hadoop/slaves [建议使用通用配置]
+
+三、节点安装管理
+
+1. 推送Hadoop文件
+该功能可极大的加快hadoop的安装速度，但要求你先使用download.sh来对hadoop安装文件进行预下载。
+先执行
+chmod +x download.sh
+./download.sh
+等待全部文件下载完成，即可使用该功能将hadoop相关的安装文件推送至节点服务器。您也可以不使用该
+功能，节点服务器会自行从EasyHadoop网站源下载安装所需要的文件，并自动判断你的操作系统版本来
+进行后续的安装工作。
+但节点自行下载通常取决于服务器的连接网速，如网速较慢或节点处于内网或VPN而无法访问公网。建议您
+还是使用下载脚本，然后进行推送。
+您也可以自行从EasyHadoop网站的源下载到个人电脑上，并上传到EHM的hadoop文件夹内。
+通常的下载文件包括
+当前的源服务器地址在http://113.11.199.230/，自行下载请对照下列文件名
+hadoop-1.0.3-1.x86_64.rpm
+jdk-7u5-linux-x64.rpm
+lzo-2.06-1.el6.rfx.x86_64.rpm
+lzo-devel-2.06-1.el5.rf.x86_64.rpm
+lzop-1.03.tar.gz
+hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
+lzo-2.06-1.el5.rf.x86_64.rpm
+lzo-2.06.tar.gz
+lzo-devel-2.06-1.el6.rfx.x86_64.rpm
+
+2. 安装Hadoop相关
+在列表中选择需要安装Hadoop系统的主机，点击安装按钮
+页面上方会出现几个安装按钮，按需求点击即可。特别需要说明的是，安装依赖环境将在节点服务器使用yum安装
+请确保节点服务器可以连接到CentOS的yum源。如果在最初没有设置nginx和php的超时时间，很有可能在yum
+安装过程中出现页面超时错误，但无需担心，这只是页面超时，节点仍然会竭尽全力将依赖环境设置完成。过一会
+回来，如果你再刷新点击该按钮，会发现依赖环境已经装完。
+
+其他安装项，在已经推送Hadoop安装文件的情况下将会直接安装，如未执行推送，将会自动从EasyHadoop源下载安装
+包并安装。这也有可能造成超时，所以强烈建议先进行Hadoop文件推送。节点上的Agent会自动判断操作系统版本，并
+选择合适的安装包进行安装。目前支持CentOS 5.x和CentOS 6.x
+
+3. 卸载hadoop，将从节点服务器卸载hadoop相关的一切。
+
+4. 推送配置文件。
+将之前在节点配置设置中所设定的通用配置和节点配置通过Agent推送给节点服务器。推送配置后，如需配置生效，
+需要在节点操作配置中重启Hadoop的相应角色进程。推送前请确认确实已经设置好了节点配置文件，因为该命令一旦
+发出，将覆盖原节点服务器中的配置文件，该项操作不可被撤销！！！
+
+四、节点操作管理
+1. 格式化namenode，基于安全考虑，目前暂不开放该功能
+
+2. 节点操作，该命令基于之前设置的节点角色，可在这里对不同的节点角色进程进行启动，停止，重启工作。
+生产环境请慎用。
+
+3. 查看节点日志，该操作将查看节点上的角色所对应的最后1000条日志。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
