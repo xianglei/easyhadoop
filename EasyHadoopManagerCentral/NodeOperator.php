@@ -75,22 +75,6 @@ elseif($_GET['action'] == "Operate")
 		
 
 		echo '<pre>';
-		/*$action = $command_1.$command_2;
-		$ip = $_GET['ip'];
-		if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
-		{
-			fwrite($fp, $action);
-			while(!feof($fp))
-			{
-				$str .= fread($fp,1024);
-			}
-			echo str_replace("\n","<br/>",$str);
-			fclose($fp);
-		}
-		else
-		{
-			echo $lang['notConnected'];
-		}*/
 		
 		switch ($_GET['do'])
 		{
@@ -117,7 +101,7 @@ elseif($_GET['action'] == "Operate")
 elseif ($_GET['action'] == "FormatNamenode")
 {
 	echo '<div class=span10>';
-	echo "<h1>".$lang['namenodeFormatWarn']."</h1>";
+	echo "<h2>".$lang['namenodeFormatWarn']."</h3>";
 	echo "</div>";
 }
 elseif ($_GET['action'] == "ViewLogs")
@@ -174,27 +158,12 @@ elseif ($_GET['action'] == "ViewLogs")
 		$action = $_GET['action'];
 		$role = $_GET['role'];
 		
-		$command = "ViewLogs:".$role.":".$hostname;
 		echo '<div class=span10>';
 		echo '<pre>';
-		echo $command;
-		$action = $_GET['action'].$_GET['which'];
+
 		$ip = $_GET['ip'];
-			
-		if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
-		{
-				fwrite($fp, $command."\n");
-				while(!feof($fp))
-				{
-					$str .= fread($fp,1024);
-				}
-				echo str_replace("\n","<br/>",$str);
-				fclose($fp);
-		}
-		else
-		{
-			echo $lang['notConnected'];
-		}
+		$str = $node->ViewLogs($ip, $role, $hostname);
+		echo $str;
 
 		echo '</pre>';
 		echo '</div>';

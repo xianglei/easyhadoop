@@ -76,6 +76,7 @@ elseif($_GET['action'] == "Install")
 			$ip = $_GET['ip'];
 			
 			$str = $install->$action($ip);
+			
 			echo $str;
 			
 			echo '</pre>';
@@ -88,7 +89,7 @@ elseif($_GET['action'] == "Install")
 	}	
 }
 
-elseif($_GET['action'] == "PushFiles")
+elseif($_GET['action'] == "PushSettingFiles")
 {
 	if(!$_GET['ip'])
 	{
@@ -124,8 +125,8 @@ elseif($_GET['action'] == "PushFiles")
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
 					<div class="btn-group">
-   						 <a class="btn btn-warning" onclick="javascript:realconfirm(\''.$lang['pushSettingsConfirm'].'\', \'InstallManager.php?action=PushFiles&do=Global&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['pushGlobalSettings'].'</a>
-   						 <a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['pushSettingsConfirm'].'\',\'InstallManager.php?action=PushFiles&do=Node&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['pushHadoopSettings'].'</a>
+   						 <a class="btn btn-warning" onclick="javascript:realconfirm(\''.$lang['pushSettingsConfirm'].'\', \'InstallManager.php?action=PushSettingFiles&do=Global&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['pushGlobalSettings'].'</a>
+   						 <a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['pushSettingsConfirm'].'\',\'InstallManager.php?action=PushSettingFiles&do=Node&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['pushHadoopSettings'].'</a>
                   	</div>
                   	</td>
                 	</tr>';
@@ -158,7 +159,7 @@ elseif($_GET['action'] == "PushFiles")
 					echo $lang['notConnected'];
 				}
 			}
-			echo "<script>this.location='InstallManager.php?action=PushFiles';</script>";
+			echo "<script>this.location='InstallManager.php?action=PushSettingFiles';</script>";
 		}
 		elseif ($_GET['do'] == 'Node')
 		{
@@ -182,7 +183,7 @@ elseif($_GET['action'] == "PushFiles")
 					echo $lang['notConnected'];
 				}
 			}
-			echo "<script>this.location='InstallManager.php?action=PushFiles';</script>";
+			echo "<script>this.location='InstallManager.php?action=PushSettingFiles';</script>";
 		}
 		else
 		{
@@ -268,7 +269,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			}
 			else
 			{
-				die ("<script>alert('".$lang['notConnected']."');this.location='InstallManager.php?action=PushHadoopFiles';<</script>");
+				die ("<script>alert('".$lang['notConnected']."');this.location='InstallManager.php?action=PushHadoopFiles';</script>");
 			}
 		}
 		echo "<script>alert('".$lang['pushComplete']."'); this.location='InstallManager.php?action=Install';</script>";

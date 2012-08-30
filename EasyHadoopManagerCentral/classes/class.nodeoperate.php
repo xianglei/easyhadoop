@@ -15,7 +15,7 @@ class Node extends Socket
 		}
 		else
 		{
-			return $lang['notConnected'];
+			$str = $lang['notConnected'];
 		}
 		return $str;
 	}
@@ -23,7 +23,7 @@ class Node extends Socket
 	public function HadoopStop($pHost, $pRole)
 	{
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":hadoop-daemon.sh start ".$pRole;
+		$this->mCommand = $this->cAgentRunShell.":hadoop-daemon.sh stop ".$pRole;
 		
 		if($this->SocketCommand())
 		{
@@ -31,7 +31,7 @@ class Node extends Socket
 		}
 		else
 		{
-			return $lang['notConnected'];
+			$str = $lang['notConnected'];
 		}
 		return $str;
 	}
@@ -64,6 +64,38 @@ class Node extends Socket
 		$ret = $str1.$str2;
 		
 		return $ret;
+	}
+	
+	public function ViewLogs($pHost, $pRole, $pHostname)
+	{
+		$this->mHost = $pHost;
+		$this->mCommand = $this->cAgentRunShell.":tail -n 1000 /var/log/hadoop/hadoop/hadoop-hadoop-".$pRole."-".$pHostname.".log";
+		if($this->SocketCommand())
+		{
+			$str = $this->mReturn;
+		}
+		else
+		{
+			$str = $lang['notConnected'];
+		}
+		
+		return $str;
+	}
+	
+	public function FormatNamenode($pHost)
+	{
+		$this->mHost = $pHost;
+		$this->mCommand = $this->cAgentRunShell."Y|sudo -u hadoop hadoop namenode -format";
+		if($this->SocketCommand())
+		{
+			$str = $this->mReturn;
+		}
+		else
+		{
+			$str = $lang['notConnected'];
+		}
+		
+		return $str;
 	}
 }
 

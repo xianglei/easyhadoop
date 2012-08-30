@@ -5,6 +5,7 @@ include_once "templates/header.html";
 include_once "templates/node_manager_sidebar.html";
 
 $mysql = new Mysql();
+$socket = new Socket;
 
 ##默认页面
 if(!@$_GET['action'])
@@ -249,9 +250,8 @@ elseif($_GET['action'] == "PingNode")
 		$sql = "select ip from ehm_hosts where host_id='".$_GET['nodeid']."'";
 		$mysql->Query($sql);
 		$arr = $mysql->FetchArray();
-		if($fp = @fsockopen($arr['ip'], 30050, $errstr, $errno, 30))
+		if($socket->SocketConnectTest($arr['ip']))
 		{
-			@fclose($fp);
 			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php?action=PingNode';</script>";
 		}
 		else

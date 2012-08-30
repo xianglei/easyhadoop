@@ -6,7 +6,7 @@ class Socket
 	protected $mHost;
 	public $mReturn;
 	
-	public function SocketCommand()
+	protected function SocketCommand()
 	{
 		//global $lang;
 		if($fp = @fsockopen($this->mHost, 30050, $errstr, $errno, 300))
@@ -23,6 +23,19 @@ class Socket
 		else
 		{
 			//$this->mReturn = $lang['notConnected'];
+			return FALSE;
+		}
+	}
+	
+	public function SocketConnectTest($pIp, $pCommand)
+	{
+		if($fp = @fsockopen($pIp, 30050, $errstr, $errno, 300))
+		{
+			fclose($fp);
+			return TRUE;
+		}
+		else
+		{
 			return FALSE;
 		}
 	}
