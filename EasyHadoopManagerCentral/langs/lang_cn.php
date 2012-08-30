@@ -111,3 +111,4 @@ $lang['removeNodeTips'] = '删除节点，请注意：<br />删除节点并不�
 $lang['modifyNodeTips'] = '修改节点设置：<br />修改节点设置请慎重，除非你确定需要修改其IP，角色或主机名称。<br />且修改节点不会影响到节点的配置项，如需修改配置，请到节点配置中进行修改，并重新推送配置到Hadoop节点上。';
 $lang['pushSettingFileTips'] = '推送配置文件是将目前在EasyHadoopManager中保存的配置文件推送到选定节点上。<br />推送通用文件意味着将所有全局可用的配置推送到该节点，比如/etc/hosts。<br />推送自身配置意味着将推动在节点设置中针对该节点所配置的独立配置项的全部文件。';
 $lang['makeEtcHostTips'] = '请将下面的内容复制下来，然后可以在通用配置中添加/etc/hosts文件，并推送到各节点服务器。<br />请确保该内容与实际节点的hostname一致。';
+$lang['pushSettingsConfirm'] = '推送配置文件将覆盖之前的配置，确认要继续吗？';

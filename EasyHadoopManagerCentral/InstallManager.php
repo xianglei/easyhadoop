@@ -225,8 +225,8 @@ elseif($_GET['action'] == "PushFiles")
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
 					<div class="btn-group">
-   						 <a class="btn btn-warning" href="InstallManager.php?action=PushFiles&do=Global&ip='.$arr['ip'].'">'.$lang['pushGlobalSettings'].'</a>
-   						 <a class="btn btn-danger" href="InstallManager.php?action=PushFiles&do=Node&ip='.$arr['ip'].'">'.$lang['pushHadoopSettings'].'</a>
+   						 <a class="btn btn-warning" onclick="javascript:realconfirm(\''.$lang['pushSettingsConfirm'].'\', \'InstallManager.php?action=PushFiles&do=Global&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['pushGlobalSettings'].'</a>
+   						 <a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['pushSettingsConfirm'].'\',\'InstallManager.php?action=PushFiles&do=Node&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['pushHadoopSettings'].'</a>
                   	</div>
                   	</td>
                 	</tr>';
