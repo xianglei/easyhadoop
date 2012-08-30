@@ -13,6 +13,10 @@ class Node extends Socket
 		{
 			$str = $this->mReturn;
 		}
+		else
+		{
+			return $lang['notConnected'];
+		}
 		return $str;
 	}
 	
@@ -24,6 +28,10 @@ class Node extends Socket
 		if($this->SocketCommand())
 		{
 			$str = $this->mReturn;
+		}
+		else
+		{
+			return $lang['notConnected'];
 		}
 		return $str;
 	}
@@ -37,6 +45,10 @@ class Node extends Socket
 		{
 			$str1 = $this->mReturn;
 		}
+		else
+		{
+			return $lang['notConnected'];
+		}
 		sleep(3);
 		$this->mHost = $pHost;
 		$this->mCommand = $this->cAgentRunShell.":hadoop-daemon.sh start ".$pRole;
@@ -44,6 +56,10 @@ class Node extends Socket
 		if($this->SocketCommand())
 		{
 			$str2 = $this->mReturn;
+		}
+		else
+		{
+			return $lang['notConnected'];
 		}
 		$ret = $str1.$str2;
 		

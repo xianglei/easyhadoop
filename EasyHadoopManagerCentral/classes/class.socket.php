@@ -8,7 +8,7 @@ class Socket
 	
 	public function SocketCommand()
 	{
-		global $lang;
+		//global $lang;
 		if($fp = @fsockopen($this->mHost, 30050, $errstr, $errno, 300))
 		{
 			fwrite($fp, $this->mCommand."\n");
@@ -22,7 +22,7 @@ class Socket
 		}
 		else
 		{
-			$this->mReturn = $lang['notConnected'];
+			//$this->mReturn = $lang['notConnected'];
 			return FALSE;
 		}
 	}

@@ -37,14 +37,15 @@ class Install extends Socket
 		global $lang;
 		$this->mHost = $pHost;
 		$this->mCommand = $this->cAgentRunShell.":yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo && ntpdate cn.pool.ntp.org";
-		if($str = $this->SocketCommand())
+		if($this->SocketCommand())
 		{
-			return $str;
+			$str = $this->mReturn;
 		}
 		else
 		{
-			return $lang['notConnected'];
+			$str = $lang['notConnected'];
 		}
+		return $str;
 	}
 	
 	###########################################
@@ -64,14 +65,15 @@ class Install extends Socket
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm";
 		}
 		sleep(1);
-		if($str = $this->SocketCommand())
+		if($this->SocketCommand())
 		{
-			return $str;
+			$str = $this->mReturn;
 		}
 		else
 		{
-			return $lang['notConnected'];
+			$str = $lang['notConnected'];
 		}
+		return $str;
 	}
 	
 	#########################################
@@ -89,14 +91,15 @@ class Install extends Socket
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop";
 		}
 		sleep(1);
-		if($str = $this->SocketCommand())
+		if($this->SocketCommand())
 		{
-			return $str;
+			$ret = $this->mReturn;
 		}
 		else
 		{
-			return $lang['notConnected'];
+			$ret =  $lang['notConnected'];
 		}
+		return $ret;
 	}
 	
 	###########################################
@@ -117,13 +120,13 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand())
+			if($this->SocketCommand())
 			{
-				$ret = $str;
+				$ret = $this->mReturn;
 			}
 			else
 			{
-				return $lang['notConnected'];
+				$ret =  $lang['notConnected'];
 			}
 			
 			$this->mFilename = "/home/hadoop/lzo-devel-2.06-1.el5.rf.x86_64.rpm";
@@ -136,13 +139,13 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand())
+			if($this->SocketCommand())
 			{
-				$ret .= $str;
+				$ret .= $this->mReturn;
 			}
 			else
 			{
-				return $lang['notConnected'];
+				$ret =  $lang['notConnected'];
 			}
 			
 			$this->mFilename = "/home/hadoop/lzo-2.06.tar.gz";
@@ -155,13 +158,13 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzo-2.06.tar.gz && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand())
+			if($this->SocketCommand())
 			{
-				$ret .= $str;
+				$ret .= $this->mReturn;
 			}
 			else
 			{
-				return $lang['notConnected'];
+				$ret =  $lang['notConnected'];
 			}
 		}
 		elseif($ver == "6")
@@ -176,13 +179,13 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand())
+			if($this->SocketCommand())
 			{
-				$ret = $str;
+				$ret = $this->mReturn;
 			}
 			else
 			{
-				return $lang['notConnected'];
+				$ret =  $lang['notConnected'];
 			}
 			
 			$this->mFilename = "/home/hadoop/lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
@@ -195,13 +198,13 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand())
+			if($this->SocketCommand())
 			{
-				$ret .= $str;
+				$ret .= $this->mReturn;
 			}
 			else
 			{
-				return $lang['notConnected'];
+				$ret =  $lang['notConnected'];
 			}
 			
 			$this->mFilename = "/home/hadoop/lzo-2.06.tar.gz";
@@ -214,13 +217,13 @@ class Install extends Socket
 				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzo-2.06.tar.gz && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
 			}
 			sleep(1);
-			if($str = $this->SocketCommand())
+			if($this->SocketCommand())
 			{
-				$ret .= $str;
+				$ret .= $this->mReturn;
 			}
 			else
 			{
-				return $lang['notConnected'];
+				$ret =  $lang['notConnected'];
 			}
 		}
 		else
@@ -245,14 +248,15 @@ class Install extends Socket
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzop-1.03.tar.gz && tar zxf lzop-1.03.tar.gz && cd lzop-1.03 && ./configure && make && make install";
 		}
 		sleep(1);
-		if($str = $this->SocketCommand())
+		if($this->SocketCommand())
 		{
-			return $str;
+			$str = $this->mReturn;
 		}
 		else
 		{
-			return $lang['notConnected'];
+			$str = $lang['notConnected'];
 		}
+		return $str;
 	}
 
 	###########################################
@@ -270,13 +274,13 @@ class Install extends Socket
 			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		}
 		sleep(1);
-		if($str = $this->SocketCommand())
+		if($this->SocketCommand())
 		{
-			$ret = $str;
+			$ret = $this->mReturn;
 		}
 		else
 		{
-			return $lang['notConnected'];
+			$ret = $lang['notConnected'];
 		}
 		return $ret;
 	}
@@ -284,12 +288,16 @@ class Install extends Socket
 	###########################################
 	private function CheckFileExists()
 	{
+		global $lang;
 		$this->mCommand = $this->cCheckFileStatus.":".$this->mFilename;
 		
-		$str = $this->SocketCommand();
-		if(trim($str) == "TRUE")
+		if($this->SocketCommand())
 		{
-			return TRUE;
+			$str = $this->mReturn;
+			if(trim($str) == "TRUE")
+				return TRUE;
+			else
+				return FALSE;
 		}
 		else
 		{
@@ -301,17 +309,33 @@ class Install extends Socket
 	##########################################
 	private function GetSystemVer()
 	{
+		global $lang;
 		$this->mCommand = $this->cGetSystemVer;
-		$str = $this->SocketCommand();
-		return trim($str);
+		if($this->SocketCommand())
+		{
+			$str = $this->mReturn;
+		}
+		else
+		{
+			$str = FALSE;
+		}
+		return $str;
 	}
 	
 	##########################################
 	private function GetRpmStatus()
 	{
+		global $lang;
 		$this->mCommand = $this->cAgentRunShell.":rpm -qa | grep ".$this->mRpmName;
-		$str = $this->SocketCommand();
-		return trim($str);
+		if($this->SocketCommand())
+		{
+			$str = $this->mReturn;
+		}
+		else
+		{
+			$str = FALSE;
+		}
+		return $str;
 	}
 }
 
