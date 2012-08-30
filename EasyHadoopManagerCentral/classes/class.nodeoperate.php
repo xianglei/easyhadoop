@@ -85,7 +85,7 @@ class Node extends Socket
 	public function FormatNamenode($pHost)
 	{
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell."Y|sudo -u hadoop hadoop namenode -format";
+		$this->mCommand = $this->cAgentRunShell.":Y|sudo -u hadoop hadoop namenode -format";
 		if($this->SocketCommand())
 		{
 			$str = $this->mReturn;
@@ -95,6 +95,44 @@ class Node extends Socket
 			$str = $lang['notConnected'];
 		}
 		
+		return $str;
+	}
+	
+	public function CheckHadoopProcess($pHost, $pRole)
+	{
+		$this->mHost = $pHost;
+		switch ($pRole)
+		{
+			case "namenode":
+				$jps = "NameNode";
+				break;
+			case "jobtracker":
+				$jps = "JobTracker";
+				break;
+			case "secondarynamenode":
+				$jps = "SecondaryNameNode";
+				break;
+			case "datanode":
+				$jps = "DataNode";
+				break;
+			case "tasktracker":
+				$jps = "TaskTracker";
+				break;
+			default:
+				return "Unknown Role name";
+				break;
+		}
+		
+		$command = "/usr/java/default/bin/jps | grep ".$jps." | awk '{print $1}'";
+		$this->mCommand = $this->cAgentRunShell.":".$command;
+		if($this->SocketCommand())
+		{
+			$str = $this->mReturn;
+		}
+		else
+		{
+			$str = $lang['notConnected'];
+		}
 		return $str;
 	}
 }

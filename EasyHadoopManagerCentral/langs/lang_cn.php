@@ -103,6 +103,10 @@ $lang['chooseLeftSidebar'] = '选择左面的菜单继续下一步';
 
 $lang['viewLogs'] = '查看节点日志';
 $lang['logs'] = '日志';
+$lang['runShellCommand'] = '在节点执行系统命令';
+$lang['checkHadoopProcess'] = "查看节点状态";
+$lang['notStarted'] = "未启动";
+$lang['processId'] = "进程ID";
 
 $lang['globalSettingTips'] = '通用配置项意味这该列表中的所有设定文件为Hadoop集群通用，而非单独配置。<br />如需单独配置项管理例如针对不同硬件配置所单独设置的hdfs-site.xml或mapred-site.xml，请使用节点配置菜单';
 $lang['nodeSettingTips'] = '节点配置项意味着该设定仅针对用户所选择的服务器，例如针对不同的硬件配置的节点所使用的不同设置，如hdfs-site.xml或mapred-site.xml';

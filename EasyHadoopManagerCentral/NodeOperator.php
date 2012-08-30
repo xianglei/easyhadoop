@@ -101,7 +101,7 @@ elseif($_GET['action'] == "Operate")
 elseif ($_GET['action'] == "FormatNamenode")
 {
 	echo '<div class=span10>';
-	echo "<h2>".$lang['namenodeFormatWarn']."</h3>";
+	echo "<h3>".$lang['namenodeFormatWarn']."</h3>";
 	echo "</div>";
 }
 elseif ($_GET['action'] == "ViewLogs")
@@ -169,6 +169,57 @@ elseif ($_GET['action'] == "ViewLogs")
 		echo '</div>';
 	}
 }
+
+elseif ($_GET['action'] == "CheckHadoopProcess")
+{
+	$sql = "select * from ehm_hosts order by create_time desc";
+	$mysql->Query($sql);
+	echo '<div class=span10>';
+
+	echo '<h2>'.$lang['CheckHadoopProcess'].'</h2>';
+	echo '<table class="table table-striped">';
+	echo '<thead>
+               <tr>
+                 <th>#</th>
+                 <th>'.$lang['hostname'].'</th>
+                 <th>'.$lang['ipAddr'].'</th>
+                 <th>'.$lang['action'].'</th>
+               </tr>
+               </thead>
+               <tbody>';
+	$i = 1;
+	while($arr = $mysql->FetchArray())
+	{
+		$role = $arr['role'];
+		$arr_role = explode(",",$role);
+		echo '<tr>
+                 	<td>'.$i.'</td>
+                 	<td>'.$arr['hostname'].'</td>
+                 	<td>'.$arr['ip'].'</td>';
+                  	
+		foreach($arr_role as $key => $value)
+		{
+				echo '<td>';
+               	$str = $node->CheckHadoopProcess($arr['ip'], $value);
+				if($str == "")
+				{
+					echo $value." -> ".<span class=\"label label-important\">".$lang['notStarted']."</span>";
+				}
+				else
+				{
+					echo $value." -> ".<span class=\"label label-success\">".$lang['processId'].":".$str."</span>";
+				}
+				
+           		echo '</td>';
+        }
+			
+           echo '</tr>';
+		$i++;
+	}
+	echo '</tbody></table>';
+	echo '</div>';
+}
+
 else
 {
 	echo '<div class=span10>';

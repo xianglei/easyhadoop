@@ -27,9 +27,9 @@ class Socket
 		}
 	}
 	
-	public function SocketConnectTest($pIp, $pCommand)
+	public function SocketConnectTest($pHost)
 	{
-		if($fp = @fsockopen($pIp, 30050, $errstr, $errno, 300))
+		if($fp = @fsockopen($pHost, 30050, $errstr, $errno, 300))
 		{
 			fclose($fp);
 			return TRUE;
