@@ -5,6 +5,7 @@ include_once "templates/header.html";
 include_once "templates/node_operator_sidebar.html";
 
 $mysql = new Mysql();
+$node = new Node;
 
 if(!@$_GET['action'])
 {
@@ -68,49 +69,13 @@ elseif($_GET['action'] == "Operate")
 	}#not any action
 	else
 	{
+		$ip = $_GET['ip'];
+		$role = $_GET['role'];
 		echo '<div class=span10>';
-		switch ($_GET['do'])
-		{
-			case 'Start':
-				$command_1 = "Start";
-				break;
-			case 'Stop':
-				$command_1 = "Stop";
-				break;
-			case 'Restart':
-				$command_1 = "Restart";
-				break;
-			
-			default:
-				die("<pre>".$lang['unknownCommand']."</pre>");
-				break;
-		}
 		
-		switch ($_GET['role'])
-		{
-			case 'namenode':
-				$command_2 = "Namenode";
-				break;
-			case 'jobtracker':
-				$command = "Jobtracker";
-				break;
-			case 'secondarynamenode':
-				$command = "SecondaryNamenode";
-				break;
-			case 'tasktracker':
-				$command = "Tasktracker";
-				break;
-			case 'datanode':
-				$command = "Datanode";
-				break;
-			
-			default:
-				die("<pre>".$lang['unknownCommand']."</pre>");
-				break;
-		}
 
 		echo '<pre>';
-		$action = $command_1.$command_2;
+		/*$action = $command_1.$command_2;
 		$ip = $_GET['ip'];
 		if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
 		{
@@ -125,7 +90,25 @@ elseif($_GET['action'] == "Operate")
 		else
 		{
 			echo $lang['notConnected'];
+		}*/
+		
+		switch ($_GET['do'])
+		{
+			case 'Start':
+				$str = $node->HadoopStart($ip, $role);
+				break;
+			case 'Stop':
+				$str = $node->HadoopStop($ip, $role);
+				break;
+			case 'Restart':
+				$str = $node->HadoopRestart($ip, $role);
+				break;
+			
+			default:
+				die("<pre>".$lang['unknownCommand']."</pre>");
+				break;
 		}
+		echo $str;
 
 		echo '</pre>';
 		echo '</div>';
