@@ -279,8 +279,7 @@ class Install extends Socket
 		{
 			return $lang['notConnected'];
 		}
-		return $ret;
-		sleep(1);
+		
 		$this->mCommand = $this->cAgentRunShell.":cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		if($str = $this->SocketCommand())
 		{
@@ -290,6 +289,7 @@ class Install extends Socket
 		{
 			return $lang['notConnected'];
 		}
+		return $ret;
 	}
 
 	############################################
