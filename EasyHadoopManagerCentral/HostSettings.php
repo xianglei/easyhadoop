@@ -133,6 +133,11 @@ elseif($_GET['action'] == "GlobalSettings")
 	{
 		echo '<div class=span10>';
 		echo '<h1>'.$lang['etchostsSettings'].'</h1>';
+		
+		echo '<div class="alert alert-error">';
+		$lang['makeEtcHostTips'];
+		echo '</div>';
+		
 		$sql = "select * from ehm_hosts";
 		$mysql->Query($sql);
 		echo "<pre>";
