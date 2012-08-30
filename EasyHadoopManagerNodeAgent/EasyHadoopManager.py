@@ -28,12 +28,10 @@ class Install:
 		self.stderr = stderr
 
 	def RunShellScript(self, command):
-		title = ['Run shell script...\n']
 		print command
 		tmp_in,tmp_out = os.popen4( command )
 		tmp = tmp_out.readlines()
-		title = title.extend(tmp)
-		return title
+		return tmp
 	
 	def CheckFileStatus(self, filename):
 		if os.path.isfile( filename ) == False:
