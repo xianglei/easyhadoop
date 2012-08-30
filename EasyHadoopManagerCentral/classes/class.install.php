@@ -120,7 +120,7 @@ class Install extends Socket
 			sleep(1);
 			if($str = $this->SocketCommand())
 			{
-				$str;
+				$ret = $str;
 			}
 			else
 			{
@@ -139,7 +139,7 @@ class Install extends Socket
 			sleep(1);
 			if($str = $this->SocketCommand())
 			{
-				$str .= $str;
+				$ret .= $str;
 			}
 			else
 			{
@@ -158,7 +158,7 @@ class Install extends Socket
 			sleep(1);
 			if($str = $this->SocketCommand())
 			{
-				$str .= $str;
+				$ret .= $str;
 			}
 			else
 			{
@@ -179,7 +179,7 @@ class Install extends Socket
 			sleep(1);
 			if($str = $this->SocketCommand())
 			{
-				$str;
+				$ret = $str;
 			}
 			else
 			{
@@ -198,7 +198,7 @@ class Install extends Socket
 			sleep(1);
 			if($str = $this->SocketCommand())
 			{
-				$str .= $str;
+				$ret .= $str;
 			}
 			else
 			{
@@ -217,7 +217,7 @@ class Install extends Socket
 			sleep(1);
 			if($str = $this->SocketCommand())
 			{
-				$str .= $str;
+				$ret .= $str;
 			}
 			else
 			{
@@ -226,9 +226,9 @@ class Install extends Socket
 		}
 		else
 		{
-			$str =  "Unknown Operation System";
+			$ret =  "Unknown Operation System";
 		}
-		return $str;
+		return $ret;
 	}
 
 	###########################################
@@ -273,22 +273,23 @@ class Install extends Socket
 		sleep(1);
 		if($str = $this->SocketCommand())
 		{
-			$str;
+			$ret = $str;
 		}
 		else
 		{
 			return $lang['notConnected'];
 		}
 		sleep(1);
-		$this->mCommand = $this->cAgentRunShell."cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
+		$this->mCommand = $this->cAgentRunShell.":cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		if($str = $this->SocketCommand())
 		{
-			$str .= $str;
+			$ret .= $str;
 		}
 		else
 		{
 			return $lang['notConnected'];
 		}
+		return $ret;
 	}
 
 	############################################
