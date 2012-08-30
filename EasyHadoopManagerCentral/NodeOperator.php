@@ -194,7 +194,7 @@ elseif ($_GET['action'] == "ViewLogs")
 		$command = "ViewLogs:".$role.":".$hostname;
 		echo '<div class=span10>';
 		echo '<pre>';
-			
+		echo $command;
 		$action = $_GET['action'].$_GET['which'];
 		$ip = $_GET['ip'];
 			
