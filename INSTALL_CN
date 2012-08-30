@@ -13,8 +13,9 @@ jdk-7u5
 1. 一台作为管理中心页面使用的服务器，可以使用任何操作系统。
 
 2. 安装Nginx，php，mysql，并加载php的socket库，apache web server
-由于使用模块方式加载php在测试中没有通过。作为推荐，建议使用
-Nginx，php，mysql
+由于使用模块方式加载php在测试中没有通过，所以不做推荐。
+
+做为推荐，建议使用Nginx，php，mysql
 
 建议的nginx和php配置：
 由于安装hadoop依赖环境需要使用yum，这取决于你的服务器网速，如网速

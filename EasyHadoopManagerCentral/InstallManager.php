@@ -6,6 +6,7 @@ include_once "templates/header.html";
 include_once "templates/install_manager_sidebar.html";
 
 $mysql = new Mysql();
+$install = new Install;
 
 if(!@$_GET['action'])
 {
@@ -74,21 +75,8 @@ elseif($_GET['action'] == "Install")
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
 			
-			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
-			{
-					fwrite($fp, $action."\n");
-					while(!feof($fp))
-					{
-						$str .= fread($fp,1024);
-					}
-					echo str_replace("\n","<br/>",$str);
-					fclose($fp);
-			}
-			else
-			{
-				echo $lang['notConnected'];
-			}
-
+			$install->$$action($ip);
+			
 			echo '</pre>';
 		}
 		echo "<br />";
@@ -159,26 +147,8 @@ elseif($_GET['action'] == "Uninstall")
 			
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
-			/*$sock = new Socket;
-			$sock->Connect($ip, 30050 , 60);
-			$str = $sock->SendCommand($action);
-			$str = str_replace("\n","<br />",$str);
-			$sock->DisConnect();*/
 			
-			if($fp = @fsockopen($ip, 30050, $errno, $errstr, 60))
-			{
-				fwrite($fp, $action."\n");
-				while(!feof($fp))
-				{
-					$str .= fread($fp,1024);
-				}
-				echo str_replace("\n","<br/>",$str);
-				fclose($fp);
-			}
-			else
-			{
-				echo $lang['notConnected'];
-			}
+			$install->$$action($ip);
 			
 			echo '</pre>';
 		}

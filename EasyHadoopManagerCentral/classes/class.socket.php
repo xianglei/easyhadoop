@@ -2,73 +2,26 @@
 
 class Socket
 {
-	private $mSocketHandle;
+	public $mCommand;
+	public $mHost;
 	
-	public function Connect($pIp,$pPort,$pTimeOut)
+	public function SocketCommand()
 	{
-		if($fp = fsockopen($pIp, $pPort, $errstr, $errno, $pTimeOut))
+		if($fp = @fsockopen($this->mHost, 30050, $errstr, $errno, 300))
 		{
-			$this->mSocketHandle = $fp;
-		}
-		else
-		{
-			return FLASE;
-		}
-	}
-	
-	public function SendCommand($pCommand)
-	{
-		if(is_resource($this->mSocketHandle))
-		{
-			fwrite($this->mSocketHandle, $pCommand."\n");
-			$str = $this->ReadAll();
-			
-			return $str;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-	
-	public function ReadAll()
-	{
-		if(is_resource($this->mSocketHandle))
-		{
-			while(!feof($this->mSocketHandle))
+			echo $pCommand;
+			fwrite($fp, $this->mCommand."\n");
+			while (!feof($fp))
 			{
-				$str .= fread($this->mSocketHandle,1024);
+				$str .= fread($fp,1024);
 			}
-			
+			fclose($fp);
 			return $str;
 		}
 		else
 		{
 			return FALSE;
 		}
-	}
-	
-	public function ReadOne()
-	{
-		if(is_resource($this->mSocketHandle))
-		{
-			$str = fread($this->mSocketHandle,4096);
-			
-			return $str;
-		}
-		else
-		{
-			return FALSE;
-		}
-	}
-	
-	public function DisConnect()
-	{
-		if(is_resource($this->mSocketHandle)):
-			fclose($this->mSocketHandle);
-		else:
-			return FALSE;
-		endif;
 	}
 }
 

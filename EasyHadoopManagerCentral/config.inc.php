@@ -8,7 +8,8 @@ define("MYSQL_NAME", "easyhadoop");
 
 //include_once "classes/class.socket.php";
 include_once "classes/class.mysql.php";
-include_once "classes/class.etc.php";
+include_once "classes/class.socket.php";
+include_once "classes/class.install.php";
 
 include_once "langs/lang_cn.php";
 ?>

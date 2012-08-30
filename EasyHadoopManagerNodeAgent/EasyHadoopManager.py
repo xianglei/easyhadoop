@@ -27,43 +27,28 @@ class Install:
 		self.stdout = stdout
 		self.stderr = stderr
 
-	def VerifyPlatform( self ):
-		tmp = platform.platform()
-		if tmp.find("el5") > 0:
-			return 5
-		elif tmp.find("el6") > 0:
-			return 6
-		else:
-			return False
-	##########################
-	#Install functions
-	##########################
-	def InstallEnvironment( self ):
-		title = ['Installing Environment...\n']
-		tmp = os.popen("yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo && ntpdate cn.pool.ntp.org").readlines()
-		os.popen("/usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop")
-		title.extend(tmp)
+	def RunShellScript(self, command):
+		title = ['Run shell script...\n']
+		print command
+		tmp = os.popen("command").readlines()
+		title = extend(tmp)
 		return title
+	
+	def CheckFileStatus(self, filename):
+		if os.path.isfile( filename ) == False:
+			title = ["FALSE"]
+		else
+			title = ["TRUE"];
+			return title
 
-	def InstallJava( self ):
-		title = ['Installing JDK...\n']
-		if os.path.isfile("/home/hadoop/jdk-7u5-linux-x64.rpm") == False:
-			tmp = os.popen("mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm").readlines()
-		else:
-			tmp = os.popen("cd /home/hadoop/ && rpm -Uvh jdk-7u5-linux-x64.rpm").readlines()
-
-		os.popen('echo "JAVA_HOME=/usr/java/default" >> /etc/profile && echo "JAVA_HOME=/usr/java/default" >> /root/.bashrc && echo "JAVA_HOME=/usr/java/default" >> /home/hadoop/.bashrc')
-		title.extend(tmp)
-		return title
-
-	def InstallHadoop( self ):
-		title = ['Installing Hadoop...\n']
-		if os.path.isfile("/home/hadoop/hadoop-1.0.3-1.x86_64.rpm") == False:
-			tmp = os.popen("mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
-		else:
-			tmp = os.popen("cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
-		title.extend(tmp)
-		return title
+	#def InstallHadoop( self ):
+	#	title = ['Installing Hadoop...\n']
+	#	if os.path.isfile("/home/hadoop/hadoop-1.0.3-1.x86_64.rpm") == False:
+	#		tmp = os.popen("mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
+	#	else:
+	#		tmp = os.popen("cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm").readlines()
+	#	title.extend(tmp)
+	#	return title
 		
 	def GetSystemVer( self ):
 		system_ver = platform.platform()
@@ -75,108 +60,6 @@ class Install:
 			title = 'Not CentOS'
 		return title
 
-	def InstallLzo( self ):
-		title = ['Installing LZO libary...\n']
-		if os.path.isfile("/home/hadoop/lzo-2.06.tar.gz") == False:
-			tmp = os.popen("mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzo-2.06.tar.gz && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install").readlines()
-		else:
-			tmp = os.popen("cd /home/hadoop/ && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install").readlines()
-		title.extend(tmp)
-		system_ver = platform.platform()
-		if system_ver.find("el5") > 0:
-			if os.path.isfile("/home/hadoop/lzo-2.06-1.el5.rf.x86_64.rpm") == False:
-				lzo = os.popen("mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm").readlines()
-			else:
-				lzo = os.popen("cd /home/hadoop && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm").readlines()
-
-			if os.path.isfile("/home/hadoop/lzo-devel-2.06-1.el5.rf.x86_64.rpm") == False:
-				lzo_dev = os.popen("mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el5.rf.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm").readlines()
-			else:
-				lzo_dev = os.popen("cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm").readlines()
-
-			title.extend(lzo)
-			title.extend(lzo_dev)
-		elif system_ver.find("el6") > 0:
-			if os.path.isfile("/home/hadoop/lzo-2.06-1.el6.rfx.x86_64.rpm") == False:
-				lzo = os.popen("mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/lzo-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm").readlines()
-			else:
-				lzo = os.popen("cd /home/hadoop/ && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm").readlines()
-
-			if os.path.isfile("/home/hadoop/lzo-devel-2.06-1.el6.rfx.x86_64.rpm") == False:
-				lzo_dev = os.popen("mkdir -p /home/hadoop && cd /home/hadoop && wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el6.rfx.x86_64.rpm && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm").readlines()
-			else:
-				lzo_dev = os.popen("cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm").readlines()
-
-			title.extend(lzo)
-			title.extend(lzo_dev)
-		else:
-			tmp = ['Unknown Operating System\n']
-			title.extend(tmp)
-
-		return title
-
-	def InstallLzop( self ):
-		title = ['Installing Lzop...\n']
-		if os.path.isfile("/home/hadoop/lzop-1.03.tar.gz") == False:
-			tmp = os.popen("mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/lzop-1.03.tar.gz && tar zxf lzop-1.03.tar.gz && cd lzop-1.03 && ./configure && make && make install").readlines()
-		else:
-			tmp = os.popen("cd /home/hadoop/ && tar zxf lzop-1.03.tar.gz && cd lzop-1.03 && ./configure && make && make install").readlines()
-		title.extend(tmp)
-		return title
-
-	def InstallHadoopgpl( self ):
-		title = ['Installing hadoopgpl...\n']
-		if os.path.isfile("/home/hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm") == False:
-			tmp = os.popen("mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm").readlines()
-		else:
-			tmp = os.popen("cd /home/hadoop/ && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm").readlines()
-		self.CopyHadoopgplFiles()
-		title.extend(tmp)
-		return title
-
-	def CopyHadoopgplFiles(self):
-		title = ['Installing hadoopgpl...\n']
-		tmp = os.popen("cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/").readlines()
-		title.extend(tmp)
-		return title
-
-	def ChangeSudoer( self ):
-		os.popen("chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers")
-		title = ['Make sudoers modify done']
-		return title
-
-	def UninstallHadoop( self ):
-		title = ['Uninstalling Hadoop']
-		rpm = os.popen("rpm -qa | grep hadoop-1.0.3-1").readline().strip()
-		if (rpm[0:14] == "hadoop-1.0.3-1"):
-			#On CentOS 5 is hadoop-1.0.3-1, On Centos 6 is hadoop-1.0.3-1.x86_64
-			tmp = os.popen("rpm -e hadoop-1.0.3-1 && rm -rf /etc/hadoop /usr/share/hadoop").readlines()
-		else:
-			tmp = ['No Hadoop found']
-		title.extend(tmp)
-		return title
-
-	def UninstallHadoopgpl( self ):
-		title = ['Uninstalling Hadoopgpl']
-		rpm = os.popen("rpm -qa | grep hadoop-gpl-packaging-0.5.3-1").readline().strip()
-		if (rpm[0:28] == "hadoop-gpl-packaging-0.5.3-1"):
-			#On CentOS 5 is hadoop-gpl-packaging-0.5.3-1, On Centos 6 is hadoop-gpl-packaging-0.5.3-1.x86_64
-			tmp = os.popen("rpm -e hadoop-gpl-packaging-0.5.3-1 && rm -rf /usr/share/hadoop/lib/cdh4.0.1 /usr/share/hadoop/lib/guava-12.0.jar /usr/share/hadoop/lib/hadoop-lzo-0.4.17.jar /usr/share/hadoop/lib/hadoop-lzo.jar /usr/share/hadoop/lib/pig* /usr/share/hadoop/lib/native /usr/share/hadoop/lib/protobuf-java-2.4.1.jar /usr/share/hadoop/lib/slf4j-api-1.5.8.jar /usr/share/hadoop/lib/slf4j-log4j12-1.5.10.jar /usr/share/hadoop/lib/yamlbeans-0.9.3.jar").readlines()
-		else:
-			tmp = ['No Hadoopgpl found']
-		title.extend(tmp)
-		return title
-
-	def UninstallJava( self ):
-		title = ['Uninstalling Oracle JDK']
-		rpm = os.popen("rpm -qa | grep jdk-1.7.0_05-fcs").readline().strip()
-		if (rpm[0:16] == "jdk-1.7.0_05-fcs"):
-			#On CentOS 5 is jdk-1.7.0_05-fcs, On Centos 6 is jdk-1.7.0_05-fcs.x86_64
-			tmp = os.popen("rpm -e jdk-1.7.0_05-fcs && rm -rf /usr/java").readlines()
-		else:
-			tmp = ['No Jdk found']
-		title.extend(tmp)
-		return title
 	##########################
 	#Start Hadoop Functions
 	##########################
@@ -246,15 +129,6 @@ class ClientThread( threading.Thread ):
 			##########################
 			#Install Modules
 			##########################
-			elif 'InstallHadoop' == cmd:
-				'''
-				Installing Hadoop
-				'''
-				tmp = install.InstallHadoop()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline(cmd + " installed")
-				self.client.close()
 			elif 'GetSystemVer' == cmd:
 				'''
 				Get system version
@@ -262,63 +136,21 @@ class ClientThread( threading.Thread ):
 				tmp = install.GetSystemVer()
 				self.writeline(tmp)
 				self.client.close()
-			elif 'InstallEnvironment' == cmd:
+			elif 'RunShellScript' == cmd[0:14]:
 				'''
-				Installing environment
+				RunShellScript
 				'''
-				tmp = install.InstallEnvironment()
+				tmp = install.RunShellScript(cmd[15:])
 				for line in tmp:
 					self.writeline( line + "\n" )
-				tmp = install.ChangeSudoer()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline(cmd + " installed")
 				self.client.close()
-			elif 'InstallJava' == cmd:
-				'''
-				Installing Java JDK
-				'''
-				tmp = install.InstallJava()
+				
+			elif 'CheckFileStatus' == cmd[0:15]:
+				tmp = install.CheckFileStatus(cmd[16:])
 				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline(cmd + " installed")
+					self.writeline( line + "\n"	)
 				self.client.close()
-			elif 'InstallLzo' == cmd:
-				'''
-				Installing Lzo libary
-				'''
-				tmp = install.InstallLzo()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline(cmd + " installed")
-				self.client.close()
-			elif 'InstallLzop' == cmd:
-				'''
-				Installing Lzop libary
-				'''
-				tmp = install.InstallLzop()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline(cmd + " installed")
-				self.client.close()
-			elif 'InstallHadoopgpl' == cmd:
-				'''
-				Installing hadoopgpl libary
-				'''
-				tmp = install.InstallHadoopgpl()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline(cmd + " installed")
-				self.client.close()
-			elif 'CopyHadoopgplFiles' == cmd:
-				'''
-				copy gpl files to /usr/share/hadoop/lib/
-				'''
-				tmp = install.CopyHadoopgplFiles()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline(cmd + " installed")
-				self.client.close()
+				
 			##########################
 			#Format namenode module, do not use this
 			##########################
@@ -490,36 +322,6 @@ class ClientThread( threading.Thread ):
 				for line in tmp:
 					self.writeline( line + "\n" )
 				self.writeline("Tasktracker stopped")
-				self.client.close()
-			##########################
-			#Uninstall Hadoop and Java Modules
-			##########################
-			elif 'UninstallHadoopgpl' == cmd:
-				'''
-				Uninstalling Hadoopgpl
-				'''
-				tmp = install.UninstallHadoopgpl()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Uninstall Hadoopgpl finished")
-				self.client.close()
-			elif 'UninstallHadoop' == cmd:
-				'''
-				Uninstalling Hadoop
-				'''
-				tmp = install.UninstallHadoop()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Uninstall Hadoop finished")
-				self.client.close()
-			elif 'UninstallJava' == cmd:
-				'''
-				Uninstalling Java
-				'''
-				tmp = install.UninstallJava()
-				for line in tmp:
-					self.writeline( line + "\n" )
-				self.writeline("Uninstall JDK finished")
 				self.client.close()
 			##########################
 			elif 'FileTransport' == cmd[0:13]:
