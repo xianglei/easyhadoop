@@ -49,7 +49,7 @@ elseif($_GET['action'] == "GlobalSettings")
                   	<td>
                   	<div class="btn-group">
    						 <a class="btn" href="HostSettings.php?action=GlobalSettings&do=Edit&setid='.$arr['set_id'].'">'.$lang['edit'].'</a>
-   						 <a class="btn btn-danger" href="HostSettings.php?action=GlobalSettings&do=Remove&setid='.$arr['set_id'].'">'.$lang['remove'].'</a>
+   						 <a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['removeConfirm'].'\', \'HostSettings.php?action=GlobalSettings&do=Remove&setid='.$arr['set_id'].'\'); return false;" href="#">'.$lang['remove'].'</a>
                   	</div>
                   	</td>
                 	</tr>';
