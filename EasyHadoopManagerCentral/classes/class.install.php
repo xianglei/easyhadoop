@@ -281,64 +281,6 @@ class Install extends Socket
 		return $ret;
 	}
 
-	############################################
-	public function UninstallJava($pHost)
-	{
-		global $lang;
-		$this->mHost = $pHost;
-		$this->mRpmName = "jdk-1.7.0_05-fcs";
-		$str = $this->GetRpmStatus();
-		$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
-		sleep(1);
-		$str = $this->SocketCommand();
-		if($str != FALSE)
-		{
-			return $str;
-		}
-		else
-		{
-			return $lang['notConnected'];
-		}
-	}
-	
-	############################################
-	public function UninstallHadoop($pHost)
-	{
-		$this->mHost = $pHost;
-		$this->mRpmName = "hadoop-1.0.3-1";
-		$str = $this->GetRpmStatus();
-		$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
-		sleep(1);
-		$str = $this->SocketCommand();
-		if($str != FALSE)
-		{
-			return $str;
-		}
-		else
-		{
-			return $lang['notConnected'];
-		}
-	}
-	
-	############################################
-	public function UninstallHadoopgpl($pHost)
-	{
-		$this->mHost = $pHost;
-		$this->mRpmName = "hadoop-gpl-packaging-0.5.3-1";
-		$str = $this->GetRpmStatus();
-		$this->mCommand = $this->cAgentRunShell.":rpm -e ".$str;
-		sleep(1);
-		$str = $this->SocketCommand();
-		if($str != FALSE)
-		{
-			return $str;
-		}
-		else
-		{
-			return $lang['notConnected'];
-		}
-	}
-
 	###########################################
 	private function CheckFileExists()
 	{
