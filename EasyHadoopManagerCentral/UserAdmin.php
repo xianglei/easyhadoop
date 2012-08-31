@@ -57,6 +57,7 @@ elseif($_GET['action'] == "ChangePassword")
 }
 elseif($_GET['action'] == "AddUser")
 {
+	echo '<div class=span10>';
 	if(!$_POST['submit'])
 	{
 		include_once "templates/add_user.html";
@@ -83,6 +84,7 @@ elseif($_GET['action'] == "AddUser")
 		}
 		echo "</h3>";
 	}
+	echo '</div>';
 }
 
 include_once "templates/footer.html";
