@@ -58,11 +58,11 @@ class Install extends Socket
 		
 		if($this->CheckFileExists())
 		{
-			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh jdk-7u5-linux-x64.rpm";
+			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh jdk-7u5-linux-x64.rpm && echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
 		else
 		{
-			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm";
+			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm && echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
 		sleep(1);
 		if($this->SocketCommand())
