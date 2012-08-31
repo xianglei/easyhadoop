@@ -9,7 +9,7 @@ class Socket
 	protected function SocketCommand()
 	{
 		//global $lang;
-		if($fp = @fsockopen($this->mHost, 30050, $errstr, $errno, 300))
+		if($fp = @fsockopen($this->mHost, 30050, $errstr, $errno, 30))
 		{
 			fwrite($fp, $this->mCommand."\n");
 			while (!feof($fp))
@@ -29,7 +29,7 @@ class Socket
 	
 	public function SocketConnectTest($pHost)
 	{
-		if($fp = @fsockopen($pHost, 30050, $errstr, $errno, 300))
+		if($fp = @fsockopen($pHost, 30050, $errstr, $errno, 30))
 		{
 			fclose($fp);
 			return TRUE;

@@ -30,6 +30,7 @@ class Install:
 
 	def RunShellScript(self, command):
 		print command
+		print time.time()
 		a = subprocess.Popen( command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
 		tmp_out = a.stdout.readlines()
 		tmp_err = a.stderr.readlines()
