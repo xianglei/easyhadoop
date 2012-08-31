@@ -1,13 +1,3 @@
---
--- 数据库: `easyhadoop`
---
-
--- --------------------------------------------------------
-
---
--- 表的结构 `ehm_hadoop_settings`
---
-
 DROP TABLE IF EXISTS `ehm_hadoop_settings`;
 CREATE TABLE IF NOT EXISTS `ehm_hadoop_settings` (
   `set_id` int(11) NOT NULL auto_increment,
@@ -52,7 +42,8 @@ CREATE TABLE IF NOT EXISTS `ehm_hosts` (
   PRIMARY KEY  (`host_id`),
   UNIQUE KEY `hostname_2` (`hostname`),
   KEY `hostname` (`hostname`,`ip`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+
 
 -- --------------------------------------------------------
 
@@ -72,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `ehm_host_settings` (
   KEY `filename` (`filename`,`ip`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Setting files of each host' AUTO_INCREMENT=9 ;
 
+
 -- --------------------------------------------------------
 
 --
@@ -88,3 +80,27 @@ CREATE TABLE IF NOT EXISTS `ehm_pig_settings` (
   PRIMARY KEY  (`set_id`),
   KEY `filename` (`filename`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `ehm_user`
+--
+
+DROP TABLE IF EXISTS `ehm_user`;
+CREATE TABLE IF NOT EXISTS `ehm_user` (
+  `user_id` int(10) unsigned NOT NULL auto_increment,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `role` varchar(10) NOT NULL,
+  PRIMARY KEY  (`user_id`),
+  UNIQUE KEY `username` (`username`),
+  KEY `role` (`role`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- 转存表中的数据 `ehm_user`
+--
+
+INSERT INTO `ehm_user` (`user_id`, `username`, `password`, `role`) VALUES
+(1, 'admin', 'e10adc3949ba59abbe56e057f20f883e', 'superadmin');
