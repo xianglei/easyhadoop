@@ -2,13 +2,13 @@
 
 class Mysql
 {
-	private $mDbHost;
-	private $mDbPort;
-	private $mDbName;
-	private $mDbUser;
-	private $mDbPass;
-	private $mDbConn;
-	private $mResult;
+	protected $mDbHost;
+	protected $mDbPort;
+	protected $mDbName;
+	protected $mDbUser;
+	protected $mDbPass;
+	protected $mDbConn;
+	protected $mResult;
 	
 	public function __construct()
 	{

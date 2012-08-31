@@ -12,7 +12,11 @@ $lang['nodeRemoved'] = '节点已删除';
 $lang['nodeModified'] = '节点已修改';
 $lang['pingNode'] = 'Ping';
 $lang['notConnected'] = '无法连接到节点，请检查Agent是否启动，或已经关闭iptables';
-$lang['connected'] = '连接成功'; 
+$lang['connected'] = '连接成功';
+
+$lang['username'] = '用户名';
+$lang['password'] = '密码';
+$lang['easyhadoop'] = 'EasyHadoop';
 
 $lang['installManager'] = "节点安装管理";
 
