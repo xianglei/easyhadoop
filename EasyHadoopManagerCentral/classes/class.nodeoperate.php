@@ -123,7 +123,7 @@ class Node extends Socket
 				break;
 		}
 		
-		$command = "/usr/java/default/bin/jps | grep ".$jps." | awk '{print $1}'";
+		$command = "/usr/java/default/bin/jps | grep -w ".$jps." | awk '{print $1}'";
 		$this->mCommand = $this->cAgentRunShell.":".$command;
 		if($this->SocketCommand())
 		{
