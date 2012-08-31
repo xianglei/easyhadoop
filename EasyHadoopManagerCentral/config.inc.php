@@ -11,7 +11,7 @@ include_once "classes/class.mysql.php";
 include_once "classes/class.user.php";
 //include_once "classes/class.socket.php";
 
-$user =new User;
+$auth =new User;
 
 if($_POST['username'] && $_POST['password'])
 {
@@ -31,7 +31,7 @@ if(($user == "") || ($pass == ""))
 else
 {
 
-	$role = $user->AuthUser($user,$pass);
+	$role = $auth->AuthUser($user,$pass);
 	if($role == FALSE)
 	{
 		include_once "templates/login.html";
