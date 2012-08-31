@@ -275,7 +275,7 @@ class Server:
 			while not QUIT:
 				try:
 					self.sock.settimeout( 0.500 )
-					client = self.sock.accept()[0]
+					client,addr = self.sock.accept()
 				except socket.timeout:
 					time.sleep( 1 )
 					if QUIT:
