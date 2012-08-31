@@ -8,6 +8,7 @@ define("MYSQL_NAME", "easyhadoop");
 
 include_once "langs/lang_cn.php";
 include_once "classes/class.mysql.php";
+include_once "classes/class.user.php";
 //include_once "classes/class.socket.php";
 
 $user =new User;
@@ -46,7 +47,7 @@ else
 include_once "classes/class.socket.php";
 include_once "classes/class.install.php";
 include_once "classes/class.nodeoperate.php";
-include_once "classes/class.user.php";
+
 
 
 ?>
