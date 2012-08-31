@@ -16,7 +16,7 @@ class User extends Mysql
 		else
 		{
 			$this->mRole = $arr['role'];
-			return FALSE;
+			return TRUE;
 		}
 	}
 	
