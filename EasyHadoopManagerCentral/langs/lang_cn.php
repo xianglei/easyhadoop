@@ -31,6 +31,8 @@ $lang['passwordNotEqual'] = "两次新密码输入不同，请重新输入";
 $lang['notValidPassword'] = '当前密码输入错误';
 $lang['changePasswordSuccess'] = '密码变更完成';
 $lang['changePasswordFailed'] = '密码变更失败';
+$lang['addUserSuccess'] = '添加用户成功';
+$lang['addUserFailed'] = '添加用户失败';
 
 $lang['installManager'] = "节点安装管理";
 

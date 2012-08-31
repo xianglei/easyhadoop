@@ -112,7 +112,7 @@ elseif ($_GET['action'] == "RemoveNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-remove></i><a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['removeConfirm'].'\', \'NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'\');return false;" href="#">'.$lang['removeNode'].'</a></td>
+                  	<td><a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['removeConfirm'].'\', \'NodeManager.php?action=RemoveNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'\');return false;" href="#"><i class=icon-remove></i>'.$lang['removeNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
@@ -165,7 +165,7 @@ elseif ($_GET['action'] == "ModifyNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-pencil></i><a class="btn btn-warning" href=NodeManager.php?action=ModifyNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'>'.$lang['modifyNode'].'</a></td>
+                  	<td><a class="btn btn-warning" href=NodeManager.php?action=ModifyNode&nodeid='.$arr['host_id'].'&ip='.$arr['ip'].'><i class=icon-pencil></i>'.$lang['modifyNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}
@@ -238,7 +238,7 @@ elseif($_GET['action'] == "PingNode")
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td><i class=icon-play></i><a class="btn btn-info" href=NodeManager.php?action=PingNode&nodeid='.$arr['host_id'].'>'.$lang['pingNode'].'</a></td>
+                  	<td><a class="btn btn-info" href=NodeManager.php?action=PingNode&nodeid='.$arr['host_id'].'><i class=icon-play></i>'.$lang['pingNode'].'</a></td>
                 	</tr>';
 			$i++;
 		}

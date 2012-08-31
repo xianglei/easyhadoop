@@ -12,56 +12,77 @@ if(!$_GET['action'])
 elseif($_GET['action'] == "ChangePassword")
 {
 	echo '<div class=span10>';
-	if(!$_POST['action'])
+	if(!$_POST['submit'])
 	{
 		include_once "templates/change_password.html";
 	}
 	else
 	{
-		if(!$_POST['cur_pass'] || !$_POST['new_pass1'])
+		echo "<h3>";
+		if($auth->AuthUser($_SESSION['username'],$_POST['cur_pass']))
 		{
-			include_once "templates/change_password.html";
-		}
-		else
-		{
-			echo "<h3>";
-
-			if($auth->AuthUser($_SESSION['username'],$_POST['cur_pass']))
+			if($_POST['cur_pass'] == $_POST['new_pass1'])
 			{
-				if($_POST['cur_pass'] == $_POST['new_pass1'])
-				{
-					echo $lang['passwordEqual'];
-				}
-				else
-				{
-					if($_POST['new_pass1'] != $_POST['new_pass2'])
-					{
-						echo $lang['passwordNotEqual'];
-					}
-					else
-					{
-						$username = $_SESSION['username'];
-						$password = $_POST['cur_pass'];
-						$newpassword = $_POST['new_pass1'];
-						if($auth->ChangePassword($username, $password, $newpassword))
-						{
-							echo $lang['changePasswordSuccess'];
-						}
-						else
-						{
-							echo $lang['changePasswordFailed'];
-						}
-					}
-				}
+				echo $lang['passwordEqual'];
 			}
 			else
 			{
-				echo $lang['notValidPassword'];
+				if($_POST['new_pass1'] != $_POST['new_pass2'])
+				{
+					echo $lang['passwordNotEqual'];
+				}
+				else
+				{
+					$username = $_SESSION['username'];
+					$password = $_POST['cur_pass'];
+					$newpassword = $_POST['new_pass1'];
+					if($auth->ChangePassword($username, $password, $newpassword))
+					{
+						echo $lang['changePasswordSuccess'];
+					}
+					else
+					{
+						echo $lang['changePasswordFailed'];
+					}
+				}
 			}
-			echo "</h3>";
 		}
+		else
+		{
+			echo $lang['notValidPassword'];
+		}
+		echo "</h3>";
 	}
 	echo '</div>';
+}
+elseif($_GET['action'] == "AddUser")
+{
+	if(!$_POST['submit'])
+	{
+		include_once "templates/add_user.html";
+	}
+	else
+	{
+		echo "<h3>";
+		if($_POST['password'] != $_POST['password2'])
+		{
+			echo $lang['passwordNotEqual'];
+		}
+		else
+		{
+			$username = $_POST['username'];
+			$password = $_POST['password'];
+			if($auth->AddUser($username, $password))
+			{
+				echo $lang['addUserSuccess'];
+			}
+			else
+			{
+				echo $lang['addUserFailed'];
+			}
+		}
+		echo "</h3>";
+	}
 }
 
 include_once "templates/footer.html";

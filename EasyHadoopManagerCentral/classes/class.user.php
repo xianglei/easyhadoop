@@ -33,6 +33,19 @@ class User extends Mysql
 			return FALSE;
 		}
 	}
+	
+	public function AddUser($pUsername, $pPassword)
+	{
+		$sql = "insert ehm_user set password = '".md5($pPassword)."', username = '".$pUsername."', role = 'superadmin'";
+		if($this->Query($sql))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
 }
 
 ?>
