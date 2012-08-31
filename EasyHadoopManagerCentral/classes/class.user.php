@@ -4,10 +4,10 @@ class User extends Mysql
 {
 	public function AuthUser($pUsername, $pPassword)
 	{
-		$sql = "select count(*) from ehm_user where username = '".$pUsername."', password = '".md5($pPassword)."'";
+		$sql = "select * from ehm_user where username = '".$pUsername."', password = '".md5($pPassword)."'";
 		$this->Query($sql);
 		$arr = $this->FetchArray();
-		if($arr[0] == 0)
+		if($arr['role'] == "")
 		{
 			return FALSE;
 		}
