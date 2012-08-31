@@ -1,0 +1,14 @@
+<form method=POST>
+<label><?php echo $lang['filename'];?></label><br />
+<pre>
+<?php echo $lang['filenameTips'];?><br />
+<?php echo $lang['globalSettingFilenameTips'];?><br />
+</pre>
+<input type=text name=filename value="<?php echo $arr['filename'];?>"> <br />
+<label><?php echo $lang['content'];?></label><br />
+<textarea name=content><?php echo $arr['content'];?></textarea><br />
+<input type=hidden name=action value="GlobalSettings" />
+<input type=hidden name=set_id value="<?php echo $set_id;?>" />
+<input type=hidden name=do value=Edit>
+<button type="submit" class="btn"><?php echo $lang['submit'];?></button>
+</form>

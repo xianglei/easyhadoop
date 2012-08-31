@@ -55,7 +55,7 @@ elseif($_GET['action'] == "ChangePassword")
 	}
 	echo '</div>';
 }
-elseif($_GET['action'] == "AddUser")
+/*elseif($_GET['action'] == "AddUser")
 {
 	echo '<div class=span10>';
 	if(!$_POST['submit'])
@@ -85,6 +85,12 @@ elseif($_GET['action'] == "AddUser")
 		echo "</h3>";
 	}
 	echo '</div>';
+}*/
+else
+{
+	echo '<div class=span10>';
+	echo "<h2>Unknown Command</h2>";
+	echo "</div>";
 }
 
 include_once "templates/footer.html";

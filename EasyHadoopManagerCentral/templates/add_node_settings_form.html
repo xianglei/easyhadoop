@@ -1,0 +1,14 @@
+<form method=POST>
+<label><?php echo $lang['filename'];?></label><br />
+<pre>
+<?php echo $lang['filenameTips'];?><br />
+<?php echo $lang['hostSettingFilenameTips'];?><br />
+</pre>
+<input type=text placeholder="with path: /etc/hadoop/hdfs-site.xml..." name=filename> <br />
+<label><?php echo $lang['content'];?></label><br />
+<textarea name=content></textarea><br />
+<input type=hidden name=action value="NodeSettings">
+<input type=hidden name=ip value="<?php echo $ip;?>">
+<input type=hidden name=do value=Add>
+<button type="submit" class="btn"><?php echo $lang['submit'];?></button>
+</form>

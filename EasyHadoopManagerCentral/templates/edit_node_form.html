@@ -1,0 +1,11 @@
+<form method=POST>
+					<label><?php echo $lang['hostname'];?></label><br />
+					<input type="text" name="hostname" value="<?php echo $arr['hostname'];?>" /><br />
+					<label><?php echo $lang['ipAddr'];?></label><br />
+					<input type="text" name="ipaddr" value="<?php echo $arr['ip'];?>" /><br />
+					<label><?php echo $lang['roleName'];?></label><br />
+					<input type="text" name="role" value="<?php echo $arr['role'];?>" /><br />
+					<input type="hidden" name="action" value="<?php echo $_GET['action'];?>" />
+					<input type="hidden" name="host_id" value="<?php echo $arr['host_id'];?>" />
+					<button type="submit" class="btn"><?php echo $lang['submit'];?></button>
+			</form>

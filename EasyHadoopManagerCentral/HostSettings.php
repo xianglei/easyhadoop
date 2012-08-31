@@ -65,19 +65,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		{
 			echo '<div class=span10>';
 			echo '<h1>'.$lang['addSettings'].'</h1>';
-			echo "<form method=POST>";
-			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<pre>';
-			echo $lang['filenameTips']."<br />";
-			echo $lang['globalSettingFilenameTips']."<br />";
-			echo '</pre>';
-			echo '<input type=text placeholder="'.$lang['filename'].'(with path: /etc/hosts...)" name=filename> <br />';
-			echo '<label>'.$lang['content'].'</label><br />';
-			echo '<textarea name=content></textarea><br />';
-			echo '<input type=hidden name=action value="GlobalSettings">';
-			echo '<input type=hidden name=do value=Add>';
-			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
-			echo "</form>";
+			include_once "templates/add_global_settings_form.html";
 			echo '</div>';
 		}
 		else
@@ -98,20 +86,7 @@ elseif($_GET['action'] == "GlobalSettings")
 		{
 			echo '<div class=span10>';
 			echo '<h1>'.$lang['modifySettings'].'</h1>';
-			echo "<form method=POST>";
-			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<pre>';
-			echo $lang['filenameTips']."<br />";
-			echo $lang['globalSettingFilenameTips']."<br />";
-			echo '</pre>';
-			echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
-			echo '<label>'.$lang['content'].'</label><br />';
-			echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
-			echo '<input type=hidden name=action value="GlobalSettings">';
-			echo '<input type=hidden name=set_id value="'.$set_id.'"';
-			echo '<input type=hidden name=do value=Edit>';
-			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
-			echo "</form>";
+			include_once "templates/edit_global_settings_form.html";
 			echo '</div>';
 		}
 		else
@@ -210,20 +185,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			
 			echo '<div class=span10>';
 			echo '<h1>'.$lang['addSettings'].'</h1>';
-			echo "<form method=POST>";
-			echo '<label>'.$lang['filename'].'</label><br />';
-			echo '<pre>';
-			echo $lang['filenameTips']."<br />";
-			echo $lang['hostSettingFilenameTips']."<br />";
-			echo '</pre>';
-			echo '<input type=text placeholder="with path: /etc/hadoop/hdfs-site.xml..." name=filename> <br />';
-			echo '<label>'.$lang['content'].'</label><br />';
-			echo '<textarea name=content></textarea><br />';
-			echo '<input type=hidden name=action value="NodeSettings">';
-			echo '<input type=hidden name=ip value="'.$ip.'">';
-			echo '<input type=hidden name=do value=Add>';
-			echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
-			echo "</form>";
+			include_once "templates/add_node_settings_form.html";
 			echo '</div>';
 		}
 		else
@@ -292,20 +254,7 @@ elseif($_GET['action'] == 'NodeSettings')
 		
 				echo '<div class=span10>';
 				echo '<h1>'.$lang['modifySettings'].'</h1>';
-				echo "<form method=POST>";
-				echo '<label>'.$lang['filename'].'</label><br />';
-				echo '<pre>';
-				echo $lang['filenameTips']."<br />";
-				echo $lang['hostSettingFilenameTips']."<br />";
-				echo '</pre>';
-				echo '<input type=text name=filename value="'.$arr['filename'].'"> <br />';
-				echo '<label>'.$lang['content'].'</label><br />';
-				echo '<textarea name=content>'.$arr['content'].'</textarea><br />';
-				echo '<input type=hidden name=action value="NodeSettings">';
-				echo '<input type=hidden name=do value=Edit>';
-				echo '<input type=hidden name=set_id value='.$set_id.'>';
-				echo '<button type="submit" class="btn">'.$lang['submit'].'</button>';
-				echo "</form>";
+				include_once 'templates/edit_node_settings_form.html';
 				echo '</div>';
 			}
 			else
