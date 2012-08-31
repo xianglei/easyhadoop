@@ -65,14 +65,14 @@ elseif($_GET['action'] == "AddUser")
 	else
 	{
 		echo "<h3>";
-		if($_POST['password'] != $_POST['password2'])
+		if($_POST['newpassword'] != $_POST['newpassword2'])
 		{
 			echo $lang['passwordNotEqual'];
 		}
 		else
 		{
-			$username = $_POST['username'];
-			$password = $_POST['password'];
+			$username = $_POST['newusername'];
+			$password = $_POST['newpassword'];
 			if($auth->AddUser($username, $password))
 			{
 				echo $lang['addUserSuccess'];
