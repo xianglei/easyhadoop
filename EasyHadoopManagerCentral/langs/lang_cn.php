@@ -17,6 +17,7 @@ $lang['connected'] = '连接成功';
 $lang['username'] = '用户名';
 $lang['password'] = '密码';
 $lang['easyhadoop'] = 'EasyHadoop';
+$lang['logout'] = "登出";
 
 $lang['installManager'] = "节点安装管理";
 
