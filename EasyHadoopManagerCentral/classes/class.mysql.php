@@ -70,7 +70,7 @@ class Mysql
 		{
 			$this->Free();
 		}
-		mysql_close($this->mDbConn);
+		@mysql_close($this->mDbConn);
     }
 }
 
