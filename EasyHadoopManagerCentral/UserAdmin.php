@@ -15,9 +15,7 @@ elseif($_GET['action'] == "ChangePassword")
 	
 	if(!$_POST['cur_pass'] || !$_POST['new_pass'])
 	{
-		
-		include_once "templates/change_password.html";
-		
+		include_once "templates/change_password.html";		
 	}
 	else
 	{
