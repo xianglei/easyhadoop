@@ -28,7 +28,7 @@ $lang['newPass'] = "输入新密码";
 $lang['reNewPass'] = "再次输入新密码";
 $lang['passwordEqual'] = "新旧密码相同，请重新输入。";
 $lang['passwordNotEqual'] = "两次新密码输入不同，请重新输入";
-$lang['notValidPassword'] = '密码输入错误';
+$lang['notValidPassword'] = '当前密码输入错误';
 $lang['changePasswordSuccess'] = '密码变更完成';
 $lang['changePasswordFailed'] = '密码变更失败';
 

@@ -41,7 +41,7 @@ elseif($_GET['action'] == "ChangePassword")
 					else
 					{
 						$username = $_SESSION['username'];
-						$password = $_POST['password'];
+						$password = $_POST['cur_pass'];
 						$newpassword = $_POST['new_pass1'];
 						if($auth->ChangePassword($username, $password, $newpassword))
 						{
