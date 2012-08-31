@@ -41,7 +41,7 @@ else
 	{
 		$_SESSION['username'] = $user;
 		$_SESSION['password'] = $pass;
-		$_SESSION['role'] = $role['role'];
+		$_SESSION['role'] = $role;
 	}
 }
 include_once "classes/class.socket.php";
