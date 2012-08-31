@@ -2,6 +2,8 @@
 
 class User extends Mysql
 {
+	public $mRole;
+	
 	public function AuthUser($pUsername, $pPassword)
 	{
 		$sql = "select * from ehm_user where username = '".$pUsername."' and password = '".md5($pPassword)."'";
@@ -13,7 +15,8 @@ class User extends Mysql
 		}
 		else
 		{
-			return $arr['role'];
+			$this->mRole = $arr['role'];
+			return FALSE;
 		}
 	}
 	

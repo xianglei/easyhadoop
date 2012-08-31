@@ -33,8 +33,7 @@ if(($user == "") || ($pass == ""))
 else
 {
 
-	$role = $auth->AuthUser($user,$pass);
-	if($role == FALSE)
+	if(!$auth->AuthUser($user,$pass))
 	{
 		include_once "templates/login.html";
 		die('');
@@ -43,7 +42,7 @@ else
 	{
 		$_SESSION['username'] = $user;
 		$_SESSION['password'] = $pass;
-		$_SESSION['role'] = $role;
+		$_SESSION['role'] = $auth->mRole;
 	}
 }
 include_once "classes/class.socket.php";
