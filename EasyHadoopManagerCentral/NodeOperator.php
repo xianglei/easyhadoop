@@ -52,10 +52,10 @@ elseif($_GET['action'] == "Operate")
                 		<button class="btn">'.$value.'</button>
                 		<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                 		<ul class="dropdown-menu">
-                  		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'">'.$lang['start'].$value.'</a></li>
+                  		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
-                  		<li><a href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'">'.$lang['stop'].$value.'</a></li>
-					 	<li><a href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'">'.$lang['restart'].$value.'</a></li>
+                  		<li><a href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-stop"></i>'.$lang['stop'].$value.'</a></li>
+					 	<li><a href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-refresh"></i>'.$lang['restart'].$value.'</a></li>
                 		</ul>
               				</div>';
             		echo '</td>';
