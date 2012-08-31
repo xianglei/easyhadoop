@@ -1,15 +1,12 @@
-It's a simply shell to install hadoop and Hive, Pig... on CentOS 5 and 6 which 
-can made hadoop installation easier and faster.
+It's open source hadoop installing , management , monitoring platform 
+which is lightweight, and easy to use.
 
-The hadoop installed with this script would be a fake distributed,
-but you can comment some lines to use it with real distributed 
-network.
+Written with php and python. It is very easy to setup and use. Only you
+need is a PC or VM with nginx, php, mysql installed on it. You can admin
+or install your HADOOP cluster very quickly with just one mouse click on 
+Management pages.
 
-It support lzo compressed data file by default, enjoy it.
+It support CentOS 5.x or 6.x now, Uses Apache Hadoop(R) 1.0.3, including
+lzo compression pack.
 
-Usage:
-[root@localhost]#chmod +x this_shell_script.sh
-[root@localhost]./this_shell_script.sh
-
-Note: You must use root user to run this script, do not use sudo!!!
-And use "su root" or "sudo su -" to change to root, do not use "sudo -s"
+Wish you like it.

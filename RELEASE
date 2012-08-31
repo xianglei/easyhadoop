@@ -1,0 +1,14 @@
+[1.03 beta 1]
+This is the distributed installation initialize version.
+Include:
+Hadoop Install
+LZO compression libary
+JDK 7u5
+It can do:
+1. Installing Hadoop, Lzo compression libary, Jdk with fast socket pushing agent.
+2. Setting up Hadoop-settings and push them to nodes you wished(like hdfs-site.xml).
+3. Setting up Common-settings and push them to each node(like /etc/hosts)
+4. Monitoring hadoop process health status, and renturn the processId on nodes
+5. Start, stop, restart namenode, jobtracker... for each node with one click.
+6. View hadoop logs within 1000 lines
+7. EHM user management
