@@ -86,6 +86,7 @@ class ClientThread( threading.Thread ):
 				'''
 				tmp = install.GetSystemVer()
 				self.writeline(tmp)
+				done = True
 				self.client.close()
 			elif 'RunShellScript' == cmd[0:14]:
 				'''
@@ -94,12 +95,14 @@ class ClientThread( threading.Thread ):
 				tmp = install.RunShellScript(cmd[15:])
 				for line in tmp:
 					self.writeline( line + "\n" )
+				done = True
 				self.client.close()
 				
 			elif 'CheckFileStatus' == cmd[0:15]:
 				tmp = install.CheckFileStatus(cmd[16:])
 				for line in tmp:
 					self.writeline( line + "\n"	)
+				done = True
 				self.client.close()
 
 			##########################
@@ -112,13 +115,15 @@ class ClientThread( threading.Thread ):
 				filename = cmd[15:].strip()
 				self.FileTransport( filename )
 				self.writeline( filename + "Updated")
+				done = True
 				self.client.close()
 			else:
 				self.writeline( "Unknown Command: " + cmd )
+				done = True
 				self.client.close()
 
 			#cmd = self.readline()
-			done = True
+			#done = True
 			self.client.close()
 		return
 
