@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python
+#!/usr/bin/python
 # -*- coding: utf8 -*-
 
 #EasyHadoopManager remote control threading daemon
