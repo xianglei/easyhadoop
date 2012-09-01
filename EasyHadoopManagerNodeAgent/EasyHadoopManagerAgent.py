@@ -18,6 +18,7 @@ import subprocess
 import string
 import platform
 
+from optparse import OptionParser
 from signal import SIGTERM
 
 QUIT = False
@@ -302,25 +303,39 @@ class Server:
 		for thread in self.thread_list:
 			thread.join( 1.0 )
 		self.sock.close()
+		
 
 if "__main__" == __name__:
 	#server = Server()
 	#server.run()
 
 	#print "Terminated"
-	if len(sys.argv) == 3:
-		if 'start' == sys.argv[2]:
-			daemon = Daemon('/var/run/ehm.pid', sys.argv[1])
-			daemon.start()
-		elif 'stop' == sys.argv[2]:
-			daemon = Daemon('/var/run/ehm.pid', sys.argv[1])
-			daemon.stop()
-		elif 'restart' == sys.argv[2]:
-			daemon = Daemon('/var/run/ehm.pid', sys.argv[1])
-			daemon.restart()
-		else:   
-			print 'Unknown command'
-			sys.exit(2)
-	else:
-		print 'usage: %s start|stop|restart' % sys.argv[0]
-		sys.exit(2)
+	usage = "usage: %prog -b 192.168.1.1 -s start"
+	parser = OptionParser(usage=usage)
+
+	parser.add_option("-a", "--address", action="store", type="string", dest="address", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
+	parser.add_option("-s", "--signal", action="store", type="string", dest="signal", help="valid signal is [ start | stop | restart ]")
+	options, args = parser.parse_args()
+	
+	
+	if len(sys.argv) == 1:
+		print 'Type %s -h or --help for options help.' % sys.argv[0]
+	else
+		if options.signal == "":
+			print 'Must give -s option\'s value'
+		else:
+			if 'start' == options.signal:
+				daemon = Daemon('/var/run/ehm.pid', options.address)
+				daemon.start()
+			elif 'stop' == options.signal:
+				daemon = Daemon('/var/run/ehm.pid', options.address)
+				daemon.stop()
+			elif 'restart' == options.signal:
+				daemon = Daemon('/var/run/ehm.pid', options.address)
+				daemon.restart()
+			else:   
+				print 'Unknown command'
+				sys.exit(2)
+	#else:
+	#	print 'usage: %s bind_ip start|stop|restart' % sys.argv[0]
+	#	sys.exit(2)
