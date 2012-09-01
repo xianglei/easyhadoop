@@ -224,7 +224,7 @@ class Daemon:
 			while 1:
 				os.kill(pid, SIGTERM)
 				time.sleep(0.1) 
-				server = Server(self.validIP) #¥´»Î‘ –ÌIP
+				server = Server()
 				server.close()
 
 		except OSError, err:
@@ -241,7 +241,7 @@ class Daemon:
 		self.start()
 	def _run(self):
 		while True:
-			server = Server(self.validIP)
+			server = Server(validIP)
 			server.run()
 
 class Server:
@@ -251,7 +251,6 @@ class Server:
 		self.validIP = validIP
 
 	def close ( self ):
-		self.sock.close()
 		del self.sock
 		sys.exit(1)
 
@@ -263,7 +262,7 @@ class Server:
 				sys.exit( 1 )
 			try:
 				self.sock = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
-				self.sock.bind( ( '0.0.0.0', 30050 ) )
+				self.sock.bind( ( self.validIP, 30050 ) )
 				self.sock.listen( 5 )
 				all_good = True
 				break
@@ -286,16 +285,15 @@ class Server:
 						print "Received quit command. Shutting down..."
 						break
 					continue
-				if addr[0] == self.validIP:
-					new_thread = ClientThread( client )
-					print 'Incoming Connection. Started thread ',
-					print new_thread.getName()
-					self.thread_list.append( new_thread )
-					new_thread.start()
-					for thread in self.thread_list:
-						if not thread.isAlive():
-							self.thread_list.remove( thread )
-							thread.join()
+				new_thread = ClientThread( client )
+				print 'Incoming Connection. Started thread ',
+				print new_thread.getName()
+				self.thread_list.append( new_thread )
+				new_thread.start()
+				for thread in self.thread_list:
+					if not thread.isAlive():
+						self.thread_list.remove( thread )
+						thread.join()
 
 		except KeyboardInterrupt:
 			print 'Ctrl+C pressed... Shutting Down'
@@ -311,17 +309,16 @@ if "__main__" == __name__:
 
 	#print "Terminated"
 	daemon = Daemon('/var/run/ehm.pid')
-	if len(sys.argv) == 3:
-		validIP = sys.argv[1]
-		if 'start' == sys.argv[2]:
-			daemon.start(validIP)
-		elif 'stop' == sys.argv[2]:
-			daemon.stop(validIP)
-		elif 'restart' == sys.argv[2]:
-			daemon.restart(validIP)
+	if len(sys.argv) == 2:
+		if 'start' == sys.argv[1]:
+			daemon.start()
+		elif 'stop' == sys.argv[1]:
+			daemon.stop()
+		elif 'restart' == sys.argv[1]:
+			daemon.restart()
 		else:   
 			print 'Unknown command'
 			sys.exit(2)
 	else:
-		print 'usage: %s ehm_ip [start|stop|restart]' % sys.argv[0]
+		print 'usage: %s start|stop|restart' % sys.argv[0]
 		sys.exit(2)
