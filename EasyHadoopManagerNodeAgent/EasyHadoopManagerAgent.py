@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python
 # -*- coding: utf8 -*-
 
 #EasyHadoopManager remote control threading daemon
@@ -30,8 +30,6 @@ class Install:
 		self.stderr = stderr
 
 	def RunShellScript(self, command):
-		print command
-		print time.time()
 		a = subprocess.Popen( command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
 		tmp_out = a.stdout.readlines()
 		tmp_err = a.stderr.readlines()
@@ -67,6 +65,8 @@ class ClientThread( threading.Thread ):
 		cmd = self.readline()
 		install = Install()
 		while not done:
+			print cmd
+			print time.time()
 			if 'finish' == cmd :
 				self.writeline( 'Finish EasyHadoop Manager' )
 				QUIT = True
