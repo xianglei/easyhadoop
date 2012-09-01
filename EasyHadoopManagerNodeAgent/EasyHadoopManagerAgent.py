@@ -117,8 +117,9 @@ class ClientThread( threading.Thread ):
 				self.writeline( "Unknown Command: " + cmd )
 				self.client.close()
 
-			cmd = self.readline()
-		self.client.close()
+			#cmd = self.readline()
+			done = True
+			self.client.close()
 		return
 
 	def FileTransport( self, filename ):
