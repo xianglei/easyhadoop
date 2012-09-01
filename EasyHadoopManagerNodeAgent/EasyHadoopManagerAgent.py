@@ -225,7 +225,7 @@ class Daemon:
 			while 1:
 				os.kill(pid, SIGTERM)
 				time.sleep(0.1) 
-				server = Server()
+				server = Server(self.validIP)
 				server.close()
 
 		except OSError, err:
@@ -310,7 +310,7 @@ if "__main__" == __name__:
 	#server.run()
 
 	#print "Terminated"
-	usage = "usage: %prog -b 192.168.1.1 -s start"
+	usage = "usage: %prog -a 192.168.1.1 -s start"
 	parser = OptionParser(usage=usage)
 
 	parser.add_option("-a", "--address", action="store", type="string", dest="address", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
