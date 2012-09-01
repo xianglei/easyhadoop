@@ -241,7 +241,7 @@ class Daemon:
 		self.start()
 	def _run(self):
 		while True:
-			server = Server(validIP)
+			server = Server(self.validIP)
 			server.run()
 
 class Server:
@@ -308,13 +308,15 @@ if "__main__" == __name__:
 	#server.run()
 
 	#print "Terminated"
-	daemon = Daemon('/var/run/ehm.pid')
-	if len(sys.argv) == 2:
-		if 'start' == sys.argv[1]:
+	if len(sys.argv) == 3:
+		if 'start' == sys.argv[2]:
+			daemon = Daemon('/var/run/ehm.pid', sys.argv[1])
 			daemon.start()
-		elif 'stop' == sys.argv[1]:
+		elif 'stop' == sys.argv[2]:
+			daemon = Daemon('/var/run/ehm.pid', sys.argv[1])
 			daemon.stop()
-		elif 'restart' == sys.argv[1]:
+		elif 'restart' == sys.argv[2]:
+			daemon = Daemon('/var/run/ehm.pid', sys.argv[1])
 			daemon.restart()
 		else:   
 			print 'Unknown command'
