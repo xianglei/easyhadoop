@@ -1,4 +1,4 @@
-#!/usr/bin/python
+﻿#!/usr/bin/python
 # -*- coding: utf8 -*-
 
 #EasyHadoopManager remote control threading daemon
@@ -325,7 +325,7 @@ if "__main__" == __name__:
 	
 	
 	if len(sys.argv) == 1:
-		print 'Type %s -h or --help for options help.' % sys.argv[0]
+		print 'Type python %s -h or --help for options help.' % sys.argv[0]
 	else:
 		if options.signal == "":
 			print 'Must give -s option\'s value'
