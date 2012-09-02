@@ -151,6 +151,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 					fwrite($fp, $command);
 					sleep(1);
 					fwrite($fp, $content);
+					unset($content);
 					fclose($fp);
 					echo "<script>alert('".$arr['filename']." pushed');</script>";
 				}
@@ -175,6 +176,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 					fwrite($fp, $command);
 					sleep(1);
 					fwrite($fp, $content);
+					unset($content);
 					fclose($fp);
 					echo "<script>alert('".$arr['filename']." pushed');</script>";
 				}
