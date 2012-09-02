@@ -112,7 +112,7 @@ class ClientThread( threading.Thread ):
 				Format:  "FileTransport:/etc/hosts\n"
 				sleep 1 second to send file content
 				'''
-				filename = cmd[14:].strip
+				filename = cmd[14:].strip()
 				print filename
 				self.FileTransport( filename )
 				self.writeline( filename + "Updated")
@@ -130,15 +130,17 @@ class ClientThread( threading.Thread ):
 
 	def FileTransport( self, filename ):
 		res = ''
-		f = open ( filename , "wb")
-		while True:
-			res = self.client.recv( 1024 )
-			if not res:
-				break
-			f.write(res)
-		f.flush()
-		f.close()
-		return
+		try:
+			f = open ( filename , "wb")
+			while True:
+				res = self.client.recv( 1024 )
+				if not res:
+					break
+				f.write(res)
+			f.flush()
+			f.close()
+		except Exception, e:
+			print e
 
 	def readline( self ):
 		result = self.client.recv( 1024 )
