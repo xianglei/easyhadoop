@@ -38,9 +38,9 @@ class Install:
 	
 	def CheckFileStatus(self, filename):
 		if os.path.isfile( filename ) == False:
-			title = ["FALSE"]
+			title = True
 		else:
-			title = ["TRUE"];
+			title = False
 			return title
 
 	def GetSystemVer( self ):
@@ -99,9 +99,10 @@ class ClientThread( threading.Thread ):
 				self.client.close()
 				
 			elif 'CheckFileStatus' == cmd[0:15]:
-				tmp = install.CheckFileStatus(cmd[16:])
-				for line in tmp:
-					self.writeline( line + "\n"	)
+				if install.CheckFileStatus(cmd[16:]) == False:
+					self.writeline( "TRUE\n" )
+				else:
+					self.writeline("FALSE\n")
 				done = True
 				self.client.close()
 
