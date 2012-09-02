@@ -247,6 +247,7 @@ class Daemon:
 
 	def restart(self):
 		self.stop()
+		time.sleep(1)
 		self.start()
 	def _run(self):
 		while True:
@@ -322,7 +323,7 @@ if "__main__" == __name__:
 	parser = OptionParser(usage=usage)
 
 	parser.add_option("-a", "--address", action="store", type="string", dest="address", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
-	parser.add_option("-s", "--signal", action="store", type="string", dest="signal", help="valid signal is [ start | stop | restart ]")
+	parser.add_option("-s", "--signal", action="store", type="string", dest="signal", help="valid signal is [ start | stop | reload ]")
 	options, args = parser.parse_args()
 	
 	
