@@ -115,14 +115,6 @@ class ClientThread( threading.Thread ):
 				'''
 				filename = cmd[14:].strip()
 				print filename
-				#f = open ( filename , "wb")
-				#while True:
-				#	res = self.client.recv( 1024 )
-				#	if not res:
-				#		break
-				#	f.write(res)
-				#f.flush()
-				#f.close()
 				self.FileTransport( filename )
 				self.writeline( filename + "Updated")
 				done = True
@@ -133,7 +125,7 @@ class ClientThread( threading.Thread ):
 				self.client.close()
 
 			#cmd = self.readline()
-			done = True
+			#done = True
 			self.client.close()
 		return
 
