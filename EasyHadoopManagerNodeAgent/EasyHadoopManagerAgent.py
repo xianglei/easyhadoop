@@ -115,6 +115,7 @@ class ClientThread( threading.Thread ):
 				filename = cmd[15:].strip()
 				self.FileTransport( filename )
 				self.writeline( filename + "Updated")
+				time.sleep(1)
 				done = True
 				self.client.close()
 			else:

@@ -266,6 +266,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 					fwrite($fp,$str);
 				}
 				fclose($fp);
+				sleep(1);
 			}
 			else
 			{
