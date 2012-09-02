@@ -258,7 +258,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
 			{
 				fwrite($fp,"FileTransport:/home/hadoop/".$value."\n");
-				//sleep(1);
+				sleep(1);
 				$fd = fopen("./hadoop/".$value, "rb");
 				while(!feof($fd))
 				{
