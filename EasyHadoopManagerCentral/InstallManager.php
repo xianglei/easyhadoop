@@ -262,9 +262,9 @@ elseif($_GET['action'] == "PushHadoopFiles")
 				$fd = fopen("./hadoop/".$value, "rb");
 				while(!feof($fd))
 				{
-					$str = fread($fd,1024);
-					fwrite($fp,$str);
+					$str .= fread($fd,1024);
 				}
+				fwrite($fp,$str);
 				unset($str);
 				fclose($fp);
 			}
