@@ -3,7 +3,9 @@
 yum -y install wget
 
 mkdir -p ./hadoop
+
 cd ./hadoop && rm -rf *
+
 if [ ! -f "hadoop-1.0.3-1.x86_64.rpm" ]; then
 	wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm
 fi
