@@ -60,19 +60,20 @@ nginx和php设置，直到他们正常工作。
 2. 将EasyHadoopManagerNodeAgent中的python脚本分别上传至每台待安装的
 节点服务器的任意路径下，并依次执行下列命令：
 ------------
-python EasyHadoopManagerAgent.py -s start
+chmod +x EasyHadoopNodeAgent.py
+./EasyHadoopNodeAgent.py -s start
 ------------
 注：执行前请确认30050端口没有被其他程序所占用，且iptables服务处于关闭状态。
 Agent有两个执行选项，-a 和 -s，其中-a 可不填写，但 -s 选项必须写。
 通常来说，我们希望把EHM的Agent绑定到一个相对安全的内网地址。例如192.168.1.2
 或者172.16.1.2。当然这需要你的服务器具备内网的IP地址才可以。Agent典型的
 执行命令应该是下面这样：
-python EasyHadoopManagerAgent.py -s start -a 192.168.1.2
+python EasyHadoopNodeAgent.py -s start -a 192.168.1.2
 但是你要确定，这个IP地址跟架设EHM Center的地址是可以互相连接的。因为Agent
 将会绑定192.168.1.2:30050这个地址。
 
 你也可以执行以下短命令来代替：
-python EasyHadoopManagerAgent.py -s start
+python EasyHadoopNodeAgent.py -s start
 这样执行将会绑定IP 0.0.0.0，这是不推荐的，除非你确定你有VPN或者其他安全方式。
 
 选项说明
