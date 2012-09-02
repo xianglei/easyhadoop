@@ -78,7 +78,7 @@ python EasyHadoopNodeAgent.py -s start
 
 选项说明
 -a --address 绑定当前节点服务器的IP地址，请指定一个内网地址
--s --signal  Agent执行进程命令，start | stop | restart
+-s --signal  Agent执行进程命令，start | stop | reload
 
 
 3. 回到EHM的管理页面，选择节点管理->添加节点
