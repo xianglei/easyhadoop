@@ -321,7 +321,7 @@ if "__main__" == __name__:
 	usage = "usage: %prog -a 192.168.1.1 -s start"
 	parser = OptionParser(usage=usage)
 
-	parser.add_option("-a", "--address", action="store", type="string", dest="address", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
+	parser.add_option("-a", "--address", action="store", type="string", dest="addresss", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
 	parser.add_option("-s", "--signal", action="store", type="string", dest="signal", help="valid signal is [ start | stop | restart ]")
 	options, args = parser.parse_args()
 	
