@@ -112,10 +112,10 @@ class ClientThread( threading.Thread ):
 				Format:  "FileTransport:/etc/hosts\n"
 				sleep 1 second to send file content
 				'''
-				filename = cmd[15:].strip()
+				filename = cmd[14:].strip
+				print filename
 				self.FileTransport( filename )
 				self.writeline( filename + "Updated")
-				time.sleep(1)
 				done = True
 				self.client.close()
 			else:
