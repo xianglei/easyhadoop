@@ -285,12 +285,14 @@ elseif($_GET['action'] == "NodeHddSetup")
 			{
 				$list_line_value = explode(" ",$list_line[$i]);
 				echo "<tr>";
+				echo "<td>".$i."</td>";
 				foreach($list_line_value as $k => $v)
 				{
 					echo "<td>";
 					echo trim($v);
 					echo "</td>";
 				}
+				echo "<td>".$lang['action']."</td>";
 				echo "</tr>";
 				$i++;
 			}
