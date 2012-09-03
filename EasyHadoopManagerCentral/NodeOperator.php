@@ -283,7 +283,7 @@ elseif($_GET['action'] == "NodeHddSetup")
 			$i = 1;
 			while ($list_line[$i] != "")
 			{
-				$list_line_value = explode(" ",$list_line);
+				$list_line_value = explode(" ",$list_line[$i]);
 				echo "<tr>";
 				foreach($list_line_value as $k => $v)
 				{
