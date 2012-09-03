@@ -248,7 +248,7 @@ elseif($_GET['action'] == "NodeHddSetup")
                   	
                   	
 					 echo '<td>';
-					 echo '<a class="btn" href="NodeOperator.php?action=NodeHddSetup&do=List&ip='.$arr['ip'].'">'.$lang['setupHdd'].'</a>';
+					 echo '<a class="btn" href="NodeOperator.php?action=NodeHddSetup&do=Hdd&ip='.$arr['ip'].'">'.$lang['setupHdd'].'</a>';
             		echo '</td>';
 	        echo '</tr>';
 			$i++;
@@ -256,9 +256,9 @@ elseif($_GET['action'] == "NodeHddSetup")
 		echo '</tbody></table>';
 		echo '</div>';
 	}#not any action
-	elseif($_GET['do'] == "List")
+	elseif($_GET['do'] == "Hdd")
 	{
-		if(!$_GET['hdd'])
+		if(!$_GET['mount'])
 		{
 			$ip = $_GET['ip'];
 			$list = $node->GetHddList($ip);
@@ -292,7 +292,7 @@ elseif($_GET['action'] == "NodeHddSetup")
 					echo trim($v);
 					echo "</td>";
 				}
-				echo "<td>".$lang['action']."</td>";
+				echo '<td><a class="btn" href="NodeOperator.php?action=NodeHddSetup&do=Hdd&ip='.$arr['ip'].'"&mount="'.$list_line_value[5].'">'.$lang['setupHddHadoop'].'</td>';
 				echo "</tr>";
 				$i++;
 			}
@@ -300,10 +300,19 @@ elseif($_GET['action'] == "NodeHddSetup")
 			echo '</tbody></table>';
 			echo '</div>';
 		}
+		else
+		{
+			$ip = $_GET['ip'];
+			$mount = $_GET['mount'];
+			$ret = $node->ChangeHddUser($pHost, $pMountPoint);
+			echo "<script>alert('".$lang['setHddSuccess']."');this.location='NodeOperator.php?action=NodeHddSetup&do=Hdd&ip=".$arr['ip']."'</script>";
+		}
 	}
 	else
 	{
-		echo "Unknown Command";
+		echo '<div class=span10>';
+		echo "<h1>".$lang['unknownCommand']."</h1>";
+		echo "</div>";
 	}
 }
 

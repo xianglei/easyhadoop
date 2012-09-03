@@ -4,6 +4,21 @@ class Node extends Socket
 {
 	private $cAgentRunShell = "RunShellScript";
 	
+	public function ChangeHddUser($pHost, $pMountPoint)
+	{
+		$this->mHost = $pHost;
+		$this->mCommand = $this->cAgentRunShell.":chown -R hadoop:hadoop ".$pMountPoint;
+		if($this->SocketCommand())
+		{
+			$str = $this->mReturn;
+		}
+		else
+		{
+			$str = $lang['notConnected'];
+		}
+		return $str;
+	}
+	
 	public function GetHddList($pHost)
 	{
 		$this->mHost = $pHost;
