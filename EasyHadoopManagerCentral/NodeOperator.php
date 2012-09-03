@@ -292,7 +292,7 @@ elseif($_GET['action'] == "NodeHddSetup")
 					echo trim($v);
 					echo "</td>";
 				}
-				echo '<td><a class="btn" href="NodeOperator.php?action=NodeHddSetup&do=Hdd&ip='.$ip.'"&mount="'.$list_line_value[5].'">'.$lang['setupHddHadoop'].'</td>';
+				echo '<td><a class="btn" href="NodeOperator.php?action=NodeHddSetup&do=Hdd&ip='.$ip.'&mount='.$list_line_value[5].'">'.$lang['setupHddHadoop'].'</td>';
 				echo "</tr>";
 				$i++;
 			}
