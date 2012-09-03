@@ -226,7 +226,9 @@ elseif($_GET['action'] == "NodeHddSetup")
 		$sql = "select * from ehm_hosts order by create_time desc";
 		$mysql->Query($sql);
 		echo '<div class=span10>';
-		
+		echo '<div class="alert alert-error">';
+		echo $lang['nodeHddTipsDanger'];
+		echo '</div>';
 		echo '<h2>'.$lang['setupHdd'].'</h2>';
 		echo '<table class="table table-striped">';
 		echo '<thead>
@@ -266,6 +268,9 @@ elseif($_GET['action'] == "NodeHddSetup")
 			$list_first_line = explode(" ", $list_line[0]);
 			echo '<div class=span10>';
 			echo '<h2>'.$lang['setupHdd'].'</h2>';
+			echo '<div class="alert alert-error">';
+			echo $lang['nodeHddTipsDanger'];
+			echo '</div>';
 			echo '<table class="table table-striped">';
 			echo '<thead>
                 	<tr>
