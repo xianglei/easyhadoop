@@ -130,6 +130,7 @@ $lang['processId'] = "进程ID";
 $lang['setupHdd'] = "节点硬盘设置";
 $lang['setupHddHadoop'] = "hadoop权限";
 $lang['setHddSuccess'] = "设置hadoop权限完成";
+$lang['nodeHddTipsDanger'] = "本操作具有相当程度的危险性，请确认你完全了解该硬盘的作用之后再进行操作。否则有可能造成系统故障。<br />如进行了误操作，后果可能非常严重。";
 
 $lang['globalSettingTips'] = '通用配置项意味这该列表中的所有设定文件为Hadoop集群通用，而非单独配置。<br />如需单独配置项管理例如针对不同硬件配置所单独设置的hdfs-site.xml或mapred-site.xml，请使用节点配置菜单';
 $lang['nodeSettingTips'] = '节点配置项意味着该设定仅针对用户所选择的服务器，例如针对不同的硬件配置的节点所使用的不同设置，如hdfs-site.xml或mapred-site.xml';
