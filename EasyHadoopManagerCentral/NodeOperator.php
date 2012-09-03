@@ -262,20 +262,20 @@ elseif($_GET['action'] == "NodeHddSetup")
 		{
 			$ip = $_GET['ip'];
 			$list = $node->GetHddList($ip);
-			$list_line = trim(explode("\n",$list));
-			$list_first_line = trim(explode(" ", $list_line[0]));
+			$list_line = explode("\n",$list);
+			$list_first_line = explode(" ", $list_line[0]);
 			echo '<div class=span10>';
 			echo '<h2>'.$lang['setupHdd'].'</h2>';
 			echo '<table class="table table-striped">';
 			echo '<thead>
                 	<tr>
                   	<th>#</th>
-                  	<th>'.$list_first_line[0].'</th>
-                  	<th>'.$list_first_line[1].'</th>
-                  	<th>'.$list_first_line[2].'</th>
-                  	<th>'.$list_first_line[3].'</th>
-                  	<th>'.$list_first_line[4].'</th>
-                  	<th>'.$list_first_line[5].'</th>
+                  	<th>'.trim($list_first_line[0]).'</th>
+                  	<th>'.trim($list_first_line[1]).'</th>
+                  	<th>'.trim($list_first_line[2]).'</th>
+                  	<th>'.trim($list_first_line[3]).'</th>
+                  	<th>'.trim($list_first_line[4]).'</th>
+                  	<th>'.trim($list_first_line[5]).'</th>
                   	<th>'.$lang['action'].'</th>
                 	</tr>
                 	</thead>
@@ -283,12 +283,12 @@ elseif($_GET['action'] == "NodeHddSetup")
 			$i = 1;
 			while ($list_line[$i] != "")
 			{
-				$list_line_value = trim(explode(" ",$list_line));
+				$list_line_value = explode(" ",$list_line);
 				echo "<tr>";
 				foreach($list_line_value as $k => $v)
 				{
 					echo "<td>";
-					echo $v;
+					echo trim($v);
 					echo "</td>";
 				}
 				echo "</tr>";
