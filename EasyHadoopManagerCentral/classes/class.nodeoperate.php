@@ -7,7 +7,7 @@ class Node extends Socket
 	public function GetHddList($pHost)
 	{
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":df -h";
+		$this->mCommand = $this->cAgentRunShell.":df -h | grep -v mapper |  awk '{print $1,$2,$3,$4,$5,$6}'";
 		if($this->SocketCommand())
 		{
 			$str = $this->mReturn;
