@@ -304,7 +304,7 @@ elseif($_GET['action'] == "NodeHddSetup")
 		{
 			$ip = $_GET['ip'];
 			$mount = $_GET['mount'];
-			$ret = $node->ChangeHddUser($pHost, $pMountPoint);
+			$ret = $node->ChangeHddUser($ip, $mount);
 			echo "<script>alert('".$ret."');this.location='NodeOperator.php?action=NodeHddSetup'</script>";
 		}
 	}
