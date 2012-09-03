@@ -219,6 +219,96 @@ elseif ($_GET['action'] == "CheckHadoopProcess")
 	echo '</tbody></table>';
 	echo '</div>';
 }
+elseif($_GET['action'] == "NodeHddSetup")
+{
+	if(!@$_GET['do'])
+	{
+		$sql = "select * from ehm_hosts order by create_time desc";
+		$mysql->Query($sql);
+		echo '<div class=span10>';
+		
+		echo '<h2>'.$lang['setupHdd'].'</h2>';
+		echo '<table class="table table-striped">';
+		echo '<thead>
+                <tr>
+                  <th>#</th>
+                  <th>'.$lang['hostname'].'</th>
+                  <th>'.$lang['ipAddr'].'</th>
+                  <th>'.$lang['action'].'</th>
+                </tr>
+                </thead>
+                <tbody>';
+		$i = 1;
+		while($arr = $mysql->FetchArray())
+		{
+			$role = $arr['role'];
+			$arr_role = explode(",",$role);
+			echo '<tr>
+                  	<td>'.$i.'</td>
+                  	<td>'.$arr['hostname'].'</td>
+                  	<td>'.$arr['ip'].'</td>';
+                  	
+                  	
+			foreach($arr_role as $key => $value)
+			{
+					 echo '<td>';
+					 echo '<a href="NodeOperator.php?action=NodeHddSetup&do=List&ip='.$arr['ip'].'"><i class="icon-play"></i>'.$lang['start'].$value.'</a>';
+            		echo '</td>';
+	        }
+            echo '</tr>';
+			$i++;
+		}
+		echo '</tbody></table>';
+		echo '</div>';
+	}#not any action
+	elseif($_GET['do'] == "List")
+	{
+		if(!$_GET['hdd'])
+		{
+			$ip = $_GET['ip'];
+			$list = $node->GetHddList($ip);
+			$list_line = trim(explode("\n",$list));
+			$list_first_line = trim(explode(" ", $list_line[0]));
+			echo '<div class=span10>';
+			echo '<h2>'.$lang['setupHdd'].'</h2>';
+			echo '<table class="table table-striped">';
+			echo '<thead>
+                	<tr>
+                  	<th>#</th>
+                  	<th>'.$list_first_line[0].'</th>
+                  	<th>'.$list_first_line[1].'</th>
+                  	<th>'.$list_first_line[2].'</th>
+                  	<th>'.$list_first_line[3].'</th>
+                  	<th>'.$list_first_line[4].'</th>
+                  	<th>'.$list_first_line[5].'</th>
+                  	<th>'.$lang['action'].'</th>
+                	</tr>
+                	</thead>
+                	<tbody>';
+			$i = 1;
+			while ($list_line[$i] != "")
+			{
+				$list_line_value = trim(explode(" ",$list_line));
+				echo "<tr>";
+				foreach($list_line_value as $k => $v)
+				{
+					echo "<td>";
+					echo $v;
+					echo "</td>";
+				}
+				echo "</tr>";
+				$i++;
+			}
+			
+			echo '</tbody></table>';
+			echo '</div>';
+		}
+	}
+	else
+	{
+		echo "Unknown Command";
+	}
+}
 
 else
 {
