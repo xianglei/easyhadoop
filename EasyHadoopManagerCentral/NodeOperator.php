@@ -241,21 +241,16 @@ elseif($_GET['action'] == "NodeHddSetup")
 		$i = 1;
 		while($arr = $mysql->FetchArray())
 		{
-			$role = $arr['role'];
-			$arr_role = explode(",",$role);
 			echo '<tr>
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
                   	
                   	
-			foreach($arr_role as $key => $value)
-			{
 					 echo '<td>';
-					 echo '<a href="NodeOperator.php?action=NodeHddSetup&do=List&ip='.$arr['ip'].'"><i class="icon-play"></i>'.$lang['start'].$value.'</a>';
+					 echo '<a class="btn" href="NodeOperator.php?action=NodeHddSetup&do=List&ip='.$arr['ip'].'">'.$lang['setupHdd'].'</a>';
             		echo '</td>';
-	        }
-            echo '</tr>';
+	        echo '</tr>';
 			$i++;
 		}
 		echo '</tbody></table>';
