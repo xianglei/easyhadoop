@@ -1,7 +1,7 @@
 EasyHadoopManager(以下简称EHM)安装和使用说明
 
 本软件完全开源免费，并遵循GNU GPLv3协议
-版本1.3beta1，支持节点服务器系统为CentOS 5.x和CentOS 6.x
+持节点服务器系统为CentOS 5.x和CentOS 6.x
 本软件使用
 lzo 2.06
 lzop 1.03
