@@ -1,15 +1,19 @@
-v1.2.1 20120826
+1.03 alpha1
+Fix a web timeout when doing hadoop start
+Move Node settings to previous page
+
+1.03 20120826
 Add distributed node agent daemon script
 Add GPV v3 LICENSE file
 Add Bootstrap and a test central console php webpage
 
-v1.2 20120803
+v1.02 20120803
 Use rpm to install hadoop 1.0.3
 Rewrite all script, add Hive support by default
 Add monitoring script for hive, and mysql connector in $HIVE_HOME/lib/
 Support CentOS5.x and 6.x x86_64
 Namenode and Datanode installation are under development
 
-v1.1 20120503
+v1.01 20120503
 add ntpdate time correct action
 remove some useless package
