@@ -176,7 +176,7 @@ elseif($_GET['action'] == 'NodeSettings')
                   	<td>
 					<div class="btn-group">
 						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>';
-   			echo '<a class="btn btn-warning" rel="popover" title="'.$lang['action'].'" data-content=\''.$str.'\' href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
+   			echo '<a class="btn btn-warning" rel="popover" title="'.$lang['action'].'" data-content=\''.$str.'\' href="#">'.$lang['edit'].'</a>
                   	</div>
                   	
                   	</td>
