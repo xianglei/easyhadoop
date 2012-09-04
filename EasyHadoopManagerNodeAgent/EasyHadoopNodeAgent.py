@@ -95,6 +95,7 @@ class ClientThread( threading.Thread ):
 				tmp = install.RunShellScript(cmd[15:])
 				for line in tmp:
 					self.writeline( line + "\n" )
+				self.writeline("Ok\n")
 				done = True
 				self.client.close()
 				
