@@ -159,7 +159,7 @@ elseif($_GET['action'] == 'NodeSettings')
 		{
 			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
 			$mysql->Query($sql1);
-			$str = '<table class="table table-striped">';
+			$str = '<table class="table table-striped table-bordered">';
 			while($arr1 = $mysql->FetchArray())
 			{
 				$str .= '<tr><td>'.$arr1['filename'].'</td><td><div class="btn-group"><a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
