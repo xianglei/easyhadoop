@@ -77,7 +77,7 @@ $lang['pushHadoopSettings'] = '推送自身配置';
 $lang['pushHadoopFiles'] = '推送Hadoop文件夹';
 $lang['choosePushNode'] = '选择推送节点';
 $lang['push'] = "推送";
-$lang['pushTipsDanger'] = "请确认EasyHadoopManager的./hadoop/文件夹下有相关文件存在。";
+$lang['pushTipsDanger'] = "请确认EasyHadoopManager的./hadoop/文件夹下有相关文件存在。否则请使用download.sh先行下载";
 $lang['pushTipsWarn'] = '本功能需要您将安装所需要的文件放入页面文件夹下的hadoop/下。<br /> 可以使用根路径下的download.sh脚本下载，也可自行下载。<br />请注意，如果该文件夹下没有文件，可能造成不可预知的错误。';
 $lang['pushComplete'] = "推送完成，可以开始安装Hadoop";
 

@@ -157,6 +157,12 @@ elseif($_GET['action'] == 'NodeSettings')
 		$i = 1;
 		while($arr = $mysql->FetchArray())
 		{
+			$sql = "select * from ehm_host_settings where ip = '".$ip."' order by create_time desc";
+			$mysql->Query($sql);
+			while($arr1 = $mysql->FetchArray())
+			{
+				$str .= '<a href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a><br />';
+			}
 			echo '<tr>
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
@@ -165,8 +171,8 @@ elseif($_GET['action'] == 'NodeSettings')
                   	<td>'.$arr['create_time'].'</td>
                   	<td>
 					<div class="btn-group">
-						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>
-   						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
+						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>';
+   			echo '<a class="btn btn-warning" rel="popover" title="'.$lang['action'].'" data-content=\''.$str.'\' href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
                   	</div>
                   	
                   	</td>
