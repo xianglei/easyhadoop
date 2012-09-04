@@ -95,10 +95,10 @@ class ClientThread( threading.Thread ):
 				tmp = install.RunShellScript(cmd[15:])
 				for line in tmp:
 					self.writeline( line + "\n" )
-					print "Ok\n"
-				self.writeline("Ok\n")
+				#self.writeline("Ok\n")
 				done = True
 				self.client.close()
+				print "client closed\n"
 				
 			elif 'CheckFileStatus' == cmd[0:15]:
 				if install.CheckFileStatus(cmd[16:]) == False:
