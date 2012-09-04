@@ -161,7 +161,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			$mysql->Query($sql1);
 			while($arr1 = $mysql->FetchArray())
 			{
-				$str .= '<div class="btn-group">'.$arr1['filename'].'<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
+				$str .= '<div class="btn-group"> '.$arr1['filename'].' <a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
 				$str .= '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$ip.'&set_id='.$arr['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
 				$str .= '<br /></div>';
 			}
