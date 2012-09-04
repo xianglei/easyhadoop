@@ -157,11 +157,13 @@ elseif($_GET['action'] == 'NodeSettings')
 		$i = 1;
 		while($arr = $mysql->FetchArray())
 		{
-			echo $sql = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
-			$mysql->Query($sql);
+			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
+			$mysql->Query($sql1);
 			while($arr1 = $mysql->FetchArray())
 			{
-				$str .= '<a href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a><br />';
+				$str .= '<div class="btn-group">'.$arr1['filename'].'<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
+				$str .= '<a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['removeConfirm'].'\',\'HostSettings.php?action=NodeSettings&do=Remove&ip='.$ip.'&set_id='.$arr['set_id'].'\');return false;" href="#">'.$lang['remove'].'</a>';
+				$str .= '<br /></div>';
 			}
 			echo '<tr>
                   	<td>'.$i.'</td>
