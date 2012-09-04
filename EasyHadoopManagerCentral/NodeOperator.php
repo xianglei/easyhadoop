@@ -201,7 +201,7 @@ elseif ($_GET['action'] == "CheckHadoopProcess")
 		{
 				echo '<td>';
                	$str = $node->CheckHadoopProcess($arr['ip'], $value);
-				if($str == "")
+				if(($str == "") || (!is_numeric($str)))
 				{
 					echo $value." <br /> <span class=\"label label-important\"><i class=\"icon-remove\"></i> ".$lang['notStarted']."</span>";
 				}
