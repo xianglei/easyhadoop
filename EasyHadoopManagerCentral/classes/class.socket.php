@@ -5,6 +5,7 @@ class Socket
 	protected $mCommand;
 	protected $mHost;
 	public $mReturn;
+	protected $mForceClose;
 	
 	protected function SocketCommand()
 	{
@@ -12,9 +13,16 @@ class Socket
 		if($fp = @fsockopen($this->mHost, 30050, $errstr, $errno, 30))
 		{
 			fwrite($fp, $this->mCommand."\n");
-			while (!feof($fp))
+			if($this->mForceClose == TRUE)
 			{
 				$str .= fread($fp,1024);
+			}
+			else
+			{
+				while (!feof($fp))
+				{
+					$str .= fread($fp,1024);
+				}
 			}
 			fclose($fp);
 			$this->mReturn = $str;

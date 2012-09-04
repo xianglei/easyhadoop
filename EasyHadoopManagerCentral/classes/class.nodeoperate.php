@@ -39,6 +39,7 @@ class Node extends Socket
 		$this->mHost = $pHost;
 		$this->mCommand = $this->cAgentRunShell.":sudo -u hadoop hadoop-daemon.sh start ".$pRole;
 		
+		$this->mForceClose = TRUE;
 		if($this->SocketCommand())
 		{
 			$str = $this->mReturn;
@@ -83,6 +84,7 @@ class Node extends Socket
 		$this->mHost = $pHost;
 		$this->mCommand = $this->cAgentRunShell.":sudo -u hadoop hadoop-daemon.sh start ".$pRole;
 		
+		$this->mForceClose = TRUE;
 		if($this->SocketCommand())
 		{
 			$str2 = $this->mReturn;

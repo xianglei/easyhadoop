@@ -275,7 +275,7 @@ class Server:
 			try:
 				self.sock = socket.socket( socket.AF_INET, socket.SOCK_STREAM )
 				self.sock.bind( ( self.validIP, 30050 ) )
-				self.sock.listen( 10 )
+				self.sock.listen( 5 )
 				all_good = True
 				break
 			except socket.error, err:
