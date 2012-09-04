@@ -159,12 +159,14 @@ elseif($_GET['action'] == 'NodeSettings')
 		{
 			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
 			$mysql->Query($sql1);
+			$str = '<table class="table table-striped">';
 			while($arr1 = $mysql->FetchArray())
 			{
-				$str .= $arr1['filename'].'<div class="btn-group"><a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
+				$str .= '<tr><td>'.$arr1['filename'].'</td><td><div class="btn-group"><a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
 				$str .= '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$ip.'&set_id='.$arr['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
-				$str .= '<br /></div>';
+				$str .= '</td></tr></div>';
 			}
+			$str .="</table>";
 			echo '<tr>
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
