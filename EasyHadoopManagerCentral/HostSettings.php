@@ -163,7 +163,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			while($arr1 = $mysql->FetchArray())
 			{
 				$str .= '<tr><td>'.$arr1['filename'].'</td><td><div class="btn-group"><a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
-				$str .= '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$ip.'&set_id='.$arr['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
+				$str .= '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
 				$str .= '</td></tr></div>';
 			}
 			$str .="</table>";
@@ -211,7 +211,7 @@ elseif($_GET['action'] == 'NodeSettings')
 	}
 	elseif ($_GET['do'] == "Edit")
 	{
-		if(!$_GET['set_id'])
+		/*if(!$_GET['set_id'])
 		{
 			$ip = $_GET['ip'];
 			
@@ -252,13 +252,13 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo '</div>';
 		}
 		else
-		{
+		{*/
 			if(!$_POST['set_id'])
 			{
 				$ip = $_GET['ip'];
 				$set_id = $_GET['set_id'];
 				$host_id = $arr['host_id'];
-				$sql = "select * from ehm_host_settings where ip = '".$ip."'";
+				$sql = "select * from ehm_host_settings where ip = '".$ip."' and set_id='".$set_id."'";
 				$mysql->Query($sql);
 				$arr = $mysql->FetchArray();
 		
@@ -277,7 +277,7 @@ elseif($_GET['action'] == 'NodeSettings')
 				$mysql->Query($sql);
 				echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 			}
-		}
+		//}
 	}
 	elseif ($_GET['do'] == "Remove")
 	{
