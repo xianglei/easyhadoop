@@ -155,7 +155,7 @@ elseif($_GET['action'] == 'NodeSettings')
                 </thead>
                 <tbody>';*/
 		$i = 1;
-		//echo '<div class="accordion" id="accordion2">'."\n";
+		echo '<div class="accordion" id="accordion2">'."\n";
 		while($arr = $mysql->FetchArray($res))
 		{
 			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
@@ -188,7 +188,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo "</div>"."\n";
 			$i++;
 		}
-		//echo '</div>'."\n";
+		echo '</div>'."\n";
 	}
 	elseif($_GET['do'] == "Add")
 	{
