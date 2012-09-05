@@ -158,11 +158,11 @@ elseif($_GET['action'] == 'NodeSettings')
 		echo '<div class="accordion" id="accordion2">';
 		while($arr = $mysql->FetchArray($res))
 		{
-			echo $sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
+			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
 			$res1 = $mysql->Query($sql1);
 			echo '<div class="accordion-group">';
 			echo '<div class="accordion-heading">';
-			echo '<strong class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;</strong>';
+			echo '<strong class="accordion-toggle pull-right" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;</strong>';
     		echo '</div>';
 			//echo '</div>';
 			echo '<div id="collapseOne" class="accordion-body collapse">';
