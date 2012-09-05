@@ -206,7 +206,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			$ip = $_GET['ip'];
 			
 			echo '<div class=span10>';
-			echo '<h2>'.$lang['hostSettings'].'</h2>';
+			echo '<h2>'.$lang['hostSettings'].$ip.'</h2>';
 			$sql = "select * from ehm_host_settings where ip = '".$ip."' order by create_time desc";
 			$mysql->Query($sql);
 			echo '<table class="table table-striped">';
@@ -248,7 +248,7 @@ elseif($_GET['action'] == 'NodeSettings')
 				$ip = $_GET['ip'];
 				$set_id = $_GET['set_id'];
 				$host_id = $arr['host_id'];
-				$sql = "select * from ehm_host_settings where ip = '".$ip."'";
+				$sql = "select * from ehm_host_settings where ip = '".$ip."' and set_id='".$set_id."'";
 				$mysql->Query($sql);
 				$arr = $mysql->FetchArray();
 		
