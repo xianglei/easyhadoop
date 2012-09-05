@@ -162,7 +162,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			$mysql->Query($sql1);
 			echo '<div class="accordion-group">';
 			echo '<div class="accordion-heading">';
-			echo '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].' -- '.$arr['ip'].' -- '.$arr['role'].'</a>';
+			echo '<button class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].' -- '.$arr['ip'].' -- '.$arr['role'].'</button>';
     		echo '</div>';
 			echo '</div>';
 			echo '<div id="collapseOne" class="accordion-body collapse">';
@@ -180,32 +180,12 @@ elseif($_GET['action'] == 'NodeSettings')
 				echo '</div>';
 				echo '</td>';
 				echo '</tr>';
-				
-				//echo '<tr><td>'.$arr1['filename'].'</td><td><div class="btn-group"><a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
-				//echo '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
-				//echo '</td></tr></div>';
 			}
 			echo '</table>';
 			echo "</div>";
-			/*echo '<tr>
-                  	<td>'.$i.'</td>
-                  	<td>'.$arr['hostname'].'</td>
-                  	<td>'.$arr['ip'].'</td>
-                  	<td>'.$arr['role'].'</td>
-                  	<td>'.$arr['create_time'].'</td>
-                  	<td>
-					<div class="btn-group">
-						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>';
-   			echo '<a class="btn btn-warning" rel="popover" title="'.$lang['action'].'" data-content=\''.$str.'\' href="#">'.$lang['edit'].'</a>
-                  	</div>
-                  	
-                  	</td>
-                	</tr>';*/
 			$i++;
 		}
 		echo "</div>";
-		/*echo '</tbody>
-			</table>';*/
 		echo '</div>';
 	}
 	elseif($_GET['do'] == "Add")
