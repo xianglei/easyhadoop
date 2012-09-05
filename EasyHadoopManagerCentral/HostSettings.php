@@ -162,18 +162,28 @@ elseif($_GET['action'] == 'NodeSettings')
 			$mysql->Query($sql1);
 			echo '<div class="accordion-group">';
 			echo '<div class="accordion-heading">';
-			echo '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
-        		'.$arr['hostname'].' -- '.$arr['ip'].' -- '.$arr['role'].'
-      		</a>
-    		</div>';
+			echo '<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].' -- '.$arr['ip'].' -- '.$arr['role'].'</a>';
+    		echo '</div>';
 			echo '</div>';
 			echo '<div id="collapseOne" class="accordion-body collapse">';
 			echo '<table class="table">';
 			while($arr1 = $mysql->FetchArray())
 			{
-				echo '<tr><td>'.$arr1['filename'].'</td><td><div class="btn-group"><a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
+				echo '<tr>';
+				echo '<td>';
+				echo $arr1['filename'];
+				echo '</td>';
+				echo '<td>';
+				echo '<div class="btn-group">';
+				echo '<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
 				echo '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
-				echo '</td></tr></div>';
+				echo '</div>';
+				echo '</td>';
+				echo '</tr>';
+				
+				//echo '<tr><td>'.$arr1['filename'].'</td><td><div class="btn-group"><a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
+				//echo '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
+				//echo '</td></tr></div>';
 			}
 			echo '</table>';
 			echo "</div>";
