@@ -158,7 +158,7 @@ elseif($_GET['action'] == 'NodeSettings')
 		echo '<div class="accordion" id="accordion2">'."\n";
 		while($arr = $mysql->FetchArray($res))
 		{
-			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
+			echo $sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
 			$res1 = $mysql->Query($sql1);
 			echo '<div class="accordion-group">'."\n";
 			echo '<div class="accordion-heading">'."\n";
