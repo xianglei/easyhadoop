@@ -141,9 +141,9 @@ elseif($_GET['action'] == 'NodeSettings')
 		echo '</div>';
 		
 		$sql = "select * from ehm_hosts order by create_time desc";
-		$mysql->Query($sql);
-		echo '<table class="table table-striped">';
-		echo '<thead>
+		$res = $mysql->Query($sql);
+		//echo '<table class="table table-striped">';
+		/*echo '<thead>
                 <tr>
                   <th>#</th>
                   <th>'.$lang['hostname'].'</th>
@@ -153,28 +153,41 @@ elseif($_GET['action'] == 'NodeSettings')
                   <th>'.$lang['action'].'</th>
                 </tr>
                 </thead>
-                <tbody>';
+                <tbody>';*/
 		$i = 1;
-		while($arr = $mysql->FetchArray())
+		echo '<div class="accordion" id="accordion2">';
+		while($arr = $mysql->FetchArray($res))
 		{
-			echo '<tr>
-                  	<td>'.$i.'</td>
-                  	<td>'.$arr['hostname'].'</td>
-                  	<td>'.$arr['ip'].'</td>
-                  	<td>'.$arr['role'].'</td>
-                  	<td>'.$arr['create_time'].'</td>
-                  	<td>
-					<div class="btn-group">
-						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Add&ip='.$arr['ip'].'">'.$lang['add'].'</a>
-   						 <a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'">'.$lang['edit'].'</a>
-                  	</div>
-                  	
-                  	</td>
-                	</tr>';
+			echo $sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
+			$res1 = $mysql->Query($sql1);
+			echo '<div class="accordion-group">';
+			echo '<div class="accordion-heading">';
+			echo '<strong class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;</strong>';
+    		echo '</div>';
+			//echo '</div>';
+			echo '<div id="collapseOne" class="accordion-body collapse">';
+			echo '<div class="accordion-inner">';
+			echo '<table class="table table-striped">';
+			while($arr1 = $mysql->FetchArray($res1))
+			{
+				echo '<tr>';
+				echo '<td>';
+				echo $arr1['filename'];
+				echo '</td>';
+				echo '<td>';
+				echo '<div class="btn-group">';
+				echo '<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
+				echo '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
+				echo '</div>';
+				echo '</td>';
+				echo '</tr>';
+			}
+			echo '</table>';
+			echo '</div>';
+			echo "</div>";
 			$i++;
+			echo "</div>";
 		}
-		echo '</tbody>
-			</table>';
 		echo '</div>';
 	}
 	elseif($_GET['do'] == "Add")
@@ -201,72 +214,29 @@ elseif($_GET['action'] == 'NodeSettings')
 	}
 	elseif ($_GET['do'] == "Edit")
 	{
-		if(!$_GET['set_id'])
+		if(!$_POST['set_id'])
 		{
 			$ip = $_GET['ip'];
-			
-			echo '<div class=span10>';
-			echo '<h2>'.$lang['hostSettings'].'</h2>';
-			$sql = "select * from ehm_host_settings where ip = '".$ip."' order by create_time desc";
+			$set_id = $_GET['set_id'];
+			$host_id = $arr['host_id'];
+			$sql = "select * from ehm_host_settings where ip = '".$ip."' and set_id='".$set_id."'";
 			$mysql->Query($sql);
-			echo '<table class="table table-striped">';
-			echo '<thead>
-	                <tr>
-                 		<th>#</th>
-                 		<th>'.$lang['filename'].'</th>
-                 		<th>'.$lang['createTime'].'</th>
-                 		<th>'.$lang['action'].'</th>
-               		</tr>
-               		</thead>
-               		<tbody>';
-			$i = 1;
-			while($arr = $mysql->FetchArray())
-			{
-				echo '<tr>
-	                  	<td>'.$i.'</td>
-                 			<td>'.$arr['filename'].'</td>
-                 			<td>'.$arr['create_time'].'</td>
-                 			<td>
-                 	
-						<div class="btn-group">
-					 		<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$ip.'&set_id='.$arr['set_id'].'">'.$lang['edit'].'</a>
-					 		<a class="btn btn-danger" onclick="javascript:realconfirm(\''.$lang['removeConfirm'].'\',\'HostSettings.php?action=NodeSettings&do=Remove&ip='.$ip.'&set_id='.$arr['set_id'].'\');return false;" href="#">'.$lang['remove'].'</a>
-               			</div>
-                  	
-               			</td>
-              			</tr>';
-				$i++;
-			}
-			echo '</tbody>
-				</table>';
+			$arr = $mysql->FetchArray();
+	
+			echo '<div class=span10>';
+			echo '<h1>'.$lang['modifySettings'].'</h1>';
+			include_once 'templates/edit_node_settings_form.html';
 			echo '</div>';
 		}
 		else
 		{
-			if(!$_POST['set_id'])
-			{
-				$ip = $_GET['ip'];
-				$set_id = $_GET['set_id'];
-				$host_id = $arr['host_id'];
-				$sql = "select * from ehm_host_settings where ip = '".$ip."' and set_id='".$set_id."'";
-				$mysql->Query($sql);
-				$arr = $mysql->FetchArray();
-		
-				echo '<div class=span10>';
-				echo '<h1>'.$lang['modifySettings'].'</h1>';
-				include_once 'templates/edit_node_settings_form.html';
-				echo '</div>';
-			}
-			else
-			{
-				$set_id = $_POST['set_id'];
-				$filename = $_POST['filename'];
-				$content = $_POST['content'];
-		
-				$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
-				$mysql->Query($sql);
-				echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
-			}
+			$set_id = $_POST['set_id'];
+			$filename = $_POST['filename'];
+			$content = $_POST['content'];
+	
+			$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
+			$mysql->Query($sql);
+			echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 		}
 	}
 	elseif ($_GET['do'] == "Remove")

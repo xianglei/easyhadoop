@@ -46,16 +46,23 @@ class Mysql
 		}
 	}
 	
-	public function FetchArray()
+	public function FetchArray($pRes = "")
 	{
-		if($this->mResult)
+		if($pRes)
 		{
 			#$arr = mysql_fetch_array($this->mResult);
-			return mysql_fetch_array($this->mResult);
+			return mysql_fetch_array($pRes);
 		}
 		else
 		{
-			return FALSE;
+			if($this->mResult)
+			{
+				return mysql_fetch_array($this->mResult);
+			}
+			else
+			{
+				return FALSE;
+			}
 		}
 	}
 	

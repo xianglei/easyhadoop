@@ -22,7 +22,7 @@ class Node extends Socket
 	public function GetHddList($pHost)
 	{
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":df -h | grep -v mapper | grep -w -v / |  awk '{print $1,$2,$3,$4,$5,$6}'";
+		$this->mCommand = $this->cAgentRunShell.":df -h | grep -v mapper | grep -w -v / | grep -v -w /boot | grep -v -w /dev | grep -v -w /lib | grep -v -w /lib64 | grep -v -w /sbin | grep -v -w /proc | grep -v -w /sys | grep -v -w /var | grep -v -w /bin | grep -v -w /root | grep -v -w /home | grep -v -w /selinux | grep -v -w /usr | awk '{print $1,$2,$3,$4,$5,$6}'";
 		if($this->SocketCommand())
 		{
 			$str = $this->mReturn;
