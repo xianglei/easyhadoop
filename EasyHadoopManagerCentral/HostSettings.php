@@ -162,7 +162,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			$mysql->Query($sql1);
 			echo '<div class="accordion-group">';
 			echo '<div class="accordion-heading">';
-			echo '<button class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].' -- '.$arr['ip'].' -- '.$arr['role'].'</button>';
+			echo '<button class="accordion-toggle btn" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].' -- '.$arr['ip'].' -- '.$arr['role'].'</button>';
     		echo '</div>';
 			echo '</div>';
 			echo '<div id="collapseOne" class="accordion-body collapse">';
