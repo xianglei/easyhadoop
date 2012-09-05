@@ -155,40 +155,40 @@ elseif($_GET['action'] == 'NodeSettings')
                 </thead>
                 <tbody>';*/
 		$i = 1;
-		echo '<div class="accordion" id="accordion2">';
+		echo '<div class="accordion" id="accordion2">'."\n";
 		while($arr = $mysql->FetchArray($res))
 		{
 			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
 			$res1 = $mysql->Query($sql1);
-			echo '<div class="accordion-group">';
-			echo '<div class="accordion-heading">';
-			echo '<strong class="accordion-toggle pull-right" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;</strong>';
-    		echo '</div>';
+			echo '<div class="accordion-group">'."\n";
+			echo '<div class="accordion-heading">'."\n";
+			echo '<strong class="accordion-toggle pull-right" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;</strong>'."\n";
+    		echo '</div>'."\n";
 			//echo '</div>';
-			echo '<div id="collapseOne" class="accordion-body collapse">';
-			echo '<div class="accordion-inner">';
-			echo '<table class="table table-striped">';
+			echo '<div id="collapseOne" class="accordion-body collapse">'."\n";
+			echo '<div class="accordion-inner">'."\n";
+			echo '<table class="table table-striped">'."\n";
 			while($arr1 = $mysql->FetchArray($res1))
 			{
-				echo '<tr>';
-				echo '<td>';
-				echo $arr1['filename'];
-				echo '</td>';
-				echo '<td>';
-				echo '<div class="btn-group">';
-				echo '<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>';
-				echo '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'");return false; href="#">'.$lang['remove'].'</a>';
-				echo '</div>';
-				echo '</td>';
-				echo '</tr>';
+				echo '<tr>'."\n";
+				echo '<td>'."\n";
+				echo $arr1['filename']."\n";
+				echo '</td>'."\n";
+				echo '<td>'."\n";
+				echo '<div class="btn-group">'."\n";
+				echo '<a class="btn" href="HostSettings.php?action=NodeSettings&do=Edit&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'">'.$lang['edit'].'</a>'."\n";
+				echo '<a class="btn btn-danger" onclick=javascript:realconfirm("'.$lang['removeConfirm'].'","HostSettings.php?action=NodeSettings&do=Remove&ip='.$arr['ip'].'&set_id='.$arr1['set_id'].'");return false; href="#">'.$lang['remove'].'</a>'."\n";
+				echo '</div>'."\n";
+				echo '</td>'."\n";
+				echo '</tr>'."\n";
 			}
-			echo '</table>';
-			echo '</div>';
-			echo "</div>";
+			echo '</table>'."\n";
+			echo '</div>'."\n";
+			echo "</div>"."\n";
 			$i++;
-			echo "</div>";
+			echo "</div>"."\n";
 		}
-		echo '</div>';
+		echo '</div>'."\n";
 	}
 	elseif($_GET['do'] == "Add")
 	{
