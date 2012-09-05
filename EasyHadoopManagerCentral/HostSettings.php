@@ -253,7 +253,7 @@ elseif($_GET['action'] == 'NodeSettings')
 				$arr = $mysql->FetchArray();
 		
 				echo '<div class=span10>';
-				echo '<h1>'.$lang['modifySettings'].'</h1>';
+				echo '<h1>'.$lang['modifySettings'].$ip.'</h1>';
 				include_once 'templates/edit_node_settings_form.html';
 				echo '</div>';
 			}
