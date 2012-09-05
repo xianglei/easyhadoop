@@ -169,7 +169,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo '<div class="accordion-inner">'."\n";
 			echo '<table class="table table-striped">'."\n";
 			while($arr1 = $mysql->FetchArray($res1))
-			{
+			{var_dump($arr1);
 				echo '<tr>'."\n";
 				echo '<td>'."\n";
 				echo $arr1['filename']."\n";
