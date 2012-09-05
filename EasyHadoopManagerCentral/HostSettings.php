@@ -184,7 +184,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			$ip = $_GET['ip'];
 			
 			echo '<div class=span10>';
-			echo '<h1>'.$lang['addSettings'].'</h1>';
+			echo '<h1>'.$lang['addSettings'].$ip.'</h1>';
 			include_once "templates/add_node_settings_form.html";
 			echo '</div>';
 		}
@@ -263,7 +263,7 @@ elseif($_GET['action'] == 'NodeSettings')
 				$filename = $_POST['filename'];
 				$content = $_POST['content'];
 		
-				echo $sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
+				$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
 				$mysql->Query($sql);
 				echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 			}
