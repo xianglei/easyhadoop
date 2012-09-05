@@ -247,7 +247,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			{
 				$ip = $_GET['ip'];
 				$set_id = $_GET['set_id'];
-				$host_id = $arr['host_id'];
+				//$host_id = $arr['host_id'];
 				$sql = "select * from ehm_host_settings where ip = '".$ip."' and set_id='".$set_id."'";
 				$mysql->Query($sql);
 				$arr = $mysql->FetchArray();
@@ -263,7 +263,7 @@ elseif($_GET['action'] == 'NodeSettings')
 				$filename = $_POST['filename'];
 				$content = $_POST['content'];
 		
-				$sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
+				echo $sql = "update ehm_host_settings set filename='".$filename."', content = '".$content."' where set_id = ".$set_id;
 				$mysql->Query($sql);
 				echo "<script>alert('".$lang['settingUpdated']."');this.location='HostSettings.php?action=NodeSettings';</script>";
 			}
