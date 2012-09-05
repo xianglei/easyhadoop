@@ -248,7 +248,7 @@ elseif($_GET['action'] == 'NodeSettings')
 				$ip = $_GET['ip'];
 				$set_id = $_GET['set_id'];
 				$host_id = $arr['host_id'];
-				$sql = "select * from ehm_host_settings where ip = '".$ip."'";
+				$sql = "select * from ehm_host_settings where ip = '".$ip."' and set_id='".$set_id."'";
 				$mysql->Query($sql);
 				$arr = $mysql->FetchArray();
 		
