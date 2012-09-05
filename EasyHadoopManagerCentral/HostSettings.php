@@ -162,11 +162,12 @@ elseif($_GET['action'] == 'NodeSettings')
 			$mysql->Query($sql1);
 			echo '<div class="accordion-group">';
 			echo '<div class="accordion-heading">';
-			echo '<ul class="accordion-toggle table" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne"><li>'.$arr['hostname'].'</li><li>'.$arr['ip'].'</li><li>'.$arr['role'].'</li></ul>';
+			echo '<strong class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['create_time'].'</strong>';
     		echo '</div>';
-			echo '</div>';
+			//echo '</div>';
 			echo '<div id="collapseOne" class="accordion-body collapse">';
-			echo '<table class="table">';
+			echo '<div class="accordion-inner">';
+			echo '<table class="table table-striped">';
 			while($arr1 = $mysql->FetchArray())
 			{
 				echo '<tr>';
@@ -182,10 +183,11 @@ elseif($_GET['action'] == 'NodeSettings')
 				echo '</tr>';
 			}
 			echo '</table>';
+			echo '</div>';
 			echo "</div>";
 			$i++;
+			echo "</div>";
 		}
-		echo "</div>";
 		echo '</div>';
 	}
 	elseif($_GET['do'] == "Add")
