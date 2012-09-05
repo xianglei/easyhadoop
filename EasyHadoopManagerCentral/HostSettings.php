@@ -165,7 +165,7 @@ elseif($_GET['action'] == 'NodeSettings')
 			echo '<strong class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;</strong>'."\n";
     		echo '</div>'."\n";
 			//echo '</div>';
-			echo '<div id="collapse'.$i.'" class="accordion-body collapse">'."\n";
+			echo '<div id="collapseOne" class="accordion-body collapse">'."\n";
 			echo '<div class="accordion-inner">'."\n";
 			echo '<table class="table table-striped">'."\n";
 			//while($arr1 = $mysql->FetchArray($res1))
