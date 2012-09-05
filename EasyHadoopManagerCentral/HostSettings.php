@@ -159,7 +159,7 @@ elseif($_GET['action'] == 'NodeSettings')
 		while($arr = $mysql->FetchArray($res))
 		{
 			echo $sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
-			$res1 = $mysql->Query($sql1);
+			echo $res1 = $mysql->Query($sql1);
 			echo '<div class="accordion-group">'."\n";
 			echo '<div class="accordion-heading">'."\n";
 			echo '<strong class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">'.$arr['hostname'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['ip'].'&nbsp;&nbsp;&nbsp;&nbsp;'.$arr['role'].'&nbsp;&nbsp;&nbsp;&nbsp;</strong>'."\n";
