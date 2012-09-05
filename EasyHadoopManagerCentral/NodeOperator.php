@@ -267,7 +267,7 @@ elseif($_GET['action'] == "NodeHddSetup")
 			$list_line = explode("\n",$list);
 			$list_first_line = explode(" ", $list_line[0]);
 			echo '<div class=span10>';
-			echo '<h2>'.$lang['setupHdd'].'</h2>';
+			echo '<h2>'.$lang['setupHdd'].$ip.'</h2>';
 			echo '<div class="alert alert-error">';
 			echo $lang['nodeHddTipsDanger'];
 			echo '</div>';
