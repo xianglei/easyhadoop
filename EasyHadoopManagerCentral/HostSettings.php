@@ -155,7 +155,7 @@ elseif($_GET['action'] == 'NodeSettings')
                 </thead>
                 <tbody>';
 		$i = 1;
-		while($arr = $mysql->FetchArray())
+		while($arr = $mysql->FetchArray($res))
 		{
 			$sql1 = "select * from ehm_host_settings where ip = '".$arr['ip']."' order by create_time desc";
 			$res1 = $mysql->Query($sql1);
