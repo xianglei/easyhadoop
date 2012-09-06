@@ -69,10 +69,11 @@ class ClientThread( threading.Thread ):
 		global QUIT
 		done = False
 		cmd = self.readline()
+		print cmd
 		cmd = self.decrypt(cmd)
 		install = Install()
 		while not done:
-			print cmd
+			#print cmd
 			print time.time()
 			if 'finish' == cmd :
 				self.writeline( 'Finish EasyHadoop Manager' )
