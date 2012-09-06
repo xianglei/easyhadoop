@@ -12,6 +12,7 @@ class Socket
 		//global $lang;
 		if($fp = @fsockopen($this->mHost, 30050, $errstr, $errno, 30))
 		{
+			$this->mCommand = $this->EncryptCommand();
 			fwrite($fp, $this->mCommand."\n");
 			if($this->mForceClose == TRUE)
 			{
@@ -46,6 +47,16 @@ class Socket
 		{
 			return FALSE;
 		}
+	}
+	
+	public function EncryptCommand()
+	{
+		$cmd = $this->mCommand;
+		$key = "\x88";
+		$len1 = strlen($cmd);
+		$len2 = strlen($key);
+		if($len1 > $len2) $key = str_repeat($key, ceil($len1 / $len2));
+		return $cmd ^ $key;
 	}
 }
 

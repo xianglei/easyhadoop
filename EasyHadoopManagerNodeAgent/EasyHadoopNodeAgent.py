@@ -58,11 +58,18 @@ class ClientThread( threading.Thread ):
 	def __init__( self, client_sock ):
 		threading.Thread.__init__( self )
 		self.client = client_sock
+		
+	def decrypt( self, cmd ):
+		a = []
+		for x in cmd:
+			a.append(chr(ord(x)^0x88))
+		return ''.join(a)
 
 	def run( self ):
 		global QUIT
 		done = False
 		cmd = self.readline()
+		cmd = self.decrypt(cmd)
 		install = Install()
 		while not done:
 			print cmd
