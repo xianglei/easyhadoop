@@ -1,6 +1,7 @@
 1.03 alpha1
 Fix a web timeout when doing hadoop start
 Move Node settings to previous page
+Socket command encrypted
 
 1.03 20120826
 Add distributed node agent daemon script
