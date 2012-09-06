@@ -7,6 +7,7 @@ include_once "templates/install_manager_sidebar.html";
 
 $mysql = new Mysql();
 $install = new Install;
+$socket = new Socket;
 
 if(!@$_GET['action'])
 {
@@ -147,6 +148,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 				if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
 				{
 					$command = "FileTransport:".$arr['filename']."\n";
+					$command = $socket->EncryptCommand($command);
 					$content = $arr['content'];
 					fwrite($fp, $command);
 					sleep(1);
@@ -172,6 +174,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 				if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
 				{
 					$command = "FileTransport:".$arr['filename']."\n";
+					$command = $socket->EncryptCommand($command);
 					$content = $arr['content'];
 					fwrite($fp, $command);
 					sleep(1);
@@ -259,7 +262,9 @@ elseif($_GET['action'] == "PushHadoopFiles")
 		{
 			if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
 			{
-				fwrite($fp,"FileTransport:/home/hadoop/".$value."\n");
+				$command = "FileTransport:/home/hadoop/".$value."\n";
+				$command = $socket->EncryptCommand($command);
+				fwrite($fp,$command);
 				sleep(1);
 				$fd = fopen("./hadoop/".$value, "rb");
 				while(!feof($fd))

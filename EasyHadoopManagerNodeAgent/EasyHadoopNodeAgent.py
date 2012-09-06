@@ -70,7 +70,7 @@ class ClientThread( threading.Thread ):
 		done = False
 		cmd = self.readline()
 		#print cmd
-		#cmd = self.decrypt(cmd)
+		cmd = self.decrypt(cmd)
 		install = Install()
 		while not done:
 			print cmd
