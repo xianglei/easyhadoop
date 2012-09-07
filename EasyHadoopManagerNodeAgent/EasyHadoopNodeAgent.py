@@ -35,7 +35,7 @@ class Install:
 		tmp_out = a.stdout.readlines()
 		tmp_err = a.stderr.readlines()
 		tmp = tmp_out + tmp_err
-		return a
+		return tmp
 	
 	def CheckFileStatus(self, filename):
 		if os.path.isfile( filename ) == False:
@@ -334,7 +334,7 @@ if "__main__" == __name__:
 	parser = OptionParser(usage=usage)
 
 	parser.add_option("-a", "--address", action="store", type="string", dest="address", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
-	parser.add_option("-s", "--signal", action="store", type="string", dest="signal", help="valid signal is [ start | stop | reload ]")
+	parser.add_option("-s", "--signal", action="store", type="string", dest="signal", help="valid signal is [ start | stop ]")
 	options, args = parser.parse_args()
 	
 	
@@ -356,6 +356,3 @@ if "__main__" == __name__:
 			else:   
 				print 'Unknown command'
 				sys.exit(2)
-	#else:
-	#	print 'usage: %s bind_ip start|stop|restart' % sys.argv[0]
-	#	sys.exit(2)
