@@ -17,6 +17,7 @@ import os
 import subprocess
 import string
 import platform
+import commands
 
 from optparse import OptionParser
 from signal import SIGTERM
@@ -30,11 +31,12 @@ class Install:
 		self.stderr = stderr
 
 	def RunShellScript(self, command):
-		a = subprocess.Popen( command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-		tmp_out = a.stdout.readlines()
-		tmp_err = a.stderr.readlines()
-		tmp = tmp_out + tmp_err
-		return tmp
+		#a = subprocess.Popen( command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
+		a = commands.getoutput(command).split('\n')
+		#tmp_out = a.stdout.readlines()
+		#tmp_err = a.stderr.readlines()
+		#tmp = tmp_out + tmp_err
+		return a
 	
 	def CheckFileStatus(self, filename):
 		if os.path.isfile( filename ) == False:
