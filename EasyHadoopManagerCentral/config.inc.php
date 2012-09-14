@@ -48,6 +48,7 @@ else
 include_once "classes/class.socket.php";
 include_once "classes/class.install.php";
 include_once "classes/class.nodeoperate.php";
+include_once "classes/class.nodemonitor.php";
 
 
 

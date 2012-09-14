@@ -5,7 +5,7 @@ include_once "templates/header.html";
 include_once "templates/node_operator_sidebar.html";
 
 $mysql = new Mysql();
-$node = new Node;
+$node = new NodeOperator;
 
 if(!@$_GET['action'])
 {

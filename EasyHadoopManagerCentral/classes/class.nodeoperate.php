@@ -1,6 +1,6 @@
 <?php
 
-class Node extends Socket
+class NodeOperator extends Socket
 {
 	private $cAgentRunShell = "RunShellScript";
 	
