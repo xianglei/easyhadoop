@@ -54,15 +54,15 @@ class Install extends Socket
 		global $lang;
 		
 		$this->mHost = $pHost;
-		$this->mFilename = "/home/hadoop/jdk-7u5-linux-x64.rpm";
+		$this->mFilename = "/home/hadoop/jdk-6u35-linux-amd64.rpm";
 		
 		if($this->CheckFileExists())
 		{
-			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh jdk-7u5-linux-x64.rpm && echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
+			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh jdk-6u35-linux-amd64.rpm && echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
 		else
 		{
-			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm && rpm -Uvh jdk-7u5-linux-x64.rpm && echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
+			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/jdk/jdk-6u35-linux-amd64.rpm && rpm -Uvh jdk-6u35-linux-amd64.rpm && echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
 		sleep(1);
 		if($this->SocketCommand())

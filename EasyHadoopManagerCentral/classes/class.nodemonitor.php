@@ -44,6 +44,11 @@ class NodeMonitor
 		$arr = json_decode($pJson);
 		return $arr;
 	}
+	
+	public function JumpGanglia($pUrl)
+	{
+		$str = "<script>this.location='".$pUrl."';</script>";
+	}
 }
 
 ?>
