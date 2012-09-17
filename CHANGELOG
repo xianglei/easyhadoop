@@ -2,6 +2,7 @@
 Fix a web timeout when doing hadoop start
 Move Node settings to previous page
 Socket send encrypted command
+Change jdk to 6u35
 
 1.03 20120826
 Add distributed node agent daemon script
