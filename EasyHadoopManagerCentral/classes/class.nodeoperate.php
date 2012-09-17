@@ -111,7 +111,7 @@ class NodeOperator extends Socket
 			$str = $lang['notConnected'];
 		}
 		$str = str_replace('ERROR', "<b><font color=red>ERROR</font></b>",$str);
-		$str = str_replace('WARN', "<b><font color=orange>ERROR</font></b>",$str);
+		$str = str_replace('WARN', "<b><font color=orange>WARN</font></b>",$str);
 		return $str;
 	}
 	
