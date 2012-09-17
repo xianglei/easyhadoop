@@ -59,7 +59,6 @@ elseif($_GET['action'] == "Operate")
 						 echo	'<button class="btn btn-success">'.$value.'</button>';
 						 echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
 					 }
-                	 echo '<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
                 	 echo	'<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
