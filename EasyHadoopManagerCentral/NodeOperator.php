@@ -52,13 +52,15 @@ elseif($_GET['action'] == "Operate")
 					 if($str == "")
 					 {
                 	 	echo	'<button class="btn btn-danger">'.$value.'</button>';
+						echo '<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
 					 }
 					 else
 					 {
 						 echo	'<button class="btn btn-success">'.$value.'</button>';
+						 echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
 					 }
-                	 echo '<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-                		<ul class="dropdown-menu">
+                	 echo '<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+                	 echo	'<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
                   		<li><a href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-stop"></i>'.$lang['stop'].$value.'</a></li>
