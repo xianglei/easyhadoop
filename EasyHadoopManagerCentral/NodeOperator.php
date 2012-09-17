@@ -47,10 +47,17 @@ elseif($_GET['action'] == "Operate")
 			foreach($arr_role as $key => $value)
 			{
 					 echo '<td>';
-					 
-					 echo '<div class="btn-group">
-                		<button class="btn">'.$value.'</button>
-                		<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					 $str = $node->CheckHadoopProcess($arr['ip'], $value);
+					 echo '<div class="btn-group">';
+					 if($str == "")
+					 {
+                	 	echo	'<button class="btn btn-success">'.$value.'</button>';
+					 }
+					 else
+					 {
+						 echo	'<button class="btn btn-danger">'.$value.'</button>';
+					 }
+                	 echo '<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                 		<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
