@@ -34,6 +34,10 @@ class Install:
 		tmp_out = a.stdout.readlines()
 		tmp_err = a.stderr.readlines()
 		tmp = tmp_out + tmp_err
+		try:
+			a.terminate()
+		except Exception, err:
+			print err
 		return tmp
 	
 	def CheckFileStatus(self, filename):
