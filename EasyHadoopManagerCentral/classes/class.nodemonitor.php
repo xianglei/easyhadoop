@@ -49,6 +49,7 @@ class NodeMonitor
 	{
 		$str = "<script>this.location='".$pUrl."';</script>";
 	}
+	
 }
 
 ?>

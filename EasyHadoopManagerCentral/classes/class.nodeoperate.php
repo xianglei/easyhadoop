@@ -136,26 +136,26 @@ class NodeOperator extends Socket
 		switch ($pRole)
 		{
 			case "namenode":
-				$jps = "NameNode";
+				$jps = "namenode";
 				break;
 			case "jobtracker":
-				$jps = "JobTracker";
+				$jps = "jobtracker";
 				break;
 			case "secondarynamenode":
-				$jps = "SecondaryNameNode";
+				$jps = "secondarynamenode";
 				break;
 			case "datanode":
-				$jps = "DataNode";
+				$jps = "datanode";
 				break;
 			case "tasktracker":
-				$jps = "TaskTracker";
+				$jps = "tasktracker";
 				break;
 			default:
 				return "Unknown Role name";
 				break;
 		}
 		
-		$command = "/usr/java/default/bin/jps | grep -w ".$jps." | awk '{print $1}'";
+		$command = "ps aux | grep -w ".$jps." | grep -v grep | awk '{print $2}'";
 		$this->mCommand = $this->cAgentRunShell.":".$command;
 		if($this->SocketCommand())
 		{
