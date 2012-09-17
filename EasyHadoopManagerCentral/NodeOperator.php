@@ -51,11 +51,11 @@ elseif($_GET['action'] == "Operate")
 					 echo '<div class="btn-group">';
 					 if($str == "")
 					 {
-                	 	echo	'<button class="btn btn-success">'.$value.'</button>';
+                	 	echo	'<button class="btn btn-danger">'.$value.'</button>';
 					 }
 					 else
 					 {
-						 echo	'<button class="btn btn-danger">'.$value.'</button>';
+						 echo	'<button class="btn btn-success">'.$value.'</button>';
 					 }
                 	 echo '<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                 		<ul class="dropdown-menu">
