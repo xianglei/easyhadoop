@@ -31,13 +31,13 @@ class Install:
 
 	def RunShellScript(self, command):
 		a = subprocess.Popen( command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-		tmp_out = a.stdout.readlines()
-		tmp_err = a.stderr.readlines()
+		if command.find("start") == -1:
+			tmp_out = a.stdout.readlines()
+			tmp_err = a.stderr.readlines()
+		else:
+			tmp_out = a.stdout.readline()
+			tmp_err = a.stderr.readline()
 		tmp = tmp_out + tmp_err
-		try:
-			a.terminate()
-		except Exception, err:
-			print err
 		return tmp
 	
 	def CheckFileStatus(self, filename):
@@ -105,8 +105,11 @@ class ClientThread( threading.Thread ):
 				RunShellScript
 				'''
 				tmp = install.RunShellScript(cmd[15:])
-				for line in tmp:
-					self.writeline( line + "\n" )
+				if cmd.find("start") == -1:
+					for line in tmp:
+						self.writeline( line + "\n" )
+				else:
+					self.writeline( tmp )
 				#self.writeline("Ok\n")
 				done = True
 				self.client.close()
