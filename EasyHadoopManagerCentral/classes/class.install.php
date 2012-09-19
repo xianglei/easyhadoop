@@ -113,7 +113,7 @@ class Install extends Socket
 			$this->mFilename = "/home/hadoop/lzo-2.06-1.el5.rf.x86_64.rpm";
 			if($this->CheckFileExists())
 			{
-				$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm";
+				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm";
 			}
 			else
 			{
@@ -132,7 +132,7 @@ class Install extends Socket
 			$this->mFilename = "/home/hadoop/lzo-devel-2.06-1.el5.rf.x86_64.rpm";
 			if($this->CheckFileExists())
 			{
-				$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm";
+				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm";
 			}
 			else
 			{
@@ -151,7 +151,7 @@ class Install extends Socket
 			$this->mFilename = "/home/hadoop/lzo-2.06.tar.gz";
 			if($this->CheckFileExists())
 			{
-				$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
+				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
 			}
 			else
 			{
@@ -172,7 +172,7 @@ class Install extends Socket
 			$this->mFilename = "/home/hadoop/lzo-2.06-1.el6.rfx.x86_64.rpm";
 			if($this->CheckFileExists())
 			{
-				$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm";
+				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm";
 			}
 			else
 			{
@@ -191,7 +191,7 @@ class Install extends Socket
 			$this->mFilename = "/home/hadoop/lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
 			if($this->CheckFileExists())
 			{
-				$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
+				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop && rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
 			}
 			else
 			{
@@ -210,7 +210,7 @@ class Install extends Socket
 			$this->mFilename = "/home/hadoop/lzo-2.06.tar.gz";
 			if($this->CheckFileExists())
 			{
-				$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
+				$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && tar zxf lzo-2.06.tar.gz && cd lzo-2.06 && ./configure && make && make install";
 			}
 			else
 			{
@@ -245,7 +245,7 @@ class Install extends Socket
 		$this->mFilename = "/home/hadoop/lzop-1.03.tar.gz";
 		if($this->CheckFileExists())
 		{
-			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && tar zxf lzop-1.03.tar.gz && cd lzop-1.03 && ./configure && make && make install";
+			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && tar zxf lzop-1.03.tar.gz && cd lzop-1.03 && ./configure && make && make install";
 		}
 		else
 		{
@@ -271,7 +271,7 @@ class Install extends Socket
 		$this->mFilename = "/home/hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm";
 		if($this->CheckFileExists())
 		{
-			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
+			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		}
 		else
 		{
