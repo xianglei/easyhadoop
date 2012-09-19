@@ -33,7 +33,7 @@ class Install extends Socket
 	{
 		global $lang;
 		$this->mHost = $pHost;
-		$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop";
+		$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && groupadd hadoop && useradd hadoop -g hadoop";
 		if($this->SocketCommand())
 		{
 			$str = $this->mReturn;
