@@ -258,6 +258,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			}
 			closedir($handle);
 		}
+		$install->MakeDir($ip);
 		foreach ($arr as $key => $value)
 		{
 			if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
