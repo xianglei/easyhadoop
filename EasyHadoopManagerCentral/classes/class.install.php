@@ -99,11 +99,11 @@ class Install extends Socket
 		$this->mFilename = "/home/hadoop/hadoop-1.0.3-1.x86_64.rpm";
 		if($this->CheckFileExists())
 		{
-			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop && echo 'export HADOOP_HOME=/usr' >> /etc/profile && source /etc/profile";
+			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && echo 'export HADOOP_HOME=/usr' >> /etc/profile && source /etc/profile && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop";
 		}
 		else
 		{
-			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop && echo 'export HADOOP_HOME=/usr' >> /etc/profile && source /etc/profile";
+			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop/ && cd /home/hadoop/ && wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm && rpm -Uvh hadoop-1.0.3-1.x86_64.rpm && chmod 644 /etc/sudoers && sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers && chmod 440 /etc/sudoers && echo 'export HADOOP_HOME=/usr' >> /etc/profile && source /etc/profile && /usr/sbin/groupadd hadoop && /usr/sbin/useradd hadoop -g hadoop";
 		}
 		sleep(1);
 		if($this->SocketCommand())

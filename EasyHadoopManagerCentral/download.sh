@@ -9,7 +9,7 @@ cd ./hadoop && rm -rf *
 if [ ! -f "hadoop-1.0.3-1.x86_64.rpm" ]; then
 	wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm
 fi
-if [ ! -f "jdk-7u5-linux-x64.rpm" ]; then
+if [ ! -f "jdk-6u35-linux-x64.rpm" ]; then
 	wget http://113.11.199.230/jdk/jdk-6u35-linux-amd64.rpm
 fi
 if [ ! -f "hadoop-gpl-packaging-0.5.3-1.x86_64.rpm" ]; then

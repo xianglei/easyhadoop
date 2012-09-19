@@ -137,7 +137,7 @@ class NodeOperator extends Socket
 		switch ($pRole)
 		{
 			case "namenode":
-				$jps = "namenode";
+				$jps = "NameNode";
 				break;
 			case "jobtracker":
 				$jps = "jobtracker";
