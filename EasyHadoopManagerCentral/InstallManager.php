@@ -167,7 +167,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 		elseif ($_GET['do'] == 'Node')
 		{
 			$ip = $_GET['ip'];
-			$sql = "select set_id,filename,CONVERT(content USING latin1) from ehm_host_settings where ip='".$ip."'";
+			$sql = "select set_id,filename,CONVERT(content USING latin1) as content from ehm_host_settings where ip='".$ip."'";
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
