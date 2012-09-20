@@ -141,7 +141,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 		if($_GET['do'] == "Global")
 		{
 			$ip = $_GET['ip'];
-			$sql = "select * from ehm_host_settings where ip='0'";
+			$sql = "select set_id,filename,CONVERT(content USING latin1) from ehm_host_settings where ip='0'";
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
