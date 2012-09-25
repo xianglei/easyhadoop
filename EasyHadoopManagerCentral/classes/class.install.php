@@ -283,14 +283,14 @@ class Install extends Socket
 	{
 		global $lang;
 		$this->mHost = $pHost;
-		$this->mFilename = "/home/hadoop/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm";
+		$this->mFilename = "/home/hadoop/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm";
 		if($this->CheckFileExists())
 		{
-			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
+			$this->mCommand = $this->cAgentRunShell.":cd /home/hadoop/ && rpm -Uvh hadoop-gpl-packaging-0.2.8-1.x86_64.rpm && cp -f /opt/hadoopgpl/lib/* /usr/lib/ && cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64/ && cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		}
 		else
 		{
-			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && rpm -Uvh hadoop-gpl-packaging-0.5.3-1.x86_64.rpm && cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
+			$this->mCommand = $this->cAgentRunShell.":mkdir -p /home/hadoop && cd /home/hadoop/ && wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm && rpm -Uvh hadoop-gpl-packaging-0.2.8-1.x86_64.rpm && cp -f /opt/hadoopgpl/lib/* /usr/lib/ && cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64/ && cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ && cp -r /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		}
 		sleep(1);
 		if($this->SocketCommand())

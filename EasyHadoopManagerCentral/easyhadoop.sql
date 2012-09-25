@@ -59,7 +59,6 @@ CREATE TABLE IF NOT EXISTS `ehm_host_settings` (
   `create_time` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `ip` varchar(16) NOT NULL,
   PRIMARY KEY  (`set_id`),
-  UNIQUE KEY `filename_2` (`filename`),
   KEY `filename` (`filename`,`ip`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Setting files of each host' AUTO_INCREMENT=9 ;
 

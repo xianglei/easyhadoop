@@ -12,8 +12,8 @@ fi
 if [ ! -f "jdk-6u35-linux-x64.rpm" ]; then
 	wget http://113.11.199.230/jdk/jdk-6u35-linux-amd64.rpm
 fi
-if [ ! -f "hadoop-gpl-packaging-0.5.3-1.x86_64.rpm" ]; then
-	wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
+if [ ! -f "hadoop-gpl-packaging-0.2.8-1.x86_64.rpm" ]; then
+	wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm
 fi
 if [ ! -f "lzo-2.06.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzo-2.06.tar.gz

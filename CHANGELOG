@@ -1,8 +1,14 @@
+1.03 alpha2
+Change jdk to 6u35
+Fix file transport dos format
+Socket send encrypted command
+Add NodeMonitor page
+Fix Hadoopgpl install bug
+Change hadoopgpl to 0.2.8-1
+
 1.03 alpha1
 Fix a web timeout when doing hadoop start
 Move Node settings to previous page
-Socket send encrypted command
-Change jdk to 6u35
 
 1.03 20120826
 Add distributed node agent daemon script

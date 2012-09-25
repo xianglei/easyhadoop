@@ -141,7 +141,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 		if($_GET['do'] == "Global")
 		{
 			$ip = $_GET['ip'];
-			$sql = "select set_id,filename,CONVERT(content USING latin1) as content from ehm_host_settings where ip='0'";
+			$sql = "select * from ehm_host_settings where ip='0'";
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
@@ -149,7 +149,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 				{
 					$command = "FileTransport:".$arr['filename']."\n";
 					$command = $socket->EncryptCommand($command);
-					$content = $arr['content'];
+					$content = str_replace("\r\n","\n",$arr['content']);
 					fwrite($fp, $command);
 					sleep(1);
 					fwrite($fp, $content);
@@ -167,7 +167,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 		elseif ($_GET['do'] == 'Node')
 		{
 			$ip = $_GET['ip'];
-			$sql = "select set_id,filename,CONVERT(content USING latin1) as content from ehm_host_settings where ip='".$ip."'";
+			$sql = "select * from ehm_host_settings where ip='".$ip."'";
 			$mysql->Query($sql);
 			while ($arr = $mysql->FetchArray())
 			{
@@ -175,7 +175,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 				{
 					$command = "FileTransport:".$arr['filename']."\n";
 					$command = $socket->EncryptCommand($command);
-					$content = $arr['content'];
+					$content = str_replace("\r\n","\n",$arr['content']);
 					fwrite($fp, $command);
 					sleep(1);
 					fwrite($fp, $content);

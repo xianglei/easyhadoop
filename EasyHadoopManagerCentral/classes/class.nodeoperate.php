@@ -130,44 +130,6 @@ class NodeOperator extends Socket
 		
 		return $str;
 	}
-	
-	public function CheckHadoopProcess($pHost, $pRole)
-	{
-		$this->mHost = $pHost;
-		switch ($pRole)
-		{
-			case "namenode":
-				$jps = "NameNode";
-				break;
-			case "jobtracker":
-				$jps = "jobtracker";
-				break;
-			case "secondarynamenode":
-				$jps = "secondarynamenode";
-				break;
-			case "datanode":
-				$jps = "datanode";
-				break;
-			case "tasktracker":
-				$jps = "tasktracker";
-				break;
-			default:
-				return "Unknown Role name";
-				break;
-		}
-		
-		$command = "ps aux | grep -w ".$jps." | grep -v grep | awk '{print $2}'";
-		$this->mCommand = $this->cAgentRunShell.":".$command;
-		if($this->SocketCommand())
-		{
-			$str = $this->mReturn;
-		}
-		else
-		{
-			$str = $lang['notConnected'];
-		}
-		return $str;
-	}
 }
 
 ?>
