@@ -6,6 +6,7 @@ include_once "templates/node_operator_sidebar.html";
 
 $mysql = new Mysql();
 $node = new NodeOperator;
+$monitor = new NodeMonitor;
 
 if(!@$_GET['action'])
 {
@@ -47,7 +48,7 @@ elseif($_GET['action'] == "Operate")
 			foreach($arr_role as $key => $value)
 			{
 					 echo '<td>';
-					 $str = $node->CheckHadoopProcess($arr['ip'], $value);
+					 $str = $monitor->CheckHadoopProcess($arr['ip'], $value);
 					 echo '<div class="btn-group">';
 					 if($str == "")
 					 {
