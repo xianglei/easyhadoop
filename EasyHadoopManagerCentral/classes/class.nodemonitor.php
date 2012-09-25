@@ -2,6 +2,8 @@
 
 class NodeMonitor extends Socket
 {
+	private $cAgentRunShell = "RunShellScript";
+	
 	public function GetJson($pHost,$pRole)
 	{
 		switch ($pRole)
