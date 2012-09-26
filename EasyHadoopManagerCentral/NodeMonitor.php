@@ -49,6 +49,8 @@ if ($_GET['action'] == "CheckHadoopProcess")
 			}
 			catch(exception $e)
 			{
+				echo "";
+			}
 			echo '<td>';
             
 			if($str == "")
@@ -60,7 +62,6 @@ if ($_GET['action'] == "CheckHadoopProcess")
 				echo $value." <br /> <span class=\"label label-success\"><i class=\"icon-ok\"></i>".$lang['processId'].":".$str."</span>";
 			}
 			echo '</td>';
-			}
         }
 			
            echo '</tr>';
