@@ -45,7 +45,7 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$arr['ip'].'</td>';
             $transport = new TSocket($arr['ip'], 30050);
 			$protocol = new TBinaryProtocol($transport);
-			$client = new EasyHadoopClient($protocol);
+			#$client = new EasyHadoopClient($protocol);
             $transport->open();
 			foreach($arr_role as $key => $value)
 			{
@@ -89,16 +89,21 @@ elseif($_GET['action'] == "Operate")
 
 		echo '<pre>';
 		
+		$transport = new TSocket($ip, 30050);
+		$protocol = new TBinaryProtocol($transport);
+		#$client = new EasyHadoopClient($protocol);
+        $transport->open();
+		
 		switch ($_GET['do'])
 		{
 			case 'Start':
-				$str = $node->HadoopStart($ip, $role);
+				$str = $node->HadoopStart($role,$protocol);
 				break;
 			case 'Stop':
-				$str = $node->HadoopStop($ip, $role);
+				$str = $node->HadoopStop($role,$protocol);
 				break;
 			case 'Restart':
-				$str = $node->HadoopRestart($ip, $role);
+				$str = $node->HadoopRestart($role,$protocol);
 				break;
 			
 			default:
@@ -106,7 +111,7 @@ elseif($_GET['action'] == "Operate")
 				break;
 		}
 		echo $str;
-
+		$transport->close();
 		echo '</pre>';
 		echo '</div>';
 	}

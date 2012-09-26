@@ -18,10 +18,10 @@ import time
 from optparse import OptionParser
 from signal import SIGTERM
 
-sys.path.append('./libs')
+sys.path.append('./thrift')
 
-from EasyHadoop.EasyHadoop import *
-from EasyHadoop.EasyHadoop.ttypes import *
+from thrift.EasyHadoop.EasyHadoop import *
+from thrift.EasyHadoop.EasyHadoop.ttypes import *
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
@@ -51,8 +51,7 @@ class EasyHadoopHandler:
 				f.write(content)
 			except IOError,e:
 				errstr = "Cannot write file:"+filename+". Exception:"+e+os.linesep
-			finally:
-				f.close()
+			f.close()
 			cs = subprocess.Popen( "md5sum "+filename+" | awk '{print $1}'", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
 			cs_tmp = cs.stdout.readline()
 			if cs_tmp == checksum:
