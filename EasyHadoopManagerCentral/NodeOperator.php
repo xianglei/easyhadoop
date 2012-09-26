@@ -44,7 +44,6 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
 			$transport = new TSocket($arr['ip'], 30050);
-			$transport->setDebug(FALSE);
 			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
            	$transport->open();
@@ -235,14 +234,13 @@ elseif($_GET['action'] == "NodeHddSetup")
 	}#not any action
 	elseif($_GET['do'] == "Hdd")
 	{
+		$ip = $_GET['ip'];
 		$transport = new TSocket($ip, 30050);
 		$protocol = new TBinaryProtocol($transport);
 		//$client = new EasyHadoopClient($protocol);
 		$transport->open();
 		if(!$_GET['mount'])
 		{
-			$ip = $_GET['ip'];
-			
 			$list = $node->GetHddList($protocol);
 			$list_line = explode("\n",$list);
 			$list_first_line = explode(" ", $list_line[0]);
