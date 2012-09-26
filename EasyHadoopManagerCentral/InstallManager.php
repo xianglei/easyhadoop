@@ -148,7 +148,7 @@ elseif($_GET['action'] == "PushSettingFiles")
         	$transport->open();
 			while ($arr = $mysql->FetchArray())
 			{
-				$str = $install->PushSettingFile($arr['filename'], $arr['content'], $protocol);
+				$str = $install->PushFile($arr['filename'], $arr['content'], $protocol);
 				echo "<script>alert('".$arr['filename']." pushed '".$str.");</script>";
 			}
 			$transport->close();
