@@ -46,22 +46,32 @@ elseif($_GET['action'] == "Operate")
 			$transport = new TSocket($arr['ip'], 30050);
 			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
-           	$transport->open();
+           	
 			foreach($arr_role as $key => $value)
 			{
-					echo '<td>';
+				try
+				{
+					$transport->open();
 					$str = $monitor->CheckHadoopProcess($value, $protocol);
-					echo '<div class="btn-group">';
-					if($str == "")
-					{
-                		echo	'<button class="btn btn-danger">'.$value.'</button>';
-						echo '<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
-					}
-					else
-					{
-						echo	'<button class="btn btn-success">'.$value.'</button>';
-						echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
-					}
+					$transport->close();
+				}
+				catch(exception $e)
+				{
+					echo "";
+				}
+				echo '<td>';
+				
+				echo '<div class="btn-group">';
+				if($str == "")
+				{
+                	echo	'<button class="btn btn-danger">'.$value.'</button>';
+					echo '<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+				}
+				else
+				{
+					echo	'<button class="btn btn-success">'.$value.'</button>';
+					echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+				}
                 	echo	'<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
@@ -74,7 +84,7 @@ elseif($_GET['action'] == "Operate")
 	        }
             echo '</tr>';
 			$i++;
-			$transport->close();
+			
 		}
 		echo '</tbody></table>';
 		echo '</div>';

@@ -35,12 +35,11 @@ if ($_GET['action'] == "CheckHadoopProcess")
                  	<td>'.$i.'</td>
                  	<td>'.$arr['hostname'].'</td>
                  	<td>'.$arr['ip'].'</td>';
-                  	
+        $transport = new TSocket($arr['ip'], 30050);
+		$protocol = new TBinaryProtocol($transport);
+		$client = new EasyHadoopClient($protocol);
 		foreach($arr_role as $key => $value)
 		{
-			$transport = new TSocket($arr['ip'], 30050);
-			$protocol = new TBinaryProtocol($transport);
-			$client = new EasyHadoopClient($protocol);
 			try
 			{
 				$transport->open();
