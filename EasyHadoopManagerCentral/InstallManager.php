@@ -7,7 +7,6 @@ include_once "templates/install_manager_sidebar.html";
 
 $mysql = new Mysql();
 $install = new Install;
-$socket = new Socket;
 
 if(!@$_GET['action'])
 {

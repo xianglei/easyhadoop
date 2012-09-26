@@ -56,4 +56,8 @@ require_once $GLOBALS['THRIFT_ROOT'] . 'packages/EasyHadoop/EasyHadoop.php';
 require_once $GLOBALS['THRIFT_ROOT'] . 'transport/TSocket.php';
 require_once $GLOBALS['THRIFT_ROOT'] . 'protocol/TBinaryProtocol.php';
 
+include_once "classes/class.install.php";
+include_once "classes/class.nodemonitor.php";
+include_once "classes/class.nodeoperate.php";
+
 ?>
