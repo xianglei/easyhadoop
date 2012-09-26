@@ -44,11 +44,13 @@ if ($_GET['action'] == "CheckHadoopProcess")
 			try
 			{
 				$transport->open();
+				$str = $monitor->CheckHadoopProcess($value, $protocol);
+				$transport->close();
 			}
 			catch(exception $e)
 			{
 			echo '<td>';
-            $str = $monitor->CheckHadoopProcess($value, $protocol);
+            
 			if($str == "")
 			{
 				echo $value." <br /> <span class=\"label label-important\"><i class=\"icon-remove\"></i> ".$lang['notStarted']."</span>";
@@ -58,7 +60,6 @@ if ($_GET['action'] == "CheckHadoopProcess")
 				echo $value." <br /> <span class=\"label label-success\"><i class=\"icon-ok\"></i>".$lang['processId'].":".$str."</span>";
 			}
 			echo '</td>';
-			$transport->close();
 			}
         }
 			
