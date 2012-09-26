@@ -45,7 +45,6 @@ class Install
 		$command = "yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo 
 					ntpdate cn.pool.ntp.org";
 		$str = $client->RunCommand($command);
-		$pProtocol->flush();
 		return $str;
 	}
 	

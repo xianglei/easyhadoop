@@ -75,7 +75,10 @@ elseif($_GET['action'] == "Install")
 			$action = $_GET['action'].$_GET['which'];
 			$ip = $_GET['ip'];
 			
-			$transport = new TSocket($ip, 30050);
+			$socket = new TSocket($ip, 30050);
+			$socket->setSendTimeout(30);
+			$socket->setRecvTimeout(60);
+			$transport = new TBufferedTransport($socket);
 			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
         	$transport->open();
