@@ -43,14 +43,21 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
-			@$transport = new TSocket($arr['ip'], 30050);
-			@$protocol = new TBinaryProtocol($transport);
+			$transport = new TSocket($arr['ip'], 30050);
+			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
-            @$transport->open();
+            
 			foreach($arr_role as $key => $value)
 			{
 					
-					
+					try
+					{
+						$transport->open();
+					}
+					catch(exception $e)
+					{
+						continue;
+					}
 					 echo '<td>';
 					 @$str = $monitor->CheckHadoopProcess($value, $protocol);
 					 echo '<div class="btn-group">';
@@ -72,8 +79,8 @@ elseif($_GET['action'] == "Operate")
                 		</ul>
               				</div>';
             		echo '</td>';
+            		$transport->close();
 	        }
-			@$transport->close();
             echo '</tr>';
 			$i++;
 		}
