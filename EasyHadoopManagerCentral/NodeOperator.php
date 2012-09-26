@@ -79,7 +79,14 @@ elseif($_GET['action'] == "Operate")
                 		</ul>
               				</div>';
             		echo '</td>';
-            		$transport->close();
+            		try
+            		{
+            			$transport->close();
+					}
+					catch(exception $e)
+					{
+						continue;
+					}
 	        }
             echo '</tr>';
 			$i++;
