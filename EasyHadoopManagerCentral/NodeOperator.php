@@ -61,7 +61,6 @@ elseif($_GET['action'] == "Operate")
 	        }
             echo '</tr>';
 			$i++;
-			$transport->close();
 		}
 		echo '</tbody></table>';
 		echo '</div>';
