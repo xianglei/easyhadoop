@@ -5,7 +5,6 @@ include_once "templates/header.html";
 include_once "templates/node_manager_sidebar.html";
 
 $mysql = new Mysql();
-$socket = new Socket;
 
 ##默认页面
 if(!@$_GET['action'])
