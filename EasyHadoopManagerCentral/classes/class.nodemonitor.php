@@ -77,7 +77,7 @@ class NodeMonitor
 		
 		$command = "ps aux | grep -w ".$jps." | grep -v grep | awk '{print $2}'";
 		#$this->mCommand = $this->cAgentRunShell.":".$command;
-		$str = $client->RunCommand($command);
+		$str = @$client->RunCommand($command);
 		return $str;
 	}
 	

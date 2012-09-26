@@ -49,17 +49,10 @@ elseif($_GET['action'] == "Operate")
             
 			foreach($arr_role as $key => $value)
 			{
-					
-					try
-					{
-						$transport->open();
-					}
-					catch(exception $e)
-					{
-						continue;
-					}
+					$transport->open();
+
 					 echo '<td>';
-					 @$str = $monitor->CheckHadoopProcess($value, $protocol);
+					 $str = $monitor->CheckHadoopProcess($value, $protocol);
 					 echo '<div class="btn-group">';
 					 if($str == "")
 					 {
@@ -79,14 +72,7 @@ elseif($_GET['action'] == "Operate")
                 		</ul>
               				</div>';
             		echo '</td>';
-            		try
-            		{
-            			$transport->close();
-					}
-					catch(exception $e)
-					{
-						continue;
-					}
+           			$transport->close();
 	        }
             echo '</tr>';
 			$i++;
