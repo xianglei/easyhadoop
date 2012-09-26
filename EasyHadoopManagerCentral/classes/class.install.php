@@ -68,7 +68,7 @@ class Install
 						rpm -Uvh jdk-6u35-linux-amd64.rpm 
 						echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
-		$client->RunCommand($command);
+		$str = $client->RunCommand($command);
 		return $str;
 	}
 	
