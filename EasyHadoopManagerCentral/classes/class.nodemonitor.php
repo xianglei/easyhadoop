@@ -52,7 +52,7 @@ class NodeMonitor
 	
 	public function CheckHadoopProcess($pRole, $pProtocol)
 	{
-		@$client = new EasyHadoopClient($pProtocol);
+		$client = new EasyHadoopClient($pProtocol);
 		switch ($pRole)
 		{
 			case "namenode":

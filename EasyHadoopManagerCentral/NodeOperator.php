@@ -44,6 +44,7 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
 			$transport = new TSocket($arr['ip'], 30050);
+			$transport->setDebug(FALSE);
 			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
            	$transport->open();
