@@ -1,6 +1,6 @@
 <?php
 
-class NodeMonitor extends EasyHadoopClient
+class NodeMonitor
 {
 	public function GetJson($pHost,$pRole)
 	{
@@ -50,8 +50,9 @@ class NodeMonitor extends EasyHadoopClient
 		$str = "<script>this.location='".$pUrl."';</script>";
 	}
 	
-	public function CheckHadoopProcess($pHost, $pRole)
+	public function CheckHadoopProcess($pRole, $pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		switch ($pRole)
 		{
 			case "namenode":
@@ -76,7 +77,7 @@ class NodeMonitor extends EasyHadoopClient
 		
 		$command = "ps aux | grep -w ".$jps." | grep -v grep | awk '{print $2}'";
 		#$this->mCommand = $this->cAgentRunShell.":".$command;
-		$str = $this->RunCommand($command);
+		$str = $client->RunCommand($command);
 		return $str;
 	}
 	

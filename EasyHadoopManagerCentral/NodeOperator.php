@@ -43,16 +43,16 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
-                  	
-                  	
+            $transport = new TSocket($arr['ip'], 30050);
+			$protocol = new TBinaryProtocol($transport);
+			$client = new EasyHadoopClient($protocol);
+            $transport->open();
 			foreach($arr_role as $key => $value)
 			{
-					$transport = new TSocket($arr['ip'], 30050);
-					$protocol = new TBinaryProtocol($transport);
-					$client = new EasyHadoopClient($protocol);
-					$transport->open();
+					
+					
 					 echo '<td>';
-					 $str = $monitor->CheckHadoopProcess($arr['ip'], $value);
+					 $str = $monitor->CheckHadoopProcess($value, $protocol);
 					 echo '<div class="btn-group">';
 					 if($str == "")
 					 {
@@ -72,9 +72,8 @@ elseif($_GET['action'] == "Operate")
                 		</ul>
               				</div>';
             		echo '</td>';
-            		$transport->open();
 	        }
-			
+			$transport->close();
             echo '</tr>';
 			$i++;
 		}
@@ -231,10 +230,15 @@ elseif($_GET['action'] == "NodeHddSetup")
 	}#not any action
 	elseif($_GET['do'] == "Hdd")
 	{
+		$transport = new TSocket($ip, 30050);
+		$protocol = new TBinaryProtocol($transport);
+		//$client = new EasyHadoopClient($protocol);
+		$transport->open();
 		if(!$_GET['mount'])
 		{
 			$ip = $_GET['ip'];
-			$list = $node->GetHddList($ip);
+			
+			$list = $node->GetHddList($protocol);
 			$list_line = explode("\n",$list);
 			$list_first_line = explode(" ", $list_line[0]);
 			echo '<div class=span10>';
@@ -275,14 +279,16 @@ elseif($_GET['action'] == "NodeHddSetup")
 			
 			echo '</tbody></table>';
 			echo '</div>';
+			
 		}
 		else
 		{
 			$ip = $_GET['ip'];
 			$mount = $_GET['mount'];
-			$ret = $node->ChangeHddUser($ip, $mount);
+			$ret = $node->ChangeHddUser($mount,$protocol);
 			echo "<script>alert('".$ret."');this.location='NodeOperator.php?action=NodeHddSetup'</script>";
 		}
+		$transport->close();
 	}
 	else
 	{
