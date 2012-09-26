@@ -49,18 +49,17 @@ elseif($_GET['action'] == "Operate")
 				$protocol = new TBinaryProtocol($transport);
 				#$client = new EasyHadoopClient($protocol);
             	$transport->open();
-			}
-			catch (exception $e)
-			{
-				continue;
-			}
 			foreach($arr_role as $key => $value)
 			{
 					echo '<td>';
 					try
 					{
 						$str = $monitor->CheckHadoopProcess($value, $protocol);
-					
+					}
+					catch(exception $e)
+					{
+						continue;
+					}
 					 echo '<div class="btn-group">';
 					 if($str == "")
 					 {
@@ -69,10 +68,10 @@ elseif($_GET['action'] == "Operate")
 					 }
 					 else
 					 {
-						echo '<button class="btn btn-success">'.$value.'</button>';
-						echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+						 echo	'<button class="btn btn-success">'.$value.'</button>';
+						 echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
 					 }
-                	 echo '<ul class="dropdown-menu">
+                	 echo	'<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
                   		<li><a href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-stop"></i>'.$lang['stop'].$value.'</a></li>
@@ -80,18 +79,11 @@ elseif($_GET['action'] == "Operate")
                 		</ul>
               				</div>';
             		echo '</td>';
-            		}
-					catch(exception $e)
-					{
-						continue;
-					}
            			
 	        }
             echo '</tr>';
 			$i++;
-			try
-			{
-				$transport->close();
+			$transport->close();
 			}
 			catch(exception $e)
 			{
