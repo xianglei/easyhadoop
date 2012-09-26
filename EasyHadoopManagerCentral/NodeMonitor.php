@@ -38,18 +38,22 @@ if ($_GET['action'] == "CheckHadoopProcess")
                   	
 		foreach($arr_role as $key => $value)
 		{
-				echo '<td>';
-               	$str = $node->CheckHadoopProcess($arr['ip'], $value);
-				if($str == "")
-				{
-					echo $value." <br /> <span class=\"label label-important\"><i class=\"icon-remove\"></i> ".$lang['notStarted']."</span>";
-				}
-				else
-				{
-					echo $value." <br /> <span class=\"label label-success\"><i class=\"icon-ok\"></i>".$lang['processId'].":".$str."</span>";
-				}
-				
-           		echo '</td>';
+			$transport = new TSocket($arr['ip'], 30050);
+			$protocol = new TBinaryProtocol($transport);
+			$client = new EasyHadoopClient($protocol);
+			$transport->open();
+			echo '<td>';
+            $str = $node->CheckHadoopProcess($arr['ip'], $value);
+			if($str == "")
+			{
+				echo $value." <br /> <span class=\"label label-important\"><i class=\"icon-remove\"></i> ".$lang['notStarted']."</span>";
+			}
+			else
+			{
+				echo $value." <br /> <span class=\"label label-success\"><i class=\"icon-ok\"></i>".$lang['processId'].":".$str."</span>";
+			}
+			echo '</td>';
+			$transport->close();
         }
 			
            echo '</tr>';

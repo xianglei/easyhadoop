@@ -1,9 +1,7 @@
 <?php
 
-class NodeMonitor extends Socket
+class NodeMonitor extends EasyHadoopClient
 {
-	private $cAgentRunShell = "RunShellScript";
-	
 	public function GetJson($pHost,$pRole)
 	{
 		switch ($pRole)
@@ -54,7 +52,6 @@ class NodeMonitor extends Socket
 	
 	public function CheckHadoopProcess($pHost, $pRole)
 	{
-		$this->mHost = $pHost;
 		switch ($pRole)
 		{
 			case "namenode":
@@ -78,15 +75,8 @@ class NodeMonitor extends Socket
 		}
 		
 		$command = "ps aux | grep -w ".$jps." | grep -v grep | awk '{print $2}'";
-		$this->mCommand = $this->cAgentRunShell.":".$command;
-		if($this->SocketCommand())
-		{
-			$str = $this->mReturn;
-		}
-		else
-		{
-			$str = $lang['notConnected'];
-		}
+		#$this->mCommand = $this->cAgentRunShell.":".$command;
+		$str = $this->RunCommand($command);
 		return $str;
 	}
 	
