@@ -41,7 +41,12 @@ if ($_GET['action'] == "CheckHadoopProcess")
 			$transport = new TSocket($arr['ip'], 30050);
 			$protocol = new TBinaryProtocol($transport);
 			$client = new EasyHadoopClient($protocol);
-			$transport->open();
+			try
+			{
+				$transport->open();
+			}
+			catch(exception $e)
+			{
 			echo '<td>';
             $str = $monitor->CheckHadoopProcess($value, $protocol);
 			if($str == "")
@@ -54,6 +59,7 @@ if ($_GET['action'] == "CheckHadoopProcess")
 			}
 			echo '</td>';
 			$transport->close();
+			}
         }
 			
            echo '</tr>';
