@@ -25,12 +25,11 @@ class Iface:
     """
     pass
 
-  def FileTransfer(self, filename, content, checksum):
+  def FileTransfer(self, filename, content):
     """
     Parameters:
      - filename
      - content
-     - checksum
     """
     pass
 
@@ -82,22 +81,20 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "RunCommand failed: unknown result");
 
-  def FileTransfer(self, filename, content, checksum):
+  def FileTransfer(self, filename, content):
     """
     Parameters:
      - filename
      - content
-     - checksum
     """
-    self.send_FileTransfer(filename, content, checksum)
+    self.send_FileTransfer(filename, content)
     return self.recv_FileTransfer()
 
-  def send_FileTransfer(self, filename, content, checksum):
+  def send_FileTransfer(self, filename, content):
     self._oprot.writeMessageBegin('FileTransfer', TMessageType.CALL, self._seqid)
     args = FileTransfer_args()
     args.filename = filename
     args.content = content
-    args.checksum = checksum
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -212,7 +209,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = FileTransfer_result()
-    result.success = self._handler.FileTransfer(args.filename, args.content, args.checksum)
+    result.success = self._handler.FileTransfer(args.filename, args.content)
     oprot.writeMessageBegin("FileTransfer", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -367,20 +364,17 @@ class FileTransfer_args:
   Attributes:
    - filename
    - content
-   - checksum
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'filename', None, None, ), # 1
     (2, TType.STRING, 'content', None, None, ), # 2
-    (3, TType.STRING, 'checksum', None, None, ), # 3
   )
 
-  def __init__(self, filename=None, content=None, checksum=None,):
+  def __init__(self, filename=None, content=None,):
     self.filename = filename
     self.content = content
-    self.checksum = checksum
 
   def read(self, iprot):
     if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
@@ -401,11 +395,6 @@ class FileTransfer_args:
           self.content = iprot.readString();
         else:
           iprot.skip(ftype)
-      elif fid == 3:
-        if ftype == TType.STRING:
-          self.checksum = iprot.readString();
-        else:
-          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
@@ -423,10 +412,6 @@ class FileTransfer_args:
     if self.content is not None:
       oprot.writeFieldBegin('content', TType.STRING, 2)
       oprot.writeString(self.content)
-      oprot.writeFieldEnd()
-    if self.checksum is not None:
-      oprot.writeFieldBegin('checksum', TType.STRING, 3)
-      oprot.writeString(self.checksum)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()

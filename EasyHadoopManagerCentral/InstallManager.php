@@ -142,25 +142,16 @@ elseif($_GET['action'] == "PushSettingFiles")
 			$ip = $_GET['ip'];
 			$sql = "select * from ehm_host_settings where ip='0'";
 			$mysql->Query($sql);
+			$transport = new TSocket($ip, 30050);
+			$protocol = new TBinaryProtocol($transport);
+			#$client = new EasyHadoopClient($protocol);
+        	$transport->open();
 			while ($arr = $mysql->FetchArray())
 			{
-				if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
-				{
-					$command = "FileTransport:".$arr['filename']."\n";
-					$command = $socket->EncryptCommand($command);
-					$content = str_replace("\r\n","\n",$arr['content']);
-					fwrite($fp, $command);
-					sleep(1);
-					fwrite($fp, $content);
-					unset($content);
-					fclose($fp);
-					echo "<script>alert('".$arr['filename']." pushed');</script>";
-				}
-				else
-				{
-					echo $lang['notConnected'];
-				}
+				$str = $install->PushSettingFile($arr['filename'], $arr['content'], $protocol);
+				echo "<script>alert('".$arr['filename']." pushed '".$str.");</script>";
 			}
+			$transport->close();
 			echo "<script>this.location='InstallManager.php?action=PushSettingFiles';</script>";
 		}
 		elseif ($_GET['do'] == 'Node')
@@ -168,25 +159,16 @@ elseif($_GET['action'] == "PushSettingFiles")
 			$ip = $_GET['ip'];
 			$sql = "select * from ehm_host_settings where ip='".$ip."'";
 			$mysql->Query($sql);
+			$transport = new TSocket($ip, 30050);
+			$protocol = new TBinaryProtocol($transport);
+			#$client = new EasyHadoopClient($protocol);
+        	$transport->open();
 			while ($arr = $mysql->FetchArray())
 			{
-				if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
-				{
-					$command = "FileTransport:".$arr['filename']."\n";
-					$command = $socket->EncryptCommand($command);
-					$content = str_replace("\r\n","\n",$arr['content']);
-					fwrite($fp, $command);
-					sleep(1);
-					fwrite($fp, $content);
-					unset($content);
-					fclose($fp);
-					echo "<script>alert('".$arr['filename']." pushed');</script>";
-				}
-				else
-				{
-					echo $lang['notConnected'];
-				}
+				$str = $install->PushFile($arr['filename'], $arr['content'], $protocol);
+				echo "<script>alert('".$arr['filename']." pushed '".$str.");</script>";
 			}
+			$transport->close();
 			echo "<script>this.location='InstallManager.php?action=PushSettingFiles';</script>";
 		}
 		else
@@ -257,29 +239,25 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			}
 			closedir($handle);
 		}
-		$install->MakeDir($ip);
+		$transport = new TSocket($ip, 30050);
+		$protocol = new TBinaryProtocol($transport);
+		#$client = new EasyHadoopClient($protocol);
+        $transport->open();
+		$install->MakeDir($protocol);
 		foreach ($arr as $key => $value)
 		{
-			if($fp = @fsockopen($ip, 30050, $errstr, $errno, 60))
+			$filename = "/home/hadoop/".$value;
+			$fp = fopen("./hadoop/".$value, "rb");
+			while(!feof($fp))
 			{
-				$command = "FileTransport:/home/hadoop/".$value."\n";
-				$command = $socket->EncryptCommand($command);
-				fwrite($fp,$command);
-				sleep(1);
-				$fd = fopen("./hadoop/".$value, "rb");
-				while(!feof($fd))
-				{
-					$str .= fread($fd,1024);
-				}
-				fwrite($fp,$str);
-				unset($str);
-				fclose($fp);
+				$content .= fread($fp,1024);
 			}
-			else
-			{
-				die ("<script>alert('".$lang['notConnected']."');this.location='InstallManager.php?action=PushHadoopFiles';</script>");
-			}
+			fclose($fp);
+			$str = $install->PushFile($filename, $content, $protocol);
+			unset ($content);
+			sleep(1);
 		}
+		$transport->close();
 		echo "<script>alert('".$lang['pushComplete']."'); this.location='InstallManager.php?action=Install';</script>";
 	}
 }

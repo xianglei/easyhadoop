@@ -1,6 +1,6 @@
 <?php
 
-class Install extends EasyHadoopClient
+class Install
 {
 	
 	/*
@@ -21,29 +21,40 @@ class Install extends EasyHadoopClient
 	 * 
 	 */
 	
-	public function MakeDir()
+	public function MakeDir($pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		$command = "mkdir -p /home/hadoop && groupadd hadoop && useradd hadoop -g hadoop";
-		$str = $this->RunCommand($command);
+		$str = $client->RunCommand($command);
 		return $str;
 	}
 	
+	public function PushFile($pFilename, $pContent, $pProtocol)
+	{
+		$client = new EasyHadoopClient($pProtocol);
+		$filename = $pFilename;
+		$content = $pContent;
+		$str = $client->FileTransfer($filename, $content);
+		return $str;
+	}
 	
 	###########################################
-	public function InstallEnvironment($pHost)
+	public function InstallEnvironment($pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		$command = "yum -y install dialog lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo 
 					 ntpdate cn.pool.ntp.org";
-		$str = $this->RunCommand($command);
+		$str = $client->RunCommand($command);
 		return $str;
 	}
 	
 	###########################################
-	public function InstallJava()
+	public function InstallJava($pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		$filename = "/home/hadoop/jdk-6u35-linux-amd64.rpm";
 		
-		if($this->FileExists($filename))
+		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
 						rpm -Uvh jdk-6u35-linux-amd64.rpm 
@@ -57,15 +68,16 @@ class Install extends EasyHadoopClient
 						rpm -Uvh jdk-6u35-linux-amd64.rpm 
 						echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
-		$this->RunCommand($command);
+		$client->RunCommand($command);
 		return $str;
 	}
 	
 	#########################################
-	public function InstallHadoop()
+	public function InstallHadoop($pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		$filename = "/home/hadoop/hadoop-1.0.3-1.x86_64.rpm";
-		if($this->FileExists($filename))
+		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
 						rpm -Uvh hadoop-1.0.3-1.x86_64.rpm 
@@ -91,18 +103,19 @@ class Install extends EasyHadoopClient
 						/usr/sbin/groupadd hadoop 
 						/usr/sbin/useradd hadoop -g hadoop";
 		}
-		$str = $this->RunCommand($command); 
+		$str = $client->RunCommand($command); 
 		return $str;
 	}
 	
 	###########################################
-	public function InstallLzo($pHost)
+	public function InstallLzo($pProtocol)
 	{
-		$ver = $this->GetSysVer();
+		$client = new EasyHadoopClient($pProtocol);
+		$ver = $client->GetSysVer();
 		if(trim($ver) == "5")
 		{
 			$filename = "/home/hadoop/lzo-2.06-1.el5.rf.x86_64.rpm";
-			if($this->FileExists($filename))
+			if($client->FileExists($filename))
 			{
 				$command = "cd /home/hadoop 
 							rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm";
@@ -114,9 +127,9 @@ class Install extends EasyHadoopClient
 							wget http://113.11.199.230/resources/x64/lzo-2.06-1.el5.rf.x86_64.rpm 
 							rpm -Uvh lzo-2.06-1.el5.rf.x86_64.rpm";
 			}
-			$ret = $this->RunCommand($command);
+			$ret = $client->RunCommand($command);
 			$filename = "/home/hadoop/lzo-devel-2.06-1.el5.rf.x86_64.rpm";
-			if($this->FileExists($filename))
+			if($client->FileExists($filename))
 			{
 				$command = "cd /home/hadoop 
 							rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm";
@@ -128,12 +141,12 @@ class Install extends EasyHadoopClient
 							wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el5.rf.x86_64.rpm 
 							rpm -Uvh lzo-devel-2.06-1.el5.rf.x86_64.rpm";
 			}
-			$ret .=$this->RunCommand($command);
+			$ret .=$client->RunCommand($command);
 		}
 		elseif(trim($ver) == "6")
 		{
 			$filename = "/home/hadoop/lzo-2.06-1.el6.rfx.x86_64.rpm";
-			if($this->FileExists($filename))
+			if($client->FileExists($filename))
 			{
 				$command = "cd /home/hadoop/ 
 							rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm";
@@ -145,10 +158,10 @@ class Install extends EasyHadoopClient
 							wget http://113.11.199.230/resources/x64/lzo-2.06-1.el6.rfx.x86_64.rpm 
 							rpm -Uvh lzo-2.06-1.el6.rfx.x86_64.rpm";
 			}
-			$ret = $this->RunCommand($command);
+			$ret = $client->RunCommand($command);
 			
 			$filename = "/home/hadoop/lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
-			if($this->FileExists($filename))
+			if($client->FileExists($filename))
 			{
 				$command = "cd /home/hadoop 
 							rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
@@ -160,14 +173,14 @@ class Install extends EasyHadoopClient
 							wget http://113.11.199.230/resources/x64/lzo-devel-2.06-1.el6.rfx.x86_64.rpm 
 							rpm -Uvh lzo-devel-2.06-1.el6.rfx.x86_64.rpm";
 			}
-			$ret .= $this->RunCommand($command);
+			$ret .= $client->RunCommand($command);
 		}
 		else
 		{
 			$ret =  "Unknown Operation System";
 		}
 		$filename = "/home/hadoop/lzo-2.06.tar.gz";
-		if($this->FileExists($filename))
+		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
 						tar zxf lzo-2.06.tar.gz 
@@ -187,16 +200,17 @@ class Install extends EasyHadoopClient
 						make 
 						make install";
 		}
-		$ret .= $this->RunCommand($command);
+		$ret .= $client->RunCommand($command);
 		
 		return $ret;
 	}
 
 	###########################################
-	public function InstallLzop()
+	public function InstallLzop($pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		$filename = "/home/hadoop/lzop-1.03.tar.gz";
-		if($this->FileExists($filename))
+		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
 						tar zxf lzop-1.03.tar.gz 
@@ -216,15 +230,16 @@ class Install extends EasyHadoopClient
 						make 
 						make install";
 		}
-		$str = $this->RunCommand($command);
+		$str = $client->RunCommand($command);
 		return $str;
 	}
 
 	###########################################
-	public function InstallHadoopgpl()
+	public function InstallHadoopgpl($pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		$filename = "/home/hadoop/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm";
-		if($this->FileExists($filename))
+		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
 						rpm -Uvh hadoop-gpl-packaging-0.2.8-1.x86_64.rpm 
@@ -244,7 +259,7 @@ class Install extends EasyHadoopClient
 						cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ 
 						cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/";
 		}
-		$ret = $this->RunCommand($command);
+		$ret = $client->RunCommand($command);
 		
 		return $ret;
 	}

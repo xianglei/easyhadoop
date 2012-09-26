@@ -11,7 +11,7 @@ include_once $GLOBALS['THRIFT_ROOT'].'/packages/EasyHadoop/EasyHadoop_types.php'
 
 interface EasyHadoopIf {
   public function RunCommand($command);
-  public function FileTransfer($filename, $content, $checksum);
+  public function FileTransfer($filename, $content);
   public function FileExists($filename);
   public function GetSysVer();
 }
@@ -78,18 +78,17 @@ class EasyHadoopClient implements EasyHadoopIf {
     throw new Exception("RunCommand failed: unknown result");
   }
 
-  public function FileTransfer($filename, $content, $checksum)
+  public function FileTransfer($filename, $content)
   {
-    $this->send_FileTransfer($filename, $content, $checksum);
+    $this->send_FileTransfer($filename, $content);
     return $this->recv_FileTransfer();
   }
 
-  public function send_FileTransfer($filename, $content, $checksum)
+  public function send_FileTransfer($filename, $content)
   {
     $args = new EasyHadoop_FileTransfer_args();
     $args->filename = $filename;
     $args->content = $content;
-    $args->checksum = $checksum;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
     {
@@ -385,7 +384,6 @@ class EasyHadoop_FileTransfer_args {
 
   public $filename = null;
   public $content = null;
-  public $checksum = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
@@ -398,10 +396,6 @@ class EasyHadoop_FileTransfer_args {
           'var' => 'content',
           'type' => TType::STRING,
           ),
-        3 => array(
-          'var' => 'checksum',
-          'type' => TType::STRING,
-          ),
         );
     }
     if (is_array($vals)) {
@@ -410,9 +404,6 @@ class EasyHadoop_FileTransfer_args {
       }
       if (isset($vals['content'])) {
         $this->content = $vals['content'];
-      }
-      if (isset($vals['checksum'])) {
-        $this->checksum = $vals['checksum'];
       }
     }
   }
@@ -450,13 +441,6 @@ class EasyHadoop_FileTransfer_args {
             $xfer += $input->skip($ftype);
           }
           break;
-        case 3:
-          if ($ftype == TType::STRING) {
-            $xfer += $input->readString($this->checksum);
-          } else {
-            $xfer += $input->skip($ftype);
-          }
-          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -478,11 +462,6 @@ class EasyHadoop_FileTransfer_args {
     if ($this->content !== null) {
       $xfer += $output->writeFieldBegin('content', TType::STRING, 2);
       $xfer += $output->writeString($this->content);
-      $xfer += $output->writeFieldEnd();
-    }
-    if ($this->checksum !== null) {
-      $xfer += $output->writeFieldBegin('checksum', TType::STRING, 3);
-      $xfer += $output->writeString($this->checksum);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();

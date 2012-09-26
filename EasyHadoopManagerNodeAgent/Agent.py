@@ -40,10 +40,9 @@ class EasyHadoopHandler:
 			tmp = "Cannot run command, Exception:"+e+os.linesep
 		return tmp
 
-	def FileTransfer(self, filename, content, checksum):
+	def FileTransfer(self, filename, content):
 		filename = filename
 		content = content
-		checksum = checksum
 		errstr = ''
 		try:
 			f = open(filename,"wb")
@@ -52,12 +51,7 @@ class EasyHadoopHandler:
 			except IOError,e:
 				errstr = "Cannot write file:"+filename+". Exception:"+e+os.linesep
 			f.close()
-			cs = subprocess.Popen( "md5sum "+filename+" | awk '{print $1}'", shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE )
-			cs_tmp = cs.stdout.readline()
-			if cs_tmp == checksum:
-				errstr = "OK"
-			else:
-				errstr = "File checksum not matched, re transfer it."
+			errstr = "OK"
 		except IOError,e:
 			errstr = "Cannot open file:"+filename+". Exception:"+e+os.linesep
 		return errstr
@@ -183,7 +177,7 @@ class Daemon:
 		tfactory = TTransport.TBufferedTransportFactory()
 		pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 
-		server = TServer.TForkingServer(processor, transport, tfactory, pfactory)
+		server = TServer.TThreadedServer(processor, transport, tfactory, pfactory)
 		while True:
 			print 'Starting server'+os.linesep
 			server.serve()
