@@ -137,44 +137,40 @@ elseif($_GET['action'] == "PushSettingFiles")
 	}
 	else
 	{
+		$ip = $_GET['ip'];
+		$transport = new TSocket($ip, 30050);
+		$protocol = new TBinaryProtocol($transport);
+		#$client = new EasyHadoopClient($protocol);
+        $transport->open();
 		if($_GET['do'] == "Global")
 		{
-			$ip = $_GET['ip'];
 			$sql = "select * from ehm_host_settings where ip='0'";
 			$mysql->Query($sql);
-			$transport = new TSocket($ip, 30050);
-			$protocol = new TBinaryProtocol($transport);
-			#$client = new EasyHadoopClient($protocol);
-        	$transport->open();
+			
 			while ($arr = $mysql->FetchArray())
 			{
 				$str = $install->PushFile($arr['filename'], $arr['content'], $protocol);
 				echo "<script>alert('".$arr['filename']." pushed '".$str.");</script>";
 			}
-			$transport->close();
+			
 			echo "<script>this.location='InstallManager.php?action=PushSettingFiles';</script>";
 		}
 		elseif ($_GET['do'] == 'Node')
 		{
-			$ip = $_GET['ip'];
 			$sql = "select * from ehm_host_settings where ip='".$ip."'";
 			$mysql->Query($sql);
-			$transport = new TSocket($ip, 30050);
-			$protocol = new TBinaryProtocol($transport);
-			#$client = new EasyHadoopClient($protocol);
-        	$transport->open();
 			while ($arr = $mysql->FetchArray())
 			{
 				$str = $install->PushFile($arr['filename'], $arr['content'], $protocol);
 				echo "<script>alert('".$arr['filename']." pushed '".$str.");</script>";
 			}
-			$transport->close();
 			echo "<script>this.location='InstallManager.php?action=PushSettingFiles';</script>";
 		}
 		else
 		{
 			echo $lang['unknownCommand'];
 		}
+		$transport->close();
 	}
 	
 }
