@@ -6,7 +6,7 @@ include_once "templates/header.html";
 include_once "templates/node_monitor_sidebar.html";
 
 $mysql = new Mysql();
-$install = new NodeMonitor;
+$monitor = new NodeMonitor;
 #$socket = new Socket;
 
 if ($_GET['action'] == "CheckHadoopProcess")
@@ -43,7 +43,7 @@ if ($_GET['action'] == "CheckHadoopProcess")
 			$client = new EasyHadoopClient($protocol);
 			$transport->open();
 			echo '<td>';
-            $str = $node->CheckHadoopProcess($arr['ip'], $value);
+            $str = $monitor->CheckHadoopProcess($arr['ip'], $value);
 			if($str == "")
 			{
 				echo $value." <br /> <span class=\"label label-important\"><i class=\"icon-remove\"></i> ".$lang['notStarted']."</span>";
