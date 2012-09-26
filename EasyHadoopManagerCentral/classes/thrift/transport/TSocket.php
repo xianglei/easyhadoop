@@ -226,7 +226,8 @@ class TSocket extends TTransport {
       if ($this->debug_) {
         call_user_func($this->debugHandler_, $error);
       }
-      throw new TException($error);
+      #throw new TException($error);
+      continue;
     }
   }
 
