@@ -58,6 +58,7 @@ class NodeOperator
 		$str = $client->RunCommand($command);
 		
 		$str = str_replace('ERROR', "<b><font color=red>ERROR</font></b>",$str);
+		$str = str_replace('FATAL', "<b><font color=red>FATAL</font></b>",$str);
 		$str = str_replace('WARN', "<b><font color=orange>WARN</font></b>",$str);
 		return $str;
 	}
