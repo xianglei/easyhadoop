@@ -43,7 +43,7 @@ if ($_GET['action'] == "CheckHadoopProcess")
 			$client = new EasyHadoopClient($protocol);
 			$transport->open();
 			echo '<td>';
-            $str = $monitor->CheckHadoopProcess($arr['ip'], $value);
+            $str = $monitor->CheckHadoopProcess($value, $protocol);
 			if($str == "")
 			{
 				echo $value." <br /> <span class=\"label label-important\"><i class=\"icon-remove\"></i> ".$lang['notStarted']."</span>";
