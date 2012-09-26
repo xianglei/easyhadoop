@@ -162,7 +162,7 @@ elseif($_GET['action'] == "PushSettingFiles")
 			while ($arr = $mysql->FetchArray())
 			{
 				$str = $install->PushFile($arr['filename'], $arr['content'], $protocol);
-				echo "<script>alert('".$arr['filename']." pushed '".$str.");</script>";
+				echo "<script>alert('".$arr['filename']." pushed ".$str."');</script>";
 			}
 			echo "<script>this.location='InstallManager.php?action=PushSettingFiles';</script>";
 		}
