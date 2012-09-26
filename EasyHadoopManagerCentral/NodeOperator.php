@@ -43,6 +43,7 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
+			try{
             $transport = new TSocket($arr['ip'], 30050);
 			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
@@ -74,6 +75,11 @@ elseif($_GET['action'] == "Operate")
             		echo '</td>';
 	        }
 			$transport->close();
+			}
+			catch(exception $e)
+			{
+				continue;
+			}
             echo '</tr>';
 			$i++;
 		}
