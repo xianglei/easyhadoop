@@ -1,6 +1,6 @@
 <?php
 
-class NodeOperator extends EasyHadoopClient
+class NodeOperator
 {
 	public function ChangeHddUser($pHost, $pMountPoint)
 	{
@@ -47,10 +47,11 @@ class NodeOperator extends EasyHadoopClient
 		return $ret;
 	}
 	
-	public function ViewLogs($pHost, $pRole, $pHostname)
+	public function ViewLogs($pHost, $pRole, $pHostname, $pProtocol)
 	{
+		$client = new EasyHadoopClient($pProtocol);
 		$command = "tail -n 1000 /var/log/hadoop/hadoop/hadoop-hadoop-".$pRole."-".$pHostname.".log";
-		$str = $this->RunCommand($command);
+		$str = $client->RunCommand($command);
 		
 		$str = str_replace('ERROR', "<b><font color=red>ERROR</font></b>",$str);
 		$str = str_replace('WARN', "<b><font color=orange>WARN</font></b>",$str);

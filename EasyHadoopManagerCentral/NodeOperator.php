@@ -176,11 +176,18 @@ elseif ($_GET['action'] == "ViewLogs")
 		echo '<pre>';
 
 		$ip = $_GET['ip'];
-		$str = $node->ViewLogs($ip, $role, $hostname);
+		
+		$transport = new TSocket($ip, 30050);
+		$protocol = new TBinaryProtocol($transport);
+		//$client = new EasyHadoopClient($protocol);
+		$transport->open();
+		
+		$str = $node->ViewLogs($ip, $role, $hostname, $protocol);
 		echo $str;
 
 		echo '</pre>';
 		echo '</div>';
+		$transport->close();
 	}
 }
 elseif($_GET['action'] == "NodeHddSetup")
