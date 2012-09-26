@@ -43,25 +43,12 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
-			$transport = new TSocket($arr['ip'], 30050);
-			$protocol = new TBinaryProtocol($transport);
-			#$client = new EasyHadoopClient($protocol);
-           	$transport->open();
 			foreach($arr_role as $key => $value)
 			{
 					echo '<td>';
-					$str = $monitor->CheckHadoopProcess($value, $protocol);
 					echo '<div class="btn-group">';
-					if($str == "")
-					{
-                		echo	'<button class="btn btn-danger">'.$value.'</button>';
-						echo '<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
-					}
-					else
-					{
-						echo	'<button class="btn btn-success">'.$value.'</button>';
-						echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
-					}
+					echo '<button class="btn">'.$value.'</button>';
+					echo '<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
                 	echo	'<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
