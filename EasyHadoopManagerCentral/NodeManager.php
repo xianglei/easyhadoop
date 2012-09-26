@@ -231,12 +231,14 @@ elseif($_GET['action'] == "PingNode")
 		$sql = "select ip from ehm_hosts where host_id='".$_GET['nodeid']."'";
 		$mysql->Query($sql);
 		$arr = $mysql->FetchArray();
-		if($socket->SocketConnectTest($arr['ip']))
+		if(@$fp = fsockopen($arr['ip'],30050,$errstr,$errno,5))
 		{
+			fclose($fp);
 			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php?action=PingNode';</script>";
 		}
 		else
 		{
+			fclose($fp);
 			echo "<script>alert('".$lang['notConnected']."'); this.location='NodeManager.php?action=PingNode';</script>";
 		}
 	}
