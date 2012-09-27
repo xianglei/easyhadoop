@@ -49,7 +49,7 @@ elseif($_GET['action'] == "Operate")
            	
 			foreach($arr_role as $key => $value)
 			{
-				if($monitor->CheckAgentAlive($arr['ip'], 30050))
+				if(!$monitor->CheckAgentAlive($arr['ip'], 30050))
 				{
 					$button = '<button class="btn btn-danger">'.$value.'</button>
 							<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
