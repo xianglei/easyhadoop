@@ -46,36 +46,34 @@ elseif($_GET['action'] == "Operate")
 			$transport = new TSocket($arr['ip'], 30050);
 			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
+			if(!$monitor->CheckAgentAlive($arr['ip'], 30050))
+			{
+				$button = '<button class="btn btn-danger">'.$value.'</button>
+						<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+			}
            	
 			foreach($arr_role as $key => $value)
 			{
-				if(!$monitor->CheckAgentAlive($arr['ip'], 30050))
+				
+				try
 				{
-					$button = '<button class="btn btn-danger">'.$value.'</button>
-							<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+					$transport->open();
+					$str = $monitor->CheckHadoopProcess($value, $protocol);
+					$transport->close();
+				}
+				catch(exception $e)
+				{
+					echo "";
+				}
+				if($str == "")
+				{
+					$button = '<button class="btn btn-warning">'.$value.'</button>
+						<button class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
 				}
 				else
 				{
-					try
-					{
-						$transport->open();
-						$str = $monitor->CheckHadoopProcess($value, $protocol);
-						$transport->close();
-					}
-					catch(exception $e)
-					{
-						echo "";
-					}
-					if($str == "")
-					{
-						$button = '<button class="btn btn-warning">'.$value.'</button>
-							<button class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
-					}
-					else
-					{
-						$button = '<button class="btn btn-success">'.$value.'</button>
-							<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
-					}
+					$button = '<button class="btn btn-success">'.$value.'</button>
+						<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
 				}
 				
 				echo '<td>';
