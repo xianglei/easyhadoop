@@ -114,9 +114,30 @@ elseif($_GET['action'] == "NodeHddUsed")
 			if($volumeinfo != "")
 				break;
 		}
-		$json = json_decode($volumeinfo);
+		$json = json_decode($volumeinfo,true);
 		var_dump($json);
+		
+		echo '<table class="table table-striped">';
+		echo '<thead>
+               <tr>
+                 <th>#</th>
+                 <th>'.$lang['hostname'].'</th>
+                 <th>'.$lang['ipAddr'].'</th>
+                 <th>'.$lang['action'].'</th>
+                 <th>'.$lang['action'].'</th>
+               </tr>
+               </thead>
+               <tbody>';
+			   
+		foreach($json as $key => $v)
+		{
+			echo "<tr>";
+			echo "";
+			echo "</tr>";
+		}
+		echo '</tbody></table>';
 		echo "</div>";
+		
 	}
 }
 
