@@ -81,6 +81,18 @@ class NodeMonitor
 		return $str;
 	}
 	
+	public function CheckAgentAlive($pHost, $pPort)
+	{
+		if(@$fp = fsockopen($pHost,$pPort,$errstr,$errno,5))
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
+	}
+	
 }
 
 ?>

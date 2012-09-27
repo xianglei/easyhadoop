@@ -212,19 +212,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 		$i = 1;
 		while($arr = $mysql->FetchArray())
 		{
-			$transport = new TSocket($arr['ip'], 30050);
-			$protocol = new TBinaryProtocol($transport);
-			$client = new EasyHadoopClient($protocol);
-			try
-			{
-				$transport->open();
-				$str = $monitor->CheckHadoopProcess($value, $protocol);
-				$transport->close();
-			}
-			catch(exception $e)
-			{
-				echo "";
-			}
+			
 			echo '<tr>
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
@@ -232,7 +220,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
                   	<td>';
-			if($str == "")
+			if(!$monitor->CheckAgentAlive($arr['ip'], 30050))
 			{
             	echo '<a class="btn btn-danger" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>';
             }
