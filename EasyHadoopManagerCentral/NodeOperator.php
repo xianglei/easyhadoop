@@ -49,37 +49,47 @@ elseif($_GET['action'] == "Operate")
            	
 			foreach($arr_role as $key => $value)
 			{
-				try
+				if($monitor->CheckAgentAlive($arr['ip'], 30050))
 				{
-					$transport->open();
-					$str = $monitor->CheckHadoopProcess($value, $protocol);
-					$transport->close();
-				}
-				catch(exception $e)
-				{
-					echo "";
-				}
-				echo '<td>';
-				
-				echo '<div class="btn-group">';
-				if($str == "")
-				{
-                	echo	'<button class="btn btn-danger">'.$value.'</button>';
-					echo '<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+					$button = '<button class="btn btn-danger">'.$value.'</button>
+							<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
 				}
 				else
 				{
-					echo	'<button class="btn btn-success">'.$value.'</button>';
-					echo '<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+					try
+					{
+						$transport->open();
+						$str = $monitor->CheckHadoopProcess($value, $protocol);
+						$transport->close();
+					}
+					catch(exception $e)
+					{
+						echo "";
+					}
+					if($str == "")
+					{
+						$button = '<button class="btn btn-warning">'.$value.'</button>
+							<button class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+					}
+					else
+					{
+						$button = '<button class="btn btn-success">'.$value.'</button>
+							<button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>';
+					}
 				}
-                	echo	'<ul class="dropdown-menu">
+				
+				echo '<td>';
+				
+				echo '<div class="btn-group">';
+				echo $button;
+				echo	'<ul class="dropdown-menu">
                   		<li><a href="NodeOperator.php?action=Operate&do=Start&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-play"></i>'.$lang['start'].$value.'</a></li>
                   		<li class="divider"></li>
                   		<li><a href="NodeOperator.php?action=Operate&do=Stop&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-stop"></i>'.$lang['stop'].$value.'</a></li>
 					 	<li><a href="NodeOperator.php?action=Operate&do=Restart&ip='.$arr['ip'].'&role='.$value.'"><i class="icon-refresh"></i>'.$lang['restart'].$value.'</a></li>
                 		</ul>
               				</div>';
-            		echo '</td>';
+            	echo '</td>';
            			
 	        }
             echo '</tr>';
