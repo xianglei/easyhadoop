@@ -48,6 +48,7 @@ if(!$_GET['action'])
                  <th>'.$lang['hostname'].'</th>
                  <th>'.$lang['ipAddr'].'</th>
                  <th>'.$lang['action'].'</th>
+                 <th>'.$lang['action'].'</th>
                </tr>
                </thead>
                <tbody>';
@@ -84,9 +85,9 @@ if(!$_GET['action'])
         		</div>';
 		}
 		echo '</td>';
-		
+		echo '<td>'.$total.'GB / '.$used.'GB</td>';
         echo '</tr>';
-		unset ($json);
+		#unset ($json);
 		$i++;
 	}
 	echo '</tbody></table>';
