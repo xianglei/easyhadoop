@@ -28,7 +28,7 @@ if(!$_GET['action'])
 
 	echo '<div class=span10>';
 	echo '
-        <div class="progress progress-striped active">
+        <div class="progress">
                 <div class="bar bar-success" style="width: '.$perc_free.'%;">Free</div>
                 <div class="bar bar-warning" style="width: '.$perc_nondfs.'%;">NonDFS</div>
                 <div class="bar bar-danger" style="width: '.$perc_dfs.'%;">DFS</div>
