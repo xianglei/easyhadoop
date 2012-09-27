@@ -123,7 +123,6 @@ elseif($_GET['action'] == "NodeHddUsed")
                  <th>#</th>
                  <th>'.$lang['hostname'].'</th>
                  <th>'.$lang['action'].'</th>
-                 <th>'.$lang['action'].'</th>
                </tr>
                </thead>
                <tbody>';
@@ -138,13 +137,13 @@ elseif($_GET['action'] == "NodeHddUsed")
 			echo $k;
 			echo "</td>";
 			echo "<td>";
-			echo $free = $v["freeSpace"];
-			echo $used = $v["usedSpace"];
-			echo $reserved = $v["reservedSpace"];
+			$free = $v["freeSpace"];
+			$used = $v["usedSpace"];
+			$reserved = $v["reservedSpace"];
 			$total = $free+$used+$reserved;
-			$perc_free = ceil(($free/$total)*100);
-			$perc_used = ceil(($free/$total)*100);
-			$perc_reserved = 100 - $perc_free - $perc_used;
+			echo $perc_free = ceil(($free/$total)*100);
+			echo $perc_used = ceil(($free/$total)*100);
+			echo $perc_reserved = 100 - $perc_free - $perc_used;
 			
 			echo '
         		<div class="progress">
