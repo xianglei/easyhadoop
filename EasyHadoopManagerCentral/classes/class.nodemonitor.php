@@ -47,9 +47,9 @@ class NodeMonitor
 	
 	public function GetJsonObject($pObjArray,$pKeyword)
 	{
-		foreach($pObjArray as $k=>$v)
+		foreach($pObjArray as $k => $v)
 		{
-			if($v->{$pKeyword})
+			if($v->{$pKeyword} > 0)
 			{
 				break;
 			}
