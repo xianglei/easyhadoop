@@ -115,7 +115,7 @@ elseif($_GET['action'] == "NodeHddUsed")
 				break;
 		}
 		$json = json_decode($volumeinfo,true);
-		var_dump($json);
+		#var_dump($json);
 		
 		echo '<table class="table table-striped">';
 		echo '<thead>
@@ -138,9 +138,9 @@ elseif($_GET['action'] == "NodeHddUsed")
 			echo $k;
 			echo "</td>";
 			echo "<td>";
-			$free = $v["freeSpace"];
-			$used = $v["usedSpace"];
-			$reserved = $v["reservedSpace"];
+			echo $free = $v["freeSpace"];
+			echo $used = $v["usedSpace"];
+			echo $reserved = $v["reservedSpace"];
 			$total = $free+$used+$reserved;
 			$perc_free = ceil(($free/$total)*100);
 			$perc_used = ceil(($free/$total)*100);
