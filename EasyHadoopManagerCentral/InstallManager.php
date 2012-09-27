@@ -211,15 +211,35 @@ elseif($_GET['action'] == "PushHadoopFiles")
 		$i = 1;
 		while($arr = $mysql->FetchArray())
 		{
+			$transport = new TSocket($arr['ip'], 30050);
+			$protocol = new TBinaryProtocol($transport);
+			$client = new EasyHadoopClient($protocol);
+			try
+			{
+				$transport->open();
+				$str = $monitor->CheckHadoopProcess($value, $protocol);
+				$transport->close();
+			}
+			catch(exception $e)
+			{
+				echo "";
+			}
 			echo '<tr>
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>
                   	<td>'.$arr['role'].'</td>
                   	<td>'.$arr['create_time'].'</td>
-                  	<td>
-                  	<a class="btn btn-success" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>
-                  	</td>
+                  	<td>';
+			if($str == "")
+			{
+            	echo '<a class="btn btn-success" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>';
+            }
+			else
+			{
+				echo '<a class="btn btn-danger" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>';
+			}
+            echo '</td>
                 	</tr>';
 			$i++;
 		}
@@ -262,7 +282,7 @@ elseif($_GET['action'] == "PushHadoopFiles")
 			sleep(1);
 		}
 		$transport->close();
-		echo "<script>alert('".$lang['pushComplete']."'); this.location='InstallManager.php?action=Install';</script>";
+		echo "<script>alert('".$lang['pushComplete']."'); this.location='InstallManager.php?action=Install&ip=".$ip."';</script>";
 	}
 }
 else
