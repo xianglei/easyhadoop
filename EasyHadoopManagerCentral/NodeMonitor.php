@@ -98,7 +98,7 @@ if(!$_GET['action'])
 elseif($_GET['action'] == "NodeHddUsed")
 {
 	if(!$_GET['ip'])
-	{echo $ip = $_GET['ip'];
+	{
 		echo '<div class=span10>';
 		echo "Invalid Entry";
 		echo "</div>";
@@ -108,9 +108,14 @@ elseif($_GET['action'] == "NodeHddUsed")
 		$ip = $_GET['ip'];
 		echo '<div class=span10>';
 		$json = $monitor->GetJson($ip, "datanode");
-		$json2 = $monitor->GetJsonObject($json, "VolumeInfo");
+		foreach($json as $k => $v)
+		{
+			$volumninfo = $v->{"VolumeInfo"};
+			if($volumninfo != "")
+				break;
+		}
+		echo $volumninfo;
 		echo $json2;
-		echo "Invalid Entry";
 		echo "</div>";
 	}
 }
