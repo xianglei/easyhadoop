@@ -16,8 +16,7 @@ if(!$_GET['action'])
 	$ip = $arr['ip'];
 	$hostname = $arr['hostname'];
 	$json = $monitor->GetJson($ip, "namenode");
-	$json_arr = $monitor->ParseJson($json);
-	echo $json_arr;
+	var_dump($json);
 	echo '<div class=span10>';
 	echo '
 	<div class="progress">
