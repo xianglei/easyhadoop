@@ -16,14 +16,23 @@ if(!$_GET['action'])
 	$ip = $arr['ip'];
 	$hostname = $arr['hostname'];
 	$json = $monitor->GetJson($ip, "namenode");
-	var_dump($json);
+	#var_dump($json);
+	$total = $json->{"beans"}[20]->Total/1024/1024/1024;
+	$free = $json->{"beans"}[20]->{"Free"}/1024/1024/1024;
+	$nondfs = $json->{"beans"}[20]->{"NonDfsUsedSpace"}/1024/1024/1024;
+	$dfs = $json->{"beans"}[20]->{"Used"}/1024/1024/1024;
+
+	$perc_free = ceil(($free/$total)*100);
+	$perc_nondfs = ceil(($nondfs/$total)*100);
+	$perc_dfs = 100 - ($perc_free + $perc_nondfs);
+
 	echo '<div class=span10>';
 	echo '
-	<div class="progress">
-  		<div class="bar bar-success" style="width: 35%;"></div>
-  		<div class="bar bar-warning" style="width: 20%;"></div>
-  		<div class="bar bar-danger" style="width: 10%;"></div>
-	</div>';
+        <div class="progress progress-striped active">
+                <div class="bar bar-success" style="width: '.$perc_free.'%;">Free</div>
+                <div class="bar bar-warning" style="width: '.$perc_nondfs.'%;">NonDFS</div>
+                <div class="bar bar-danger" style="width: '.$perc_dfs.'%;">DFS</div>
+        </div>';
 	echo '</div>';
 }
 
