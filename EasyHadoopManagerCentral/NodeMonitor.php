@@ -111,6 +111,8 @@ elseif($_GET['action'] == "NodeHddUsed")
 		foreach($json->{"beans"} as $k => $v)
 		{
 			$volumeinfo = $v->{"VolumeInfo"};
+			if($volumeinfo != "")
+				break;
 		}
 		echo $volumeinfo;
 		echo "</div>";
