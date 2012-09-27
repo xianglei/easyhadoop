@@ -122,20 +122,40 @@ elseif($_GET['action'] == "NodeHddUsed")
                <tr>
                  <th>#</th>
                  <th>'.$lang['hostname'].'</th>
-                 <th>'.$lang['ipAddr'].'</th>
                  <th>'.$lang['action'].'</th>
                  <th>'.$lang['action'].'</th>
                </tr>
                </thead>
                <tbody>';
-			   
+		$i = 1;
 		foreach($json as $k => $v)
 		{
 			echo "<tr>";
 			echo "<td>";
+			echo $i;
+			echo "</td>";
+			echo "<td>";
 			echo $k;
 			echo "</td>";
+			echo "<td>";
+			$free = $v["freeSpace"];
+			$used = $v["usedSpace"];
+			$reserved = $v["reservedSpace"];
+			$total = $free+$used+$reserved;
+			$perc_free = ceil(($free/$total)*100);
+			$perc_used = ceil(($free/$total)*100);
+			$perc_reserved = 100 - $perc_free - $perc_used;
+			
+			echo '
+        		<div class="progress">
+                <div class="bar bar-success" style="width: '.$perc_free.'%;">Free</div>
+                <div class="bar bar-warning" style="width: '.$perc_reserved.'%;">NonDFS</div>
+                <div class="bar bar-danger" style="width: '.$perc_used.'%;">DFS</div>
+        		</div>';
+			
+			echo "</td>";
 			echo "</tr>";
+			$i++;
 		}
 		echo '</tbody></table>';
 		echo "</div>";
