@@ -80,12 +80,12 @@ if(!$_GET['action'])
 		{
 			echo '
         		<div class="progress">
-                <div class="bar bar-success" style="width: '.round($perc_remain,2).'%;">Free</div>
-                <div class="bar bar-danger" style="width: '.round($perc_used,2).'%;">DFS</div>
+                <div class="bar bar-success" style="width: '.$perc_remain.'%;">Free</div>
+                <div class="bar bar-danger" style="width: '.$perc_used.'%;">DFS</div>
         		</div>';
 		}
 		echo '</td>';
-		echo '<td>'.$total.'GB / '.$used.'GB</td>';
+		echo '<td>'.round($total,2).'GB / '.round($used,2).'GB</td>';
         echo '</tr>';
 		#unset ($json);
 		$i++;
