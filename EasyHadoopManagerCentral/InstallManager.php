@@ -7,6 +7,7 @@ include_once "templates/install_manager_sidebar.html";
 
 $mysql = new Mysql();
 $install = new Install;
+$monitor = new NodeMonitor;
 
 if(!@$_GET['action'])
 {
