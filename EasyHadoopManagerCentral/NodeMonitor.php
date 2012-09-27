@@ -17,7 +17,7 @@ if(!$_GET['action'])
 	$hostname = $arr['hostname'];
 	$json = $monitor->GetJson($ip, "namenode");
 	#var_dump($json);
-	$total = $json->{"beans"}[20]->Total/1024/1024/1024;
+	$total = $json->{"beans"}[20]->{"Total"}/1024/1024/1024;
 	$free = $json->{"beans"}[20]->{"Free"}/1024/1024/1024;
 	$nondfs = $json->{"beans"}[20]->{"NonDfsUsedSpace"}/1024/1024/1024;
 	$dfs = $json->{"beans"}[20]->{"Used"}/1024/1024/1024;
@@ -27,6 +27,8 @@ if(!$_GET['action'])
 	$perc_dfs = 100 - ($perc_free + $perc_nondfs);
 
 	echo '<div class=span10>';
+	
+	
 	echo "<pre>";
 	echo "Total DFS Space ".$total." GB";
 	echo "</pre>";
@@ -36,10 +38,64 @@ if(!$_GET['action'])
                 <div class="bar bar-warning" style="width: '.$perc_nondfs.'%;">NonDFS</div>
                 <div class="bar bar-danger" style="width: '.$perc_dfs.'%;">DFS</div>
         </div>';
+    ##################################
+    $sql = "select * from ehm_hosts where role like 'datanode%' order by create_time desc";
+	$mysql->Query($sql);
+	echo '<table class="table table-striped">';
+	echo '<thead>
+               <tr>
+                 <th>#</th>
+                 <th>'.$lang['hostname'].'</th>
+                 <th>'.$lang['ipAddr'].'</th>
+                 <th>'.$lang['action'].'</th>
+               </tr>
+               </thead>
+               <tbody>';
+	$i = 1;
+	while($arr = $mysql->FetchArray())
+	{
+		echo '<tr>
+                 	<td>'.$i.'</td>
+                 	<td>'.$arr['hostname'].'</td>
+                 	<td>'.$arr['ip'].'</td>';
+		echo '<td>';
+		$json = $monitor->GetJson($arr['ip'], "datanode");
+		
+		$total = $json->{"beans"}[4]->{"Capacity"}/1024/1024/1024;
+		$used = $json->{"beans"}[4]->{"DfsUsed"}/1024/1024/1024;
+		
+		$perc_used = ceil(($used/$total)*100);
+		$perc_remain = 100 - $perc_used;
+		
+        $bool = $monitor->CheckAgentAlive($arr['ip'], 30050);
+		if($bool == FALSE)
+		{
+			echo '
+        		<div class="progress">
+                <div class="bar bar-danger" style="width: 100%;">No Agent Alive</div>
+       			</div>';
+		}
+		else
+		{
+			echo '
+        		<div class="progress">
+                <div class="bar bar-success" style="width: '.$perc_remain.'%;">Free</div>
+                <div class="bar bar-danger" style="width: '.$perc_used.'%;">DFS</div>
+        		</div>';
+		}
+		echo '</td>';
+		
+        echo '</tr>';
+		unset ($json);
+		$i++;
+	}
+	echo '</tbody></table>';
+	echo '</div>';
+	
 	echo '</div>';
 }
 
-if ($_GET['action'] == "CheckHadoopProcess")
+elseif ($_GET['action'] == "CheckHadoopProcess")
 {
 	$sql = "select * from ehm_hosts order by create_time desc";
 	$mysql->Query($sql);
@@ -67,7 +123,7 @@ if ($_GET['action'] == "CheckHadoopProcess")
                  	<td>'.$arr['ip'].'</td>';
         $transport = new TSocket($arr['ip'], 30050);
 		$protocol = new TBinaryProtocol($transport);
-		$client = new EasyHadoopClient($protocol);
+		#$client = new EasyHadoopClient($protocol);
 		foreach($arr_role as $key => $value)
 		{
 			try
