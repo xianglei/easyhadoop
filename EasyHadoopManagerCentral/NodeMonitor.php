@@ -129,10 +129,12 @@ elseif($_GET['action'] == "NodeHddUsed")
                </thead>
                <tbody>';
 			   
-		foreach($json as $key => $v)
+		foreach($json as $k => $v)
 		{
 			echo "<tr>";
-			echo "";
+			echo "<td>";
+			echo $k;
+			echo "</td>";
 			echo "</tr>";
 		}
 		echo '</tbody></table>';
