@@ -45,6 +45,18 @@ class NodeMonitor
 		return $arr;
 	}
 	
+	public function GetJsonObject($pObjArray,$pKeyword)
+	{
+		foreach($pObjArray as $k=>$v)
+		{
+			if($v->{$pKeyword})
+			{
+				break;
+			}
+		}
+		return $v->{$pKeyword};
+	}
+	
 	public function JumpGanglia($pUrl)
 	{
 		$str = "<script>this.location='".$pUrl."';</script>";
