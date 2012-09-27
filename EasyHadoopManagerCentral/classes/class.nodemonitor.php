@@ -30,7 +30,7 @@ class NodeMonitor
 		$fp = fopen($url, "r");
 		while(!feof($fp))
 		{
-			$json .= $fread($fp,1024);
+			$json .= fread($fp,1024);
 		}
 		fclose($fp);
 		
