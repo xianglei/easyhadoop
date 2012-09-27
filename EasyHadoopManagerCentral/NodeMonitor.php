@@ -17,10 +17,10 @@ if(!$_GET['action'])
 	$hostname = $arr['hostname'];
 	$json = $monitor->GetJson($ip, "namenode");
 	#var_dump($json);
-	$total = $json->{"beans"}[20]->{"Total"}/1024/1024/1024;
-	$free = $json->{"beans"}[20]->{"Free"}/1024/1024/1024;
-	$nondfs = $json->{"beans"}[20]->{"NonDfsUsedSpace"}/1024/1024/1024;
-	$dfs = $json->{"beans"}[20]->{"Used"}/1024/1024/1024;
+	$total = $monitor->GetJsonObject($json->{"beans"}, "Total")/1024/1024/1024;
+	$free = $monitor->GetJsonObject($json->{"beans"},"Free")/1024/1024/1024;
+	$nondfs = $monitor->GetJsonObject($json->{"beans"},"NonDfsUsedSpace")/1024/1024/1024;
+	$dfs = $monitor->GetJsonObject($json->{"beans"},"Used")/1024/1024/1024;
 
 	$perc_free = ceil(($free/$total)*100);
 	$perc_nondfs = ceil(($nondfs/$total)*100);
@@ -62,18 +62,8 @@ if(!$_GET['action'])
 		echo '<td>';
 		$json = $monitor->GetJson($arr['ip'], "datanode");
 		
-		$total = $json->{"beans"}[4]->{"Capacity"};
-		if(!is_numeric($total))
-		{
-			$total = $json->{"beans"}[16]->{"Capacity"};
-		}
-		$total = $total/1024/1024/1024;
-		$used = $json->{"beans"}[4]->{"DfsUsed"};
-		if(!is_numeric($used))
-		{
-			$total = $json->{"beans"}[16]->{"DfsUsed"};
-		}
-		$used = $used/1024/1024/1024;
+		$total = $monitor->GetJsonObject($json->{"beans"},"Capacity")/1024/1024/1024;
+		$used = $monitor->GetJsonObject($json->{"beans"},"DfsUsed")/1024/1024/1024;
 		
 		$perc_used = ceil(($used/$total)*100);
 		$perc_remain = 100 - $perc_used;
