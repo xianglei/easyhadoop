@@ -142,7 +142,7 @@ elseif($_GET['action'] == "NodeHddUsed")
 			$reserved = $v["reservedSpace"];
 			$total = $free+$used+$reserved;
 			echo $perc_free = ceil(($free/$total)*100);
-			echo $perc_used = ceil(($free/$total)*100);
+			echo $perc_used = ceil(($used/$total)*100);
 			echo $perc_reserved = 100 - $perc_free - $perc_used;
 			
 			echo '
