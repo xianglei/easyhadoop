@@ -121,7 +121,7 @@ elseif($_GET['action'] == "NodeHddUsed")
 		echo '<thead>
                <tr>
                  <th>#</th>
-                 <th>'.$lang['hostname'].'</th>
+                 <th>'.$lang['hostname'].$ip.'</th>
                  <th>'.$lang['action'].'</th>
                </tr>
                </thead>
