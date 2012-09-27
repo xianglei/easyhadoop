@@ -98,7 +98,7 @@ if(!$_GET['action'])
 elseif($_GET['action'] == "NodeHddUsed")
 {
 	if(!$_GET['ip'])
-	{
+	{echo $ip = $_GET['ip'];
 		echo '<div class=span10>';
 		echo "Invalid Entry";
 		echo "</div>";
