@@ -56,7 +56,7 @@ class NodeMonitor
 		switch ($pRole)
 		{
 			case "namenode":
-				$jps = "NameNode";
+				$jps = "namenode";
 				break;
 			case "jobtracker":
 				$jps = "jobtracker";

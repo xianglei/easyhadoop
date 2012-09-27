@@ -8,6 +8,25 @@ include_once "templates/node_monitor_sidebar.html";
 $mysql = new Mysql();
 $monitor = new NodeMonitor;
 #$socket = new Socket;
+if(!$_GET['action'])
+{
+	$sql = "select * from ehm_hosts where role like 'namenode%'";
+	$mysql->Query($sql);
+	$arr = $mysql->FetchArray();
+	$ip = $arr['ip'];
+	$hostname = $arr['hostname'];
+	$json = $monitor->GetJson($ip, "namenode");
+	$json_arr = $monitor->ParseJson($json);
+	echo $json_arr;
+	echo '<div class=span10>';
+	echo '
+	<div class="progress">
+  		<div class="bar bar-success" style="width: 35%;"></div>
+  		<div class="bar bar-warning" style="width: 20%;"></div>
+  		<div class="bar bar-danger" style="width: 10%;"></div>
+	</div>';
+	echo '</div>';
+}
 
 if ($_GET['action'] == "CheckHadoopProcess")
 {
