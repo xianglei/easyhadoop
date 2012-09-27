@@ -114,7 +114,8 @@ elseif($_GET['action'] == "NodeHddUsed")
 			if($volumeinfo != "")
 				break;
 		}
-		echo $volumeinfo;
+		$json = json_decode($volumeinfo);
+		var_dump($json);
 		echo "</div>";
 	}
 }
