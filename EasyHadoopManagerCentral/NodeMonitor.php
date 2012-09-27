@@ -62,8 +62,18 @@ if(!$_GET['action'])
 		echo '<td>';
 		$json = $monitor->GetJson($arr['ip'], "datanode");
 		
-		$total = $json->{"beans"}[4]->{"Capacity"}/1024/1024/1024;
-		$used = $json->{"beans"}[4]->{"DfsUsed"}/1024/1024/1024;
+		$total = $json->{"beans"}[4]->{"Capacity"};
+		if(!is_numeric($total))
+		{
+			$total = $json->{"beans"}[16]->{"Capacity"};
+		}
+		$total = $total/1024/1024/1024;
+		$used = $json->{"beans"}[4]->{"DfsUsed"};
+		if(!is_numeric($used))
+		{
+			$total = $json->{"beans"}[16]->{"DfsUsed"};
+		}
+		$used = $used/1024/1024/1024;
 		
 		$perc_used = ceil(($used/$total)*100);
 		$perc_remain = 100 - $perc_used;
