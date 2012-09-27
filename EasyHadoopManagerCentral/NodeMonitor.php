@@ -21,21 +21,25 @@ if(!$_GET['action'])
 	foreach($json->{"beans"} as $k => $v)
 	{
 		$total = $v->{"Total"}/1024/1024/1024;
+		break;
 	}
 	
 	foreach($json->{"beans"} as $k => $v)
 	{
 		$free = $v->{"Free"}/1024/1024/1024;
+		break;
 	}
 	
 	foreach($json->{"beans"} as $k => $v)
 	{
 		$nondfs = $v->{"NonDfsUsedSpace"}/1024/1024/1024;
+		break;
 	}
 	
 	foreach($json->{"beans"} as $k => $v)
 	{
 		$dfs = $v->{"Used"}/1024/1024/1024;
+		break;
 	}
 
 	$perc_free = ceil(($free/$total)*100);
@@ -81,11 +85,13 @@ if(!$_GET['action'])
 		foreach($json->{"beans"} as $k => $v)
 		{
 			$total = $v->{"Capacity"}/1024/1024/1024;
+			break;
 		}
 		
 		foreach($json->{"beans"} as $k => $v)
 		{
 			$used = $v->{"DfsUsed"}/1024/1024/1024;
+			break;
 		}
 		
 		$perc_used = ceil(($used/$total)*100);
