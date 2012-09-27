@@ -27,6 +27,9 @@ if(!$_GET['action'])
 	$perc_dfs = 100 - ($perc_free + $perc_nondfs);
 
 	echo '<div class=span10>';
+	echo "<pre>";
+	echo "Total DFS Space ".$total." GB";
+	echo "</pre>";
 	echo '
         <div class="progress">
                 <div class="bar bar-success" style="width: '.$perc_free.'%;">Free</div>
