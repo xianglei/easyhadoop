@@ -234,11 +234,11 @@ elseif($_GET['action'] == "PushHadoopFiles")
                   	<td>';
 			if($str == "")
 			{
-            	echo '<a class="btn btn-success" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>';
+            	echo '<a class="btn btn-danger" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>';
             }
 			else
 			{
-				echo '<a class="btn btn-danger" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>';
+				echo '<a class="btn btn-success" href="InstallManager.php?action=PushHadoopFiles&ip='.$arr['ip'].'">'.$lang['push'].'</a>';
 			}
             echo '</td>
                 	</tr>';
