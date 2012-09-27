@@ -22,8 +22,8 @@ if(!$_GET['action'])
 	$nondfs = $monitor->GetJsonObject($json->{"beans"},"NonDfsUsedSpace")/1024/1024/1024;
 	$dfs = $monitor->GetJsonObject($json->{"beans"},"Used")/1024/1024/1024;
 
-	$perc_free = ceil(($free/$total)*100);
-	$perc_nondfs = ceil(($nondfs/$total)*100);
+	$perc_free = round(($free/$total)*100);
+	$perc_nondfs = round(($nondfs/$total)*100);
 	$perc_dfs = 100 - ($perc_free + $perc_nondfs);
 
 	echo '<div class=span10>';
@@ -65,7 +65,7 @@ if(!$_GET['action'])
 		$total = $monitor->GetJsonObject($json->{"beans"},"Capacity")/1024/1024/1024;
 		$used = $monitor->GetJsonObject($json->{"beans"},"DfsUsed")/1024/1024/1024;
 		
-		$perc_used = ceil(($used/$total)*100);
+		$perc_used = round(($used/$total)*100);
 		$perc_remain = 100 - $perc_used;
 		
         $bool = $monitor->CheckAgentAlive($arr['ip'], 30050);
@@ -141,9 +141,9 @@ elseif($_GET['action'] == "NodeHddUsed")
 			$used = $v["usedSpace"];
 			$reserved = $v["reservedSpace"];
 			$total = $free+$used+$reserved;
-			echo $perc_free = round(($free/$total)*100);
-			echo $perc_used = round(($used/$total)*100);
-			echo $perc_reserved = 100 - $perc_free - $perc_used;
+			$perc_free = round(($free/$total)*100);
+			$perc_used = round(($used/$total)*100);
+			$perc_reserved = 100 - $perc_free - $perc_used;
 			
 			echo '
         		<div class="progress">
