@@ -5,6 +5,7 @@ include_once "templates/header.html";
 include_once "templates/node_manager_sidebar.html";
 
 $mysql = new Mysql();
+$monitor = new NodeMonitor;
 
 ##默认页面
 if(!@$_GET['action'])
@@ -231,7 +232,8 @@ elseif($_GET['action'] == "PingNode")
 		$sql = "select ip from ehm_hosts where host_id='".$_GET['nodeid']."'";
 		$mysql->Query($sql);
 		$arr = $mysql->FetchArray();
-		if(@$fp = fsockopen($arr['ip'],30050,$errstr,$errno,5))
+		
+		if($monitor->CheckAgentAlive($arr['ip'], 30050))
 		{
 			fclose($fp);
 			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php?action=PingNode';</script>";
