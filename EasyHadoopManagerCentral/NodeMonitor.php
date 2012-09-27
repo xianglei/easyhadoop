@@ -57,7 +57,7 @@ if(!$_GET['action'])
 	{
 		echo '<tr>
                  	<td>'.$i.'</td>
-                 	<td>'.$arr['hostname'].'</td>
+                 	<td><a href=NodeMonitor.php?action=NodeHddUsed&ip='.$arr['ip'].'>'.$arr['hostname'].'</a></td>
                  	<td>'.$arr['ip'].'</td>';
 		echo '<td>';
 		$json = $monitor->GetJson($arr['ip'], "datanode");
@@ -94,6 +94,25 @@ if(!$_GET['action'])
 	echo '</div>';
 	
 	echo '</div>';
+}
+elseif($_GET['action'] == "NodeHddUsed")
+{
+	if(!$_GET['ip'])
+	{
+		echo '<div class=span10>';
+		echo "Invalid Entry";
+		echo "</div>";
+	}
+	else
+	{
+		$ip = $_GET['ip'];
+		echo '<div class=span10>';
+		$json = $monitor->GetJson($ip, "datanode");
+		$json2 = $monitor->GetJsonObject($json, "VolumeInfo");
+		echo $json2;
+		echo "Invalid Entry";
+		echo "</div>";
+	}
 }
 
 elseif ($_GET['action'] == "CheckHadoopProcess")
