@@ -108,13 +108,13 @@ elseif($_GET['action'] == "NodeHddUsed")
 		$ip = $_GET['ip'];
 		echo '<div class=span10>';
 		$json = $monitor->GetJson($ip, "datanode");
-		foreach($json as $k => $v)
+		foreach($json->{"beans"} as $k => $v)
 		{
-			$volumninfo = $v->{"VolumeInfo"};
-			if($volumninfo != "")
+			$volumeinfo = $v->{"VolumeInfo"};
+			if($volumeinfo != "")
 				break;
 		}
-		echo $volumninfo;
+		echo $volumeinfo;
 		echo $json2;
 		echo "</div>";
 	}
