@@ -27,7 +27,7 @@ class NodeMonitor
 				break;
 		}
 		
-		$fp = fopen("http://".$pHost.":".$port, "r");
+		$fp = fopen("http://".$pHost.":".$port."/jmx", "r");
 		while(!feof($fp))
 		{
 			$json .= $fread($fp,1024);

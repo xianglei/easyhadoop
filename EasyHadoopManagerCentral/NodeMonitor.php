@@ -7,7 +7,7 @@ include_once "templates/node_monitor_sidebar.html";
 
 $mysql = new Mysql();
 $monitor = new NodeMonitor;
-#$socket = new Socket;
+
 if(!$_GET['action'])
 {
 	$sql = "select * from ehm_hosts where role like 'namenode%'";
