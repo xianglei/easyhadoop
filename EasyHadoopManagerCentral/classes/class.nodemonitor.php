@@ -97,6 +97,7 @@ class NodeMonitor
 	{
 		if(@$fp = fsockopen($pHost,$pPort,$errstr,$errno,5))
 		{
+			fclose($fp);
 			return TRUE;
 		}
 		else
