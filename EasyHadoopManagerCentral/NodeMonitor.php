@@ -39,7 +39,7 @@ if(!$_GET['action'])
                 <div class="bar bar-danger" style="width: '.$perc_dfs.'%;">DFS</div>
         </div>';
     ##################################
-    $sql = "select * from ehm_hosts where role like 'datanode%' order by create_time desc";
+    $sql = "select * from ehm_hosts where role like '%datanode%' order by create_time desc";
 	$mysql->Query($sql);
 	echo '<table class="table table-striped">';
 	echo '<thead>

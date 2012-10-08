@@ -27,12 +27,12 @@ class NodeMonitor
 				break;
 		}
 		$url = "http://".$pHost.":".$port."/jmx";
-		$fp = fopen($url, "r");
-		while(!feof($fp))
+		$fp = @fopen($url, "r");
+		while(!@feof($fp))
 		{
-			$json .= fread($fp,1024);
+			$json .= @fread($fp,1024);
 		}
-		fclose($fp);
+		@fclose($fp);
 		
 		$arr = $this->ParseJson($json);
 		
@@ -97,10 +97,12 @@ class NodeMonitor
 	{
 		if(@$fp = fsockopen($pHost,$pPort,$errstr,$errno,5))
 		{
+			fclose($fp);
 			return TRUE;
 		}
 		else
 		{
+			fclose($fp);
 			return FALSE;
 		}
 	}
