@@ -97,12 +97,12 @@ class NodeMonitor
 	{
 		if(@$fp = fsockopen($pHost,$pPort,$errstr,$errno,5))
 		{
-			fclose($fp);
+			@fclose($fp);
 			return TRUE;
 		}
 		else
 		{
-			fclose($fp);
+			@fclose($fp);
 			return FALSE;
 		}
 	}

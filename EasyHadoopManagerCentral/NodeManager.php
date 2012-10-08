@@ -235,12 +235,10 @@ elseif($_GET['action'] == "PingNode")
 		
 		if($monitor->CheckAgentAlive($arr['ip'], 30050))
 		{
-			fclose($fp);
 			echo "<script>alert('".$lang['connected']."'); this.location='NodeManager.php?action=PingNode';</script>";
 		}
 		else
 		{
-			fclose($fp);
 			echo "<script>alert('".$lang['notConnected']."'); this.location='NodeManager.php?action=PingNode';</script>";
 		}
 	}
