@@ -107,6 +107,60 @@ class NodeMonitor
 		}
 	}
 	
+	public function GetRealSize($size)
+	{ 
+		$kb = 1024;         // Kilobyte
+		$mb = 1024 * $kb;   // Megabyte
+		$gb = 1024 * $mb;   // Gigabyte
+		$tb = 1024 * $gb;   // Terabyte
+		$pb = 1024 * $tb;	// Pettabyte
+		$eb = 1024 * $pb;	// Exabyte
+		$zb = 1024 * $eb;	// Zettabyte
+		$yb = 1024 * $zb;	// Yottabyte
+		$bb = 1024 * $yb;	// Brontobyte
+
+		if($size < $kb)
+		{ 
+			return $size." B";
+		}
+		elseif($size < $mb)
+		{ 
+			return round($size/$kb,2)." KB";
+		}
+		elseif($size < $gb)
+		{ 
+			return round($size/$mb,2)." MB";
+		}
+		elseif($size < $tb)
+		{ 
+			return round($size/$gb,2)." GB";
+		}
+		elseif($size < $pb)
+		{ 
+			return round($size/$tb,2)." TB";
+		}
+		elseif($size < $eb)
+		{ 
+			return round($size/$pb,2)." PB";
+		}
+		elseif($size < $zb)
+		{ 
+			return round($size/$eb,2)." EB";
+		}
+		elseif($size < $yb)
+		{ 
+			return round($size/$zb,2)." ZB";
+		}
+		elseif($size < $bb)
+		{ 
+			return round($size/$yb,2)." YB";
+		}
+		else
+		{ 
+			return round($size/$bb,2)." BB";
+		}
+	}
+	
 }
 
 ?>
