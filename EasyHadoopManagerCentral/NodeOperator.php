@@ -105,7 +105,10 @@ elseif($_GET['action'] == "Operate")
 
 		echo '<pre>';
 		
-		$transport = new TSocket($ip, 30050);
+		$socket = new TSocket($ip, 30050);
+		$socket->setSendTimeout(300000);
+		$socket->setRecvTimeout(300000);
+		$transport = new TBufferedTransport($socket);
 		$protocol = new TBinaryProtocol($transport);
 		#$client = new EasyHadoopClient($protocol);
         $transport->open();
