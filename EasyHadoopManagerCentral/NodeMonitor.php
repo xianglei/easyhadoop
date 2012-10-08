@@ -30,7 +30,10 @@ if(!$_GET['action'])
 	
 	
 	echo "<pre>";
-	echo "Total DFS Space ".$monitor->GetRealSize($total);
+	echo "Total DFS Space ".$monitor->GetRealSize($total)." <br />";
+	echo "Free DFS Space ".$monitor->GetRealSize($free)." / ".$perc_free."% Percentage <br />";
+	echo "NonDFS Space ".$monitor->GetRealSize($nondfs)." / ".$perc_nondfs."% Percentage <br />";
+	echo "DFS Space ".$monitor->GetRealSize($dfs)." / ".$perc_dfs."% Percentage <br />";
 	echo "</pre>";
 	echo '
         <div class="progress">
