@@ -44,10 +44,8 @@ elseif($_GET['action'] == "Operate")
                   	<td>'.$i.'</td>
                   	<td>'.$arr['hostname'].'</td>
                   	<td>'.$arr['ip'].'</td>';
-			$socket = new TSocket($arr['ip'], 30050);
-			$socket->setSendTimeout(300000);
-			$socket->setRecvTimeout(300000);
-			$transport = new TBufferedTransport($socket);
+			$transport = new TSocket($arr['ip'], 30050);
+			$protocol = new TBinaryProtocol($transport);
 			#$client = new EasyHadoopClient($protocol);
 			$bool = $monitor->CheckAgentAlive($arr['ip'], 30050);
 			
