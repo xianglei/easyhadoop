@@ -187,10 +187,10 @@ if "__main__" == __name__:
 	#server.run()
 
 	#print "Terminated"
-	usage = "usage: %prog -a 192.168.1.1 -s start"
+	usage = "usage: %prog -b 192.168.1.1 -s start"
 	parser = OptionParser(usage=usage)
 
-	parser.add_option("-a", "--address", action="store", type="string", dest="address", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
+	parser.add_option("-b", "--bind", action="store", type="string", dest="bind", default="0.0.0.0", help="The IP address of this machine which is used to bind with, if not given, use 0.0.0.0")
 	parser.add_option("-s", "--signal", action="store", type="string", dest="signal", help="valid signal is [ start | stop | restart ]")
 	options, args = parser.parse_args()
 	
@@ -201,7 +201,7 @@ if "__main__" == __name__:
 		if options.signal == "":
 			print 'Must give -s option\'s value'
 		else:
-			daemon = Daemon('/var/run/ehm.pid', options.address, 30050)
+			daemon = Daemon('/var/run/ehm.pid', options.bind, 30050)
 			if 'start' == options.signal:
 				daemon.start()
 			elif 'stop' == options.signal:
