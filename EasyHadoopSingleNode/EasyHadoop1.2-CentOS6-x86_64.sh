@@ -2,7 +2,7 @@
 
 ################
 #Use root to run this shell script, do not use sudo
-#ÇëÊ¹ÓÃrootÖ´ÐÐ½Å±¾£¬²»ÒªÊ¹ÓÃsudo·½Ê½
+#ï¿½ï¿½Ê¹ï¿½ï¿½rootÖ´ï¿½Ð½Å±ï¿½ï¿½ï¿½ï¿½ï¿½ÒªÊ¹ï¿½ï¿½sudoï¿½ï¿½Ê½
 ################
 
 ##Download && install packages##
@@ -23,14 +23,14 @@ fi
 if [ ! -f "lzop-1.03.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzop-1.03.tar.gz
 fi
-if [ ! -f "hadoop-gpl-packaging-0.5.3-1.x86_64.rpm" ]; then
-	wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
+if [ ! -f "hadoop-gpl-packaging-0.5.4-1.x86_64.rpm" ]; then
+	wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.4-1.x86_64.rpm
 fi
 if [ ! -f "lzo-2.06.tar.gz" ]; then
 	wget http://113.11.199.230/resources/lzo-2.06.tar.gz
 fi
-if [ ! -f "jdk-7u5-linux-x64.rpm" ]; then
-	wget http://113.11.199.230/jdk/jdk-7u5-linux-x64.rpm
+if [ ! -f "jdk-7u7-linux-x64.rpm" ]; then
+	wget http://113.11.199.230/jdk/jdk-7u7-linux-x64.rpm
 fi
 if [ ! -f "lzo-2.06-1.el6.rfx.x86_64.rpm" ]; then
 	wget http://113.11.199.230/resources/x64/lzo-2.06-1.el6.rfx.x86_64.rpm
@@ -49,7 +49,7 @@ TYPE=$(cat $TMP)
 rm -f "$TMP"
 
 if [ $TYPE = "S" ]; then
-	rpm -ivh jdk-7u5-linux-x64.rpm lzo-2.06-1.el6.rfx.x86_64.rpm lzo-devel-2.06-1.el6.rfx.x86_64.rpm hadoop-gpl-packaging-0.5.3-1.x86_64.rpm hadoop-1.0.3-1.x86_64.rpm > /dev/null
+	rpm -ivh jdk-7u7-linux-x64.rpm lzo-2.06-1.el6.rfx.x86_64.rpm lzo-devel-2.06-1.el6.rfx.x86_64.rpm hadoop-gpl-packaging-0.5.4-1.x86_64.rpm hadoop-1.0.3-1.x86_64.rpm > /dev/null
 	
 	cp -rf /opt/hadoopgpl/lib/* /usr/lib64
 	cp /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64
