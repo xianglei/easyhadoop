@@ -238,26 +238,30 @@ class Install
 	public function InstallHadoopgpl($pProtocol)
 	{
 		$client = new EasyHadoopClient($pProtocol);
-		$filename = "/home/hadoop/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm";
+		$filename = "/home/hadoop/hadoop-gpl-packaging-0.5.4-1.x86_64.rpm";
 		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
-						rpm -Uvh hadoop-gpl-packaging-0.2.8-1.x86_64.rpm 
+						rpm -Uvh hadoop-gpl-packaging-0.5.4-1.x86_64.rpm 
 						cp -rf /opt/hadoopgpl/lib/* /usr/lib/ 
 						cp -rf /opt/hadoopgpl/lib/* /usr/lib64/
 						cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ 
-						cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/";
+						cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/
+						cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib
+						cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64";
 		}
 		else
 		{
 			$command = "mkdir -p /home/hadoop 
 						cd /home/hadoop/ 
-						wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.2.8-1.x86_64.rpm 
-						rpm -Uvh hadoop-gpl-packaging-0.2.8-1.x86_64.rpm 
+						wget http://113.11.199.230/resources/x64/hadoop-gpl-packaging-0.5.4-1.x86_64.rpm 
+						rpm -Uvh hadoop-gpl-packaging-0.5.4-1.x86_64.rpm 
 						cp -rf /opt/hadoopgpl/lib/* /usr/lib/ 
 						cp -rf /opt/hadoopgpl/lib/* /usr/lib64/
 						cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/ 
-						cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/";
+						cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/
+						cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib
+						cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64";
 		}
 		$ret = $client->RunCommand($command);
 		

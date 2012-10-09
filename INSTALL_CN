@@ -6,7 +6,7 @@ EasyHadoopManager(以下简称EHM)安装和使用说明
 lzo 2.06
 lzop 1.03
 hadoop 1.0.3-1
-hadoopgpl 0.5.3-1
+hadoopgpl 0.5.4-1
 jdk-7u5
 
 ##################################################################
@@ -65,14 +65,14 @@ nginx和php设置，直到他们正常工作。
 节点服务器的任意路径下，并依次执行下列命令：
 ------------
 chmod +x EasyHadoopNodeAgent.py
-./EasyHadoopNodeAgent.py -s start -a node_ip
+./EasyHadoopNodeAgent.py -s start -b node_ip
 ------------
 注：执行前请确认30050端口没有被其他程序所占用，且iptables服务处于关闭状态。
-Agent有两个执行选项，-a 和 -s，其中-a 可不填写，但 -s 选项必须写。
+Agent有两个执行选项，-b 和 -s，其中-a 可不填写，但 -s 选项必须写。
 通常来说，我们希望把EHM的Agent绑定到一个相对安全的内网地址。例如192.168.1.2
 或者172.16.1.2。当然这需要你的服务器具备内网的IP地址才可以。Agent典型的
 执行命令应该是下面这样：
-python EasyHadoopNodeAgent.py -s start -a 192.168.1.2
+python EasyHadoopNodeAgent.py -s start -b 192.168.1.2
 但是你要确定，这个IP地址跟架设EHM Center的地址是可以互相连接的。因为Agent
 将会绑定192.168.1.2:30050这个地址。
 
@@ -81,7 +81,7 @@ python EasyHadoopNodeAgent.py -s start
 这样执行将会绑定IP 0.0.0.0，这是不推荐的，除非你确定你有VPN或者其他安全方式。
 
 选项说明
--a --address 绑定当前节点服务器的IP地址，请指定一个内网地址
+-b --bind 绑定当前节点服务器的IP地址，请指定一个内网地址
 -s --signal  Agent执行进程命令，start | stop | reload
 
 
@@ -164,11 +164,11 @@ chmod +x download.sh
 通常的下载文件包括
 当前的源服务器地址在http://113.11.199.230/，自行下载请对照下列文件名
 hadoop-1.0.3-1.x86_64.rpm
-jdk-7u5-linux-x64.rpm
+jdk-7u7-linux-x64.rpm
 lzo-2.06-1.el6.rfx.x86_64.rpm
 lzo-devel-2.06-1.el5.rf.x86_64.rpm
 lzop-1.03.tar.gz
-hadoop-gpl-packaging-0.5.3-1.x86_64.rpm
+hadoop-gpl-packaging-0.5.4-1.x86_64.rpm
 lzo-2.06-1.el5.rf.x86_64.rpm
 lzo-2.06.tar.gz
 lzo-devel-2.06-1.el6.rfx.x86_64.rpm
