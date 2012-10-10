@@ -142,4 +142,4 @@ $lang['makeEtcHostTips'] = '请将下面的内容复制下来，然后可以在�
 $lang['pushSettingsConfirm'] = '推送配置文件将覆盖之前的配置，确认要继续吗？该操作不可恢复';
 $lang['removeConfirm'] = '确认需要删除吗？该操作不可恢复。';
 $lang['hddUsed'] = '硬盘使用情况';
-$lang['mrUsed'] = 'Map/Reduce使用情况';
+$lang['mrUsed'] = 'M/R使用情况';
