@@ -23,17 +23,17 @@ elseif($_GET['action'] == 'MrUsed')
 	$json = $monitor->GetJson($ip, 'jobtracker');
 	$map_slots = $monitor->GetJsonObject($json->{'beans'}, 'map_slots');
 	$reduce_slots = $monitor->GetJsonObject($json->{'beans'}, 'reduce_slots');
-	$running_maps = $monitor->GetJsonObject($json->{'beans'}, 'running_maps');
+	echo $running_maps = $monitor->GetJsonObject($json->{'beans'}, 'running_maps');
 	if($running_maps == "")
 		$running_maps = 0;
-	$running_reduces = $monitor->GetJsonObject($json->{'beans'}, 'running_reduces');
+	echo $running_reduces = $monitor->GetJsonObject($json->{'beans'}, 'running_reduces');
 	if($running_reduces == "")
 		$running_reduces = 0;
 	
-	$perc_map_running = round(($running_maps/$map_slots)*100);
-	$perc_map_not_running = 100 - $perc_map_running;
-	$perc_reduce_running = round(($running_reduces/$reduce_slots)*100);
-	$perc_reduce_not_running = 100 - $perc_reduce_running;
+	#$perc_map_running = round(($running_maps/$map_slots)*100);
+	#$perc_map_not_running = 100 - $perc_map_running;
+	#$perc_reduce_running = round(($running_reduces/$reduce_slots)*100);
+	#$perc_reduce_not_running = 100 - $perc_reduce_running;
 	
 	echo "<div class=span10>";
 	
@@ -81,18 +81,18 @@ elseif($_GET['action'] == 'MrUsed')
 		$json = $monitor->GetJson($arr['ip'], "tasktracker");
 		
 		$map_task_slots = $monitor->GetJsonObject($json->{"beans"},"mapTaskSlots");
-		$maps_running = $monitor->GetJsonObject($json->{"beans"},"maps_running");
+		echo $maps_running = $monitor->GetJsonObject($json->{"beans"},"maps_running");
 		if($maps_running == "")
 			$maps_running = 0;
 		$reduce_task_slots = $monitor->GetJsonObject($json->{"beans"},"reduceTaskSlots");
-		$reduces_running = $monitor->GetJsonObject($json->{"beans"},"reduces_running");
+		echo $reduces_running = $monitor->GetJsonObject($json->{"beans"},"reduces_running");
 		if($reduces_running == "")
 			$reduces_running = 0;
 		
-		$perc_map_running = round(($maps_running/$map_task_slots)*100);
-		$perc_map_remain = 100 - $perc_map_running;
-		$perc_reduce_running = round(($reduces_running/$reduce_task_slots)*100);
-		$perc_reduce_remain = 100 - $perc_reduce_running;
+		#$perc_map_running = round(($maps_running/$map_task_slots)*100);
+		#$perc_map_remain = 100 - $perc_map_running;
+		#$perc_reduce_running = round(($reduces_running/$reduce_task_slots)*100);
+		#$perc_reduce_remain = 100 - $perc_reduce_running;
 		
         $bool = $monitor->CheckAgentAlive($arr['ip'], 30050);
 		if($bool == FALSE)
