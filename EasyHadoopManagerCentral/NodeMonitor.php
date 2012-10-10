@@ -126,6 +126,7 @@ elseif($_GET['action'] == "NodeHddUsed")
                  <th>#</th>
                  <th>'.$lang['hostname'].$ip.'</th>
                  <th>'.$lang['action'].'</th>
+                 <th>'.$lang['action'].'</th>
                </tr>
                </thead>
                <tbody>';
@@ -156,6 +157,7 @@ elseif($_GET['action'] == "NodeHddUsed")
         		</div>';
 			
 			echo "</td>";
+			echo '<td>Free:'.$perc_free.'% / NonDFS:'.$perc_reserved.'% / Used:'.$perc_used.'%</td>';
 			echo "</tr>";
 			$i++;
 		}
