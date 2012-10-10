@@ -24,7 +24,11 @@ elseif($_GET['action'] == 'MrUsed')
 	$map_slots = $monitor->GetJsonObject($json->{'beans'}, 'map_slots');
 	$reduce_slots = $monitor->GetJsonObject($json->{'beans'}, 'reduce_slots');
 	$running_maps = $monitor->GetJsonObject($json->{'beans'}, 'running_maps');
+	if($running_maps == "")
+		$running_maps = 0;
 	$running_reduces = $monitor->GetJsonObject($json->{'beans'}, 'running_reduces');
+	if($running_reduces == "")
+		$running_reduces = 0;
 	
 	$perc_map_running = round(($running_maps/$map_slots)*100);
 	$perc_map_not_running = 100 - $perc_map_running;
