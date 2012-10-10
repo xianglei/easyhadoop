@@ -10,6 +10,11 @@ $monitor = new NodeMonitor;
 
 if(!$_GET['action'])
 {
+	
+}
+
+elseif($_GET['action'] == "HddUsed")
+{
 	$sql = "select * from ehm_hosts where role like 'namenode%'";
 	$mysql->Query($sql);
 	$arr = $mysql->FetchArray();

@@ -141,3 +141,5 @@ $lang['pushSettingFileTips'] = '推送配置文件是将目前在EasyHadoopManag
 $lang['makeEtcHostTips'] = '请将下面的内容复制下来，然后可以在通用配置中添加/etc/hosts文件，并推送到各节点服务器。<br />请确保该内容与实际节点的hostname一致。';
 $lang['pushSettingsConfirm'] = '推送配置文件将覆盖之前的配置，确认要继续吗？该操作不可恢复';
 $lang['removeConfirm'] = '确认需要删除吗？该操作不可恢复。';
+$lang['hddUsed'] = '硬盘使用情况';
+$lang['mrUsed'] = 'Map/Reduce使用情况';
