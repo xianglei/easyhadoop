@@ -13,6 +13,21 @@ if(!$_GET['action'])
 	
 }
 
+elseif($_GET['action'] == 'MrUsed')
+{
+	$sql = "select * from ehm_hosts where role like '%jobtracker%'";
+	$mysql->Query($sql);
+	$arr = $arr['ip'];
+	$hostname = $arr['hostname'];
+	$json = $monitor->GetJson($ip, 'jobtracker');
+	$map_slots = $monitor->GetJsonObject($json->{'beans'}, 'map_slots');
+	$reduce_slots = $monitor->GetJsonObject($json->{'beans'}, 'reduce_slots');
+	
+	echo "<div class=span10>";
+	echo $map_slots;
+	echo "</div>";
+}
+
 elseif($_GET['action'] == "HddUsed")
 {
 	$sql = "select * from ehm_hosts where role like 'namenode%'";
