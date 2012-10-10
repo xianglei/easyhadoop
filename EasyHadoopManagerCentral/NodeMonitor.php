@@ -17,7 +17,8 @@ elseif($_GET['action'] == 'MrUsed')
 {
 	$sql = "select * from ehm_hosts where role like '%jobtracker%'";
 	$mysql->Query($sql);
-	$arr = $arr['ip'];
+	$arr = $mysql->FetchArray();
+	$ip = $arr['ip'];
 	$hostname = $arr['hostname'];
 	$json = $monitor->GetJson($ip, 'jobtracker');
 	$map_slots = $monitor->GetJsonObject($json->{'beans'}, 'map_slots');
