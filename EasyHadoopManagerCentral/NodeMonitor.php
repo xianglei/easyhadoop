@@ -62,7 +62,7 @@ elseif($_GET['action'] == 'MrUsed')
                  <th>'.$lang['hostname'].'</th>
                  <th>'.$lang['ipAddr'].'</th>
                  <th>'.$lang['action'].'</th>
-                 <!--<th>'.$lang['action'].'</th>-->
+                 <th>'.$lang['action'].'</th>
                </tr>
                </thead>
                <tbody>';
@@ -93,17 +93,26 @@ elseif($_GET['action'] == 'MrUsed')
         		<div class="progress">
                 <div class="bar bar-danger" style="width: 100%;">No Agent Alive</div>
        			</div>';
+			echo '
+        		<div class="progress">
+                <div class="bar bar-danger" style="width: 100%;">No Agent Alive</div>
+       			</div>';
 		}
 		else
 		{
 			echo '
         		<div class="progress">
-                <div class="bar bar-success" style="width: '.$perc_map_remain.'%;">Free</div>
-                <div class="bar bar-danger" style="width: '.$perc_map_running.'%;">DFS</div>
+                <div class="bar bar-success" style="width: '.$perc_map_remain.'%;">Free Map Slots</div>
+                <div class="bar bar-danger" style="width: '.$perc_map_running.'%;">Running Map Slots</div>
+        		</div>';
+			echo '
+        		<div class="progress">
+                <div class="bar bar-success" style="width: '.$perc_reduce_remain.'%;">Free Reduce Slots</div>
+                <div class="bar bar-danger" style="width: '.$perc_reduce_running.'%;">Running Reduce Slots</div>
         		</div>';
 		}
 		echo '</td>';
-		#echo '<td>'.$monitor->GetRealSize($total).' /  '.$monitor->GetRealSize($used).'</td>';
+		echo '<td>Map:'.$maps_running.' /  '.$map_task_slots.'<br /> Reduce:'.$reduce_running.' / '.$reduce_task_slots.'</td>';
         echo '</tr>';
 		#unset ($json);
 		$i++;
