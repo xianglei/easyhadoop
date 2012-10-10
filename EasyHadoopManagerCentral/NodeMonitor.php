@@ -41,7 +41,7 @@ elseif($_GET['action'] == 'MrUsed')
 	echo "Total Map Slots: ".$map_slots." <br />";
 	echo "Total Reduce Slots: ".$reduce_slots." <br />";
 	echo "Running Map Slots: ".$running_maps." <br />";
-	echo "Running Reduce Slots; ".$running_reduces." <br />";
+	echo "Running Reduce Slots: ".$running_reduces." <br />";
 	echo "</pre>";
 
 	echo '
@@ -120,7 +120,7 @@ elseif($_GET['action'] == 'MrUsed')
         		</div>';
 		}
 		echo '</td>';
-		echo '<td>Map:'.$maps_running.' /  '.$map_task_slots.'<br /> Reduce:'.$reduce_running.' / '.$reduce_task_slots.'</td>';
+		echo '<td>Map:'.$maps_running.' /  '.$map_task_slots.'<br /> Reduce:'.$reduces_running.' / '.$reduce_task_slots.'</td>';
         echo '</tr>';
 		#unset ($json);
 		$i++;
