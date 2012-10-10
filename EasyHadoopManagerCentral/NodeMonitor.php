@@ -30,10 +30,10 @@ elseif($_GET['action'] == 'MrUsed')
 	if($running_reduces == "")
 		$running_reduces = 0;
 	
-	#$perc_map_running = round(($running_maps/$map_slots)*100);
-	#$perc_map_not_running = 100 - $perc_map_running;
-	#$perc_reduce_running = round(($running_reduces/$reduce_slots)*100);
-	#$perc_reduce_not_running = 100 - $perc_reduce_running;
+	$perc_map_running = round(($running_maps/$map_slots)*100);
+	$perc_map_not_running = 100 - $perc_map_running;
+	$perc_reduce_running = round(($running_reduces/$reduce_slots)*100);
+	$perc_reduce_not_running = 100 - $perc_reduce_running;
 	
 	echo "<div class=span10>";
 	
@@ -89,10 +89,10 @@ elseif($_GET['action'] == 'MrUsed')
 		if($reduces_running == "")
 			$reduces_running = 0;
 		
-		#$perc_map_running = round(($maps_running/$map_task_slots)*100);
-		#$perc_map_remain = 100 - $perc_map_running;
-		#$perc_reduce_running = round(($reduces_running/$reduce_task_slots)*100);
-		#$perc_reduce_remain = 100 - $perc_reduce_running;
+		$perc_map_running = round(($maps_running/$map_task_slots)*100);
+		$perc_map_remain = 100 - $perc_map_running;
+		$perc_reduce_running = round(($reduces_running/$reduce_task_slots)*100);
+		$perc_reduce_remain = 100 - $perc_reduce_running;
 		
         $bool = $monitor->CheckAgentAlive($arr['ip'], 30050);
 		if($bool == FALSE)
