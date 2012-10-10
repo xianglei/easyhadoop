@@ -81,7 +81,7 @@ elseif($_GET['action'] == 'MrUsed')
 		if($maps_running == "")
 			$maps_running = 0;
 		$reduce_task_slots = $monitor->GetJsonObject($json->{"beans"},"reduceTaskSlots");
-		$reduce_running = $monitor->GetJsonObject($json->{"beans"},"reduce_running");
+		$reduce_running = $monitor->GetJsonObject($json->{"beans"},"reduces_running");
 		if($reduce_running == "")
 			$reduce_running = 0;
 		
