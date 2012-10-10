@@ -51,6 +51,65 @@ elseif($_GET['action'] == 'MrUsed')
                 <div class="bar bar-warning" style="width: '.$perc_reduce_running.'%;">Running ReduceSlots</div>
                 <div class="bar bar-success" style="width: '.$perc_reduce_not_running.'%;">Free ReduceSlots</div>
         </div>';
+	
+	##################################
+    $sql = "select * from ehm_hosts where role like '%tasktracker%' order by create_time desc";
+	$mysql->Query($sql);
+	echo '<table class="table table-striped">';
+	echo '<thead>
+               <tr>
+                 <th>#</th>
+                 <th>'.$lang['hostname'].'</th>
+                 <th>'.$lang['ipAddr'].'</th>
+                 <th>'.$lang['action'].'</th>
+                 <!--<th>'.$lang['action'].'</th>-->
+               </tr>
+               </thead>
+               <tbody>';
+	$i = 1;
+	while($arr = $mysql->FetchArray())
+	{
+		echo '<tr>
+                 	<td>'.$i.'</td>
+                 	<td><a href=NodeMonitor.php?action=NodeMrUsed&ip='.$arr['ip'].'>'.$arr['hostname'].'</a></td>
+                 	<td>'.$arr['ip'].'</td>';
+		echo '<td>';
+		$json = $monitor->GetJson($arr['ip'], "tasktracker");
+		
+		$map_task_slots = $monitor->GetJsonObject($json->{"beans"},"mapTaskSlots");
+		$maps_running = $monitor->GetJsonObject($json->{"beans"},"maps_running");
+		$reduce_task_slots = $monitor->GetJsonObject($json->{"beans"},"reduceTaskSlots");
+		$reduce_running = $monitor->GetJsonObject($json->{"beans"},"reduce_running");
+		
+		$perc_map_running = round(($maps_running/$map_task_slots)*100);
+		$perc_map_remain = 100 - $perc_map_running;
+		$perc_reduce_running = round(($reduce_running/$reduce_task_slots)*100);
+		$perc_reduce_remain = 100 - $perc_reduce_running;
+		
+        $bool = $monitor->CheckAgentAlive($arr['ip'], 30050);
+		if($bool == FALSE)
+		{
+			echo '
+        		<div class="progress">
+                <div class="bar bar-danger" style="width: 100%;">No Agent Alive</div>
+       			</div>';
+		}
+		else
+		{
+			echo '
+        		<div class="progress">
+                <div class="bar bar-success" style="width: '.$perc_map_remain.'%;">Free</div>
+                <div class="bar bar-danger" style="width: '.$perc_map_running.'%;">DFS</div>
+        		</div>';
+		}
+		echo '</td>';
+		#echo '<td>'.$monitor->GetRealSize($total).' /  '.$monitor->GetRealSize($used).'</td>';
+        echo '</tr>';
+		#unset ($json);
+		$i++;
+	}
+	echo '</tbody></table>';
+	echo '</div>';
 
 	echo "</div>";
 }
