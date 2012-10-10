@@ -23,10 +23,10 @@ elseif($_GET['action'] == 'MrUsed')
 	$json = $monitor->GetJson($ip, 'jobtracker');
 	$map_slots = $monitor->GetJsonObject($json->{'beans'}, 'map_slots');
 	$reduce_slots = $monitor->GetJsonObject($json->{'beans'}, 'reduce_slots');
-	echo $running_maps = $monitor->GetJsonObject($json->{'beans'}, 'running_maps');
+	$running_maps = $monitor->GetJsonObject($json->{'beans'}, 'running_maps');
 	if($running_maps == "")
 		$running_maps = 0;
-	echo $running_reduces = $monitor->GetJsonObject($json->{'beans'}, 'running_reduces');
+	$running_reduces = $monitor->GetJsonObject($json->{'beans'}, 'running_reduces');
 	if($running_reduces == "")
 		$running_reduces = 0;
 	
@@ -81,11 +81,11 @@ elseif($_GET['action'] == 'MrUsed')
 		$json = $monitor->GetJson($arr['ip'], "tasktracker");
 		
 		$map_task_slots = $monitor->GetJsonObject($json->{"beans"},"mapTaskSlots");
-		echo $maps_running = $monitor->GetJsonObject($json->{"beans"},"maps_running");
+		$maps_running = $monitor->GetJsonObject($json->{"beans"},"maps_running");
 		if($maps_running == "")
 			$maps_running = 0;
 		$reduce_task_slots = $monitor->GetJsonObject($json->{"beans"},"reduceTaskSlots");
-		echo $reduces_running = $monitor->GetJsonObject($json->{"beans"},"reduces_running");
+		$reduces_running = $monitor->GetJsonObject($json->{"beans"},"reduces_running");
 		if($reduces_running == "")
 			$reduces_running = 0;
 		
