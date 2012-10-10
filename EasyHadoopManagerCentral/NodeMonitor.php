@@ -48,7 +48,7 @@ elseif($_GET['action'] == 'MrUsed')
 		
 	echo '
         <div class="progress">
-                <div class="bar bar-warning" style="width: '.$perc_map_running.'%;">Running ReduceSlots</div>
+                <div class="bar bar-warning" style="width: '.$perc_reduce_running.'%;">Running ReduceSlots</div>
                 <div class="bar bar-success" style="width: '.$perc_reduce_not_running.'%;">Free ReduceSlots</div>
         </div>';
 
