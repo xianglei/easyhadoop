@@ -23,9 +23,19 @@ elseif($_GET['action'] == 'MrUsed')
 	$json = $monitor->GetJson($ip, 'jobtracker');
 	$map_slots = $monitor->GetJsonObject($json->{'beans'}, 'map_slots');
 	$reduce_slots = $monitor->GetJsonObject($json->{'beans'}, 'reduce_slots');
+	$running_maps = $monitor->GetJsonObject($json->{'beans'}, 'running_maps');
+	$running_reduces = $monitor->GetJsonObject($json->{'beans'}, 'running_reduces');
 	
 	echo "<div class=span10>";
-	echo $map_slots;
+	
+	echo "<pre>";
+	echo "Total Map Slots: ".$map_slots." <br />";
+	echo "Total Reduce Slots: ".$reduce_slots." <br />";
+	echo "Running Map Slots: ".$running_maps." <br />";
+	echo "Running Reduce Slots; ".$running_reduces." <br />";
+	echo "</pre>";
+
+
 	echo "</div>";
 }
 
