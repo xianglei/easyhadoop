@@ -85,13 +85,13 @@ elseif($_GET['action'] == 'MrUsed')
 		if($maps_running == "")
 			$maps_running = 0;
 		$reduce_task_slots = $monitor->GetJsonObject($json->{"beans"},"reduceTaskSlots");
-		$reduce_running = $monitor->GetJsonObject($json->{"beans"},"reduces_running");
-		if($reduce_running == "")
-			$reduce_running = 0;
+		$reduces_running = $monitor->GetJsonObject($json->{"beans"},"reduces_running");
+		if($reduces_running == "")
+			$reduces_running = 0;
 		
 		$perc_map_running = round(($maps_running/$map_task_slots)*100);
 		$perc_map_remain = 100 - $perc_map_running;
-		$perc_reduce_running = round(($reduce_running/$reduce_task_slots)*100);
+		$perc_reduce_running = round(($reduces_running/$reduce_task_slots)*100);
 		$perc_reduce_remain = 100 - $perc_reduce_running;
 		
         $bool = $monitor->CheckAgentAlive($arr['ip'], 30050);
