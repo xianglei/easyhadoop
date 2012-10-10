@@ -78,8 +78,12 @@ elseif($_GET['action'] == 'MrUsed')
 		
 		$map_task_slots = $monitor->GetJsonObject($json->{"beans"},"mapTaskSlots");
 		$maps_running = $monitor->GetJsonObject($json->{"beans"},"maps_running");
+		if($maps_running == "")
+			$maps_running = 0;
 		$reduce_task_slots = $monitor->GetJsonObject($json->{"beans"},"reduceTaskSlots");
 		$reduce_running = $monitor->GetJsonObject($json->{"beans"},"reduce_running");
+		if($reduce_running == "")
+			$reduce_running = 0;
 		
 		$perc_map_running = round(($maps_running/$map_task_slots)*100);
 		$perc_map_remain = 100 - $perc_map_running;
