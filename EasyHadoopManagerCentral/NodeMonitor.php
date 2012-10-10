@@ -26,6 +26,11 @@ elseif($_GET['action'] == 'MrUsed')
 	$running_maps = $monitor->GetJsonObject($json->{'beans'}, 'running_maps');
 	$running_reduces = $monitor->GetJsonObject($json->{'beans'}, 'running_reduces');
 	
+	$perc_map_running = round(($running_maps/$map_slots)*100);
+	$perc_map_not_running = 100 - $perc_map_running;
+	$perc_reduce_running = round(($running_reduces/$reduce_slots)*100);
+	$perc_reduce_not_running = 100 - $perc_reduce_running;
+	
 	echo "<div class=span10>";
 	
 	echo "<pre>";
@@ -35,6 +40,17 @@ elseif($_GET['action'] == 'MrUsed')
 	echo "Running Reduce Slots; ".$running_reduces." <br />";
 	echo "</pre>";
 
+	echo '
+        <div class="progress">
+                <div class="bar bar-success" style="width: '.$perc_map_running.'%;">Running MapSlots</div>
+                <div class="bar bar-warning" style="width: '.$perc_map_not_running.'%;">Free MapSlots</div>
+        </div>';
+		
+	echo '
+        <div class="progress">
+                <div class="bar bar-success" style="width: '.$perc_map_running.'%;">Running ReduceSlots</div>
+                <div class="bar bar-warning" style="width: '.$perc_reduce_not_running.'%;">Free ReduceSlots</div>
+        </div>';
 
 	echo "</div>";
 }
