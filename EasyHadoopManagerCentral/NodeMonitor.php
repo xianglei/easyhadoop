@@ -124,6 +124,25 @@ elseif($_GET['action'] == 'MrUsed')
 	echo "</div>";
 }
 
+elseif($_GET['action'] == "NodeMrUsed")
+{
+	$ip = $_GET['ip'];
+	echo "<div class=span10>";
+	
+	echo "<pre>";
+	
+	$fp = fopen("http://".$ip.":50030/tasktracker.jsp","r");
+	while(!feof($fp))
+	{
+		echo $str = fread($fp,4096);
+	}
+	fclose($fp);
+	
+	echo "</pre>";
+	
+	echo "</div>";
+}
+
 elseif($_GET['action'] == "HddUsed")
 {
 	$sql = "select * from ehm_hosts where role like 'namenode%'";
