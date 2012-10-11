@@ -131,7 +131,7 @@ elseif($_GET['action'] == "NodeMrUsed")
 	
 	echo "<pre>";
 	
-	$fp = fopen("http://".$ip.":50030/tasktracker.jsp","r");
+	$fp = fopen("http://".$ip.":50060/tasktracker.jsp","r");
 	while(!feof($fp))
 	{
 		echo $str = fread($fp,4096);
