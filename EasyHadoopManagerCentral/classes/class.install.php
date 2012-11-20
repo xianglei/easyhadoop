@@ -4,22 +4,16 @@ class Install
 {
 	
 	/*
-	 * 继承socket类
-	 * $mCommand 拼接出的命令内容，SocketCommand会调用
-	 * $mHost 节点地址，通过各方法入口参数获取
-	 * $mFilename 文件名称
-	 * 
-	 * Socket协议说明：
-	 * $this->cAgentRunShell = "RunShellScript:xxxx" 发送Shell命令给Agent，xxxx为命令具体文本
-	 * 		Agent接收到命令后，在节点机执行命令并返回stdout 
-	 * 
-	 * $this->cGetSystemVer = "GetSystemVer" 调用Agent platform.platform()获取操作系统版本号
-	 * 
-	 * $this->cGetFileStatus = "GetFileStatus" 调用Agent的os.path.isfile()获取文件存在状态，存在返回Socket TRUE，失败返回Socket FALSE
-	 * 
-	 * $this->cGetRpmStatus = "GetRpmStatus" 调用Agent的os.popen获取rpm是否安装，存在返回rpm名字，失败返回False
 	 * 
 	 */
+	 
+	public function GetMemInfo($pProtocol)
+	{
+		$client = new EasyHadoopClient($pProtocol);
+		$command = "cat /proc/meminfo | grep MemTotal | awk '{print $2}'";
+		$str = $client->RunCommand($command);
+		return $str;
+	}
 	
 	public function MakeDir($pProtocol)
 	{

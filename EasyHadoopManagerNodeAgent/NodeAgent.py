@@ -20,8 +20,8 @@ from signal import SIGTERM
 
 sys.path.append('./thrift')
 
-from thrift.EasyHadoop.EasyHadoop import *
-from thrift.EasyHadoop.EasyHadoop.ttypes import *
+from thrift.EasyHadoop import *
+from thrift.EasyHadoop.ttypes import *
 
 from thrift.transport import TSocket
 from thrift.transport import TTransport
@@ -71,6 +71,79 @@ class EasyHadoopHandler:
 		else:
 			title = 'Not CentOS'
 		return title
+	def GetCpuInfo(self):
+		cpu = []
+		cpuinfo = {}
+		f = open("/proc/cpuinfo")
+		lines = f.readlines()
+		f.close()
+		for line in lines:
+			if line == 'n':
+				cpu.append(cpuinfo)
+				cpuinfo = {}
+			if len(line) < 2: continue
+			name = line.split(':')[0].rstrip()
+			var = line.split(':')[1]
+			cpuinfo[name] = var
+		return str(cpuinfo)
+	def GetMemInfo():
+		mem = {}
+		f = open("/proc/meminfo")
+		lines = f.readlines()
+		f.close()
+		for line in lines:
+			if len(line) < 2:
+			       continue
+			name = line.split(':')[0]
+			var = line.split(':')[1].split()[0]
+			mem[name] = long(var) * 1024.0
+		mem['MemUsed'] = mem['MemTotal'] - mem['MemFree'] - mem['Buffers'] - mem['Cached']
+		return mem
+	def GetNetInfo():
+		net = []
+		f = open("/proc/net/dev")
+		lines = f.readlines()
+		f.close()
+		for line in lines[2:]:
+			con = line.split()
+			""" 
+			intf = {} 
+			intf['interface'] = con[0].lstrip(":") 
+			intf['ReceiveBytes'] = int(con[1]) 
+			intf['ReceivePackets'] = int(con[2]) 
+			intf['ReceiveErrs'] = int(con[3]) 
+			intf['ReceiveDrop'] = int(con[4]) 
+			intf['ReceiveFifo'] = int(con[5]) 
+			intf['ReceiveFrames'] = int(con[6]) 
+			intf['ReceiveCompressed'] = int(con[7]) 
+			intf['ReceiveMulticast'] = int(con[8]) 
+			intf['TransmitBytes'] = int(con[9]) 
+			intf['TransmitPackets'] = int(con[10]) 
+			intf['TransmitErrs'] = int(con[11]) 
+			intf['TransmitDrop'] = int(con[12]) 
+			intf['TransmitFifo'] = int(con[13]) 
+			intf['TransmitFrames'] = int(con[14]) 
+			intf['TransmitCompressed'] = int(con[15]) 
+			intf['TransmitMulticast'] = int(con[16]) 
+			"""
+			intf = dict(
+				zip(
+						( 'interface','ReceiveBytes','ReceivePackets',
+							'ReceiveErrs','ReceiveDrop','ReceiveFifo',
+							'ReceiveFrames','ReceiveCompressed','ReceiveMulticast',
+							'TransmitBytes','TransmitPackets','TransmitErrs',
+							'TransmitDrop', 'TransmitFifo','TransmitFrames',
+							'TransmitCompressed','TransmitMulticast' ),
+						( con[0].rstrip(":"),int(con[1]),int(con[2]),
+							int(con[3]),int(con[4]),int(con[5]),
+							int(con[6]),int(con[7]),int(con[8]),
+							int(con[9]),int(con[10]),int(con[11]),
+							int(con[12]),int(con[13]),int(con[14]),
+							int(con[15]),int(con[16]), )
+					)
+			)
+			net.append(intf)
+        return str(net)
 		
 class Daemon:
 	def __init__(self, pidfile, host, port, stdin='/dev/stdin', stdout='/dev/stdout', stderr='/dev/stderr'):
@@ -177,7 +250,7 @@ class Daemon:
 		tfactory = TTransport.TBufferedTransportFactory()
 		pfactory = TBinaryProtocol.TBinaryProtocolFactory()
 
-		server = TServer.TThreadedServer(processor, transport, tfactory, pfactory)
+		server = TServer.TThreadPoolServer(processor, transport, tfactory, pfactory)
 		while True:
 			print 'Starting server'+os.linesep
 			server.serve()
