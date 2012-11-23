@@ -219,6 +219,7 @@ elseif($_GET['action'] == "HddUsed")
 	
 	echo '</div>';
 }
+
 elseif($_GET['action'] == "NodeHddUsed")
 {
 	if(!$_GET['ip'])
@@ -287,6 +288,8 @@ elseif($_GET['action'] == "NodeHddUsed")
 		
 	}
 }
+
+
 
 elseif ($_GET['action'] == "CheckHadoopProcess")
 {

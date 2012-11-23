@@ -6,14 +6,6 @@ class Install
 	/*
 	 * 
 	 */
-	 
-	public function GetMemInfo($pProtocol)
-	{
-		$client = new EasyHadoopClient($pProtocol);
-		$command = "cat /proc/meminfo | grep MemTotal | awk '{print $2}'";
-		$str = $client->RunCommand($command);
-		return $str;
-	}
 	
 	public function MakeDir($pProtocol)
 	{

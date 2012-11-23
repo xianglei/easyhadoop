@@ -2,6 +2,34 @@
 
 class NodeMonitor
 {
+	public function GetMemInfo($pProtocol)
+	{
+		$client = new EasyHadoopClient($pProtocol);
+		$json = $client->GetMemInfo();
+		return $json;
+	}
+	
+	public function GetCpuInfo($pProtocol)
+	{
+		$client = new EasyHadoopClient($pProtocol);
+		$json = $client->GetMemInfo();
+		return $json;
+	}
+	
+	public function GetNetInfo($pProtocol)
+	{
+		$client = new EasyHadoopClient($pProtocol);
+		$json = $client->GetNetInfo();
+		return $json;
+	}
+	
+	public function GetLoadAvg($pProtocol)
+	{
+		$client = new EasyHadoopClient($pProtocol);
+		$json = $client->GetLoadAvg();
+		return $json;
+	}
+	
 	public function GetJson($pHost,$pRole)
 	{
 		switch ($pRole)

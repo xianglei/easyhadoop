@@ -82,8 +82,8 @@ class EasyHadoopHandler:
 				cpu.append(cpuinfo)
 				cpuinfo = {}
 			if len(line) < 2: continue
-			name = line.split(':')[0].rstrip()
-			var = line.split(':')[1]
+			name = line.split(':')[0].strip().replace(' ','_')
+			var = line.split(':')[1].strip()
 			cpuinfo[name] = var
 		return str(cpuinfo)
 	def GetMemInfo():
@@ -109,22 +109,22 @@ class EasyHadoopHandler:
 			""" 
 			intf = {} 
 			intf['interface'] = con[0].lstrip(":") 
-			intf['ReceiveBytes'] = int(con[1]) 
-			intf['ReceivePackets'] = int(con[2]) 
-			intf['ReceiveErrs'] = int(con[3]) 
-			intf['ReceiveDrop'] = int(con[4]) 
-			intf['ReceiveFifo'] = int(con[5]) 
-			intf['ReceiveFrames'] = int(con[6]) 
-			intf['ReceiveCompressed'] = int(con[7]) 
-			intf['ReceiveMulticast'] = int(con[8]) 
-			intf['TransmitBytes'] = int(con[9]) 
-			intf['TransmitPackets'] = int(con[10]) 
-			intf['TransmitErrs'] = int(con[11]) 
-			intf['TransmitDrop'] = int(con[12]) 
-			intf['TransmitFifo'] = int(con[13]) 
-			intf['TransmitFrames'] = int(con[14]) 
-			intf['TransmitCompressed'] = int(con[15]) 
-			intf['TransmitMulticast'] = int(con[16]) 
+			intf['ReceiveBytes'] = str(con[1]) 
+			intf['ReceivePackets'] = str(con[2]) 
+			intf['ReceiveErrs'] = str(con[3]) 
+			intf['ReceiveDrop'] = str(con[4]) 
+			intf['ReceiveFifo'] = str(con[5]) 
+			intf['ReceiveFrames'] = str(con[6]) 
+			intf['ReceiveCompressed'] = str(con[7]) 
+			intf['ReceiveMulticast'] = str(con[8]) 
+			intf['TransmitBytes'] = str(con[9]) 
+			intf['TransmitPackets'] = str(con[10]) 
+			intf['TransmitErrs'] = str(con[11]) 
+			intf['TransmitDrop'] = str(con[12]) 
+			intf['TransmitFifo'] = str(con[13]) 
+			intf['TransmitFrames'] = str(con[14]) 
+			intf['TransmitCompressed'] = str(con[15]) 
+			intf['TransmitMulticast'] = str(con[16]) 
 			"""
 			intf = dict(
 				zip(
@@ -134,16 +134,29 @@ class EasyHadoopHandler:
 							'TransmitBytes','TransmitPackets','TransmitErrs',
 							'TransmitDrop', 'TransmitFifo','TransmitFrames',
 							'TransmitCompressed','TransmitMulticast' ),
-						( con[0].rstrip(":"),int(con[1]),int(con[2]),
-							int(con[3]),int(con[4]),int(con[5]),
-							int(con[6]),int(con[7]),int(con[8]),
-							int(con[9]),int(con[10]),int(con[11]),
-							int(con[12]),int(con[13]),int(con[14]),
-							int(con[15]),int(con[16]), )
+						( con[0].rstrip(":"),str(con[1]),str(con[2]),
+							str(con[3]),str(con[4]),str(con[5]),
+							str(con[6]),str(con[7]),str(con[8]),
+							str(con[9]),str(con[10]),str(con[11]),
+							str(con[12]),str(con[13]),str(con[14]),
+							str(con[15]),str(con[16]), )
 					)
 			)
 			net.append(intf)
-        return str(net)
+        return str(net)[1:-1]
+	
+	def GetLoadAvg():
+		loadavg = {} 
+		f = open("/proc/loadavg") 
+		con = f.read().split() 
+		f.close() 
+		loadavg['lavg_1']=con[0] 
+		loadavg['lavg_5']=con[1] 
+		loadavg['lavg_15']=con[2] 
+		loadavg['nr']=con[3] 
+		loadavg['last_pid']=con[4] 
+		return str(loadavg)
+
 		
 class Daemon:
 	def __init__(self, pidfile, host, port, stdin='/dev/stdin', stdout='/dev/stdout', stderr='/dev/stderr'):

@@ -30,6 +30,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '  string GetMemInfo()'
   print '  string GetCpuInfo()'
   print '  string GetNetInfo()'
+  print '  string GetLoadAvg()'
   print ''
   sys.exit(0)
 
@@ -122,6 +123,12 @@ elif cmd == 'GetNetInfo':
     print 'GetNetInfo requires 0 args'
     sys.exit(1)
   pp.pprint(client.GetNetInfo())
+
+elif cmd == 'GetLoadAvg':
+  if len(args) != 0:
+    print 'GetLoadAvg requires 0 args'
+    sys.exit(1)
+  pp.pprint(client.GetLoadAvg())
 
 else:
   print 'Unrecognized method %s' % cmd
