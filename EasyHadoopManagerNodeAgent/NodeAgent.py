@@ -86,7 +86,7 @@ class EasyHadoopHandler:
 			var = line.split(':')[1].strip()
 			cpuinfo[name] = var
 		return str(cpuinfo)
-	def GetMemInfo():
+	def GetMemInfo(self):
 		mem = {}
 		f = open("/proc/meminfo")
 		lines = f.readlines()
@@ -99,7 +99,7 @@ class EasyHadoopHandler:
 			mem[name] = long(var) * 1024.0
 		mem['MemUsed'] = mem['MemTotal'] - mem['MemFree'] - mem['Buffers'] - mem['Cached']
 		return mem
-	def GetNetInfo():
+	def GetIfInfo(self):
 		net = []
 		f = open("/proc/net/dev")
 		lines = f.readlines()
@@ -107,27 +107,11 @@ class EasyHadoopHandler:
 		for line in lines[2:]:
 			con = line.split()
 			""" 
-			intf = {} 
-			intf['interface'] = con[0].lstrip(":") 
-			intf['ReceiveBytes'] = str(con[1]) 
-			intf['ReceivePackets'] = str(con[2]) 
-			intf['ReceiveErrs'] = str(con[3]) 
-			intf['ReceiveDrop'] = str(con[4]) 
-			intf['ReceiveFifo'] = str(con[5]) 
-			intf['ReceiveFrames'] = str(con[6]) 
-			intf['ReceiveCompressed'] = str(con[7]) 
-			intf['ReceiveMulticast'] = str(con[8]) 
-			intf['TransmitBytes'] = str(con[9]) 
-			intf['TransmitPackets'] = str(con[10]) 
-			intf['TransmitErrs'] = str(con[11]) 
-			intf['TransmitDrop'] = str(con[12]) 
-			intf['TransmitFifo'] = str(con[13]) 
-			intf['TransmitFrames'] = str(con[14]) 
-			intf['TransmitCompressed'] = str(con[15]) 
-			intf['TransmitMulticast'] = str(con[16]) 
+			Cannot used with CentOS5.x
 			"""
-			intf = dict(
-				zip(
+			if con[0].strip(":")[0:3] == 'eth':
+				intf = dict(
+						zip(
 						( 'interface','ReceiveBytes','ReceivePackets',
 							'ReceiveErrs','ReceiveDrop','ReceiveFifo',
 							'ReceiveFrames','ReceiveCompressed','ReceiveMulticast',
@@ -140,12 +124,14 @@ class EasyHadoopHandler:
 							str(con[9]),str(con[10]),str(con[11]),
 							str(con[12]),str(con[13]),str(con[14]),
 							str(con[15]),str(con[16]), )
-					)
-			)
-			net.append(intf)
+						)
+				)
+				net.append(intf)
+			else:
+				continue
         return str(net)[1:-1]
 	
-	def GetLoadAvg():
+	def GetLoadAvg(self):
 		loadavg = {} 
 		f = open("/proc/loadavg") 
 		con = f.read().split() 

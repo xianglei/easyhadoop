@@ -29,7 +29,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '  string GetSysVer()'
   print '  string GetMemInfo()'
   print '  string GetCpuInfo()'
-  print '  string GetNetInfo()'
+  print '  string GetIfInfo()'
   print '  string GetLoadAvg()'
   print ''
   sys.exit(0)
@@ -118,11 +118,11 @@ elif cmd == 'GetCpuInfo':
     sys.exit(1)
   pp.pprint(client.GetCpuInfo())
 
-elif cmd == 'GetNetInfo':
+elif cmd == 'GetIfInfo':
   if len(args) != 0:
-    print 'GetNetInfo requires 0 args'
+    print 'GetIfInfo requires 0 args'
     sys.exit(1)
-  pp.pprint(client.GetNetInfo())
+  pp.pprint(client.GetIfInfo())
 
 elif cmd == 'GetLoadAvg':
   if len(args) != 0:

@@ -49,7 +49,7 @@ class Iface:
   def GetCpuInfo(self, ):
     pass
 
-  def GetNetInfo(self, ):
+  def GetIfInfo(self, ):
     pass
 
   def GetLoadAvg(self, ):
@@ -230,30 +230,30 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "GetCpuInfo failed: unknown result");
 
-  def GetNetInfo(self, ):
-    self.send_GetNetInfo()
-    return self.recv_GetNetInfo()
+  def GetIfInfo(self, ):
+    self.send_GetIfInfo()
+    return self.recv_GetIfInfo()
 
-  def send_GetNetInfo(self, ):
-    self._oprot.writeMessageBegin('GetNetInfo', TMessageType.CALL, self._seqid)
-    args = GetNetInfo_args()
+  def send_GetIfInfo(self, ):
+    self._oprot.writeMessageBegin('GetIfInfo', TMessageType.CALL, self._seqid)
+    args = GetIfInfo_args()
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
 
-  def recv_GetNetInfo(self, ):
+  def recv_GetIfInfo(self, ):
     (fname, mtype, rseqid) = self._iprot.readMessageBegin()
     if mtype == TMessageType.EXCEPTION:
       x = TApplicationException()
       x.read(self._iprot)
       self._iprot.readMessageEnd()
       raise x
-    result = GetNetInfo_result()
+    result = GetIfInfo_result()
     result.read(self._iprot)
     self._iprot.readMessageEnd()
     if result.success is not None:
       return result.success
-    raise TApplicationException(TApplicationException.MISSING_RESULT, "GetNetInfo failed: unknown result");
+    raise TApplicationException(TApplicationException.MISSING_RESULT, "GetIfInfo failed: unknown result");
 
   def GetLoadAvg(self, ):
     self.send_GetLoadAvg()
@@ -291,7 +291,7 @@ class Processor(Iface, TProcessor):
     self._processMap["GetSysVer"] = Processor.process_GetSysVer
     self._processMap["GetMemInfo"] = Processor.process_GetMemInfo
     self._processMap["GetCpuInfo"] = Processor.process_GetCpuInfo
-    self._processMap["GetNetInfo"] = Processor.process_GetNetInfo
+    self._processMap["GetIfInfo"] = Processor.process_GetIfInfo
     self._processMap["GetLoadAvg"] = Processor.process_GetLoadAvg
 
   def process(self, iprot, oprot):
@@ -375,13 +375,13 @@ class Processor(Iface, TProcessor):
     oprot.writeMessageEnd()
     oprot.trans.flush()
 
-  def process_GetNetInfo(self, seqid, iprot, oprot):
-    args = GetNetInfo_args()
+  def process_GetIfInfo(self, seqid, iprot, oprot):
+    args = GetIfInfo_args()
     args.read(iprot)
     iprot.readMessageEnd()
-    result = GetNetInfo_result()
-    result.success = self._handler.GetNetInfo()
-    oprot.writeMessageBegin("GetNetInfo", TMessageType.REPLY, seqid)
+    result = GetIfInfo_result()
+    result.success = self._handler.GetIfInfo()
+    oprot.writeMessageBegin("GetIfInfo", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
     oprot.trans.flush()
@@ -1072,7 +1072,7 @@ class GetCpuInfo_result:
   def __ne__(self, other):
     return not (self == other)
 
-class GetNetInfo_args:
+class GetIfInfo_args:
 
   thrift_spec = (
   )
@@ -1095,7 +1095,7 @@ class GetNetInfo_args:
     if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
-    oprot.writeStructBegin('GetNetInfo_args')
+    oprot.writeStructBegin('GetIfInfo_args')
     oprot.writeFieldStop()
     oprot.writeStructEnd()
 
@@ -1114,7 +1114,7 @@ class GetNetInfo_args:
   def __ne__(self, other):
     return not (self == other)
 
-class GetNetInfo_result:
+class GetIfInfo_result:
   """
   Attributes:
    - success
@@ -1150,7 +1150,7 @@ class GetNetInfo_result:
     if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
-    oprot.writeStructBegin('GetNetInfo_result')
+    oprot.writeStructBegin('GetIfInfo_result')
     if self.success is not None:
       oprot.writeFieldBegin('success', TType.STRING, 0)
       oprot.writeString(self.success)
