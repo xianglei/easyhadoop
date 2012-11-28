@@ -40,6 +40,13 @@ class Iface:
     """
     pass
 
+  def GetJmx(self, port):
+    """
+    Parameters:
+     - port
+    """
+    pass
+
   def GetSysVer(self, ):
     pass
 
@@ -154,6 +161,36 @@ class Client(Iface):
     if result.success is not None:
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "FileExists failed: unknown result");
+
+  def GetJmx(self, port):
+    """
+    Parameters:
+     - port
+    """
+    self.send_GetJmx(port)
+    return self.recv_GetJmx()
+
+  def send_GetJmx(self, port):
+    self._oprot.writeMessageBegin('GetJmx', TMessageType.CALL, self._seqid)
+    args = GetJmx_args()
+    args.port = port
+    args.write(self._oprot)
+    self._oprot.writeMessageEnd()
+    self._oprot.trans.flush()
+
+  def recv_GetJmx(self, ):
+    (fname, mtype, rseqid) = self._iprot.readMessageBegin()
+    if mtype == TMessageType.EXCEPTION:
+      x = TApplicationException()
+      x.read(self._iprot)
+      self._iprot.readMessageEnd()
+      raise x
+    result = GetJmx_result()
+    result.read(self._iprot)
+    self._iprot.readMessageEnd()
+    if result.success is not None:
+      return result.success
+    raise TApplicationException(TApplicationException.MISSING_RESULT, "GetJmx failed: unknown result");
 
   def GetSysVer(self, ):
     self.send_GetSysVer()
@@ -288,6 +325,7 @@ class Processor(Iface, TProcessor):
     self._processMap["RunCommand"] = Processor.process_RunCommand
     self._processMap["FileTransfer"] = Processor.process_FileTransfer
     self._processMap["FileExists"] = Processor.process_FileExists
+    self._processMap["GetJmx"] = Processor.process_GetJmx
     self._processMap["GetSysVer"] = Processor.process_GetSysVer
     self._processMap["GetMemInfo"] = Processor.process_GetMemInfo
     self._processMap["GetCpuInfo"] = Processor.process_GetCpuInfo
@@ -338,6 +376,17 @@ class Processor(Iface, TProcessor):
     result = FileExists_result()
     result.success = self._handler.FileExists(args.filename)
     oprot.writeMessageBegin("FileExists", TMessageType.REPLY, seqid)
+    result.write(oprot)
+    oprot.writeMessageEnd()
+    oprot.trans.flush()
+
+  def process_GetJmx(self, seqid, iprot, oprot):
+    args = GetJmx_args()
+    args.read(iprot)
+    iprot.readMessageEnd()
+    result = GetJmx_result()
+    result.success = self._handler.GetJmx(args.port)
+    oprot.writeMessageBegin("GetJmx", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
     oprot.trans.flush()
@@ -750,6 +799,125 @@ class FileExists_result:
     if self.success is not None:
       oprot.writeFieldBegin('success', TType.BOOL, 0)
       oprot.writeBool(self.success)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def validate(self):
+    return
+
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class GetJmx_args:
+  """
+  Attributes:
+   - port
+  """
+
+  thrift_spec = (
+    None, # 0
+    (1, TType.STRING, 'port', None, None, ), # 1
+  )
+
+  def __init__(self, port=None,):
+    self.port = port
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 1:
+        if ftype == TType.STRING:
+          self.port = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('GetJmx_args')
+    if self.port is not None:
+      oprot.writeFieldBegin('port', TType.STRING, 1)
+      oprot.writeString(self.port)
+      oprot.writeFieldEnd()
+    oprot.writeFieldStop()
+    oprot.writeStructEnd()
+
+  def validate(self):
+    return
+
+
+  def __repr__(self):
+    L = ['%s=%r' % (key, value)
+      for key, value in self.__dict__.iteritems()]
+    return '%s(%s)' % (self.__class__.__name__, ', '.join(L))
+
+  def __eq__(self, other):
+    return isinstance(other, self.__class__) and self.__dict__ == other.__dict__
+
+  def __ne__(self, other):
+    return not (self == other)
+
+class GetJmx_result:
+  """
+  Attributes:
+   - success
+  """
+
+  thrift_spec = (
+    (0, TType.STRING, 'success', None, None, ), # 0
+  )
+
+  def __init__(self, success=None,):
+    self.success = success
+
+  def read(self, iprot):
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+      fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
+      return
+    iprot.readStructBegin()
+    while True:
+      (fname, ftype, fid) = iprot.readFieldBegin()
+      if ftype == TType.STOP:
+        break
+      if fid == 0:
+        if ftype == TType.STRING:
+          self.success = iprot.readString();
+        else:
+          iprot.skip(ftype)
+      else:
+        iprot.skip(ftype)
+      iprot.readFieldEnd()
+    iprot.readStructEnd()
+
+  def write(self, oprot):
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+      oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
+      return
+    oprot.writeStructBegin('GetJmx_result')
+    if self.success is not None:
+      oprot.writeFieldBegin('success', TType.STRING, 0)
+      oprot.writeString(self.success)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()

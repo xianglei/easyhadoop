@@ -15,6 +15,7 @@ import platform
 import os
 import sys
 import time
+import urllib
 from optparse import OptionParser
 from signal import SIGTERM
 
@@ -55,6 +56,13 @@ class EasyHadoopHandler:
 		except IOError,e:
 			errstr = "Cannot open file:"+filename+". Exception:"+e+os.linesep
 		return errstr
+		
+	def GetJmx(self,port):
+		url = 'http://127.0.0.1:'+port+'/jmx'
+		jmx = urllib.urlopen(url)
+		json = jmx.read().replace('\n','')
+		jmx.close()
+		return json
 
 	def FileExists(self, filename):
 		if os.path.isfile(filename):

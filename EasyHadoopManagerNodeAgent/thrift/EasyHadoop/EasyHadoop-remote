@@ -26,6 +26,7 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
   print '  string RunCommand(string command)'
   print '  string FileTransfer(string filename, string content)'
   print '  bool FileExists(string filename)'
+  print '  string GetJmx(string port)'
   print '  string GetSysVer()'
   print '  string GetMemInfo()'
   print '  string GetCpuInfo()'
@@ -99,6 +100,12 @@ elif cmd == 'FileExists':
     print 'FileExists requires 1 args'
     sys.exit(1)
   pp.pprint(client.FileExists(args[0],))
+
+elif cmd == 'GetJmx':
+  if len(args) != 1:
+    print 'GetJmx requires 1 args'
+    sys.exit(1)
+  pp.pprint(client.GetJmx(args[0],))
 
 elif cmd == 'GetSysVer':
   if len(args) != 0:

@@ -8,6 +8,12 @@ include_once "templates/node_monitor_sidebar.html";
 $mysql = new Mysql();
 $monitor = new NodeMonitor;
 
+$socket = new TSocket($ip, 30050);
+$socket->setSendTimeout(300000);
+$socket->setRecvTimeout(300000);
+$transport = new TBufferedTransport($socket);
+$protocol = new TBinaryProtocol($transport);
+
 if(!$_GET['action'])
 {
 	
@@ -15,12 +21,15 @@ if(!$_GET['action'])
 
 elseif($_GET['action'] == 'MrUsed')
 {
+	
+	
 	$sql = "select * from ehm_hosts where role like '%jobtracker%'";
 	$mysql->Query($sql);
 	$arr = $mysql->FetchArray();
 	$ip = $arr['ip'];
 	$hostname = $arr['hostname'];
-	$json = $monitor->GetJson($ip, 'jobtracker');
+	$json = $monitor->GetJmx($protocol, 'jobtracker');
+	$json = $monitor->ParseJson($json); 
 	$map_slots = intval($monitor->GetJsonObject($json->{'beans'}, 'map_slots'));
 	$reduce_slots = intval($monitor->GetJsonObject($json->{'beans'}, 'reduce_slots'));
 	$running_maps = intval($monitor->GetJsonObject($json->{'beans'}, 'running_maps'));
@@ -74,7 +83,8 @@ elseif($_GET['action'] == 'MrUsed')
                  	<td><a href=NodeMonitor.php?action=NodeMrUsed&ip='.$arr['ip'].'>'.$arr['hostname'].'</a></td>
                  	<td>'.$arr['ip'].'</td>';
 		echo '<td>';
-		$json = $monitor->GetJson($arr['ip'], "tasktracker");
+		$json = $monitor->GetJmx($protocol, "tasktracker");
+		$json = $monitor->ParseJson($json);
 		
 		$map_task_slots = intval($monitor->GetJsonObject($json->{"beans"},"mapTaskSlots"));
 		$maps_running = intval($monitor->GetJsonObject($json->{"beans"},"maps_running"));
@@ -136,7 +146,8 @@ elseif($_GET['action'] == "HddUsed")
 	$arr = $mysql->FetchArray();
 	$ip = $arr['ip'];
 	$hostname = $arr['hostname'];
-	$json = $monitor->GetJson($ip, "namenode");
+	$json = $monitor->GetJmx($protocol, 'namenode');
+	$json = $monitor->ParseJson($json);
 	#var_dump($json);
 	$total = $monitor->GetJsonObject($json->{"beans"}, "Total");
 	$free = $monitor->GetJsonObject($json->{"beans"},"Free");
@@ -184,7 +195,8 @@ elseif($_GET['action'] == "HddUsed")
                  	<td><a href=NodeMonitor.php?action=NodeHddUsed&ip='.$arr['ip'].'>'.$arr['hostname'].'</a></td>
                  	<td>'.$arr['ip'].'</td>';
 		echo '<td>';
-		$json = $monitor->GetJson($arr['ip'], "datanode");
+		$json = $monitor->GetJmx($protocol, 'datanode');
+		$json = $monitor->ParseJson($json);
 		
 		$total = $monitor->GetJsonObject($json->{"beans"},"Capacity");
 		$used = $monitor->GetJsonObject($json->{"beans"},"DfsUsed");
@@ -232,7 +244,8 @@ elseif($_GET['action'] == "NodeHddUsed")
 	{
 		$ip = $_GET['ip'];
 		echo '<div class=span10>';
-		$json = $monitor->GetJson($ip, "datanode");
+		$json = $monitor->GetJmx($protocol, 'datanode');
+		$json = $monitor->ParseJson($json);
 		foreach($json->{"beans"} as $k => $v)
 		{
 			$volumeinfo = $v->{"VolumeInfo"};
@@ -351,7 +364,7 @@ elseif ($_GET['action'] == "CheckHadoopProcess")
 	echo '</tbody></table>';
 	echo '</div>';
 }
-
+$transport->close();
 
 include_once "templates/footer.html";
 ?>
