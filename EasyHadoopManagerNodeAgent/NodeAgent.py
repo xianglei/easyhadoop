@@ -106,7 +106,7 @@ class EasyHadoopHandler:
 			var = line.split(':')[1].split()[0]
 			mem[name] = long(var) * 1024.0
 		mem['MemUsed'] = mem['MemTotal'] - mem['MemFree'] - mem['Buffers'] - mem['Cached']
-		return mem
+		return str(mem)
 	def GetIfInfo(self):
 		net = []
 		f = open("/proc/net/dev")
@@ -137,7 +137,7 @@ class EasyHadoopHandler:
 				net.append(intf)
 			else:
 				continue
-        return str(net)[1:-1]
+		return str(net)[1:-1]
 	
 	def GetLoadAvg(self):
 		loadavg = {} 

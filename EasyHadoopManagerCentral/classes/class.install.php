@@ -38,20 +38,20 @@ class Install
 	public function InstallJava($pProtocol)
 	{
 		$client = new EasyHadoopClient($pProtocol);
-		$filename = "/home/hadoop/jdk-6u35-linux-amd64.rpm";
+		$filename = "/home/hadoop/jdk-6u37-linux-amd64.rpm";
 		
 		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
-						rpm -Uvh jdk-6u35-linux-amd64.rpm 
+						rpm -Uvh jdk-6u37-linux-amd64.rpm 
 						echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
 		else
 		{
 			$command = "mkdir -p /home/hadoop
 						cd /home/hadoop/ 
-						wget http://113.11.199.230/jdk/jdk-6u35-linux-amd64.rpm 
-						rpm -Uvh jdk-6u35-linux-amd64.rpm 
+						wget http://113.11.199.230/jdk/jdk-6u37-linux-amd64.rpm 
+						rpm -Uvh jdk-6u37-linux-amd64.rpm 
 						echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile";
 		}
 		$str = $client->RunCommand($command);
@@ -62,11 +62,11 @@ class Install
 	public function InstallHadoop($pProtocol)
 	{
 		$client = new EasyHadoopClient($pProtocol);
-		$filename = "/home/hadoop/hadoop-1.0.3-1.x86_64.rpm";
+		$filename = "/home/hadoop/hadoop-1.0.4-1.x86_64.rpm";
 		if($client->FileExists($filename))
 		{
 			$command = "cd /home/hadoop/ 
-						rpm -Uvh hadoop-1.0.3-1.x86_64.rpm 
+						rpm -Uvh hadoop-1.0.4-1.x86_64.rpm 
 						chmod 644 /etc/sudoers 
 						sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers 
 						chmod 440 /etc/sudoers 
@@ -79,8 +79,8 @@ class Install
 		{
 			$command = "mkdir -p /home/hadoop/ 
 						cd /home/hadoop/ 
-						wget http://113.11.199.230/hadoop/hadoop-1.0.3-1.x86_64.rpm 
-						rpm -Uvh hadoop-1.0.3-1.x86_64.rpm 
+						wget http://113.11.199.230/hadoop/hadoop-1.0.4-1.x86_64.rpm 
+						rpm -Uvh hadoop-1.0.4-1.x86_64.rpm 
 						chmod 644 /etc/sudoers 
 						sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers 
 						chmod 440 /etc/sudoers 
