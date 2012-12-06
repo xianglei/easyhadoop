@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import pexpect
+from optparse import OptionParser
 
 def ssh_cmd(ip, user, passwd, cmd):
 	ssh = pexpect.spawn('ssh %s@%s "%s"' % (user, ip, cmd))
