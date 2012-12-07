@@ -8,11 +8,6 @@ include_once "templates/node_monitor_sidebar.html";
 $mysql = new Mysql();
 $monitor = new NodeMonitor;
 
-$socket = new TSocket($ip, 30050);
-$socket->setSendTimeout(300000);
-$socket->setRecvTimeout(300000);
-$transport = new TBufferedTransport($socket);
-$protocol = new TBinaryProtocol($transport);
 
 if(!$_GET['action'])
 {
@@ -28,7 +23,21 @@ elseif($_GET['action'] == 'MrUsed')
 	$arr = $mysql->FetchArray();
 	$ip = $arr['ip'];
 	$hostname = $arr['hostname'];
-	$json = $monitor->GetJmx($protocol, 'jobtracker');
+	
+	$transport = new TSocket($arr['ip'], 30050);
+	$protocol = new TBinaryProtocol($transport);
+	try
+	{
+		$transport->open();
+		$json = $monitor->GetJmx($protocol, 'jobtracker');
+		$transport->close();
+	}
+	catch(exception $e)
+	{
+		echo "";
+	}
+	
+	
 	$json = $monitor->ParseJson($json); 
 	$map_slots = intval($monitor->GetJsonObject($json->{'beans'}, 'map_slots'));
 	$reduce_slots = intval($monitor->GetJsonObject($json->{'beans'}, 'reduce_slots'));
@@ -60,7 +69,6 @@ elseif($_GET['action'] == 'MrUsed')
                 <div class="bar bar-warning" style="width: '.$perc_reduce_running.'%;">Running ReduceSlots</div>
                 <div class="bar bar-success" style="width: '.$perc_reduce_not_running.'%;">Free ReduceSlots</div>
         </div>';
-	
 	##################################
     $sql = "select * from ehm_hosts where role like '%tasktracker%' order by create_time desc";
 	$mysql->Query($sql);
@@ -83,7 +91,20 @@ elseif($_GET['action'] == 'MrUsed')
                  	<td><a href=NodeMonitor.php?action=NodeMrUsed&ip='.$arr['ip'].'>'.$arr['hostname'].'</a></td>
                  	<td>'.$arr['ip'].'</td>';
 		echo '<td>';
-		$json = $monitor->GetJmx($protocol, "tasktracker");
+		
+		$transport = new TSocket($arr['ip'], 30050);
+		$protocol = new TBinaryProtocol($transport);
+		try
+		{
+			$transport->open();
+			$json = $monitor->GetJmx($protocol, 'tasktracker');
+			$transport->close();
+		}
+		catch(exception $e)
+		{
+			echo "";
+		}
+		
 		$json = $monitor->ParseJson($json);
 		
 		$map_task_slots = intval($monitor->GetJsonObject($json->{"beans"},"mapTaskSlots"));
@@ -146,7 +167,20 @@ elseif($_GET['action'] == "HddUsed")
 	$arr = $mysql->FetchArray();
 	$ip = $arr['ip'];
 	$hostname = $arr['hostname'];
-	$json = $monitor->GetJmx($protocol, 'namenode');
+	
+	$transport = new TSocket($arr['ip'], 30050);
+	$protocol = new TBinaryProtocol($transport);
+	try
+	{
+		$transport->open();
+		$json = $monitor->GetJmx($protocol, 'namenode');
+		$transport->close();
+	}
+	catch(exception $e)
+	{
+		echo "";
+	}
+	
 	$json = $monitor->ParseJson($json);
 	#var_dump($json);
 	$total = $monitor->GetJsonObject($json->{"beans"}, "Total");
@@ -195,7 +229,21 @@ elseif($_GET['action'] == "HddUsed")
                  	<td><a href=NodeMonitor.php?action=NodeHddUsed&ip='.$arr['ip'].'>'.$arr['hostname'].'</a></td>
                  	<td>'.$arr['ip'].'</td>';
 		echo '<td>';
-		$json = $monitor->GetJmx($protocol, 'datanode');
+		
+		$ip = $arr['ip'];
+		$transport = new TSocket($arr['ip'], 30050);
+		$protocol = new TBinaryProtocol($transport);
+		try
+		{
+			$transport->open();
+			$json = $monitor->GetJmx($protocol, 'datanode');
+			$transport->close();
+		}
+		catch(exception $e)
+		{
+			echo "";
+		}
+		
 		$json = $monitor->ParseJson($json);
 		
 		$total = $monitor->GetJsonObject($json->{"beans"},"Capacity");
@@ -244,7 +292,20 @@ elseif($_GET['action'] == "NodeHddUsed")
 	{
 		$ip = $_GET['ip'];
 		echo '<div class=span10>';
-		$json = $monitor->GetJmx($protocol, 'datanode');
+		
+		$transport = new TSocket($ip, 30050);
+		$protocol = new TBinaryProtocol($transport);
+		try
+		{
+			$transport->open();
+			$json = $monitor->GetJmx($protocol, 'datanode');
+			$transport->close();
+		}
+		catch(exception $e)
+		{
+			echo "";
+		}
+
 		$json = $monitor->ParseJson($json);
 		foreach($json->{"beans"} as $k => $v)
 		{
@@ -298,7 +359,6 @@ elseif($_GET['action'] == "NodeHddUsed")
 		}
 		echo '</tbody></table>';
 		echo "</div>";
-		
 	}
 }
 
@@ -364,7 +424,7 @@ elseif ($_GET['action'] == "CheckHadoopProcess")
 	echo '</tbody></table>';
 	echo '</div>';
 }
-$transport->close();
+
 
 include_once "templates/footer.html";
 ?>

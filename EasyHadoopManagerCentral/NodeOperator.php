@@ -54,9 +54,16 @@ elseif($_GET['action'] == "Operate")
 			{
 				if($bool == TRUE)
 				{
-					$transport->open();
-					$str = $monitor->CheckHadoopProcess($value, $protocol);
-					$transport->close();
+					try
+					{
+						$transport->open();
+						$str = $monitor->CheckHadoopProcess($value, $protocol);
+						$transport->close();
+					}
+					catch(exception $e)
+					{
+						echo "";
+					}
 					if($str == "")
 					{
 						$button = '<button class="btn btn-warning">'.$value.'</button>
