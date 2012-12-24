@@ -29,14 +29,7 @@ class User extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$this->user->login($username, $password);
-		if($this->session->userdata('login') == TRUE)
-		{
-			redirect($this->input->post('referer'));
-		}
-		else
-		{
-			redirect($this->config->base_url() . 'index.php/manage/index/');
-		}
+		redirect($this->config->base_url() . 'index.php/manage/index/');
 	}
 	
 	public function Logout()
