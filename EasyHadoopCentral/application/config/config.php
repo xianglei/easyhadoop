@@ -3,7 +3,7 @@
 include_once __DIR__ . '/../../config.inc.php';
 
 
-$config['base_url']	= '';
+$config['base_url']	= ''; /* http://your_ip/ */
 
 /*
 |--------------------------------------------------------------------------

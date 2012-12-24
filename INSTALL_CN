@@ -1,13 +1,13 @@
 EasyHadoopManager(以下简称EHM)安装和使用说明
 
 本软件完全开源免费，并遵循GNU GPLv3协议
-持节点服务器系统为CentOS 5.x和CentOS 6.x
+当前(1.1.1)支持服务器系统为CentOS/RedHat 5.x和CentOS/RedHat 6.x
 本软件使用
 lzo 2.06
 lzop 1.03
-hadoop 1.0.3-1
+hadoop 1.1.1-1
 hadoopgpl 0.5.4-1
-jdk-7u5
+sun-jdk-6u37
 
 ##################################################################
 安装后初始用户名为admin，密码为123456，请自行到用户管理变更!!!!
@@ -18,35 +18,38 @@ jdk-7u5
 连接，监听在节点服务器的30050端口，接收来自Central的指令并负责执行。
 
 安装说明
-1. 一台作为管理中心页面使用的服务器，可以使用任何操作系统。但不建议
+1. 一台作为管理中心页面使用的服务器，可以使用任何操作系统。不建议
 使用windows。
 
-2. 安装Nginx，php，mysql，apache web server由于使用模块方式
-加载php在测试中没有通过，所以不做推荐。
+2. 安装LA(Apache)MP或LN(Nginx)MP
 
-做为推荐，建议使用Nginx，php，mysql
+做为推荐，建议使用Apache，php，mysql
 
 建议的nginx和php配置：
 由于安装hadoop依赖环境需要使用yum，这取决于你的服务器网速，如网速
 较慢可能造成网页超时，因此建议在webserver和php中添加如下设置
 
-NGINX 中的 php fastcgi 相关设置段:
-	fastcgi_connect_timeout 300;
-	fastcgi_send_timeout 300;
-	fastcgi_read_timeout 300;
-	fastcgi_buffer_size 64k;
-	fastcgi_buffers 4 64k;
+NGINX 中的相关设置段:
+EasyHadoopCentral部分采用CodeIgniter框架开发，Nginx因为rewrite url问题
+需要设置才可以使用CodeIgniter。
+location / {
+		# Check if a file exists, or route it to index.php.
+		try_files $uri $uri/ /index.php;
+}
+你可能需要编辑EHM/EasyHadoopCentral/application/config/config.php中的
+$config['base_url']	= ''; /* http://your_ip/ 结尾需要加 / 符号  */
+如果你在使用nginx的时候遇到访问问题，如js路径变成https://...等
 
-PHP 的 php.ini 设置：
-	default_socket_timeout = 300
-	的php-fpm.conf设置：
-	request_terminate_timeout = 300
+Apache中的相关设置段:
+Apache无需设置即可使用
+
 	
-3. 在mysql中创建easyhadoop库，并将easyhadoop.sql导入到mysql中
+3. 在mysql中创建easyhadoop库，将easyhadoop.sql导入到mysql中
 mysql -uxxx -pxxx easyhadoop < easyhadoop.sql
+编辑EHM/EasyHadoopCentral/application/config/database.php中的选项用来访问你的数据库
 
-4. 修改config.inc.php，让EHM可以连接到mysql数据库，并调整你的
-nginx和php设置，直到他们正常工作。
+4. 修改config.inc.php
+语言和安装文件下载源配置项，如无特殊需要，可不设置
 
 5.从网页中访问web服务器，直到你看见EHM的界面出现。
 
@@ -59,16 +62,16 @@ nginx和php设置，直到他们正常工作。
 
 一、节点管理说明
 
-1. 以下内容，请sudo -s 或sudo su -来使用root权限操作，而非sudo -u root
+1. 以下内容，请以sudo -s 或sudo su -来使用root权限操作，而非sudo -u root
 
-2. 将EasyHadoopManagerNodeAgent中的python脚本分别上传至每台待安装的
+2. 将EasyHadoopAgent中的python脚本分别上传至每台待安装的
 节点服务器的任意路径下，并依次执行下列命令：
 ------------
-chmod +x EasyHadoopNodeAgent.py
-./EasyHadoopNodeAgent.py -s start -b node_ip
+chmod +x NodeAgent.py
+./NodeAgent.py -s start -b node_ip
 ------------
 注：执行前请确认30050端口没有被其他程序所占用，且iptables服务处于关闭状态。
-Agent有两个执行选项，-b 和 -s，其中-a 可不填写，但 -s 选项必须写。
+Agent有两个执行选项，-b 和 -s，其中-b 可不填写，但 -s 选项必须写。
 通常来说，我们希望把EHM的Agent绑定到一个相对安全的内网地址。例如192.168.1.2
 或者172.16.1.2。当然这需要你的服务器具备内网的IP地址才可以。Agent典型的
 执行命令应该是下面这样：
@@ -93,7 +96,7 @@ python EasyHadoopNodeAgent.py -s start
 输入该节点未来在集群中所担负的角色。如namenode或datanode，小写输入，
 如该节点同时担负多种角色。假如同时担任namenode和jobtracker，则名称
 使用小写，并用英文半角逗号分隔，例如namenode,jobtracker。
-注：在Hadoop 1.0.x中，角色名称通常分为以下五种
+注：在Hadoop 1.1.x中，角色名称通常分为以下五种
 namenode
 datanode
 tasktracker
@@ -120,33 +123,12 @@ secondarynamenode
 节点配置项为针对hadoop节点的相关设置。
 
 1. 通用配置项设置可以理解为，该项目下的所有文件，为hadoop集群所通用，不需单独的
-特殊设置。通常这样的设置包括/etc/hosts文件，/etc/hadoop/core-site.xml文件。
-添加通用配置项中，文件名需要输入目标节点服务器中的文件名和完整路径。即说明该文件
-存储在何处。例如你需要输入/etc/hosts这样的文件名。这样未来在推送配置文件过程中，
-不会将配置文件推送到错误的路径下。
+特殊设置。通常这样的设置包括hosts,core-site.xml文件。
+添加通用配置项中，只需要输入目标节点服务器中的文件名。即说明该文件
+存储在何处。例如你需要输入hdfs-sitexml这样的文件名。
 
-内容为该配置文件的内容，针对/etc/hosts，还有单独的工具来用节点添加中所加入的主机
-名和IP来生成/etc/hosts文件内容。
 提交后即可生成通用配置文件列表。
 
-2. 节点配置项为针对某个hadoop集群中的节点进行特殊配置的文件列表。当集群中的服务器
-硬件配置不同时，这个配置会显得非常有用。例如，硬盘配置不相同，你就需要配置一个
-/etc/hadoop/hdfs-site.xml，内存不同时，你需要配置不同的/etc/hadoop/mapred-site.xml
-尽管通常情况下，你们会尽量保证硬件配置统一，但是这并不是绝对的，所以你需要建立这种
-的配置项。
-
-注：在确定所有硬件全部一样的情况下，你可以把这些配置放入通用配置中进行推送。
-提示：
-EHM所使用的hadoop版本的配置文件及路径列表和设置建议：
-/etc/hosts [建议使用通用配置]
-/etc/hadoop/core-site.xml [建议使用通用配置] 
-/etc/hadoop/capacity-scheduler.xml [建议使用节点配置，可只配置jobtracker节点]
-/etc/hadoop/fair-scheduler.xml [建议使用独立配置，可只配置jobtracker节点]
-/etc/hadoop/hadoop-metrics2.properties [建议使用通用配置]
-/etc/hadoop/hdfs-site.xml [建议使用节点配置]
-/etc/hadoop/mapred-site.xml [建议使用节点配置]
-/etc/hadoop/masters [建议使用通用配置]
-/etc/hadoop/slaves [建议使用通用配置]
 
 三、节点安装管理
 
@@ -184,7 +166,7 @@ lzo-devel-2.06-1.el6.rfx.x86_64.rpm
 其他安装项，在已经推送Hadoop安装文件的情况下将会直接安装，如未执行推送，将会
 自动从EasyHadoop源下载安装包并安装。这也有可能造成网页超时，所以强烈建议先进行
 Hadoop文件推送。节点上的Agent会自动判断操作系统版本，并选择合适的安装包进行
-安装。目前支持CentOS 5.x和CentOS 6.x
+安装。目前支持CentOS/RedHat 5.x和CentOS/RedHat 6.x
 
 3. 推送配置文件。
 将之前在节点配置设置中所设定的通用配置和节点配置通过Agent推送给节点服务器。
@@ -197,9 +179,9 @@ Hadoop文件推送。节点上的Agent会自动判断操作系统版本，并选择合适的安装包进行
 1. 格式化namenode，基于安全考虑，目前暂不开放该功能。
 
 2. 节点操作，该命令基于之前设置的节点角色，可在这里对不同的节点角色进程进行启动，
-停止，重启工作。生产环境请慎用。
+停止，重启工作和查看日志功能。生产环境请慎用。
 
-3. 查看节点日志，该操作将查看节点上的角色所对应的最后1000条日志。请注意
+3. 查看节点日志，该操作将查看节点上的角色所对应的最后500条日志。请注意
 该功能仅可查看使用easyhadoop安装的服务器日志，如你使用apache源码或者其他公司的
 Hadoop，将会提示无法找到日志的错误。
 
@@ -208,7 +190,7 @@ Hadoop，将会提示无法找到日志的错误。
 可以依据该项目来进行hadoop的维护工作。
 
 五、节点监控
-还未开放
+目前可以监控内存，存储，和map/reduce使用情况，实时刷新状态
 
 六、用户管理
 目前提供单用户管理，初始安装时的用户名为admin，密码为123456。请自行修改密码。

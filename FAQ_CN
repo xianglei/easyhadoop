@@ -10,8 +10,7 @@ EHM是免费的吗？
 
 无法登录到EHM界面中？
 
-请确定已经将easyhadoop.sql导入到了mysql中，并且正确设置了config.inc.php
-中的mysql连接。同时要允许你的浏览器接受cookie。
+请确定已经将easyhadoop.sql导入到了mysql中，同时要允许你的浏览器接受cookie。
 
 安装hadoop和依赖环境时，页面超时或返回http 504错误？
 
