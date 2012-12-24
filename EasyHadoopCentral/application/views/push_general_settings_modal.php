@@ -19,8 +19,10 @@ function push_general_settings_action()
 	$(document).ready(function(){
 		$('#push_general_settings_status').empty();
 	});
-	<?php foreach($all_hosts as $v):?>
-	push_general_settings_status_<?php echo $v->host_id;?>();
+	<?php $i = 1;foreach($result_general as $item):?>
+		<?php foreach($all_hosts as $v):?>
+			push_general_settings_status_<?php echo $v->host_id;?>_<?php echo $item->set_id;?>();
+		<?php endforeach;?>
 	<?php endforeach;?>
 }
 </script>

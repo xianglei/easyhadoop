@@ -13,7 +13,9 @@
 				</div>
 				<div class="btn-group">
 					<a href="#push_etc_hosts" data-toggle="modal" class="btn btn-danger">推送hosts</a>
-					
+				</div>
+				<div class="btn-group">
+					<a href="#push_general_settings" data-toggle="modal" class="btn btn-danger">推送配置</a>
 				</div>
 			</div>
 			<script>
@@ -52,13 +54,11 @@
 								<a href="#edit_general_settings_<?php echo $item->set_id;?>" data-toggle="modal" class="btn">编辑</a>
 								<a href="#delete_general_settings_<?php echo $item->set_id;?>" data-toggle="modal" class="btn btn-danger">删除</a>
 							</div>
-							<div class="btn-group">
-								<a href="#push_general_settings" data-toggle="modal" class="btn btn-danger">推送配置</a>
-							</div>
+							
 						</div>
 						<script>
 						<?php foreach($all_hosts as $v):?>
-						function push_general_settings_status_<?php echo $v->host_id;?>()
+						function push_general_settings_status_<?php echo $v->host_id;?>_<?php echo $item->set_id;?>()
 						{
 							$.getJSON('<?php echo $this->config->base_url();?>index.php/settings/pushgeneralsettings/<?php echo $v->host_id;?>/<?php echo $item->set_id;?>/', function(json){
 								var node = json.node;
