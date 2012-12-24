@@ -37,7 +37,7 @@
 <div id="push_install_files_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="myModalLabel">推送安装文件</h3>
+		<h3 id="myModalLabel">推送安装文件 <?php echo $item->ip;?></h3>
 	</div>
 	<div class="modal-body">
 
@@ -56,10 +56,10 @@
 <div id="install_hadoop_action_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="install_name_<?php echo $item->host_id;?>">安装 Hadoop</h3>
+		<h3 id="install_name_<?php echo $item->host_id;?>">安装 Hadoop <?php echo $item->ip;?></h3>
 	</div>
 	<div class="modal-body">
-	
+		<pre>  点击提交开始安装，请耐心等待</pre>
 			<div class="progress progress-info">
 				<div class="bar" style=""  id="install_progress_<?php echo $item->host_id;?>"></div>
 			</div>
