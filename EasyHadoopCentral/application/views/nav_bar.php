@@ -22,6 +22,9 @@
               <li class="">
                 <a href="<?php echo $this->config->base_url();?>index.php/user/updatepassword/"><?php echo $common_user_admin?></a>
               </li>
+			  <!--<li class="">
+                <a href="<?php echo $this->config->base_url();?>index.php/about/index/">About</a>
+              </li>-->
               <li class="">
                 <a href="<?php echo $this->config->base_url();?>index.php/user/logout/"><?php echo $common_log_out;?></a>
               </li>
