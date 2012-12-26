@@ -8,7 +8,7 @@ which is lightweight, and easy to use.
 or install your HADOOP cluster very quickly with just one mouse click on Management pages.
 
 ##Support&&Request
-* **Support** **CentOS 5.x or 6.x**, Uses **Apache Hadoop(R) 1.0.3**, including **lzo compression pack**.  
+* **Support** CentOS 5.x or 6.x, Uses Apache Hadoop(R) 1.0.3, including **lzo compression pack**.  
 * **Environmental requirements** ：nginx, php, mysql .Recommend [LNMP](http://lnmp.org/)
 
 
