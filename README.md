@@ -27,4 +27,4 @@ For full details see the LICENSE file included in this distribution.
 
 #### If you want to be awesome.
 
-*Tell us that you project on the use Easyhadoop, or add your site to our website so we can watch the community grow.
+Tell us that you project on the use Easyhadoop, or add your site to our website so we can watch the community grow.
