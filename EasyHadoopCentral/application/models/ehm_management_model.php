@@ -146,7 +146,7 @@ class Ehm_management_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$command = "tail -n 500 /var/log/hadoop/hadoop/hadoop-hadoop-".$role."-".$hostname.".log";
+			$command = "tail -n 100 /var/log/hadoop/hadoop/hadoop-hadoop-".$role."-".$hostname.".log";
 			$str = $this->ehm->RunCommand($command);
 			$str = str_replace('ERROR', "<b><font color=red>ERROR</font></b>",$str);
 			$str = str_replace('FATAL', "<b><font color=red>FATAL</font></b>",$str);
