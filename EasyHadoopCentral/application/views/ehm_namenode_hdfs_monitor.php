@@ -110,7 +110,7 @@ setInterval(namenode_abbr, 30000);
 	<?php $i++; endforeach;?>
 	</tbody>
 </table>
-
-<?php echo $pagination;?>
-
+<div>
+<h3><?php echo $pagination;?></h3>
+</div>
 </div>
