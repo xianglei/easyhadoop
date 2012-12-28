@@ -88,6 +88,8 @@ class Install extends CI_Controller
 		
 		$file_list_array = $this->install->get_file_list();
 		$json = "";
+		$this->install->user_add_group_add($ip);
+		sleep(1);
 		foreach ($file_list_array as $v):
 			$json .= $this->install->push_installation_file($ip, $v)."<br />";
 		endforeach;
@@ -103,18 +105,6 @@ class Install extends CI_Controller
 		
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_environment($ip);
-		echo str_replace("\n","<br />",$html);
-	}
-	
-	public function AddUserGroup()
-	{
-		$host_id = $this->uri->segment(3,0);
-		$this->load->model('ehm_hosts_model', 'hosts');
-		$result = $this->hosts->get_host_by_host_id($host_id);
-		$ip = $result->ip;
-		
-		$this->load->model('ehm_installation_model', 'install');
-		$html = $this->install->user_add_group_add($ip);
 		echo str_replace("\n","<br />",$html);
 	}
 	
