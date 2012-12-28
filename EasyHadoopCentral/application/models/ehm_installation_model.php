@@ -120,7 +120,8 @@ class Ehm_installation_model extends CI_Model
 		{
 			$command = 'groupadd '.$this->config->item('hadoop_group').'
 						useradd '.$this->config->item('hadoop_user').' -g '.$this->config->item('hadoop_group').'
-						mkdir -p ' . $this->config->item('dest_folder')
+						mkdir -p ' . $this->config->item('dest_folder'). '
+						chown -R '.$this->config->item('hadoop_user').':'.$this->config->item('hadoop_group').' '.$this->config->item('dest_folder')
 						. '';
 			$this->transport->open();
 			$str = $this->ehm->RunCommand($command);
