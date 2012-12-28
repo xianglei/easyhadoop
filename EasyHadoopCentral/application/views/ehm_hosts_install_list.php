@@ -104,22 +104,6 @@ function install_environment_<?php echo $item->host_id;?>()
 			$('#install_name_<?php echo $item->host_id;?>').html('安装hadoop所需环境');
 			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 10%;");
 			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-			install_addusergroup_<?php echo $item->host_id;?>();
-		}
-	});
-}
-
-function install_addusergroup_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/addusergroup/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('添加用户和组');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 15%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').empty();
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
 			install_lzorpm_<?php echo $item->host_id;?>();
 		}
 	});
