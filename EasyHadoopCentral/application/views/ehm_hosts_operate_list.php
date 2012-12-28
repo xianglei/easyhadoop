@@ -102,4 +102,9 @@ endforeach;
 <?php $i++; endforeach;?>
 	</tbody>
 </table>
+
+<div>
+		<h3><?php echo $pagination;?></h3>
+	</div>
+
 </div>

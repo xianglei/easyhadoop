@@ -36,7 +36,7 @@
 						$tmp = explode("\t", $v);
 						if(count($tmp) > 1)
 						{
-							foreach(@$v as $kk => $vv):
+							foreach(@$tmp as $kk => $vv):
 								echo "<td>";
 								if($kk == '2'):
 									echo date("Y-m-d H:i:s", substr(trim($vv),0,10));
