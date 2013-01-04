@@ -78,11 +78,11 @@ endforeach;
 						$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/<?php echo $item->host_id;?>/<?php echo $v;?>', function(json){
 							if(json.status == 'online')
 							{
-								html = '<span class="label label-success"><i class="icon-ok"></i>' + json.role + '</span>';
+								html = '<span class="badge badge-success"><i class="icon-ok"></i>' + json.role + '</span>';
 							}
 							else
 							{
-								html = '<span class="label label-important"><i class="icon-remove"></i>' + json.role + '</span>';
+								html = '<span class="badge badge-important"><i class="icon-remove"></i>' + json.role + '</span>';
 							}
 							$('#check_online_<?php echo $v;?>_<?php echo $item->host_id;?>').html(html);
 						});
