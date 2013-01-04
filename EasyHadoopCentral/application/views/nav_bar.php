@@ -7,11 +7,11 @@
               <li <?php if($this->router->class == "index"){ echo "class=\"active\"";}?>>
                 <a href="<?php echo $this->config->base_url();?>"><?php echo $common_index_page;?></a>
               </li>
-              <li <?php if($this->router->class == "settings"){ echo "class=\"active\"";}?>>
-                <a href="<?php echo $this->config->base_url();?>index.php/settings/index/"><?php echo $common_host_settings?></a>
-              </li>
               <li <?php if($this->router->class == "install"){ echo "class=\"active\"";}?>>
                 <a href="<?php echo $this->config->base_url();?>index.php/install/index/" ><?php echo $common_install;?></a>
+              </li>
+			  <li <?php if($this->router->class == "settings"){ echo "class=\"active\"";}?>>
+                <a href="<?php echo $this->config->base_url();?>index.php/settings/index/"><?php echo $common_host_settings?></a>
               </li>
               <li <?php if($this->router->class == "operate"){ echo "class=\"active\"";}?>>
                 <a href="<?php echo $this->config->base_url();?>index.php/operate/index/"><?php echo $common_node_operate;?></a>
