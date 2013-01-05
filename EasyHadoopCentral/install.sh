@@ -1,6 +1,13 @@
 #!/bin/sh
+yum install -y php53 php53-cli php53-devel php53-common httpd httpd-devel php53-mbstring php53-mysql php53-pdo php53-process mysql mysql-devel mysql-server wget lrzsz dos2unix pexpect
+service mysqld start
+mysql -hlocalhost -uroot -e"create database easyhadoop"
+mysql easyhadoop < easyhadoop.sql
 
-yum -y install wget lrzsz pexpect
+echo "/*************************************************************/"
+echo "Install basic environment complete, starting download from"
+echo "EasyHadoop repositry......"
+echo "/*************************************************************/"
 
 mkdir -p ./hadoop
 
@@ -36,4 +43,8 @@ fi
 
 cd ..
 
-echo "Download Complete, You can use PushFiles now"
+echo "/*************************************************************/"
+echo "Download Hadoop runtime libaries install complete."
+echo "Do not forget to start your NodeAgent.php"
+echo "And access EasyHadoopCentral from your web browser."
+echo "/*************************************************************/"
