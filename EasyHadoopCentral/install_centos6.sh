@@ -44,7 +44,7 @@ fi
 cd ..
 
 echo "/*************************************************************/"
-echo "Download Hadoop runtime libaries install complete."
-echo "Do not forget to start your NodeAgent.php"
+echo "Download Hadoop installation and runtime libaries complete."
+echo "Do not forget to start your NodeAgent.py"
 echo "And access EasyHadoopCentral from your web browser."
 echo "/*************************************************************/"
