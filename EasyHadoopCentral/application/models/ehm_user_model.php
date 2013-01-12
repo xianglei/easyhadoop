@@ -28,8 +28,10 @@ class Ehm_user_model extends CI_Model
 			else
 			{
 				$sql = "update ehm_user set password='".md5($new_password1)."' where username='admin'";
-				$this->db->simple_query($sql);
-				return '{"status":"Update success"}';
+				if($this->db->simple_query($sql))
+					return '{"status":"Update success"}';
+				else
+					return '{"status":"Update failed"}'
 			}
 		}
 	}
