@@ -52,7 +52,7 @@ class Install extends CI_Controller
 		$data['common_action'] = $this->lang->line('common_action');
 		#genarate pagination
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . '/index.php/install/index/';
+		$config['base_url'] = $this->config->base_url() . 'index.php/install/index/';
 		$config['total_rows'] = $this->hosts->count_hosts();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);

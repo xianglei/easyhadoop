@@ -1,8 +1,9 @@
 #!/bin/sh
 yum install -y php53 php53-cli php53-devel php53-common httpd httpd-devel php53-mbstring php53-mysql php53-pdo php53-process mysql mysql-devel mysql-server wget lrzsz dos2unix pexpect libxml2 libxml2-devel
 service mysqld start
-mysql -hlocalhost -uroot -e"create database easyhadoop"
+mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"
 mysql easyhadoop < easyhadoop.sql
+cp -R * /var/www/html/
 
 echo "/*************************************************************/"
 echo "Install basic environment complete, starting download from"
