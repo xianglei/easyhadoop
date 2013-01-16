@@ -198,7 +198,7 @@ class Ehm_monitor_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
-		$command = "mpstat";
+		$command = "mpstat 1 1";
 		try
 		{
 			$this->transport->open();
@@ -253,7 +253,7 @@ class Ehm_monitor_model extends CI_Model
 			$this->transport->open();
 			for($i = 0; $i < $cores; $i++)
 			{
-				$command = "mpstat -P ".$i;
+				$command = "mpstat -P ".$i . " 1 1";
 				$str = $this->ehm->RunCommand($command);
 				
 				$tmp_line = explode("\n", $str);
