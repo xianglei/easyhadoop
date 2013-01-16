@@ -30,7 +30,7 @@
 				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style="">1</div>
 				<div class="bar bar-warning" id="load5_<?php echo $item->host_id;?>" style="">5</div>
 				<div class="bar bar-danger" id="load15_<?php echo $item->host_id;?>" style="">15</div>
-				<div class="bar bar-danger" id="free_<?php echo $item->host_id;?>" style="">15</div>
+				<div class="bar bar-danger" id="free_<?php echo $item->host_id;?>" style="">Free</div>
 			</div>
 			<script>
 			function host_load_<?php echo $item->host_id;?>()
