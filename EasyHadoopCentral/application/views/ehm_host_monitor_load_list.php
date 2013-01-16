@@ -1,22 +1,23 @@
 <div class="span10">
 	
 	<pre>
-	Sample:<br />
-		<div class="progress">
-			<div class="bar bar-info" style="" id="sample_1load">1 min LoadAvg</div>
-			<div class="bar bar-warning" style="" id="sample_5load">5 min LoadAvg</div>
-			<div class="bar bar-danger" style="" id="sample_15load">15 min LoadAvg</div>
-		</div>
-		<script>
-		function sample()
-		{
-			$('#sample_1load').attr('style', 'width: 33%;');
-			$('#sample_5load').attr('style', 'width: 33%;');
-			$('#sample_15load').attr('style', 'width: 34%;');
-		}
-		sample();
-		</script>
+	Sample:
 	</pre>
+	<div class="progress">
+		<div class="bar bar-info" style="" id="sample_1load">1 min LoadAvg</div>
+		<div class="bar bar-warning" style="" id="sample_5load">5 min LoadAvg</div>
+		<div class="bar bar-danger" style="" id="sample_15load">15 min LoadAvg</div>
+	</div>
+	<script>
+	function sample()
+	{
+		$('#sample_1load').attr('style', 'width: 33%;');
+		$('#sample_5load').attr('style', 'width: 33%;');
+		$('#sample_15load').attr('style', 'width: 34%;');
+	}
+	sample();
+	</script>
+	<br />
 	
 	<table class="table table-striped">
 	<thead>

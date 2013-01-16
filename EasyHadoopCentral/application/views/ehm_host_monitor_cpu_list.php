@@ -4,7 +4,7 @@
 	Sample:<br />
 		<div class="progress">
 			<div class="bar bar-info" style="" id="sample_user">User</div>
-			<div class="bar bar-warning" style=""id="sample_system">System</div>
+			<div class="bar bar-warning" style="" id="sample_system">System</div>
 			<div class="bar bar-danger" style="" id="sample_iowait">IOWait</div>
 			<div class="bar bar-success" style="" id="sample_idle">Idle</div>
 		</div>
