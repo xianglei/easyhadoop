@@ -17,28 +17,63 @@
 			<td><?php echo $item->hostname;?></td>
 			<td><?php echo $item->ip;?></td>
 			<td>
+			<script>
+				function cpu_info_<?php echo $item->host_id;?>()
+				{
+					$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuinfo/<?php echo $item->host_id;?>', function(json){
+						cores = json.cpu_cores;
+						mhz = json.cpu_MHz;
+						model_name = json.model_name;
+						cache_size = json.cache_size;//8192 KB
+						processor = (Number(json.processor) + 1).toString();;
+						
+						$('#processors').html(processor);
+						$('#cache_size').html(cache_size);
+						$('#model_name').html(model_name);
+						$('mhz').html(mhz);
+					});
+				}
+				cpu_info_<?php echo $item->host_id;?>();
+			</script>
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td>Processors</td>
+						<td><div id="processors"></div></td>
+						<td>Cache</td>
+						<td><div id="cache_size"></div></td>
+					</tr>
+					<tr>
+						<td>Model</td>
+						<td><div id="model_name"></div></td>
+						<td>MHz</td>
+						<td><div id="mhz"></div></td>
+					</tr>
+				</table>
+			</td>
+			<td>
 			<div class="progress">
-				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style="">1</div>
-				<div class="bar bar-warning" id="load5_<?php echo $item->host_id;?>" style="">5</div>
-				<div class="bar bar-danger" id="load15_<?php echo $item->host_id;?>" style="">15</div>
-				<div class="bar bar-success" id="free_<?php echo $item->host_id;?>" style="">Free</div>
+				<div class="bar bar-info" id="user_<?php echo $item->host_id;?>" style="">User</div>
+				<div class="bar bar-warning" id="sys_<?php echo $item->host_id;?>" style="">System</div>
+				<div class="bar bar-danger" id="other_<?php echo $item->host_id;?>" style="">Other</div>
+				<div class="bar bar-success" id="idle_<?php echo $item->host_id;?>" style="">Idle</div>
 			</div>
 			<script>
-			function host_load_<?php echo $item->host_id;?>()
+			function host_cpu_<?php echo $item->host_id;?>()
 			{
-				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getloadavg/<?php echo $item->host_id;?>', function(json){
-					load1 = Math.round(json.lavg_1);
-					load5 = Math.round(json.lavg_5);
-					load15 = Math.round(json.lavg_15);
-					free = 100 - load1 - load5 - load15;
-					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1 + '%;');
-					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5 + '%;');
-					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15 + '%;');
-					$('#free_<?php echo $item->host_id;?>').attr('style', 'width: ' + free + '%;')
+				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuusage/<?php echo $item->host_id;?>', function(json){
+					user = Math.round(json.user);
+					sys = Math.round(json.sys);
+					etc = Math.round( Number(json.nice) + Number(json.iowait) + Number(json.irq) + Number(json.soft) + Number(json.steal));
+					idle = 100 - user - sys - etc;
+					
+					$('#user_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1 + '%;');
+					$('#sys_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5 + '%;');
+					$('#other_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15 + '%;');
+					$('#idle_<?php echo $item->host_id;?>').attr('style', 'width: ' + free + '%;')
 				});
 			}
-			host_load_<?php echo $item->host_id;?>();
-			setInterval(host_load_<?php echo $item->host_id;?>, 2000);
+			host_cpu_<?php echo $item->host_id;?>();
+			setInterval(host_cpu_<?php echo $item->host_id;?>, 2000);
 			</script>
 			</td>
 		</tr>
