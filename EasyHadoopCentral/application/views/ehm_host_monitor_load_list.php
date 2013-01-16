@@ -37,9 +37,9 @@
 			<td id="last_pid_<?php echo $item->host_id;?>"></td>
 			<td>
 			<div class="progress">
-				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style="">1</div>
-				<div class="bar bar-warning" id="load5_<?php echo $item->host_id;?>" style="">5</div>
-				<div class="bar bar-danger" id="load15_<?php echo $item->host_id;?>" style="">15</div>
+				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style=""></div>
+				<div class="bar bar-warning" id="load5_<?php echo $item->host_id;?>" style=""></div>
+				<div class="bar bar-danger" id="load15_<?php echo $item->host_id;?>" style=""></div>
 			</div>
 			<script>
 			function host_load_<?php echo $item->host_id;?>()
@@ -56,6 +56,10 @@
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
 					$('#last_pid_<?php echo $item->host_id;?>').html(json.last_pid);
+					
+					$('#load1_<?php echo $item->host_id;?>').html(json.lavg_1);
+					$('#load5_<?php echo $item->host_id;?>').html(json.lavg_5);
+					$('#load15_<?php echo $item->host_id;?>').html(json.lavg_15);
 				});
 			}
 			host_load_<?php echo $item->host_id;?>();
