@@ -30,7 +30,6 @@
 				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style="">1</div>
 				<div class="bar bar-warning" id="load5_<?php echo $item->host_id;?>" style="">5</div>
 				<div class="bar bar-danger" id="load15_<?php echo $item->host_id;?>" style="">15</div>
-				<div class="bar bar-success" id="free_<?php echo $item->host_id;?>" style="">Free</div>
 			</div>
 			<script>
 			function host_load_<?php echo $item->host_id;?>()
@@ -42,12 +41,10 @@
 					total = load1 + load5 + load15;
 					load1_per = Math.round((load1/total)*100);
 					load5_per = Math.round((load5/total)*100);
-					load15_per = Math.round((load15/total)*100);
-					free_per = Math.round(100 - load1_per - load5_per -load15_per);
+					load15_per = 100 - load1_per - load5_per;
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
-					$('#free_<?php echo $item->host_id;?>').attr('style', 'width: ' + free_per + '%;');
 				});
 			}
 			host_load_<?php echo $item->host_id;?>();
