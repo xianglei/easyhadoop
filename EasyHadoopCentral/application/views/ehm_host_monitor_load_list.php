@@ -30,7 +30,7 @@
 				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style="">1</div>
 				<div class="bar bar-warning" id="load5_<?php echo $item->host_id;?>" style="">5</div>
 				<div class="bar bar-danger" id="load15_<?php echo $item->host_id;?>" style="">15</div>
-				<!--<div class="bar bar-success" id="free_<?php echo $item->host_id;?>" style="">Free</div>-->
+				<div class="bar bar-success" id="free_<?php echo $item->host_id;?>" style="">Free</div>
 			</div>
 			<script>
 			function host_load_<?php echo $item->host_id;?>()
@@ -47,7 +47,7 @@
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
-					//$('#free_<?php echo $item->host_id;?>').attr('style', 'width: ' + free_per + '%;');
+					$('#free_<?php echo $item->host_id;?>').attr('style', 'width: ' + free_per + '%;');
 				});
 			}
 			host_load_<?php echo $item->host_id;?>();
