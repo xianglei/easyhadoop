@@ -3,10 +3,10 @@
 	<pre>
 	Sample:<br />
 		<div class="progress">
-			<div class="bar bar-info" style="width: 25%;">User</div>
-			<div class="bar bar-warning" style="width: 25%;">System</div>
-			<div class="bar bar-danger" style="width: 25%;">IOWait</div>
-			<div class="bar bar-success" style="width: 25%;">Idle</div>
+			<div class="bar bar-info" style="width: 25%">User</div>
+			<div class="bar bar-warning" style="width: 25%">System</div>
+			<div class="bar bar-danger" style="width: 25%">IOWait</div>
+			<div class="bar bar-success" style="width: 25%">Idle</div>
 		</div>
 	</pre>
 

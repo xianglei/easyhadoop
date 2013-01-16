@@ -3,10 +3,10 @@
 	<pre>
 	Sample:<br />
 		<div class="progress">
-			<div class="bar bar-info" style="width: 25%;">1 min LoadAvg</div>
-			<div class="bar bar-warning" style="width: 25%;">5 min LoadAvg</div>
-			<div class="bar bar-danger" style="width: 25%;">15 min LoadAvg</div>
-			<div class="bar bar-danger" style="width: 25%;">Free</div>
+			<div class="bar bar-info" style="width: 25%">1 min LoadAvg</div>
+			<div class="bar bar-warning" style="width: 25%">5 min LoadAvg</div>
+			<div class="bar bar-danger" style="width: 25%">15 min LoadAvg</div>
+			<div class="bar bar-danger" style="width: 25%">Free</div>
 		</div>
 	</pre>
 	
@@ -43,7 +43,7 @@
 					load1_per = Math.round(load1/total);
 					load5_per = Math.round(load5/total);
 					load15_per = Math.round(load15/total);
-					free_per = 100 - load1_per - load5_per;
+					free_per = 100 - load1_per - load5_per -load15_per;
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
