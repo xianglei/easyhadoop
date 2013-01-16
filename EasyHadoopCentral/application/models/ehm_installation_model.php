@@ -471,7 +471,7 @@ class Ehm_installation_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 
-		$command = "yum -y install lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo pexpect zlib zlib-devel libxml2 libxml2-devel
+		$command = "yum -y install lrzsz gcc gcc-c++ libstdc++-devel make automake autoconf ntp wget pcre pcre-devel sudo pexpect zlib zlib-devel libxml2 libxml2-devel sysstat
 					ntpdate cn.pool.ntp.org
 					chmod 644 /etc/sudoers
 					sed -i 's/Defaults    requiretty/#Defaults    requiretty/g' /etc/sudoers

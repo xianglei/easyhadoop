@@ -187,6 +187,108 @@ class Ehm_monitor_model extends CI_Model
 		return str_replace("'","\"",$str);
 	}
 	
+	public function get_host_cpuinfo_detail($host)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('ehm_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		$command = "mpstat";
+		try
+		{
+			$this->transport->open();
+			$str = $this->ehm->RunCommand($command);
+			$tmp_line = explode("\n", $str);
+			$cpu_info = $tmp_line[3];
+			$tmp_columns = explode(' ', $cpu_info);
+			
+			$i = 0;
+			$detail_column = "";
+			foreach ($tmp_columns as $v)
+			{
+				if($v != "")
+				{
+					$detail_column[$i] = $v;
+					$i++;
+				}
+			}
+			$cpu['user'] = $detail_column[3];
+			$cpu['nice'] = $detail_column[4];
+			$cpu['sys'] = $detail_column[5];
+			$cpu['iowait'] = $detail_column[6];
+			$cpu['irq'] = $detail_column[7];
+			$cpu['soft'] = $detail_column[8];
+			$cpu['steal'] = $detail_column[9];
+			$cpu['idle'] = $detail_column[10];
+			
+			$str = json_encode($cpu);
+			
+			$this->transport->close();
+		}
+		catch(Exception $e)
+		{
+			$str = '{"Exception":"' . $e->getMessage() . '"}';
+		}
+		return $str;
+	}
+	
+	public function get_host_cpuinfo_core_detail($host, $cores)//CPU cores total number
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('ehm_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		try
+		{
+			$this->transport->open();
+			for($i = 0; $i < $cores; $i++)
+			{
+				$command = "mpstat -P ".$i;
+				$str = $this->ehm->RunCommand($command);
+				
+				$tmp_line = explode("\n", $str);
+				$cpu_info = $tmp_line[3];
+				$tmp_columns = explode(' ', $cpu_info);
+			
+				$j = 0;
+				$detail_column = "";
+				foreach ($tmp_columns as $v)
+				{
+					if($v != "")
+					{
+						$detail_column[$j] = $v;
+						$j++;
+					}
+				}
+				$cpu['user'][$i] = $detail_column[3];
+				$cpu['nice'][$i] = $detail_column[4];
+				$cpu['sys'][$i] = $detail_column[5];
+				$cpu['iowait'][$i] = $detail_column[6];
+				$cpu['irq'][$i] = $detail_column[7];
+				$cpu['soft'][$i] = $detail_column[8];
+				$cpu['steal'][$i] = $detail_column[9];
+				$cpu['idle'][$i] = $detail_column[10];
+			}
+			$this->transport->close();
+			$str = json_encode($cpu);
+		}
+		catch(Exception $e)
+		{
+			$str = '{"Exception":"' . $e->getMessage() . '"}';
+		}
+		return $json;
+	}
+	
 	public function get_host_loadavginfo($host)
 	{
 		$this->ehm_host = $host;
@@ -201,7 +303,7 @@ class Ehm_monitor_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetCpuInfo();
+			$str = $this->ehm->GetLoadAvg();
 			$this->transport->close();
 		}
 		catch(Exception $e)
@@ -226,7 +328,7 @@ class Ehm_monitor_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetCpuInfo();
+			$str = $this->ehm->GetIfInfo();
 			$this->transport->close();
 		}
 		catch(Exception $e)

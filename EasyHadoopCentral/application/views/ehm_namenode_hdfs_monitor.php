@@ -7,6 +7,9 @@ function namenode_abbr()
 	html += 'Free DFS Space: ' + json.free_abbr + '<br />';
 	html += 'NonDFS Space: ' + json.nondfs_abbr + '<br />';
 	html += 'DFS Space: ' + json.dfs_abbr + '<br />';
+	html += 'Free precent: ' + json.percent_free + ' %<br />';
+	html += 'NonDFS precent: ' + json.percent_nondfs + ' %<br />';
+	html += 'DFS precent: ' + json.percent_dfs + ' %<br />';
 	$('#namenode_abbr').html(html);
 	$('#namenode_progress_free').attr('style', "width: "+json.percent_free+"%;");
 	$('#namenode_progress_nondfs').attr('style', "width: "+json.percent_nondfs+"%;");
@@ -40,7 +43,8 @@ setInterval(namenode_abbr, 30000);
 		<tr>
 			<td><?php echo $i;?></td>
 			<td><a data-toggle="modal" href="#datanode_modal_<?php echo $item->host_id;?>"><?php echo $item->hostname;?></a></td>
-			<td><?php echo $item->ip;?></td><td>
+			<td><?php echo $item->ip;?></td>
+			<td>
 			<div class="progress">
 			<div class="bar bar-success" style="" id="datanode_free_<?php echo $item->host_id;?>">Free</div>
 			<div class="bar bar-danger" style="" id="datanode_dfs_<?php echo $item->host_id;?>">DFS</div>

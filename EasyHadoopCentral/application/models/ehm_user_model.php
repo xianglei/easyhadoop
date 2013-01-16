@@ -31,7 +31,7 @@ class Ehm_user_model extends CI_Model
 				if($this->db->simple_query($sql))
 					return '{"status":"Update success"}';
 				else
-					return '{"status":"Update failed"}'
+					return '{"status":"Update failed"}';
 			}
 		}
 	}

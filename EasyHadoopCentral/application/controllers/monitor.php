@@ -319,6 +319,55 @@ class Monitor extends CI_Controller
 		#generaet footer
 		$this->load->view('footer', $data);
 	}
+	
+	public function GetLoadAvg()
+	{
+		$host_id = $this->uri->segment(3,0);
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		$this->load->model('ehm_monitor_model', 'monitor');
+		
+		$json = $this->monitor->get_host_loadavginfo($ip);
+		echo $json;
+	}
+	
+	public function GetCpuInfo()
+	{
+		$host_id = $this->uri->segment(3,0);
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		$this->load->model('ehm_monitor_model', 'monitor');
+		
+		$json = $this->monitor->get_host_cpuinfo($ip);
+		echo $json;
+	}
+	
+	public function GetCpuUsage()
+	{
+		$host_id = $this->uri->segment(3,0);
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		$this->load->model('ehm_monitor_model', 'monitor');
+		
+		$json = $this->monitor->get_host_cpuinfo_detail($ip);
+		echo $json;
+	}
+	
+	public function GetCpuUsageCore()
+	{
+		$host_id = $this->uri->segment(3,0);
+		$cores = $this->uri->segment(4,0);
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		$this->load->model('ehm_monitor_model', 'monitor');
+		
+		$json = $this->monitor->get_host_cpuinfo_core_detail($ip, $cores);
+		echo $json;
+	}
 }
 
 ?>
