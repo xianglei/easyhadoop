@@ -1,4 +1,4 @@
-<div class=span10>
+<div class="span10">
 <script>
 function namenode_abbr()
 {
