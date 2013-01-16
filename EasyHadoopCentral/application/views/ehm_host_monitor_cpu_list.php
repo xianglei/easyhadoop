@@ -27,10 +27,10 @@
 						cache_size = json.cache_size;//8192 KB
 						processor = (Number(json.processor) + 1).toString();;
 						
-						$('#processors').html(processor);
-						$('#cache_size').html(cache_size);
-						$('#model_name').html(model_name);
-						$('mhz').html(mhz);
+						$('#processors_<?php echo $item->host_id;?>').html(processor);
+						$('#cache_size_<?php echo $item->host_id;?>').html(cache_size);
+						$('#model_name_<?php echo $item->host_id;?>').html(model_name);
+						$('mhz_<?php echo $item->host_id;?>').html(mhz);
 					});
 				}
 				cpu_info_<?php echo $item->host_id;?>();
@@ -38,15 +38,15 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td>Processors</td>
-						<td><div id="processors"></div></td>
+						<td><div id="processors_<?php echo $item->host_id;?>"></div></td>
 						<td>Cache</td>
-						<td><div id="cache_size"></div></td>
+						<td><div id="cache_size_<?php echo $item->host_id;?>"></div></td>
 					</tr>
 					<tr>
 						<td>Model</td>
-						<td><div id="model_name"></div></td>
+						<td><div id="model_name_<?php echo $item->host_id;?>"></div></td>
 						<td>MHz</td>
-						<td><div id="mhz"></div></td>
+						<td><div id="mhz_<?php echo $item->host_id;?>"></div></td>
 					</tr>
 				</table>
 			</td>
@@ -58,7 +58,7 @@
 				<div class="bar bar-success" id="idle_<?php echo $item->host_id;?>" style="">Idle</div>
 			</div>
 			<script>
-			function host_cpu_<?php echo $item->host_id;?>()
+			function cpu_usage_<?php echo $item->host_id;?>()
 			{
 				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuusage/<?php echo $item->host_id;?>', function(json){
 					user = Math.round(json.user);
@@ -66,14 +66,14 @@
 					etc = Math.round( Number(json.nice) + Number(json.iowait) + Number(json.irq) + Number(json.soft) + Number(json.steal));
 					idle = 100 - user - sys - etc;
 					
-					$('#user_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1 + '%;');
-					$('#sys_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5 + '%;');
-					$('#other_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15 + '%;');
-					$('#idle_<?php echo $item->host_id;?>').attr('style', 'width: ' + free + '%;')
+					$('#user_<?php echo $item->host_id;?>').attr('style', 'width: ' + user + '%;');
+					$('#sys_<?php echo $item->host_id;?>').attr('style', 'width: ' + sys + '%;');
+					$('#other_<?php echo $item->host_id;?>').attr('style', 'width: ' + etc + '%;');
+					$('#idle_<?php echo $item->host_id;?>').attr('style', 'width: ' + idle + '%;')
 				});
 			}
-			host_cpu_<?php echo $item->host_id;?>();
-			setInterval(host_cpu_<?php echo $item->host_id;?>, 2000);
+			cpu_usage_<?php echo $item->host_id;?>();
+			setInterval(cpu_usage_<?php echo $item->host_id;?>, 2000);
 			</script>
 			</td>
 		</tr>
