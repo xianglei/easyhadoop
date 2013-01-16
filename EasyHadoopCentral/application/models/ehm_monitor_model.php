@@ -286,7 +286,7 @@ class Ehm_monitor_model extends CI_Model
 		{
 			$str = '{"Exception":"' . $e->getMessage() . '"}';
 		}
-		return $json;
+		return $str;
 	}
 	
 	public function get_host_loadavginfo($host)
