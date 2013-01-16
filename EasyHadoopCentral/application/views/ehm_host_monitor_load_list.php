@@ -43,7 +43,7 @@
 					load1_per = Math.round((load1/total)*100);
 					load5_per = Math.round((load5/total)*100);
 					load15_per = Math.round((load15/total)*100);
-					free_per = 100 - load1_per - load5_per -load15_per;
+					free_per = Math.round(100 - load1_per - load5_per -load15_per);
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
