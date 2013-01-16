@@ -45,7 +45,7 @@
 			<div class="progress">
 				<div class="bar bar-info" id="user_<?php echo $item->host_id;?>" style="">User</div>
 				<div class="bar bar-warning" id="sys_<?php echo $item->host_id;?>" style="">System</div>
-				<div class="bar bar-danger" id="other_<?php echo $item->host_id;?>" style="">Other</div>
+				<div class="bar bar-danger" id="other_<?php echo $item->host_id;?>" style="">IOWait</div>
 				<div class="bar bar-success" id="idle_<?php echo $item->host_id;?>" style="">Idle</div>
 			</div>
 			<script>
