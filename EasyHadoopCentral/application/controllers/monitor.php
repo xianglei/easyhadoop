@@ -332,6 +332,68 @@ class Monitor extends CI_Controller
 		echo $json;
 	}
 	
+	public function LoadAvgStats()
+	{
+		#Generate header
+		$this->lang->load('commons');
+		$data['common_lang_set'] = $this->lang->line('common_lang_set');
+		$data['common_title'] = $this->lang->line('common_title');
+		$this->load->view('header',$data);
+		
+		#generate navigation bar
+		$data['common_index_page'] = $this->lang->line('common_index_page');
+		$data['common_node_manager'] = $this->lang->line('common_node_manager');
+		$data['common_node_monitor'] = $this->lang->line('common_node_monitor');
+		$data['common_install'] = $this->lang->line('common_install');
+		$data['common_host_settings'] = $this->lang->line('common_host_settings');
+		$data['common_node_operate'] = $this->lang->line('common_node_operate');
+		$data['common_user_admin'] = $this->lang->line('common_user_admin');
+		$data['common_log_out'] = $this->lang->line('common_log_out');
+		$this->load->view('nav_bar', $data);
+		
+		$this->load->view('div_fluid');
+		$this->load->view('div_row_fluid');
+		
+		$data['common_storage_status'] = $this->lang->line('common_storage_status');
+		$data['common_mem_status'] = $this->lang->line('common_mem_status');
+		$data['common_cpu_status'] = $this->lang->line('common_cpu_status');
+		$data['common_loadavg_status'] = $this->lang->line('common_loadavg_status');
+		$data['common_mapred_status'] = $this->lang->line('common_mapred_status');
+		$this->load->view('ehm_hosts_monitor_nav', $data);
+		
+		$data['common_hostname'] = $this->lang->line('common_hostname');
+		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
+		$data['common_node_role'] = $this->lang->line('common_node_role');
+		$data['common_create_time'] = $this->lang->line('common_create_time');
+		$data['common_action'] = $this->lang->line('common_action');
+		
+		#generate pagination
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$this->load->library('pagination');
+		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/index/';
+		$config['total_rows'] = $this->hosts->count_hosts();
+		$config['per_page'] = 10;
+		$offset = $this->uri->segment(3,0);
+		if($offset == 0):
+			$offset = 0;
+		else:
+			$offset = ($offset / $config['per_page']) * $config['per_page'];
+		endif;
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['results'] = $this->hosts->get_hosts_list($config['per_page'], $offset);
+		
+		#get mem stat
+		
+		$this->load->view('ehm_host_monitor_load_list',$data);
+		
+		$this->load->view('div_end');
+		$this->load->view('div_end');
+		
+		#generaet footer
+		$this->load->view('footer', $data);
+	}
+	
 	public function GetCpuInfo()
 	{
 		$host_id = $this->uri->segment(3,0);
