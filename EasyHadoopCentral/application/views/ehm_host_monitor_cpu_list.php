@@ -21,16 +21,11 @@
 				function cpu_info_<?php echo $item->host_id;?>()
 				{
 					$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuinfo/<?php echo $item->host_id;?>', function(json){
-						cores = json.cpu_cores;
-						mhz = json.cpu_mhz;
 						model_name = json.model_name;
-						cache_size = json.cache_size;//8192 KB
 						processor = (Number(json.processor) + 1).toString();;
 						
 						$('#processors_<?php echo $item->host_id;?>').html(processor);
-						$('#cache_size_<?php echo $item->host_id;?>').html(cache_size);
 						$('#model_name_<?php echo $item->host_id;?>').html(model_name);
-						$('mhz_<?php echo $item->host_id;?>').html(mhz);
 					});
 				}
 				cpu_info_<?php echo $item->host_id;?>();
@@ -39,14 +34,10 @@
 					<tr>
 						<td>Processors</td>
 						<td><div id="processors_<?php echo $item->host_id;?>"></div></td>
-						<td>Cache</td>
-						<td><div id="cache_size_<?php echo $item->host_id;?>"></div></td>
 					</tr>
 					<tr>
 						<td>Model</td>
 						<td><div id="model_name_<?php echo $item->host_id;?>"></div></td>
-						<td>MHz</td>
-						<td><div id="mhz_<?php echo $item->host_id;?>"></div></td>
 					</tr>
 				</table>
 			</td>
