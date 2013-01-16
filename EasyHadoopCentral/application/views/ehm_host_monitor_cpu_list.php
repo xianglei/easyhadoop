@@ -1,24 +1,23 @@
 <div class="span10">
 
-	<pre>
-	Sample:<br />
-		<div class="progress">
-			<div class="bar bar-info" style="" id="sample_user">User</div>
-			<div class="bar bar-warning" style="" id="sample_system">System</div>
-			<div class="bar bar-danger" style="" id="sample_iowait">IOWait</div>
-			<div class="bar bar-success" style="" id="sample_idle">Idle</div>
-		</div>
-		<script>
-		function sample()
-		{
-			$('#sample_user').attr('style', 'width: 25%;');
-			$('#sample_system').attr('style', 'width: 25%;');
-			$('#sample_iowait').attr('style', 'width: 25%;');
-			$('#sample_idle').attr('style', 'width: 25%;');
-		}
-		sample();
-		</script>
-	</pre>
+
+Sample:<br />
+	<div class="progress">
+		<div class="bar bar-info" style="" id="sample_user">User</div>
+		<div class="bar bar-warning" style="" id="sample_system">System</div>
+		<div class="bar bar-danger" style="" id="sample_iowait">IOWait</div>
+		<div class="bar bar-success" style="" id="sample_idle">Idle</div>
+	</div>
+	<script>
+	function sample()
+	{
+		$('#sample_user').attr('style', 'width: 25%;');
+		$('#sample_system').attr('style', 'width: 25%;');
+		$('#sample_iowait').attr('style', 'width: 25%;');
+		$('#sample_idle').attr('style', 'width: 25%;');
+	}
+	sample();
+	</script>
 
 	<table class="table table-striped">
 	<thead>

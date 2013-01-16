@@ -1,8 +1,7 @@
 <div class="span10">
 	
-	<pre>
 	Sample:
-	</pre>
+	<br />
 	<div class="progress">
 		<div class="bar bar-info" style="" id="sample_1load">1 min LoadAvg</div>
 		<div class="bar bar-warning" style="" id="sample_5load">5 min LoadAvg</div>
