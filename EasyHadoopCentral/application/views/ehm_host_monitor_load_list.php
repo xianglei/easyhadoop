@@ -5,7 +5,7 @@
 		<div class="progress">
 			<div class="bar bar-info" style="width: 33%;">1 min LoadAvg</div>
 			<div class="bar bar-warning" style="width: 33%;">5 min LoadAvg</div>
-			<div class="bar bar-danger" style="width: 33%;">15 min LoadAvg</div>
+			<div class="bar bar-danger" style="width: 34%;">15 min LoadAvg</div>
 		</div>
 	</pre>
 	
@@ -37,10 +37,10 @@
 					load1 = Number(json.lavg_1);
 					load5 = Number(json.lavg_5);
 					load15 = Number(json.lavg_15);
-					total = load1 + load5 + load15
+					total = load1 + load5 + load15;
 					load1_per = Math.round(load1/total);
 					load5_per = Math.round(load5/total);
-					load15_per = 100 - load1_per - load15_per;
+					load15_per = 100 - load1_per - load5_per;
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
