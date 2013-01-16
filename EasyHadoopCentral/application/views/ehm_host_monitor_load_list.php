@@ -34,9 +34,9 @@
 			function host_load_<?php echo $item->host_id;?>()
 			{
 				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getloadavg/<?php echo $item->host_id;?>', function(json){
-					load1 = Math.round(json.lavg_1);
-					load5 = Math.round(json.lavg_5);
-					load15 = Math.round(json.lavg_15);
+					load1 = Number(json.lavg_1);
+					load5 = Number(json.lavg_5);
+					load15 = Number(json.lavg_15);
 					total = load1 + load5 + load15
 					load1_per = Math.round(load1/total);
 					load5_per = Math.round(load5/total);
