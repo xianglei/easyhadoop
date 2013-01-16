@@ -25,7 +25,7 @@
 			<td><?php echo $i;?></td>
 			<td><?php echo $item->hostname;?></td>
 			<td><?php echo $item->ip;?></td>
-			<td id="last_pid"></td>
+			<td id="last_pid_<?php echo $item->host_id;?>"></td>
 			<td>
 			<div class="progress">
 				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style="">1</div>
@@ -46,7 +46,7 @@
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
-					$('#last_pid').html(json.last_pid);
+					$('#last_pid_<?php echo $item->host_id;?>').html(json.last_pid);
 				});
 			}
 			host_load_<?php echo $item->host_id;?>();
