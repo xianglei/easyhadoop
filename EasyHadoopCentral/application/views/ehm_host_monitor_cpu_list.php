@@ -9,10 +9,14 @@
 			<div class="bar bar-success" style="" id="sample_idle">Idle</div>
 		</div>
 		<script>
-		$('#sample_user').attr('style', 'width: 25%;');
-		$('#sample_system').attr('style', 'width: 25%;');
-		$('#sample_iowait').attr('style', 'width: 25%;');
-		$('#sample_idle').attr('style', 'width: 25%;');
+		function sample()
+		{
+			$('#sample_user').attr('style', 'width: 25%;');
+			$('#sample_system').attr('style', 'width: 25%;');
+			$('#sample_iowait').attr('style', 'width: 25%;');
+			$('#sample_idle').attr('style', 'width: 25%;');
+		}
+		sample();
 		</script>
 	</pre>
 
@@ -61,7 +65,7 @@
 			<div class="progress">
 				<div class="bar bar-info" id="user_<?php echo $item->host_id;?>" style="">User</div>
 				<div class="bar bar-warning" id="sys_<?php echo $item->host_id;?>" style="">System</div>
-				<div class="bar bar-danger" id="other_<?php echo $item->host_id;?>" style="">IOWait</div>
+				<div class="bar bar-danger" id="io_<?php echo $item->host_id;?>" style="">IOWait</div>
 				<div class="bar bar-success" id="idle_<?php echo $item->host_id;?>" style="">Idle</div>
 			</div>
 			<script>
@@ -70,12 +74,12 @@
 				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuusage/<?php echo $item->host_id;?>', function(json){
 					user = Math.round(json.user);
 					sys = Math.round(json.sys);
-					etc = Math.round( Number(json.nice) + Number(json.iowait) + Number(json.irq) + Number(json.soft) + Number(json.steal));
-					idle = 100 - user - sys - etc;
+					io = Math.round( Number(json.nice) + Number(json.iowait) + Number(json.irq) + Number(json.soft) + Number(json.steal));
+					idle = 100 - user - sys - io;
 					
 					$('#user_<?php echo $item->host_id;?>').attr('style', 'width: ' + user + '%;');
 					$('#sys_<?php echo $item->host_id;?>').attr('style', 'width: ' + sys + '%;');
-					$('#other_<?php echo $item->host_id;?>').attr('style', 'width: ' + etc + '%;');
+					$('#io_<?php echo $item->host_id;?>').attr('style', 'width: ' + io + '%;');
 					$('#idle_<?php echo $item->host_id;?>').attr('style', 'width: ' + idle + '%;')
 				});
 			}

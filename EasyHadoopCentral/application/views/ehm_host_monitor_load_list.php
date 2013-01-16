@@ -8,9 +8,13 @@
 			<div class="bar bar-danger" style="" id="sample_15load">15 min LoadAvg</div>
 		</div>
 		<script>
-		$('#sample_1load').attr('style', 'width: 33%;');
-		$('#sample_5load').attr('style', 'width: 33%;');
-		$('#sample_15load').attr('style', 'width: 34%;');
+		function sample()
+		{
+			$('#sample_1load').attr('style', 'width: 33%;');
+			$('#sample_5load').attr('style', 'width: 33%;');
+			$('#sample_15load').attr('style', 'width: 34%;');
+		}
+		sample();
 		</script>
 	</pre>
 	
