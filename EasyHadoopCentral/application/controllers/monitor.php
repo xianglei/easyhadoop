@@ -104,12 +104,15 @@ class Monitor extends CI_Controller
 		$mem['mem_used'] = $json->MemUsed;
 		
 		$mem['mem_free_percent'] = round(($mem['mem_free'] / $mem['mem_total']) * 100);
-		$mem['mem_used_percent'] = 100 - $mem['mem_free_percent'];
+		$mem['mem_buffers_percent'] = round(($mem['mem_buffers'] / $mem['mem_total']) * 100);
+		$mem['mem_cached_percent'] = round(($mem['mem_cached'] / $mem['mem_total']) * 100);
+		$mem['mem_used_percent'] = 100 - $mem['mem_free_percent'] - $mem['mem_cached_percent'] - $mem['mem_buffers_percent'];
 		
 		$mem['mem_total_abbr'] = $this->aux->get_byte_abbr($mem['mem_total'], 2, True);
 		$mem['mem_free_abbr'] = $this->aux->get_byte_abbr($mem['mem_free'], 2, True);
 		$mem['mem_buffers_abbr'] = $this->aux->get_byte_abbr($mem['mem_buffers'], 2, True);
 		$mem['mem_cached_abbr'] = $this->aux->get_byte_abbr($mem['mem_cached'], 2, True);
+		$mem['mem_used_abbr'] = $this->aux->get_byte_abbr($mem['mem_used'], 2, True);
 		
 		$json = json_encode($mem);
 		
