@@ -33,7 +33,7 @@
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1 + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5 + '%;');
 					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15 + '%;');
-					$('#free_<?php echo ?>').attr('style', 'width: ' + free + '%;')
+					$('#free_<?php echo $item->host_id;?>').attr('style', 'width: ' + free + '%;')
 				});
 			}
 			host_load_<?php echo $item->host_id;?>();
