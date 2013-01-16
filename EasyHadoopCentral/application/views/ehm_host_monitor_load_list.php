@@ -3,10 +3,10 @@
 	<pre>
 	Sample:<br />
 		<div class="progress">
-			<div class="bar bar-info" style="width: 25%">1 min LoadAvg</div>
-			<div class="bar bar-warning" style="width: 25%">5 min LoadAvg</div>
-			<div class="bar bar-danger" style="width: 25%">15 min LoadAvg</div>
-			<div class="bar bar-danger" style="width: 25%">Free</div>
+			<div class="bar bar-info" style="width: 25%;">1 min LoadAvg</div>
+			<div class="bar bar-warning" style="width: 25%;">5 min LoadAvg</div>
+			<div class="bar bar-danger" style="width: 25%;">15 min LoadAvg</div>
+			<div class="bar bar-success" style="width: 25%;">Free</div>
 		</div>
 	</pre>
 	
@@ -36,13 +36,13 @@
 			function host_load_<?php echo $item->host_id;?>()
 			{
 				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getloadavg/<?php echo $item->host_id;?>', function(json){
-					load1 = Number(json.lavg_1);
-					load5 = Number(json.lavg_5);
-					load15 = Number(json.lavg_15);
+					load1 = parseFloat(json.lavg_1);
+					load5 = parseFloat(json.lavg_5);
+					load15 = parseFloat(json.lavg_15);
 					total = load1 + load5 + load15;
-					load1_per = Math.round(load1/total);
-					load5_per = Math.round(load5/total);
-					load15_per = Math.round(load15/total);
+					load1_per = Math.round((load1/total)*100);
+					load5_per = Math.round((load5/total)*100);
+					load15_per = Math.round((load15/total)*100);
 					free_per = 100 - load1_per - load5_per -load15_per;
 					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
 					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
