@@ -10,10 +10,10 @@ Sample:<br />
 	<script>
 	function sample()
 	{
-		$('#sample_user').attr('style', 'width: 25%;');
-		$('#sample_system').attr('style', 'width: 25%;');
-		$('#sample_iowait').attr('style', 'width: 25%;');
-		$('#sample_idle').attr('style', 'width: 25%;');
+		$('#sample_free').attr('style', 'width: 25%;');
+		$('#sample_buffers').attr('style', 'width: 25%;');
+		$('#sample_cached').attr('style', 'width: 25%;');
+		$('#sample_used').attr('style', 'width: 25%;');
 	}
 	sample();
 	</script>
