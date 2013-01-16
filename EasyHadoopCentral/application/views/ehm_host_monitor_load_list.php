@@ -3,10 +3,15 @@
 	<pre>
 	Sample:<br />
 		<div class="progress">
-			<div class="bar bar-info" style="width: 33%;">1 min LoadAvg</div>
-			<div class="bar bar-warning" style="width: 33%;">5 min LoadAvg</div>
-			<div class="bar bar-danger" style="width: 34%;">15 min LoadAvg</div>
+			<div class="bar bar-info" style="" id="sample_1load">1 min LoadAvg</div>
+			<div class="bar bar-warning" style="" id="sample_5load">5 min LoadAvg</div>
+			<div class="bar bar-danger" style="" id="sample_15load">15 min LoadAvg</div>
 		</div>
+		<script>
+		$('#sample_1load').attr('style', 'width: 33%;');
+		$('#sample_5load').attr('style', 'width: 33%;');
+		$('#sample_15load').attr('style', 'width: 34%;');
+		</script>
 	</pre>
 	
 	<table class="table table-striped">

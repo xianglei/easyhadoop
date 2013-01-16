@@ -3,11 +3,17 @@
 	<pre>
 	Sample:<br />
 		<div class="progress">
-			<div class="bar bar-info" style="width: 25%">User</div>
-			<div class="bar bar-warning" style="width: 25%">System</div>
-			<div class="bar bar-danger" style="width: 25%">IOWait</div>
-			<div class="bar bar-success" style="width: 25%">Idle</div>
+			<div class="bar bar-info" style="" id="sample_user">User</div>
+			<div class="bar bar-warning" style=""id="sample_system">System</div>
+			<div class="bar bar-danger" style="" id="sample_iowait">IOWait</div>
+			<div class="bar bar-success" style="" id="sample_idle">Idle</div>
 		</div>
+		<script>
+		$('#sample_user').attr('style', 'width: 25%;');
+		$('#sample_system').attr('style', 'width: 25%;');
+		$('#sample_iowait').attr('style', 'width: 25%;');
+		$('#sample_idle').attr('style', 'width: 25%;');
+		</script>
 	</pre>
 
 	<table class="table table-striped">
