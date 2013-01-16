@@ -22,7 +22,7 @@
 				{
 					$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuinfo/<?php echo $item->host_id;?>', function(json){
 						cores = json.cpu_cores;
-						mhz = json.cpu_MHz;
+						mhz = json.cpu_mhz;
 						model_name = json.model_name;
 						cache_size = json.cache_size;//8192 KB
 						processor = (Number(json.processor) + 1).toString();;
