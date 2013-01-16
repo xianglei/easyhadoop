@@ -1,5 +1,14 @@
 <div class="span10">
-
+	
+	<pre>
+	Sample:<br />
+		<div class="progress">
+			<div class="bar bar-info" style="width: 33%;">1 min LoadAvg</div>
+			<div class="bar bar-warning" style="width: 33%;">5 min LoadAvg</div>
+			<div class="bar bar-danger" style="width: 33%;">15 min LoadAvg</div>
+		</div>
+	</pre>
+	
 	<table class="table table-striped">
 	<thead>
 		<tr>
@@ -20,7 +29,6 @@
 				<div class="bar bar-info" id="load1_<?php echo $item->host_id;?>" style="">1</div>
 				<div class="bar bar-warning" id="load5_<?php echo $item->host_id;?>" style="">5</div>
 				<div class="bar bar-danger" id="load15_<?php echo $item->host_id;?>" style="">15</div>
-				<div class="bar bar-success" id="free_<?php echo $item->host_id;?>" style="">Free</div>
 			</div>
 			<script>
 			function host_load_<?php echo $item->host_id;?>()
@@ -29,11 +37,13 @@
 					load1 = Math.round(json.lavg_1);
 					load5 = Math.round(json.lavg_5);
 					load15 = Math.round(json.lavg_15);
-					free = 100 - load1 - load5 - load15;
-					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1 + '%;');
-					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5 + '%;');
-					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15 + '%;');
-					$('#free_<?php echo $item->host_id;?>').attr('style', 'width: ' + free + '%;')
+					total = load1 + load5 + load15
+					load1_per = Math.round(load1/total);
+					load5_per = Math.round(load5/total);
+					load15_per = 100 - load1_per - load15_per;
+					$('#load1_<?php echo $item->host_id;?>').attr('style', 'width: ' + load1_per + '%;');
+					$('#load5_<?php echo $item->host_id;?>').attr('style', 'width: ' + load5_per + '%;');
+					$('#load15_<?php echo $item->host_id;?>').attr('style', 'width: ' + load15_per + '%;');
 				});
 			}
 			host_load_<?php echo $item->host_id;?>();
