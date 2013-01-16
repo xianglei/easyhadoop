@@ -370,7 +370,7 @@ class Monitor extends CI_Controller
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/index/';
+		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/loadavgstats/';
 		$config['total_rows'] = $this->hosts->count_hosts();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);
