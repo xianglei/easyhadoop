@@ -1,4 +1,29 @@
 <div class="span10">
+
+<script>
+function viewlogs(role, host_id)
+{
+	$.get('<?php echo $this->config->base_url();?>index.php/operate/viewlogs/'+host_id+'/'+role+'/', {}, function(html){
+		html = html;
+		$('#viewlogs_'+role+'_'+host_id).html(html);
+	});
+}
+function check_online(role, host_id)
+{
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/'+host_id+'/' + role, function(json){
+		if(json.status == 'online')
+		{
+			html = '<span class="badge badge-success"><i class="icon-ok"></i>' + json.role + '</span>';
+		}
+		else
+		{
+			html = '<span class="badge badge-important"><i class="icon-remove"></i>' + json.role + '</span>';
+		}
+		$('#check_online_'+role+'_'+host_id).html(html);
+	});
+}
+</script>
+
 <table class="table table-striped">
 	<thead>
 		<tr>
@@ -52,15 +77,12 @@ foreach($tmp as $k => $v):
 				<!--modal end-->
 
 				<script>
-				function viewlogs_<?php echo $v?>_<?php echo $item->host_id?>()
+				
+				viewlogs('<?php echo $v?>', <?php echo $item->host_id?>);
+				setInterval(function()
 				{
-					$.get('<?php echo $this->config->base_url();?>index.php/operate/viewlogs/<?php echo $item->host_id;?>/<?php echo $v;?>/', {}, function(html){
-						html = html;
-						$('#viewlogs_<?php echo $v?>_<?php echo $item->host_id?>').html(html);
-					});
-				}
-				viewlogs_<?php echo $v?>_<?php echo $item->host_id?>();
-				setInterval(viewlogs_<?php echo $v?>_<?php echo $item->host_id?>, 3000);
+					viewlogs('<?php echo $v?>', <?php echo $item->host_id?>)
+				}, 2000);
 				</script>
 			
 <?php
@@ -73,22 +95,11 @@ endforeach;
 				foreach ($tmp as $k => $v):
 				?>
 					<script>
-					function check_online_<?php echo $v;?>_<?php echo $item->host_id;?>()
+					check_online('<?php echo $v;?>', <?php echo $item->host_id;?>);
+					setInterval(function()
 					{
-						$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/<?php echo $item->host_id;?>/<?php echo $v;?>', function(json){
-							if(json.status == 'online')
-							{
-								html = '<span class="badge badge-success"><i class="icon-ok"></i>' + json.role + '</span>';
-							}
-							else
-							{
-								html = '<span class="badge badge-important"><i class="icon-remove"></i>' + json.role + '</span>';
-							}
-							$('#check_online_<?php echo $v;?>_<?php echo $item->host_id;?>').html(html);
-						});
-					}
-					check_online_<?php echo $v;?>_<?php echo $item->host_id;?>();
-					setInterval(check_online_<?php echo $v;?>_<?php echo $item->host_id;?>, 5000);
+						check_online('<?php echo $v;?>', <?php echo $item->host_id;?>)
+					}, 5000);
 					</script>
 					<td><div id="check_online_<?php echo $v;?>_<?php echo $item->host_id;?>"></div></td>
 				<?php

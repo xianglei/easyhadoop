@@ -1,4 +1,23 @@
-<div class=span10>
+<div class="span10">
+<script>
+function ping(host_id)
+{
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/manage/pingnode/'+host_id, function(json){
+		if(json.status == "TRUE")
+		{
+			$('#ping_node_'+host_id).addClass('btn-success');
+			html = '<i class=icon-arrow-up></i><?php echo $common_online;?>';
+		}
+		else
+		{
+			$('#ping_node_'+host_id).removeClass('btn-success');
+			$('#ping_node_'+host_id).addClass('btn-warning');
+			html = '<i class=icon-arrow-down></i><?php echo $common_offline;?>';
+		}
+		$('#ping_node_'+host_id).html(html);
+	});
+}
+</script>
 	<!--<div class="alert alert-error"><?php echo $common_add_node_tips?></div>-->
 	<table class="table table-striped table_hover">
 		<thead>
@@ -30,25 +49,12 @@
 				<div class="btn-group">
 					<button class="btn" id="ping_node_<?php echo $item->host_id;?>"><i class=icon-refresh></i><?php echo $common_ping_node;?></button>
 					<script>
-					function ping_<?php echo $item->host_id;?>()
+					
+					ping(<?php echo $item->host_id;?>);
+					setInterval(function()
 					{
-						$.getJSON('<?php echo $this->config->base_url();?>index.php/manage/pingnode/<?php echo $item->host_id;?>', function(json){
-							if(json.status == "TRUE")
-							{
-								$('#ping_node_<?php echo $item->host_id;?>').addClass('btn-success');
-								html = '<i class=icon-arrow-up></i><?php echo $common_online;?>';
-							}
-							else
-							{
-								$('#ping_node_<?php echo $item->host_id;?>').removeClass('btn-success');
-								$('#ping_node_<?php echo $item->host_id;?>').addClass('btn-warning');
-								html = '<i class=icon-arrow-down></i><?php echo $common_offline;?>';
-							}
-							$('#ping_node_<?php echo $item->host_id;?>').html(html);
-						});
-					}
-					ping_<?php echo $item->host_id;?>();
-					setInterval(ping_<?php echo $item->host_id;?>,5000);
+						ping(<?php echo $item->host_id;?>)
+					},5000);
 					</script>
 					<a class="btn" href="#update_hadoop_node_<?php echo $item->host_id;?>" data-toggle="modal"><i class=icon-wrench></i><?php echo $common_modify_node;?></a>
 					<a class="btn btn-danger" href="#delete_hadoop_node_<?php echo $item->host_id;?>" data-toggle="modal"><i class=icon-remove></i><?php echo $common_remove_node;?></a>
