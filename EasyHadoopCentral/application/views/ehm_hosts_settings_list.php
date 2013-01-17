@@ -199,11 +199,7 @@ function push_general_settings_status(host_id, set_id)
 							</div>
 							
 						</div>
-						<script>
-						<?php foreach($all_hosts as $v):?>
 						
-						<?php endforeach;?>
-						</script>
 							<!--edit general settings area-->
 							<div id="edit_general_settings_<?php echo $item->set_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 <form action="<?php echo $this->config->base_url();?>index.php/settings/updategeneralsettings/" method="POST">

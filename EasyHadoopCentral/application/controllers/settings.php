@@ -56,7 +56,7 @@ class Settings extends CI_Controller
 		$this->load->model('ehm_settings_model','sets');
 		$this->load->library('pagination');
 		$config['base_url'] = $this->config->base_url() . '/index.php/settings/index/';
-		$config['total_rows'] = $this->hosts->count_hosts();
+		$config['total_rows'] = $this->sets->count_node_settings();
 		$config['per_page'] = 20;
 		$offset = $this->uri->segment(3,0);
 		if($offset == 0):
