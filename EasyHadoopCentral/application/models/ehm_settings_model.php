@@ -45,7 +45,7 @@ class Ehm_settings_model extends CI_Model
 		$sql = "select a.*,b.host_id from ehm_host_settings a,ehm_hosts b  where a.ip != '0' and a.ip = b.ip group by a.ip,a.filename";
 		$query = $this->db->query($sql);
 		$count = $query->num_rows();
-		return count;
+		return $count;
 	}
 	
 	public function get_settings_by_id($set_id)
