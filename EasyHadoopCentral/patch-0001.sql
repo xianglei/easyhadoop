@@ -1,0 +1,1 @@
+ALTER TABLE ehm_hosts ADD COLUMN `rack` INT(10) NOT NULL DEFAULT '1';

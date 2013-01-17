@@ -52,18 +52,33 @@ class Settings extends CI_Controller
 		$data['common_global_setting_tips'] = $this->lang->line('common_global_setting_tips');
 		$data['common_node_setting_tips'] = $this->lang->line('common_node_setting_tips');
 		
+		#generate node setting tab
 		$this->load->model('ehm_settings_model','sets');
-		$data['result_divide'] = $this->sets->get_divide_settings_list();
-		$data['hosts_divide'] = $this->hosts->get_divide_setted_host();
+		$this->load->library('pagination');
+		$config['base_url'] = $this->config->base_url() . '/index.php/settings/index/';
+		$config['total_rows'] = $this->hosts->count_hosts();
+		$config['per_page'] = 20;
+		$offset = $this->uri->segment(3,0);
+		if($offset == 0):
+			$offset = 0;
+		else:
+			$offset = ($offset / $config['per_page']) * $config['per_page'];
+		endif;
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['result_node'] = $this->sets->get_node_settings_list($config['per_page'], $offset);
+		
 		
 		$this->load->view('ehm_hosts_settings_list', $data);
 		
 		$this->load->view('view_etc_hosts_modal',$data);
 		$this->load->view('add_general_settings_modal',$data);
-		//$this->load->view('add_divide_settings_modal',$data);
+		$this->load->view('add_node_settings_modal',$data);
 		$this->load->view('push_etc_hosts_modal', $data);
 		$this->load->view('push_general_settings_modal', $data);
-		//$this->load->view('push_divide_settings_modal', $data);
+		$this->load->view('view_rackaware_modal', $data);
+		$this->load->view('push_rackaware_modal', $data);
+		$this->load->view('push_node_settings_modal', $data);
 		
 		$this->load->view('div_end');
 		$this->load->view('div_end');
@@ -94,7 +109,7 @@ class Settings extends CI_Controller
 		redirect($this->config->base_url() . 'index.php/settings/index/');
 	}
 	
-	public function UpdateDivideSettings()
+	public function UpdateNodeSettings()
 	{
 		$set_id = $this->input->post('set_id');
 		$filename = $this->input->post('filename');
@@ -168,22 +183,37 @@ class Settings extends CI_Controller
 		echo $this->install->push_setting_files($ip, $this->config->item('conf_folder') . $filename, $content);#full path of hadoop setting file
 	}
 	
-	public function PushDivideSettings()
+	public function PushNodeSettings()
 	{
-		$host_id = $this->uri->segment(3,0);
-		$set_id = $this->uri->segment(4,0);
-		$this->load->model('ehm_hosts_model', 'hosts');
-		$result = $this->hosts->get_host_by_host_id($host_id);
-		$ip = $result->ip;
-		
+		$set_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_settings_model', 'sets');
 		$result = $this->sets->get_settings_by_id($set_id);
-		$set_id = $result->set_id;
-		$filename = $result->filename;
+		$ip = $result->ip;
 		$content = $result->content;
+		$filename = $result->filename;
 		
 		$this->load->model('ehm_installation_model', 'install');
 		echo $this->install->push_setting_files($ip, $this->config->item('conf_folder') . $filename, $content);
+	}
+	
+	public function ViewRackAware()
+	{
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$rack = $this->hosts->make_rackaware();
+		$str = str_replace("\n","<br />", $rack['content']);
+		$str = str_replace("\t","&nbsp;&nbsp;&nbsp;&nbsp;",$str);
+		echo $str;
+	}
+	
+	public function PushRackAware()
+	{
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_namenode_list();
+		$result = $result[0];
+		$ip = $result->ip;
+		$rack = $this->hosts->make_rackaware();
+		$this->load->model('ehm_installation_model', 'install');
+		echo $this->install->push_rackaware($ip, $rack);
 	}
 
 }

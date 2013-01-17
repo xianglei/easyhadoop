@@ -1,5 +1,5 @@
 #!/bin/sh
-yum install -y php php-cli php-devel php-common httpd httpd-devel php-mbstring php-mysql php-pdo php-process mysql mysql-devel mysql-server mysql-libs wget lrzsz dos2unix pexpect libxml2 libxml2-devel
+yum install -y php php-cli php-devel php-common httpd httpd-devel php-mbstring php-mysql php-pdo php-process mysql mysql-devel mysql-server mysql-libs wget lrzsz dos2unix pexpect libxml2 libxml2-devel MySQL-python
 service mysqld start
 mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"
 mysql easyhadoop < easyhadoop.sql

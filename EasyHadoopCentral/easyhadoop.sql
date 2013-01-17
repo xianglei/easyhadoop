@@ -35,8 +35,8 @@ CREATE TABLE IF NOT EXISTS `ehm_hive_settings` (
 DROP TABLE IF EXISTS `ehm_hosts`;
 CREATE TABLE IF NOT EXISTS `ehm_hosts` (
   `host_id` int(11) unsigned NOT NULL auto_increment,
-  `hostname` varchar(255) NOT NULL,
-  `ip` varchar(255) NOT NULL,
+  `hostname` varchar(100) NOT NULL,
+  `ip` varchar(15) NOT NULL,
   `role` varchar(255) NOT NULL,
   `ssh_user` varchar(100) NULL,
   `ssh_pass` varchar(100) NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `ehm_hosts` (
   PRIMARY KEY  (`host_id`),
   UNIQUE KEY `hostname_2` (`hostname`),
   KEY `hostname` (`hostname`,`ip`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------
@@ -56,13 +56,13 @@ CREATE TABLE IF NOT EXISTS `ehm_hosts` (
 DROP TABLE IF EXISTS `ehm_host_settings`;
 CREATE TABLE IF NOT EXISTS `ehm_host_settings` (
   `set_id` int(10) unsigned NOT NULL auto_increment,
-  `filename` varchar(255) NOT NULL,
+  `filename` varchar(100) NOT NULL,
   `content` mediumtext NOT NULL,
   `create_time` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `ip` varchar(16) NOT NULL,
   PRIMARY KEY  (`set_id`),
   KEY `filename` (`filename`,`ip`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Setting files of each host' AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Setting files of each host' AUTO_INCREMENT=1 ;
 
 
 -- --------------------------------------------------------

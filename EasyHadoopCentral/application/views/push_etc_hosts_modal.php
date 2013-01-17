@@ -20,7 +20,7 @@ function push_etc_host_action()
 		$('#push_etc_hosts_status').empty();
 	});
 	<?php foreach($all_hosts as $v):?>
-	push_etc_hosts_status_<?php echo $v->host_id;?>();
+	push_etc_hosts_status(<?php echo $v->host_id;?>);
 	<?php endforeach;?>
 }
 

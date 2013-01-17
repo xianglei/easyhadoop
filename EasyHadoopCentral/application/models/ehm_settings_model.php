@@ -30,9 +30,9 @@ class Ehm_settings_model extends CI_Model
 		endif;
 	}
 	
-	public function get_divide_settings_list()
+	public function get_node_settings_list($limit, $offset)
 	{
-		$sql = "select * from ehm_host_settings where ip != '0' group by ip";
+		$sql = "select a.*,b.host_id from ehm_host_settings a,ehm_hosts b  where a.ip != '0' and a.ip = b.ip group by a.ip,a.filename limit ". $offset. ", ".$limit;
 		if($query = $this->db->query($sql)):
 			return $query->result();
 		else:

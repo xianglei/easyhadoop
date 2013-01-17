@@ -62,18 +62,47 @@
 		<h3 id="myModalLabel">修改节点</h3>
 	</div>
 	<div class="modal-body">
-			<label><?php echo $common_hostname;?></label><input type="text" placeholder="<?php echo $common_hostname;?>" name="hostname" value="<?php echo $item->hostname;?>"/><br />
-			<label><?php echo $common_ip_addr;?></label><input type="text" placeholder="<?php echo $common_ip_addr;?>" name="ipaddr" value="<?php echo $item->ip;?>" /><br />
-			<label><?php echo $common_role_name;?></label><br />
-			<?php
-				$tmp = explode(",", $item->role);
-			?>
-			<input type="checkbox"  name="role[]" value="namenode" <?php foreach($tmp as $v): echo ($v == "namenode") ? "checked" : ""; endforeach;?> />Namenode<br />
-			<input type="checkbox"  name="role[]" value="datanode" <?php foreach($tmp as $v): echo ($v == "datanode") ? "checked" : ""; endforeach;?> />Datanode<br />
-			<input type="checkbox"  name="role[]" value="secondarynamenode" <?php foreach($tmp as $v): echo ($v == "secondarynamenode") ? "checked" : ""; endforeach;?> />SecondaryNamenode<br />
-			<input type="checkbox"  name="role[]" value="jobtracker" <?php foreach($tmp as $v): echo ($v == "jobtracker") ? "checked" : ""; endforeach;?> />Jobtracker<br />
-			<input type="checkbox"  name="role[]" value="tasktracker" <?php foreach($tmp as $v): echo ($v == "tasktracker") ? "checked" : ""; endforeach;?> />Tasktracker<br />
-			<input type="hidden" name="host_id" value="<?php echo $item->host_id;?>" />
+		<table>
+			<tr>
+				<td>
+				<label><?php echo $common_hostname;?></label><input type="text" placeholder="<?php echo $common_hostname;?>" name="hostname" value="<?php echo $item->hostname;?>" /><br />
+				</td>
+				<td>
+				<label><?php echo $common_ip_addr;?></label><input type="text" placeholder="<?php echo $common_ip_addr;?>" name="ipaddr" value="<?php echo $item->ip;?>" /><br />
+				</td>
+			</tr>
+			<tr>
+				<td><label><?php echo "ROOT 用户名(选填)";?></label><input type="text" name="ssh_user" placeholder="ssh_user" value="root" disabled />
+				</td>
+				<td><label><?php echo "ROOT 密  码(选填)";?></label><input type="text" name="ssh_pass" placeholder="ssh_pass" value="<?php echo $item->ssh_pass;?>" />
+				</td>
+			</tr>
+			<tr>
+				<td>
+				<label><?php echo $common_role_name;?></label>
+				</td>
+				<td>
+					<label><?php echo "机架位置(选填)";?></label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<?php
+					$tmp = explode(",", $item->role);
+					?>
+					<input type="checkbox"  name="role[]" value="namenode" <?php foreach($tmp as $v): echo ($v == "namenode") ? "checked" : ""; endforeach;?> />Namenode<br />
+					<input type="checkbox"  name="role[]" value="datanode" <?php foreach($tmp as $v): echo ($v == "datanode") ? "checked" : ""; endforeach;?> />Datanode<br />
+					<input type="checkbox"  name="role[]" value="secondarynamenode" <?php foreach($tmp as $v): echo ($v == "secondarynamenode") ? "checked" : ""; endforeach;?> />SecondaryNamenode<br />
+					<input type="checkbox"  name="role[]" value="jobtracker" <?php foreach($tmp as $v): echo ($v == "jobtracker") ? "checked" : ""; endforeach;?> />Jobtracker<br />
+					<input type="checkbox"  name="role[]" value="tasktracker" <?php foreach($tmp as $v): echo ($v == "tasktracker") ? "checked" : ""; endforeach;?> />Tasktracker<br />
+				</td>
+				<td>
+					<input type="text" name="rack" placeholder="Rack number" value="<?php echo $item->rack;?>" /><br />
+				</td>
+			</tr>
+		</table>
+		
+		<input type="hidden" name="host_id" value="<?php echo $item->host_id;?>" />
 	</div>
 	<div class="modal-footer">
 		<button class="btn" data-dismiss="modal">Close</button>

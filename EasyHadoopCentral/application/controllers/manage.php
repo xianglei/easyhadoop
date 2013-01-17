@@ -106,7 +106,10 @@ class Manage extends CI_Controller
 		$hostname = $this->input->post('hostname');
 		$ip = $this->input->post('ipaddr');
 		$role = join(',', $this->input->post('role'));
-		$this->hosts->insert_host($hostname, $ip, $role);
+		$ssh_user = $this->input->post('ssh_user');
+		$ssh_pass = $this->input->post('ssh_pass');
+		$rack = $this->input->post('rack');
+		$this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);
 		redirect($this->config->base_url() . 'index.php/manage/index/');
 	}
 	
@@ -134,8 +137,11 @@ class Manage extends CI_Controller
 		$hostname = $this->input->post('hostname');
 		$ip = $this->input->post('ipaddr');
 		$role = join(',', $this->input->post('role'));
+		$ssh_user = $this->input->post('ssh_user');
+		$ssh_pass = $this->input->post('ssh_pass');
+		$rack = $this->input->post('rack');
 		
-		$this->hosts->update_host($host_id, $hostname, $ip, $role, $ssh_user = '', $ssh_pass = '');
+		$this->hosts->update_host($host_id, $hostname, $ip, $role, $ssh_user = '', $ssh_pass = '', $rack);
 		redirect($this->config->base_url() . 'index.php/manage/index/');
 	}
 	

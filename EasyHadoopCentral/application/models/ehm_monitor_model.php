@@ -209,6 +209,10 @@ class Ehm_monitor_model extends CI_Model
 		{
 			$command = 'mpstat 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
 		}
+		elseif($ver == "ubuntu")
+		{
+			$command = 'mpstat 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
+		}
 		else
 		{
 			return "False";
@@ -247,40 +251,22 @@ class Ehm_monitor_model extends CI_Model
 			{
 				if($ver == "5")
 				{
-					$command = 'mpstat -P 0 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
+					$command = 'mpstat -P '.$i.' 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
 				}
 				elseif($ver == "6")
 				{
-					$command = 'mpstat -P 0 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
+					$command = 'mpstat -P '.$i.' 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
+				}
+				elseif($ver == "ubuntu")
+				{
+					$command = 'mpstat -P '.$i.' 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
 				}
 				else
 				{
 					return "False";
 				}
 				$str = $this->ehm->RunCommand($command);
-				
-				$tmp_line = explode("\n", $str);
-				$cpu_info = $tmp_line[3];
-				$tmp_columns = explode(' ', $cpu_info);
-			
-				$j = 0;
-				$detail_column = "";
-				foreach ($tmp_columns as $v)
-				{
-					if($v != "")
-					{
-						$detail_column[$j] = $v;
-						$j++;
-					}
-				}
-				$cpu['user'][$i] = $detail_column[3];
-				$cpu['nice'][$i] = $detail_column[4];
-				$cpu['sys'][$i] = $detail_column[5];
-				$cpu['iowait'][$i] = $detail_column[6];
-				$cpu['irq'][$i] = $detail_column[7];
-				$cpu['soft'][$i] = $detail_column[8];
-				$cpu['steal'][$i] = $detail_column[9];
-				$cpu['idle'][$i] = $detail_column[10];
+				$cpu[$i] = $str;
 			}
 			$this->transport->close();
 			$str = json_encode($cpu);

@@ -3233,8 +3233,10 @@ class EasyHadoopHandler:
 			title = '5'
 		elif system_ver.find("el6") > 0:
 			title = '6'
+		elif system_ver.find('Ubuntu') > 0:
+			title = 'ubuntu'
 		else:
-			title = 'Not CentOS'
+			title = 'Unsupported'
 		return title
 	def GetCpuInfo(self):
 		cpu = []

@@ -52,6 +52,41 @@ class Ehm_installation_model extends CI_Model
 		return $str;
 	}
 	
+	public function push_rackaware($host, $rack)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('ehm_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		$content = $rack['content'];
+		$filename = $rack['filename'];
+		$chmod = $rack['chmod'];
+		
+		try
+		{
+			$this->transport->open();
+			$str = $this->ehm->FileTransfer($filename, $content);
+			$command = "chmod " . $chmod . " ".$filename;
+			$str .=$this->ehm->RunCommand($command);
+			if (trim($str) == ""):
+				$str = '{"filename":"'. $filename.'","status":"success","node":"'.$host.'"}';
+			else:
+				$str = '{"filename":"'. $filename.'","status":"'.$str.'","node":"'.$host.'"}';
+			endif;
+			$this->transport->close();
+		}
+		catch(Exception $e)
+		{
+			$str = 'Caught exception: '.  $e->getMessage(). "\n";
+		}
+		return $str;
+	}
+	
 	public function push_setting_files($host, $filename, $content)
 	{
 		$this->ehm_host = $host;

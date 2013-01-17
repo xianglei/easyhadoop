@@ -154,19 +154,20 @@ class Ehm_hosts_model extends CI_Model
 		endif;
 	}
 
-	public function insert_host($hostname, $host, $role, $ssh_user = '', $ssh_pass = '')
+	public function insert_host($hostname, $host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
-		if($this->db->query("insert ehm_hosts set hostname='".$hostname."', ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."'")):
+		$sql = "insert ehm_hosts set hostname='".$hostname."', ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."', rack='".$rack."'";
+		if($this->db->simple_query($sql)):
 			return TRUE;
 		else:
 			return FALSE;
 		endif;
 	}
 	
-	public function update_host($host_id, $hostname, $host, $role, $ssh_user = '', $ssh_pass = '')
+	public function update_host($host_id, $hostname, $host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
-		$sql = "update ehm_hosts set hostname='".$hostname."' , ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."' where host_id='".$host_id."'";
-		if ($this->db->query($sql)):
+		$sql = "update ehm_hosts set hostname='".$hostname."' , ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."', rack='".$rack."' where host_id='".$host_id."'";
+		if ($this->db->simple_query($sql)):
 			return TRUE;
 		else:
 			return FALSE;
@@ -176,7 +177,7 @@ class Ehm_hosts_model extends CI_Model
 	public function delete_host($host_id)
 	{
 		$sql = "delete from ehm_hosts where host_id=".$host_id;
-		if ($this->db->query($sql)):
+		if ($this->db->simple_query($sql)):
 			return TRUE;
 		else:
 			return FALSE;
@@ -198,6 +199,33 @@ class Ehm_hosts_model extends CI_Model
 			$status = '{"status":"FALSE", "ip":"'.$result[0]->ip.'"}';
 		endif;
 		return $status;
+	}
+	
+	public function make_rackaware()
+	{
+		$result = $this->get_all_hosts();
+		$str = "";
+		foreach($result as $item)
+		{
+			$str .= "	\"".$item->ip."\":\"rack".$item->rack."\",\n";
+		}
+		$str = substr($str,1);
+		$str = "rack = {".$str."}";
+		
+		$rack = "#!/usr/bin/python
+#-*-coding:UTF-8-*-
+import sys
+
+".$str."
+if __name__==\"__main__\":
+	print \"/\" + rack.get(sys.argv[1],\"rack0\")\n";
+		unset($str);
+		$str = "";
+		$str['filename'] = $this->config->item('config') . "RackAware.py";
+		$str['chmod'] = "777";
+		$str['content'] = $rack;
+		
+		return $str;
 	}
 }
 
