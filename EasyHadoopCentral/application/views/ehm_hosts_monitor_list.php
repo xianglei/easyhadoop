@@ -96,7 +96,7 @@ Sample:<br />
 						<div class="bar bar-danger" style="" id="mem_stats_<?php echo $item->host_id;?>_used">Used</div>
 					</div>
 					<script>
-					mem_stat_<?php echo $item->host_id;?>();
+					mem_stat(<?php echo $item->host_id;?>);
 					setInterval(function()
 					{
 						mem_stat(<?php echo $item->host_id;?>)
