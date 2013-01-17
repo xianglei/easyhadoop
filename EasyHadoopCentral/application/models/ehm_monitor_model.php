@@ -198,7 +198,21 @@ class Ehm_monitor_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
-		$command = 'mpstat 1 1 | grep all | head -n 1 | awk \'{print "{\"user\":"$4",\"nice\":"$5",\"sys\":"$6",\"iowait\":"$7",\"irq\":"$8",\"soft\":"$9",\"steal\":"$10",\"idle\":"$11",\"intrs\":"$12"}"}\'';
+		$this->load->model('ehm_installation_model', 'install');
+		$ver = $this->install->get_sys_version();
+		
+		if($ver == "5")
+		{
+			$command = 'mpstat 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
+		}
+		elseif($ver == "6")
+		{
+			$command = 'mpstat 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
+		}
+		else
+		{
+			return "False";
+		}
 		try
 		{
 			$this->transport->open();
@@ -223,12 +237,26 @@ class Ehm_monitor_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
+		$this->load->model('ehm_installation_model', 'install');
+		$ver = $this->install->get_sys_version();
+		
 		try
 		{
 			$this->transport->open();
 			for($i = 0; $i < $cores; $i++)
 			{
-				$command = "mpstat -P ".$i . " 1 1";
+				if($ver == "5")
+				{
+					$command = 'mpstat -P 0 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
+				}
+				elseif($ver == "6")
+				{
+					$command = 'mpstat -P 0 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
+				}
+				else
+				{
+					return "False";
+				}
 				$str = $this->ehm->RunCommand($command);
 				
 				$tmp_line = explode("\n", $str);

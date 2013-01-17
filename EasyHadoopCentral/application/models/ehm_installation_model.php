@@ -506,7 +506,7 @@ class Ehm_installation_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetSysVer();
+			$str = $this->ehm->GetSysVer();// 5 or 6
 			$this->transport->close();
 		}
 		catch(Exception $e)
