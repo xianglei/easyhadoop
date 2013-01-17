@@ -198,7 +198,7 @@ class Ehm_monitor_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
-		$command = 'mpstat 1 1 | grep all | head -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
+		$command = 'mpstat 1 1 | grep all | head -n 1 | awk \'{print "{\"user\":"$4",\"nice\":"$5",\"sys\":"$6",\"iowait\":"$7",\"irq\":"$8",\"soft\":"$9",\"steal\":"$10",\"idle\":"$11",\"intrs\":"$12"}"}\'';
 		try
 		{
 			$this->transport->open();
