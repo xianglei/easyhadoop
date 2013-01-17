@@ -198,36 +198,11 @@ class Ehm_monitor_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
-		$command = "mpstat 1 1";
+		$command = 'mpstat 1 1 | grep all | head -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
 		try
 		{
 			$this->transport->open();
 			$str = $this->ehm->RunCommand($command);
-			$tmp_line = explode("\n", $str);
-			$cpu_info = $tmp_line[3];
-			$tmp_columns = explode(' ', $cpu_info);
-			
-			$i = 0;
-			$detail_column = "";
-			foreach ($tmp_columns as $v)
-			{
-				if($v != "")
-				{
-					$detail_column[$i] = $v;
-					$i++;
-				}
-			}
-			$cpu['user'] = $detail_column[3];
-			$cpu['nice'] = $detail_column[4];
-			$cpu['sys'] = $detail_column[5];
-			$cpu['iowait'] = $detail_column[6];
-			$cpu['irq'] = $detail_column[7];
-			$cpu['soft'] = $detail_column[8];
-			$cpu['steal'] = $detail_column[9];
-			$cpu['idle'] = $detail_column[10];
-			
-			$str = json_encode($cpu);
-			
 			$this->transport->close();
 		}
 		catch(Exception $e)
