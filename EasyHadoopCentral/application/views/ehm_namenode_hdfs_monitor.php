@@ -46,8 +46,8 @@ setInterval(namenode_abbr, 30000);
 			<td><?php echo $item->ip;?></td>
 			<td>
 			<div class="progress">
-			<div class="bar bar-success" style="" id="datanode_free_<?php echo $item->host_id;?>">Free</div>
-			<div class="bar bar-danger" style="" id="datanode_dfs_<?php echo $item->host_id;?>">DFS</div>
+				<div class="bar bar-success" style="" id="datanode_free_<?php echo $item->host_id;?>">Free</div>
+				<div class="bar bar-danger" style="" id="datanode_dfs_<?php echo $item->host_id;?>">DFS</div>
 			<script>
 			function datanode_use_<?php echo $item->host_id;?>()
 			{
@@ -91,8 +91,7 @@ setInterval(namenode_abbr, 30000);
 			setInterval(datanode_use_<?php echo $item->host_id;?>, 30000);
 			</script>
 			</div>
-			</td>
-			<td>
+			
 			<!--Detail numeric usage-->
 			<div id="datanode_dfs_use_detail_<?php echo $item->host_id;?>">
 			</div>
