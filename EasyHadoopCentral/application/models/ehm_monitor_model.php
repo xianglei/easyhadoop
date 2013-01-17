@@ -199,7 +199,7 @@ class Ehm_monitor_model extends CI_Model
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
 		$this->load->model('ehm_installation_model', 'install');
-		$ver = $this->install->get_sys_version();
+		$ver = $this->install->get_sys_version($host);
 		
 		if($ver == "5")
 		{
@@ -238,7 +238,7 @@ class Ehm_monitor_model extends CI_Model
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
 		$this->load->model('ehm_installation_model', 'install');
-		$ver = $this->install->get_sys_version();
+		$ver = $this->install->get_sys_version($host);
 		
 		try
 		{
