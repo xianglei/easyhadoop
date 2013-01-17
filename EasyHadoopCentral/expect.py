@@ -46,12 +46,12 @@ if "__main__" == __name__:
 	usage = "usage: %prog -d dest_ip -c command -u user -p passwd -m [ ssh | scp ]"
 	parser = OptionParser(usage=usage)
 	
-	parser.add_option("-m", "--mode", action="store", type="string", dest="mode", default="ssh" help="valid mode is [ ssh | scp ]")
-	parser.add_option("-d", "--dest", action="store", type="string", dest="dest", default="127.0.0.1" help="IP address")
+	parser.add_option("-m", "--mode", action="store", type="string", dest="mode", default="ssh", help="valid mode is [ ssh | scp ]")
+	parser.add_option("-d", "--dest", action="store", type="string", dest="dest", default="127.0.0.1", help="IP address")
 	parser.add_option("-c", "--cmd", action="store", type="string", dest="cmd", default="ls ~/", help="linux command")
 	parser.add_option("-u", "--user", action="store", type="string", dest="username", default="root", help="Root user")
 	parser.add_option("-p", "--pass", action="store", type="string", dest="password", help="ssh password")
-	parser.add_option("-f", "--file", action="store", type="string", dest="file", default="NodeAgent.php" help="filename need to scp")
+	parser.add_option("-f", "--file", action="store", type="string", dest="file", default="NodeAgent.php", help="filename need to scp")
 	options, args = parser.parse_args()
 	
 	
