@@ -18,6 +18,45 @@ function namenode_abbr()
 }
 namenode_abbr();
 setInterval(namenode_abbr, 30000);
+
+function datanode_use(host_id)
+{
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/datanodestats/' + host_id, function(json){
+		//alert(json.mem_free_percent);
+		//alert(json.mem_used_percent);
+		$('#datanode_free_'+host_id).attr("style", "width: "+json.percent_remain+"%;");
+		$('#datanode_dfs_'+host_id).attr('style', "width: "+json.percent_used+"%;");
+		html = 'Used: ' + json.used_abbr + ' / Total: ' + json.total_abbr;
+		$('#datanode_dfs_use_detail_'+host_id).html(html);
+
+		var freeSpace = "";
+		html = '<table width=100%>';
+		for(var key in json.volume_info){
+			freeSpace = Math.round(json.volume_info[key].freeSpace/1024/1024/1024,2);
+			usedSpace = Math.round(json.volume_info[key].usedSpace/1024/1024/1024,2);
+			reservedSpace = Math.round(json.volume_info[key].reservedSpace/1024/1024/1024,2);
+			totalSpace = Math.round((json.volume_info[key].freeSpace + json.volume_info[key].usedSpace + json.volume_info[key].reservedSpace) / 1024/1024/1024, 2);
+
+			var usedPer = Math.round(usedSpace * 100 / totalSpace);
+			var reservedPer = Math.round(reservedSpace * 100 / totalSpace);
+			var totalPer = 100;
+			var freePer = totalPer - usedPer - reservedPer;
+
+			html += '<tr><td>挂载点; </td><td>Free: </td><td> Used: </td><td> Reserved: </td><td><?php echo $common_storage_status?></td></tr>';
+			html += '<tr><td>' + key + '</td><td>' + freeSpace + ' GB</td><td>' + usedSpace + ' GB</td><td>' + reservedSpace + ' GB</td>';
+			html += '<td>';
+			html += '<div class="progress">';
+			html += '<div class="bar bar-success" style="width: ' + freePer + '%;">Free</div>';
+			html += '<div class="bar bar-warning" style="width: ' + reservedPer + '%;">Reserved</div>';
+			html += '<div class="bar bar-danger" style="width: ' + usedPer + '%;">DFS</div>';
+			html += '</div>'
+			html += '</td>';
+			html += '</tr>';
+		}
+		html += '</table>';
+		$('#datanode_modal_mountpoint_'+host_id).html(html);
+		});
+}
 </script>
 <pre id="namenode_abbr">
 	
@@ -48,46 +87,12 @@ setInterval(namenode_abbr, 30000);
 				<div class="bar bar-success" style="" id="datanode_free_<?php echo $item->host_id;?>">Free</div>
 				<div class="bar bar-danger" style="" id="datanode_dfs_<?php echo $item->host_id;?>">DFS</div>
 			<script>
-			function datanode_use_<?php echo $item->host_id;?>()
+			
+			datanode_use(<?php echo $item->host_id;?>);
+			setInterval(function()
 			{
-				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/datanodestats/<?php echo $item->host_id;?>', function(json){
-				//alert(json.mem_free_percent);
-				//alert(json.mem_used_percent);
-					$('#datanode_free_<?php echo $item->host_id;?>').attr("style", "width: "+json.percent_remain+"%;");
-					$('#datanode_dfs_<?php echo $item->host_id;?>').attr('style', "width: "+json.percent_used+"%;");
-					html = 'Used: ' + json.used_abbr + ' / Total: ' + json.total_abbr;
-					$('#datanode_dfs_use_detail_<?php echo $item->host_id;?>').html(html);
-					
-					var freeSpace = "";
-					html = '<table width=100%>';
-					for(var key in json.volume_info){
-						freeSpace = Math.round(json.volume_info[key].freeSpace/1024/1024/1024,2);
-						usedSpace = Math.round(json.volume_info[key].usedSpace/1024/1024/1024,2);
-						reservedSpace = Math.round(json.volume_info[key].reservedSpace/1024/1024/1024,2);
-						totalSpace = Math.round((json.volume_info[key].freeSpace + json.volume_info[key].usedSpace + json.volume_info[key].reservedSpace) / 1024/1024/1024, 2);
-						
-						var usedPer = Math.round(usedSpace * 100 / totalSpace);
-						var reservedPer = Math.round(reservedSpace * 100 / totalSpace);
-						var totalPer = 100;
-						var freePer = totalPer - usedPer - reservedPer;
-						
-						html += '<tr><td>挂载点; </td><td>Free: </td><td> Used: </td><td> Reserved: </td><td><?php echo $common_storage_status?></td></tr>';
-						html += '<tr><td>' + key + '</td><td>' + freeSpace + ' GB</td><td>' + usedSpace + ' GB</td><td>' + reservedSpace + ' GB</td>';
-						html += '<td>';
-						html += '<div class="progress">';
-						html += '<div class="bar bar-success" style="width: ' + freePer + '%;">Free</div>';
-						html += '<div class="bar bar-warning" style="width: ' + reservedPer + '%;">Reserved</div>';
-						html += '<div class="bar bar-danger" style="width: ' + usedPer + '%;">DFS</div>';
-						html += '</div>'
-						html += '</td>';
-						html += '</tr>';
-					}
-					html += '</table>';
-					$('#datanode_modal_mountpoint_<?php echo $item->host_id;?>').html(html);
-				});
-			}
-			datanode_use_<?php echo $item->host_id;?>();
-			setInterval(datanode_use_<?php echo $item->host_id;?>, 30000);
+				datanode_use(<?php echo $item->host_id;?>)
+			}, 30000);
 			</script>
 			</div>
 			<!--Detail numeric usage-->
