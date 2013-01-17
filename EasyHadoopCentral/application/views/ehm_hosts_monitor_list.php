@@ -75,10 +75,10 @@ Sample:<br />
 				foreach ($tmp as $k => $v):
 				?>
 					<script>
-					check_online(<?php echo $v;?>, <?php echo $item->host_id;?>);
+					check_online('<?php echo $v;?>', <?php echo $item->host_id;?>);
 					setInterval(function()
 					{
-						check_online(<?php echo $v;?>, <?php echo $item->host_id;?>)
+						check_online('<?php echo $v;?>', <?php echo $item->host_id;?>)
 					}, 10000
 					);
 					</script>
