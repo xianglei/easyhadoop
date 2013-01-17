@@ -1,5 +1,31 @@
 <div class="span10">
 
+<script>
+function cpu_info(host_id)
+{
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuinfo/' + host_id, function(json){
+		model_name = json.model_name;
+		processor = (Number(json.processor) + 1).toString();;
+
+		$('#processors_'+host_id).html(processor);
+		$('#model_name_'+host_id).html(model_name);
+	});
+}
+function cpu_usage(host_id)
+{
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuusage/' + host_id, function(json){
+		user = Math.round(json.user);
+		sys = Math.round(json.sys);
+		io = Math.round( Number(json.nice) + Number(json.iowait) + Number(json.irq) + Number(json.soft) + Number(json.steal));
+		idle = 100 - user - sys - io;
+
+		$('#user_'+ host_id).attr('style', 'width: ' + user + '%;');
+		$('#sys_'+ host_id).attr('style', 'width: ' + sys + '%;');
+		$('#io_'+ host_id).attr('style', 'width: ' + io + '%;');
+		$('#idle_'+ host_id).attr('style', 'width: ' + idle + '%;')
+	});
+}
+</script>
 
 Sample:<br />
 	<div class="progress">
@@ -37,17 +63,8 @@ Sample:<br />
 			<td><?php echo $item->ip;?></td>
 			<td>
 			<script>
-				function cpu_info_<?php echo $item->host_id;?>()
-				{
-					$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuinfo/<?php echo $item->host_id;?>', function(json){
-						model_name = json.model_name;
-						processor = (Number(json.processor) + 1).toString();;
-						
-						$('#processors_<?php echo $item->host_id;?>').html(processor);
-						$('#model_name_<?php echo $item->host_id;?>').html(model_name);
-					});
-				}
-				cpu_info_<?php echo $item->host_id;?>();
+				
+				cpu_info(<?php echo $item->host_id;?>);
 			</script>
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
@@ -68,22 +85,9 @@ Sample:<br />
 				<div class="bar bar-success" id="idle_<?php echo $item->host_id;?>" style="">Idle</div>
 			</div>
 			<script>
-			function cpu_usage_<?php echo $item->host_id;?>()
-			{
-				$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuusage/<?php echo $item->host_id;?>', function(json){
-					user = Math.round(json.user);
-					sys = Math.round(json.sys);
-					io = Math.round( Number(json.nice) + Number(json.iowait) + Number(json.irq) + Number(json.soft) + Number(json.steal));
-					idle = 100 - user - sys - io;
-					
-					$('#user_<?php echo $item->host_id;?>').attr('style', 'width: ' + user + '%;');
-					$('#sys_<?php echo $item->host_id;?>').attr('style', 'width: ' + sys + '%;');
-					$('#io_<?php echo $item->host_id;?>').attr('style', 'width: ' + io + '%;');
-					$('#idle_<?php echo $item->host_id;?>').attr('style', 'width: ' + idle + '%;')
-				});
-			}
-			cpu_usage_<?php echo $item->host_id;?>();
-			setInterval(cpu_usage_<?php echo $item->host_id;?>, 2000);
+			
+			cpu_usage(<?php echo $item->host_id;?>);
+			setInterval(cpu_usage(<?php echo $item->host_id;?>), 2000);
 			</script>
 			</td>
 		</tr>
