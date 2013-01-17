@@ -1,4 +1,129 @@
 <div class=span10>
+
+<script>
+function push_install_files_action(host_id)
+{
+	$.get('<?php echo $this->config->base_url();?>index.php/install/pushfiles/' + host_id,{}, function(data){
+		var html = data;
+		$('#push_install_files_status_' + host_id).html(html);
+	});
+}
+
+function install_hadoop_action(host_id)
+{
+	install_environment(host_id);
+}
+
+function install_environment(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/environment/' + host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_' + host_id).html('安装hadoop所需环境');
+			$('#install_progress_' + host_id).attr("style", "width: 10%;");
+			$('#install_hadoop_action_status_' + host_id).html(data);
+			install_lzorpm(host_id);
+		}
+	});
+}
+
+function install_lzorpm(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/lzorpm/' + host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_'+host_id).html('安装Lzo依赖');
+			$('#install_progress_'+host_id).attr("style", "width: 25%;");
+			$('#install_hadoop_action_status_'+host_id).empty();
+			$('#install_hadoop_action_status_'+host_id).html(data);
+			install_lzo(host_id);
+		}
+	});
+}
+
+function install_lzo(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/lzo/' + host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_'+host_id).html('安装lzo依赖');
+			$('#install_progress_'+host_id).attr("style", "width: 40%;");
+			$('#install_hadoop_action_status_'+host_id).empty();
+			$('#install_hadoop_action_status_'+host_id).html(data);
+			install_lzop(host_id);
+		}
+	});
+}
+
+function install_lzop(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/lzop/' +host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_'+host_id).html('安装lzop');
+			$('#install_progress_'+host_id).attr("style", "width: 60%;");
+			$('#install_hadoop_action_status_'+host_id).empty();
+			$('#install_hadoop_action_status_'+host_id).html(data);
+			install_jdk(host_id);
+		}
+	});
+}
+
+function install_jdk(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/jdk/' + host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_'+host_id).html('安装Sun JDK');
+			$('#install_progress_'+host_id).attr("style", "width: 70%;");
+			$('#install_hadoop_action_status_'+host_id).empty();
+			$('#install_hadoop_action_status_'+host_id).html(data);
+			install_hadoop(host_id);
+		}
+	});
+}
+
+function install_hadoop(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/hadoop/' + host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_' +host_id).html('安装Hadoop');
+			$('#install_progress_'+host_id).attr("style", "width: 85%;");
+			$('#install_hadoop_action_status_'+host_id).empty();
+			$('#install_hadoop_action_status_'+host_id).html(data);
+			install_gpl(host_id)
+		}
+	});
+}
+
+function install_gpl(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/gpl/'+host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_'+host_id).html('安装LZO解码器');
+			$('#install_progress_'+host_id).attr("style", "width: 100%;");
+			$('#install_hadoop_action_status_'+host_id).empty();
+			$('#install_hadoop_action_status_'+host_id).html(data);
+		}
+	});
+}
+</script>
 	<!--<div class="alert alert-error"><?php echo $common_add_node_tips?></div>-->
 	<table class="table table-striped table_hover">
 		<thead>
@@ -46,7 +171,7 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn" data-dismiss="modal">Close</button>
-		<button class="btn btn-primary" onclick="push_install_files_action_<?php echo $item->host_id;?>()"><?php echo $common_submit;?></button>
+		<button class="btn btn-primary" onclick="push_install_files_action(<?php echo $item->host_id;?>)"><?php echo $common_submit;?></button>
 	</div>
 </div>
 				<!--end push file entry-->
@@ -69,140 +194,14 @@
 	</div>
 	<div class="modal-footer">
 		<button class="btn" data-dismiss="modal">Close</button>
-		<button class="btn btn-primary" onclick="install_hadoop_action_<?php echo $item->host_id;?>()"><?php echo $common_submit;?></button>
+		<button class="btn btn-primary" onclick="install_hadoop_action(<?php echo $item->host_id;?>)"><?php echo $common_submit;?></button>
 	</div>
 </div>
 				<!--end push file entry-->
 <script>
-function push_install_files_action_<?php echo $item->host_id;?>()
-{
-	$.get('<?php echo $this->config->base_url();?>index.php/install/pushfiles/<?php echo $item->host_id;?>',{}, function(data){
-		var html = data;
-		$('#push_install_files_status_<?php echo $item->host_id;?>').html(html);
-	});
-}
 
-function install_hadoop_action_<?php echo $item->host_id;?>()
-{
-	install_environment_<?php echo $item->host_id;?>();
-	//install_addusergroup_<?php echo $item->host_id;?>();
-	//install_lzorpm_<?php echo $item->host_id;?>()
-	//install_lzo_<?php echo $item->host_id;?>();
-	//install_lzop_<?php echo $item->host_id;?>();
-	//install_jdk_<?php echo $item->host_id;?>();
-	//install_hadoop_<?php echo $item->host_id;?>();
-	//install_gpl_<?php echo $item->host_id;?>();
-}
 
-function install_environment_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/environment/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('安装hadoop所需环境');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 10%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-			install_lzorpm_<?php echo $item->host_id;?>();
-		}
-	});
-}
 
-function install_lzorpm_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/lzorpm/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('安装Lzo依赖');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 25%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').empty();
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-			install_lzo_<?php echo $item->host_id;?>();
-		}
-	});
-}
-
-function install_lzo_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/lzo/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('安装lzo依赖');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 40%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').empty();
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-			install_lzop_<?php echo $item->host_id;?>();
-		}
-	});
-}
-
-function install_lzop_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/lzop/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('安装lzop');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 60%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').empty();
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-			install_jdk_<?php echo $item->host_id;?>();
-		}
-	});
-}
-
-function install_jdk_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/jdk/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('安装Sun JDK');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 70%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').empty();
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-			install_hadoop_<?php echo $item->host_id;?>();
-		}
-	});
-}
-
-function install_hadoop_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/hadoop/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('安装Hadoop');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 85%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').empty();
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-			install_gpl_<?php echo $item->host_id;?>()
-		}
-	});
-}
-
-function install_gpl_<?php echo $item->host_id;?>()
-{
-	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/gpl/<?php echo $item->host_id;?>',
-		async: true,
-		success: function(data)
-		{
-			$('#install_name_<?php echo $item->host_id;?>').html('安装LZO解码器');
-			$('#install_progress_<?php echo $item->host_id;?>').attr("style", "width: 100%;");
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').empty();
-			$('#install_hadoop_action_status_<?php echo $item->host_id;?>').html(data);
-		}
-	});
-}
 </script>
 				
 				

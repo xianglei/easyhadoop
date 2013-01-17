@@ -1,6 +1,6 @@
 <div class=span10>
 <script>
-function namenode_abbr()
+function jobtracker_abbr()
 {
 	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/jobtrackerstats/<?php echo $jobtracker_host_id;?>', function(json){
 	var freeMapSlots = json.map_slots - json.running_maps;
@@ -20,8 +20,24 @@ function namenode_abbr()
 	$('#mapred_jobtracker_reduce_running').html('Running:' + json.running_reduces);
 	});
 }
-namenode_abbr();
-setInterval(namenode_abbr, 2000);
+jobtracker_abbr();
+setInterval(jobtracker_abbr, 2000);
+
+function tasktracker_use(host_id)
+{
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/tasktrackerstats/' + host_id, function(json){
+		//alert(json.mem_free_percent);
+		//alert(json.mem_used_percent);
+		$('#mapred_tasktracker_map_free_' + host_id).attr("style", "width: "+json.percent_map_remain+"%;");
+		$('#mapred_tasktracker_map_used_' + host_id).attr('style', "width: "+json.percent_map_running+"%;");
+		$('#mapred_tasktracker_reduce_free_' + host_id).attr("style", "width: "+json.percent_reduce_remain+"%;");
+		$('#mapred_tasktracker_reduce_used_' + host_id).attr('style', "width: "+json.percent_reduce_running+"%;");
+		html = 'Used: ' + json.maps_running + ' / Total: ' + json.map_task_slots;
+		$('#mapred_tasktracker_map_detail_' + host_id).html(html);
+		html = 'Used: ' + json.reduces_running + ' / Total: ' + json.reduce_task_slots;
+		$('#mapred_tasktracker_reduce_detail_' + host_id).html(html);
+	});
+}
 </script>
 <pre id="jobtracker_mapred">
 	
@@ -61,23 +77,12 @@ Reduce:
 					<div class="bar bar-success" style="" id="mapred_tasktracker_map_free_<?php echo $item->host_id;?>">Free</div>
 					<div class="bar bar-danger" style="" id="mapred_tasktracker_map_used_<?php echo $item->host_id;?>">Used</div>
 				<script>
-				function tasktracker_use_<?php echo $item->host_id;?>()
+
+				tasktracker_use(<?php echo $item->host_id;?>);
+				setInterval(function()
 				{
-					$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/tasktrackerstats/<?php echo $item->host_id;?>', function(json){
-					//alert(json.mem_free_percent);
-					//alert(json.mem_used_percent);
-						$('#mapred_tasktracker_map_free_<?php echo $item->host_id;?>').attr("style", "width: "+json.percent_map_remain+"%;");
-						$('#mapred_tasktracker_map_used_<?php echo $item->host_id;?>').attr('style', "width: "+json.percent_map_running+"%;");
-						$('#mapred_tasktracker_reduce_free_<?php echo $item->host_id;?>').attr("style", "width: "+json.percent_reduce_remain+"%;");
-						$('#mapred_tasktracker_reduce_used_<?php echo $item->host_id;?>').attr('style', "width: "+json.percent_reduce_running+"%;");
-						html = 'Used: ' + json.maps_running + ' / Total: ' + json.map_task_slots;
-						$('#mapred_tasktracker_map_detail_<?php echo $item->host_id;?>').html(html);
-						html = 'Used: ' + json.reduces_running + ' / Total: ' + json.reduce_task_slots;
-						$('#mapred_tasktracker_reduce_detail_<?php echo $item->host_id;?>').html(html);
-					});
-				}
-				tasktracker_use_<?php echo $item->host_id;?>();
-				setInterval(tasktracker_use_<?php echo $item->host_id;?>, 2000);
+					tasktracker_use(<?php echo $item->host_id;?>)
+				}, 2000);
 				</script>
 				</div>
 			</td>
