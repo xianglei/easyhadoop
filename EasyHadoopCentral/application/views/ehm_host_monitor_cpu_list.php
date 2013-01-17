@@ -87,7 +87,7 @@ Sample:<br />
 			<script>
 			
 			cpu_usage(<?php echo $item->host_id;?>);
-			setInterval(cpu_usage(<?php echo $item->host_id;?>), 2000);
+			setInterval("cpu_usage(<?php echo $item->host_id;?>)", 2000);
 			</script>
 			</td>
 		</tr>
