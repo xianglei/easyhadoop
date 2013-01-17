@@ -35,7 +35,6 @@ setInterval(namenode_abbr, 30000);
 			<th>主机名称</th>
 			<th>IP地址</th>
 			<th>存储状态</th>
-			<th>存储状态</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -91,7 +90,6 @@ setInterval(namenode_abbr, 30000);
 			setInterval(datanode_use_<?php echo $item->host_id;?>, 30000);
 			</script>
 			</div>
-			
 			<!--Detail numeric usage-->
 			<div id="datanode_dfs_use_detail_<?php echo $item->host_id;?>">
 			</div>
