@@ -42,8 +42,8 @@ function datanode_use(host_id)
 			var totalPer = 100;
 			var freePer = totalPer - usedPer - reservedPer;
 
-			html += '<tr><td>挂载点; </td><td>Free: </td><td> Used: </td><td> Reserved: </td><td><?php echo $common_storage_status?></td></tr>';
-			html += '<tr><td>' + key + '</td><td>' + freeSpace + ' GB</td><td>' + usedSpace + ' GB</td><td>' + reservedSpace + ' GB</td>';
+			html += '<tr><td><small>挂载点; </small></td><td><small>Free: </small></td><td><small>Used: </small></td><td><small>Reserved: </small></td><td><?php echo $common_storage_status?></td></tr>';
+			html += '<tr><td><small>' + key + '</small></td><td><small>' + freeSpace + ' GB</small></td><td><small>' + usedSpace + ' GB</small></td><td><small>' + reservedSpace + ' GB</small></td>';
 			html += '<td>';
 			html += '<div class="progress">';
 			html += '<div class="bar bar-success" style="width: ' + freePer + '%;">Free</div>';
