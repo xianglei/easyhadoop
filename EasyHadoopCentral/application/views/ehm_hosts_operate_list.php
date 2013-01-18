@@ -5,7 +5,7 @@ function viewlogs(role, host_id)
 {
 	$.get('<?php echo $this->config->base_url();?>index.php/operate/viewlogs/'+host_id+'/'+role+'/', {}, function(html){
 		html = html;
-		$('#viewlogs_'+role+'_'+host_id).html(html);
+		$('#viewlogs_'+role+'_'+host_id).html('<small>'+html+'</small>');
 	});
 }
 function check_online(role, host_id)
@@ -62,7 +62,7 @@ foreach($tmp as $k => $v):
 					</ul>
 				</div>
 				</td>
-				<!--modaled detail node hdd usage-->
+				<!--modaled view logs hdd usage-->
 					<div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="view_<?php echo $v?>_<?php echo $item->host_id?>_modal">
 						<div class="modal-header">
 							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

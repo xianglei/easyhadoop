@@ -151,6 +151,11 @@ class Ehm_management_model extends CI_Model
 			$str = str_replace('ERROR', "<b><font color=red>ERROR</font></b>",$str);
 			$str = str_replace('FATAL', "<b><font color=red>FATAL</font></b>",$str);
 			$str = str_replace('WARN', "<b><font color=orange>WARN</font></b>",$str);
+			
+			$tmp = explode("\n", $str);
+			$tmp = array_reverse($tmp);
+			$str = implode("\n", $tmp);
+			
 			$this->transport->close();
 		}
 		catch(Exception $e)
