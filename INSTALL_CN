@@ -18,46 +18,23 @@ sun-jdk-6u37
 连接，监听在节点服务器的30050端口，接收来自Central的指令并负责执行。
 
 安装说明
-1. 一台作为管理中心页面使用的服务器，可以使用任何操作系统。不建议
+1. 一台作为管理中心页面使用的服务器，可以使用任何操作系统。但不建议
 使用windows。
 
-2. 安装LA(Apache)MP或LN(Nginx)MP
+2. 运行操作系统版本对应的安装脚本
+chmod +x install_centos(x).sh
+./install_centos(x).sh
 
-做为推荐，建议使用Apache，php，mysql
-
-建议的nginx和php配置：
-由于安装hadoop依赖环境需要使用yum，这取决于你的服务器网速，如网速
-较慢可能造成网页超时，因此建议在webserver和php中添加如下设置
-
-NGINX 中的相关设置段:
-EasyHadoopCentral部分采用CodeIgniter框架开发，Nginx因为rewrite url问题
-需要设置才可以使用CodeIgniter。
-location / {
-		# Check if a file exists, or route it to index.php.
-		try_files $uri $uri/ /index.php;
-}
-你可能需要编辑EHM/EasyHadoopCentral/application/config/config.php中的
-$config['base_url']	= ''; /* http://your_ip/ 结尾需要加 / 符号  */
-如果你在使用nginx的时候遇到访问问题，如js路径变成https://...等
-
-Apache中的相关设置段:
-Apache无需设置即可使用
-
-	
-3. 在mysql中创建easyhadoop库，将easyhadoop.sql导入到mysql中
-mysql -uxxx -pxxx easyhadoop < easyhadoop.sql
-编辑EHM/EasyHadoopCentral/application/config/database.php中的选项用来访问你的数据库
-
-4. 修改config.inc.php
+3. 修改config.inc.php
 语言和安装文件下载源配置项，如无特殊需要，可不设置
 
-5.从网页中访问web服务器，直到你看见EHM的界面出现。
+4.从网页中访问web服务器，直到你看见EHM的界面出现。
 
 ########使用说明########
 
 说明前的说明：
-你可以使用EHM根路径下的download.sh来提前下载hadoop相关文件，这样可以极大的
-提高节点的安装速度。你也可以不使用download.sh来进行预下载。节点上agent会自动
+你可以使用EHM根路径下的install_centos(x).sh来提前下载hadoop相关文件，这样可以极大的
+提高节点的安装速度。你也可以不使用install_centos(x).sh来进行预下载。节点上agent会自动
 检测安装文件是否存在，并从EasyHadoop网站上下载相关的安装文件。
 
 一、节点管理说明
@@ -133,10 +110,10 @@ secondarynamenode
 三、节点安装管理
 
 1. 推送Hadoop文件
-该功能可极大的加快hadoop的安装速度，但要求你先使用download.sh来对hadoop安装文件进行预下载。
+该功能可极大的加快hadoop的安装速度，但要求你先使用install_centos(x).sh来对hadoop安装文件进行预下载。
 先执行
-chmod +x download.sh
-./download.sh
+chmod +x install_centos(x).sh
+./install_centos(x).sh
 等待全部文件下载完成，即可使用该功能将hadoop相关的安装文件推送至节点服务器。您也可以不使用该
 功能，节点服务器会自行从EasyHadoop网站源下载安装所需要的文件，并自动判断你的操作系统版本来
 进行后续的安装工作。
@@ -145,8 +122,8 @@ chmod +x download.sh
 您也可以自行从EasyHadoop网站的源下载到个人电脑上，并上传到EHM的hadoop文件夹内。
 通常的下载文件包括
 当前的源服务器地址在http://113.11.199.230/，自行下载请对照下列文件名
-hadoop-1.0.3-1.x86_64.rpm
-jdk-7u7-linux-x64.rpm
+hadoop-1.1.1-1.x86_64.rpm
+jdk-6u37-linux-x64.rpm
 lzo-2.06-1.el6.rfx.x86_64.rpm
 lzo-devel-2.06-1.el5.rf.x86_64.rpm
 lzop-1.03.tar.gz
@@ -190,7 +167,7 @@ Hadoop，将会提示无法找到日志的错误。
 可以依据该项目来进行hadoop的维护工作。
 
 五、节点监控
-目前可以监控内存，存储，和map/reduce使用情况，实时刷新状态
+目前可以监控内存，存储，CPU，负载和map/reduce使用情况，实时刷新状态
 
 六、用户管理
 目前提供单用户管理，初始安装时的用户名为admin，密码为123456。请自行修改密码。
