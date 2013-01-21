@@ -223,8 +223,8 @@ class Ehm_management_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$socket->setSendTimeout(300000);
-		$socket->setRecvTimeout(300000);
+		$socket->setSendTimeout(30000);
+		$socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);

@@ -157,8 +157,18 @@ class Ehm_hosts_model extends CI_Model
 	public function insert_host($hostname, $host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
 		$sql = "insert ehm_hosts set hostname='".$hostname."', ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."', rack='".$rack."'";
+		$str = "";
+		if($ssh_pass != "")
+		{
+			$this->load->model('ehm_management_model','manage');
+			$ip = $host;
+			$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent.py -d '.$ip;
+			$str = exec($command);
+			$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "python ~/NodeAgent.py -s start -b '.$ip.'" -d '.$ip;
+			$str .= exec($command);
+		}
 		if($this->db->simple_query($sql)):
-			return TRUE;
+			return $str;
 		else:
 			return FALSE;
 		endif;

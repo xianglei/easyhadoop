@@ -4,6 +4,7 @@ service mysqld start
 mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"
 mysql easyhadoop < easyhadoop.sql
 cp -R * /var/www/html/
+chmod 777 /var/www/html/expect.py
 
 echo "/*************************************************************/"
 echo "Install basic environment complete, starting download from"
