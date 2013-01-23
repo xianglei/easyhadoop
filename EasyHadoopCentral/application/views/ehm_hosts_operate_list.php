@@ -13,11 +13,11 @@ function check_online(role, host_id)
 	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/'+host_id+'/' + role, function(json){
 		if(json.status == 'online')
 		{
-			html = '<span class="badge badge-success"><i class="icon-ok"></i>' + json.role + '</span>';
+			$('#status_<?php echo $v;?>_<?php echo $item->host_id;?>').attr('class', 'btn btn-success');
 		}
 		else
 		{
-			html = '<span class="badge badge-important"><i class="icon-remove"></i>' + json.role + '</span>';
+			$('#status_<?php echo $v;?>_<?php echo $item->host_id;?>').attr('class', 'btn btn-danger');
 		}
 		$('#check_online_'+role+'_'+host_id).html(html);
 	});
@@ -42,7 +42,7 @@ function check_online(role, host_id)
 			<td><?php echo $item->ip;?>
 			</td>
 			<td>
-			<table>
+			<table border="0">
 				<tr>
 					
 <?php
@@ -51,7 +51,7 @@ foreach($tmp as $k => $v):
 ?>
 					<td>
 				<div class="btn-group">
-					<a class="btn" data-toggle="modal"  href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><?php echo $v;?> </a>
+					<a class="btn" id="status_<?php echo $v;?>_<?php echo $item->host_id;?>" data-toggle="modal"  href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><?php echo $v;?> </a>
 					<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<li><a data-toggle="modal" href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><i class="icon-search"></i>查看日志</a></li>
@@ -89,24 +89,6 @@ foreach($tmp as $k => $v):
 endforeach;
 ?>
 				</tr>
-<tr>
-<?php
-				$tmp = explode(",",$item->role);
-				foreach ($tmp as $k => $v):
-				?>
-					<script>
-					check_online('<?php echo $v;?>', <?php echo $item->host_id;?>);
-					setInterval(function()
-					{
-						check_online('<?php echo $v;?>', <?php echo $item->host_id;?>)
-					}, 5000);
-					</script>
-					<td><div id="check_online_<?php echo $v;?>_<?php echo $item->host_id;?>"></div></td>
-				<?php
-				endforeach;
-				?>
-
-</tr>
 				</table>
 			</td>
 		</tr>
