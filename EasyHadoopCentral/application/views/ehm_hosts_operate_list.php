@@ -43,7 +43,7 @@ function check_online(role, host_id)
 			<td><?php echo $item->ip;?>
 			</td>
 			<td>
-			<table border="0">
+			<table border="0" class="table table-striped">
 				<tr>
 					
 <?php
@@ -53,7 +53,7 @@ foreach($tmp as $k => $v):
 					<td>
 				<div class="btn-group">
 					<a class="btn" id="status_<?php echo $v;?>_<?php echo $item->host_id;?>" data-toggle="modal"  href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><?php echo $v;?> </a>
-					<button class="btn btn-inverse dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+					<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<li><a data-toggle="modal" href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><i class="icon-search"></i>查看日志</a></li>
 						<li class="divider"></li>
