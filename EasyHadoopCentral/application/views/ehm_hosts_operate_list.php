@@ -43,7 +43,7 @@ function check_online(role, host_id)
 			<td><?php echo $item->ip;?>
 			</td>
 			<td>
-			<table border="0" class="table table-striped table-condensed">
+			<table border="0" class="table table-condensed">
 			<thead>
 				<tr>
 					
