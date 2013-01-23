@@ -99,7 +99,8 @@ class Operate extends CI_Controller
 		$role = $role;
 		
 		$str = $this->manage->control_hadoop($ip, $role, "start");
-		redirect($this->config->base_url() . 'index.php/operate/index/');
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
 	}
 	
 	public function Stop()
@@ -116,7 +117,8 @@ class Operate extends CI_Controller
 		$role = $role;
 		
 		$str = $this->manage->control_hadoop($ip, $role, "stop");
-		redirect($this->config->base_url() . 'index.php/operate/index/');
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
 	}
 	
 	public function Restart()
@@ -133,7 +135,8 @@ class Operate extends CI_Controller
 		$role = $role;
 		
 		$str = $this->manage->control_hadoop($ip, $role, "restart");
-		redirect($this->config->base_url() . 'index.php/operate/index/');
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
 	}
 	
 	public function KillJobAction()
@@ -144,7 +147,7 @@ class Operate extends CI_Controller
 		
 		$this->manage->kill_job($job_id);
 		
-		redirect($this->config->base_url() . 'index.php/operate/index/');
+		redirect($this->config->base_url() . 'index.php/operate/job/');
 	}
 	
 	public function Job()

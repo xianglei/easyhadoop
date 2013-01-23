@@ -110,6 +110,7 @@ class Manage extends CI_Controller
 		$ssh_pass = $this->input->post('ssh_pass');
 		$rack = $this->input->post('rack');
 		$this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);
+
 		redirect($this->config->base_url() . 'index.php/manage/index/');
 	}
 	
@@ -127,7 +128,9 @@ class Manage extends CI_Controller
 			$this->manage->control_hadoop($ip, $v , 'stop');
 		}
 		$this->hosts->delete_host($host_id);
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
 	}
 	
 	public function UpdateHadoopNode()
@@ -142,7 +145,9 @@ class Manage extends CI_Controller
 		$rack = $this->input->post('rack');
 		
 		$this->hosts->update_host($host_id, $hostname, $ip, $role, $ssh_user = '', $ssh_pass = '', $rack);
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
 	}
 	
 	public function __destruct()
