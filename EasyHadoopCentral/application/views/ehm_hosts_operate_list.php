@@ -84,6 +84,12 @@ foreach($tmp as $k => $v):
 				{
 					viewlogs('<?php echo $v?>', <?php echo $item->host_id?>)
 				}, 2000);
+				
+				check_online('<?php echo $v?>', <?php echo $item->host_id?>);
+				setInterval(function()
+				{
+					check_online('<?php echo $v?>', <?php echo $item->host_id?>)
+				}, 2000);
 				</script>
 			
 <?php
