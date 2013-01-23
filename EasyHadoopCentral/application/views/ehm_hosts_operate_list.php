@@ -13,11 +13,13 @@ function check_online(role, host_id)
 	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/'+host_id+'/' + role, function(json){
 		if(json.status == 'online')
 		{
-			$('#status_'+ role +'_'+host_id).attr('class', 'btn btn-success');
+			$('#status_'+ role +'_'+host_id).removeClass("btn");
+			$('#status_'+ role +'_'+host_id).addClass("btn btn-success");
 		}
 		else
 		{
-			$('#status_'+role+'_'+host_id).attr('class', 'btn btn-danger');
+			$('#status_'+role+'_'+host_id).removeClass("btn");
+			$('#status_'+role+'_'+host_id).addClass("btn btn-danger");
 		}
 	});
 }
