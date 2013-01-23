@@ -43,14 +43,15 @@ function check_online(role, host_id)
 			<td><?php echo $item->ip;?>
 			</td>
 			<td>
-			<table border="0" class="table table-striped">
+			<table border="0" class="table table-striped table-condensed">
+			<thead>
 				<tr>
 					
 <?php
 $tmp = explode(",", $item->role);
 foreach($tmp as $k => $v):
 ?>
-					<td>
+					<th>
 				<div class="btn-group">
 					<a class="btn" id="status_<?php echo $v;?>_<?php echo $item->host_id;?>" data-toggle="modal"  href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><?php echo $v;?> </a>
 					<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -62,7 +63,7 @@ foreach($tmp as $k => $v):
 						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/restart/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-refresh"></i>重启 <?php echo $v;?></a></li>
 					</ul>
 				</div>
-				</td>
+				</th>
 				<!--modaled view logs hdd usage-->
 					<div class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" id="view_<?php echo $v?>_<?php echo $item->host_id?>_modal">
 						<div class="modal-header">
@@ -95,7 +96,8 @@ foreach($tmp as $k => $v):
 <?php
 endforeach;
 ?>
-				</tr>
+					</tr>
+				</thead>
 				</table>
 			</td>
 		</tr>
