@@ -9,8 +9,8 @@
     <meta name="author" content="xianglei">
 
     <!-- Le styles -->
-    <link href="<?php echo $this->config->base_url();?>css/bootstrap.css" rel="stylesheet">
-    <link href="<?php echo $this->config->base_url();?>css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="<?php echo $this->config->base_url();?>css/bootstrap.min.css" rel="stylesheet">
+    <link href="<?php echo $this->config->base_url();?>css/bootstrap-responsive.min.css" rel="stylesheet">
 
     <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -34,6 +34,8 @@
     <script src="<?php echo $this->config->base_url();?>js/bootstrap-typeahead.js"></script>
     <script src="<?php echo $this->config->base_url();?>js/bootstrap-affix.js"></script>
     <script src="<?php echo $this->config->base_url();?>js/application.js"></script>
+	<script src="<?php echo $this->config->base_url();?>js/highcharts.js"></script>
+	<script src="<?php echo $this->config->base_url();?>js/highcharts-more.js"></script>
     
   </head>
   

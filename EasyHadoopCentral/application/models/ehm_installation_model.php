@@ -17,6 +17,8 @@ class Ehm_installation_model extends CI_Model
 		include_once $GLOBALS['THRIFT_ROOT'] . 'transport/TSocket.php';
 		include_once $GLOBALS['THRIFT_ROOT'] . 'transport/TTransport.php';
 		include_once $GLOBALS['THRIFT_ROOT'] . 'protocol/TBinaryProtocol.php';
+		
+		$this->load->database();
 	}
 
 	#Push one installation file once, cause of need to return progress
@@ -121,8 +123,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$socket->setSendTimeout(300000);
-		$socket->setRecvTimeout(300000);
+		$socket->setSendTimeout(30000);
+		$socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -145,8 +147,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -175,8 +177,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -217,8 +219,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -258,8 +260,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -305,8 +307,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -356,8 +358,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -453,8 +455,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -500,8 +502,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -532,8 +534,8 @@ class Ehm_installation_model extends CI_Model
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -557,4 +559,79 @@ class Ehm_installation_model extends CI_Model
 		$file_list_array = get_filenames($folder);
 		return $file_list_array;
 	}
+	
+	public function get_mount_point($host)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('ehm_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		$cmd = "df -lhT  | grep -v tmpfs | grep -v boot | grep -v usr | grep -v tmp | sed '1d;/ /!N;s/\n//;s/[ ]*[ ]/\t/g;'";
+		try
+		{
+			$this->transport->open();
+			$str = $this->ehm->RunCommand($cmd);
+			$this->transport->close();
+		}
+		catch(Exception $e)
+		{
+			$str = 'Caught exception: '.  $e->getMessage(). "\n";
+		}
+		return $str;
+	}
+	
+	public function set_mount_point($host, $mount_list = array())
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('ehm_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(30000);
+		$this->socket->setRecvTimeout(30000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		if($mount_list[0] != "")
+		{
+			$cmd = "";
+			for($i = 0; $i < count($mount_list); $i++)
+			{
+				$mount_name .= $mount_list[$i] . "/hdfs/name,";
+				$mount_data .= $mount_list[$i] . "/hdfs/data,";
+				$mount_mrlocal = $mount_list[$i] . "/hdfs/mrlocal,";
+				$mount_mrsystem = $mount_list[$i] . "/hdfs/mrsystem,";
+				$cmd .= "mkdir -p ".$mount_list[$i]."/hdfs;" . "chown -R hadoop:hadoop ".$mount_list[$i]. "/hdfs;";
+			}
+			
+			$mount_name = substr($mount_name,0,-1);
+			$mount_data = substr($mount_data,0,-1);
+			$mount_mrlocal = substr($mount_mrlocal,0,-1);
+			$mount_mrsystem = substr($mount_mrsystem,0,-1);
+			
+			$sql = "update ehm_hosts set mount_name = '".$mount_name."', mount_data = '".$mount_data."', mount_mrlocal = '". $mount_mrlocal ."', mount_mrsystem = '". $mount_mrsystem ."'";
+			$this->db->simple_query($sql);
+			
+			try
+			{
+				$this->transport->open();
+				$str = $this->ehm->RunCommand($cmd);
+				$this->transport->close();
+			}
+			catch(Exception $e)
+			{
+				$str = 'Caught exception: '.  $e->getMessage(). "\n";
+			}
+		}
+		else
+		{
+			$str = "Empty mount list!"
+		}
+		return $str;
+	}
+	
 }

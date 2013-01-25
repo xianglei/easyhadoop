@@ -69,6 +69,14 @@
 					</script>
 				</td>
 			</tr>
+			<tr>
+				<td>
+				设置存储
+				</td>
+				<td>
+				<?php echo "test";?>
+				</td>
+			</tr>
 		</table>
 	</div>
 	<div class="modal-footer">
