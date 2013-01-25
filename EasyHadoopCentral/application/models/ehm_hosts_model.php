@@ -238,7 +238,7 @@ if __name__==\"__main__\":
 	print \"/\" + rack.get(sys.argv[1],\"rack0\")\n";
 		unset($str);
 		$str = "";
-		$str['filename'] = $this->config->item('config') . "RackAware.py";
+		$str['filename'] = $this->config->item('conf_folder') . "RackAware.py";
 		$str['chmod'] = "777";
 		$str['content'] = $rack;
 		
