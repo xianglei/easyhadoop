@@ -3,7 +3,6 @@ yum install -y php53 php53-cli php53-devel php53-common httpd httpd-devel php53-
 service mysqld start
 mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"
 mysql easyhadoop < easyhadoop.sql
-cp -R * /var/www/html/
 chmod 777 /var/www/html/expect.py
 
 echo "/*************************************************************/"
@@ -44,7 +43,7 @@ if [ ! -f "lzo-devel-2.06-1.el6.rfx.x86_64.rpm" ]; then
 fi
 
 cd ..
-
+cp -R * /var/www/html/
 echo "/*************************************************************/"
 echo "Download Hadoop installation and runtime libaries complete."
 echo "Do not forget to start your NodeAgent.py"
