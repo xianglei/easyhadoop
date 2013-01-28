@@ -62,7 +62,7 @@ class Ehm_settings_model extends CI_Model
 	public function update_settings($set_id, $filename, $content, $ip = '0')
 	{
 		echo $sql = "update ehm_host_settings set filename='".$filename."', content='".$content."', ip='".$ip."' where set_id='".$set_id."'";
-		if($query = $this->db->query($sql)):
+		if($this->db->simple_query($sql)):
 			return TRUE;
 		else:
 			return FALSE;
@@ -72,7 +72,7 @@ class Ehm_settings_model extends CI_Model
 	public function delete_settings($set_id)
 	{
 		$sql = "delete from ehm_host_settings where set_id=".$set_id;
-		if($query = $this->db->query($sql)):
+		if($this->db->simple_query($sql)):
 			return TRUE;
 		else:
 			return FALSE;
@@ -82,11 +82,99 @@ class Ehm_settings_model extends CI_Model
 	public function insert_settings($filename, $content, $ip = '0')
 	{
 		$sql = "insert ehm_host_settings set filename='".$filename."', content='".str_replace("'", "\'", $content)."', ip='".$ip."'";
-		if($query = $this->db->query($sql)):
+		if($this->db->simle_query($sql)):
 			return TRUE;
 		else:
 			return FALSE;
 		endif;
+	}
+	
+	public function get_hadoop_settings($filename = "")
+	{
+		if("" == $filename)
+			$sql = "select * from ehm_hadoop_settings";
+		else
+			$sql = "select * from ehm_hadoop_settings where filename='".$filename."'";
+		
+		if($query = $this->db->query($sql)):
+			return $query->result();
+		else:
+			return FALSE;
+		endif;
+	}
+	
+	public function get_hadoop_settings_category()
+	{
+		$sql = "select distinct filename as filename from ehm_hadoop_settings";
+		if($query = $this->db->query($sql)):
+			return $query->result();
+		else:
+			return FALSE;
+		endif;
+	}
+	
+	public function convert_hadoop_settings($value = "")
+	{
+		if(preg_match('/(?<=\{)([^\}]*?)(?=\})/', $value))
+		{
+			switch($value)
+			{
+				case "hdfs://{namenode}:9000":
+					$sql = "select hostname from ehm_hosts where role like 'namenode%'";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$result = $result[0];
+					$return = "hdfs://".$result->hostname.":9000";
+					break;
+				case "{jobtracker}:9001":
+					$sql = "select hostname from ehm_hosts where role like '%jobtracker%'";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$result = $result[0];
+					$return = $result->hostname. ":9001";
+					break;
+				case "{mount_snn}":
+					$sql = "select * from ehm_hosts where mount_snn != ''";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$result = $result[0];
+					$return = $result->mount_snn;
+					break;
+				case "{mount_name}":
+					$sql = "select * from ehm_hosts where mount_name != ''";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$result = $result[0];
+					$return = $result->mount_name;
+					break;
+				case "{mount_data}":
+					$sql = "select * from ehm_hosts where mount_data != ''";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$result = $result[0];
+					$return = $result->mount_data;
+					break;
+				case "{mount_mrlocal}":
+					$sql = "select * from ehm_hosts where mount_mrlocal != ''";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$result = $result[0];
+					$return = $result->mount_mrlocal;
+					break;
+				case "{mount_mrsystem}":
+					$sql = "select * from ehm_hosts where mount_mrsystem != ''";
+					$query = $this->db->query($sql);
+					$result = $query->result();
+					$result = $result[0];
+					$return = $result->mount_mrsystem;
+					break;
+			}
+		}
+		else
+		{
+			$return = $value;
+		}
+		return $return;
 	}
 
 }

@@ -33,6 +33,8 @@ class Settings extends CI_Controller
 		$data['common_hbase_node_operate'] = $this->lang->line('common_hbase_node_operate');
 		$data['common_hadoop_host_settings'] = $this->lang->line('common_hadoop_host_settings');
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
+		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
+		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');
@@ -83,6 +85,56 @@ class Settings extends CI_Controller
 		$this->load->view('view_rackaware_modal', $data);
 		$this->load->view('push_rackaware_modal', $data);
 		$this->load->view('push_node_settings_modal', $data);
+		
+		$this->load->view('div_end');
+		$this->load->view('div_end');
+		
+		#generaet footer
+		$this->load->view('footer', $data);
+	}
+	
+	public function HadoopSettings()
+	{
+		#Generate header
+		$this->lang->load('commons');
+		$data['common_lang_set'] = $this->lang->line('common_lang_set');
+		$data['common_title'] = $this->lang->line('common_title');
+		$this->load->view('header',$data);
+		
+		#generate navigation bar
+		$data['common_index_page'] = $this->lang->line('common_index_page');
+		$data['common_node_manager'] = $this->lang->line('common_node_manager');
+		$data['common_node_monitor'] = $this->lang->line('common_node_monitor');
+		$data['common_install'] = $this->lang->line('common_install');
+		$data['common_host_settings'] = $this->lang->line('common_host_settings');
+		$data['common_node_operate'] = $this->lang->line('common_node_operate');
+		$data['common_user_admin'] = $this->lang->line('common_user_admin');
+		$data['common_log_out'] = $this->lang->line('common_log_out');
+		$data['common_hadoop_node_operate'] = $this->lang->line('common_hadoop_node_operate');
+		$data['common_hbase_node_operate'] = $this->lang->line('common_hbase_node_operate');
+		$data['common_hadoop_host_settings'] = $this->lang->line('common_hadoop_host_settings');
+		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
+		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
+		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$this->load->view('nav_bar', $data);
+		
+		$this->load->view('div_fluid');
+		$this->load->view('div_row_fluid');
+		
+		$this->load->view('ehm_hosts_settings_nav', $data);
+		
+		$data['common_hostname'] = $this->lang->line('common_hostname');
+		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
+		$data['common_node_role'] = $this->lang->line('common_node_role');
+		$data['common_create_time'] = $this->lang->line('common_create_time');
+		$data['common_action'] = $this->lang->line('common_action');
+		
+		#generate settings lists
+		$this->load->model('ehm_settings_model', 'sets');
+		$category = $this->sets->get_hadoop_settings_category();
+		$data['category'] = $category;
+		
+		$this->load->view('hadoop_settings_collapse',$data);
 		
 		$this->load->view('div_end');
 		$this->load->view('div_end');
@@ -218,6 +270,35 @@ class Settings extends CI_Controller
 		$rack = $this->hosts->make_rackaware();
 		$this->load->model('ehm_installation_model', 'install');
 		echo $this->install->push_rackaware($ip, $rack);
+	}
+	
+	public function GenerateSettings()
+	{
+		$name = $this->input->post('name');
+		$value = $this->input->post('value');
+		$desc = $this->input->post('desc');
+		$filename = $this->input->post('filename');
+		
+		$this->load->model('ehm_auxiliary_model', 'aux');
+		$setting = $this->aux->generate_settings($name, $value, $desc, $filename);
+		
+		#Generate header
+		$this->lang->load('commons');
+		$data['common_lang_set'] = $this->lang->line('common_lang_set');
+		$data['common_title'] = $this->lang->line('common_title');
+		$this->load->view('header',$data);
+		
+		$filename = $setting['filename'];
+		
+		$xml = str_replace(">","&gt;", str_replace("<", "&lt;",$setting['xml']));
+		$xml = str_replace(" ","&nbsp;", str_replace("\n","<br>\n",$xml));
+		
+		$data['filename'] = $filename;
+		$data['xml'] = $xml;
+		$this->load->view('view_generated_settings', $data);
+		
+		#generaet footer
+		$this->load->view('footer', $data);
 	}
 
 }

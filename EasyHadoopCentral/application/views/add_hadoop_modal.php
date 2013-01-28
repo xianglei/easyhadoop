@@ -25,6 +25,7 @@
 			</tr>
 			<tr>
 				<td><label><?php echo "ROOT 用户名(选填)";?></label><input type="text" name="ssh_user" value="root" disabled />
+				<input type="hidden" name="ssh_user" value="root" />
 				</td>
 				<td><label><?php echo "ROOT 密  码(选填)";?></label><input type="text" name="ssh_pass" placeholder="ssh_pass" />
 				</td>
@@ -67,14 +68,6 @@
 						});
 					});
 					</script>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				设置存储
-				</td>
-				<td>
-				<?php echo "test";?>
 				</td>
 			</tr>
 		</table>

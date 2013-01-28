@@ -119,6 +119,34 @@ class Ehm_auxiliary_model extends CI_Model
 		}
 		return $json;
 	}
+	
+	public function generate_settings($name = array(), $value = array(), $desc = array(), $filename)
+	{
+		if(count($name) > 0)
+		{
+			$xml = "<?xml version=\"1.0\"?>\n";
+			$xml .= "<?xml-stylesheet type=\"text/xsl\" href=\"configuration.xsl\"?>\n";
+			$xml .= "<configuration>\n";
+			$this->load->model('ehm_settings_model', 'sets');
+			
+			for($i = 0; $i<count($name); $i++)
+			{
+				$xml .= "  <property>\n";
+				$xml .= "    <name>". $name[$i] ."</name>\n";
+				$xml .= "    <value>" . $this->sets->convert_hadoop_settings($value[$i]) . "</value>\n";
+				//$xml .= "    <description>" . $desc[$i] . "</description>\n";
+				$xml .= "  </property>\n\n";
+			}
+			
+			$xml .= "</configuration>\n";
+		}
+		
+		$ret = array();
+		$ret['filename'] = $filename;
+		$ret['xml'] = $xml;
+		
+		return $ret;
+	}
 }
 
 ?>

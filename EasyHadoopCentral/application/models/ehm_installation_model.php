@@ -571,12 +571,30 @@ class Ehm_installation_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
-		$cmd = "df -lhT  | grep -v tmpfs | grep -v boot | grep -v usr | grep -v tmp | sed '1d;/ /!N;s/\n//;s/[ ]*[ ]/\t/g;'";
+		$cmd = ' df -lhT  | grep -v tmpfs | grep -v boot | grep -v usr | grep -v tmp | sed \'1d;/ /!N;s/\n//;s/[ ]*[ ]/\t/g;\' ';
 		try
 		{
 			$this->transport->open();
 			$str = $this->ehm->RunCommand($cmd);
 			$this->transport->close();
+			
+			$tmp1 = explode("\n", $str);
+			$arr = array();
+			for ($i = 0; $i < count($tmp1); $i++)
+			{
+				if($tmp1[$i] != "")
+				{
+					$tmp2 = explode("\t", $tmp1[$i]);
+					$arr['file_system'][$i] = $tmp2[0];
+					$arr['type'][$i] = $tmp2[1];
+					$arr['size'][$i] = $tmp2[2];
+					$arr['used'][$i] = $tmp2[3];
+					$arr['avail'][$i] = $tmp2[4];
+					$arr['used_percent'][$i] = $tmp2[5];
+					$arr['mounted_on'][$i] = $tmp2[6];
+				}
+			}
+			$str = $arr;
 		}
 		catch(Exception $e)
 		{
@@ -585,7 +603,7 @@ class Ehm_installation_model extends CI_Model
 		return $str;
 	}
 	
-	public function set_mount_point($host, $mount_list = array())
+	public function set_mount_point($host_id, $host, $mount_list = array())
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
@@ -599,21 +617,28 @@ class Ehm_installation_model extends CI_Model
 		if($mount_list[0] != "")
 		{
 			$cmd = "";
+			$mount_name = "";
+			$mount_sname = "";
+			$mount_data = "";
+			$mount_mrlocal = "";
+			$mount_mrsystem = "";
 			for($i = 0; $i < count($mount_list); $i++)
 			{
 				$mount_name .= $mount_list[$i] . "/hdfs/name,";
+				$mount_sname .= $mount_list[$i] . "/hdfs/snn,";
 				$mount_data .= $mount_list[$i] . "/hdfs/data,";
-				$mount_mrlocal = $mount_list[$i] . "/hdfs/mrlocal,";
-				$mount_mrsystem = $mount_list[$i] . "/hdfs/mrsystem,";
+				$mount_mrlocal .= $mount_list[$i] . "/hdfs/mrlocal,";
+				$mount_mrsystem .= $mount_list[$i] . "/hdfs/mrsystem,";
 				$cmd .= "mkdir -p ".$mount_list[$i]."/hdfs;" . "chown -R hadoop:hadoop ".$mount_list[$i]. "/hdfs;";
 			}
 			
 			$mount_name = substr($mount_name,0,-1);
+			$mount_sname = substr($mount_sname,0,-1);
 			$mount_data = substr($mount_data,0,-1);
 			$mount_mrlocal = substr($mount_mrlocal,0,-1);
 			$mount_mrsystem = substr($mount_mrsystem,0,-1);
 			
-			$sql = "update ehm_hosts set mount_name = '".$mount_name."', mount_data = '".$mount_data."', mount_mrlocal = '". $mount_mrlocal ."', mount_mrsystem = '". $mount_mrsystem ."'";
+			$sql = "update ehm_hosts set mount_name = '".$mount_name."', mount_data = '".$mount_data."', mount_mrlocal = '". $mount_mrlocal ."', mount_mrsystem = '". $mount_mrsystem ."', mount_snn = '". $mount_sname ."' where host_id='".$host_id."'";
 			$this->db->simple_query($sql);
 			
 			try
@@ -629,7 +654,7 @@ class Ehm_installation_model extends CI_Model
 		}
 		else
 		{
-			$str = "Empty mount list!"
+			$str = "Empty mount list!";
 		}
 		return $str;
 	}

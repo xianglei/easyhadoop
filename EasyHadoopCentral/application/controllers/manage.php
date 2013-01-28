@@ -35,6 +35,8 @@ class Manage extends CI_Controller
 		$data['common_hbase_node_operate'] = $this->lang->line('common_hbase_node_operate');
 		$data['common_hadoop_host_settings'] = $this->lang->line('common_hadoop_host_settings');
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
+		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
+		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');
@@ -149,6 +151,32 @@ class Manage extends CI_Controller
 		$rack = $this->input->post('rack');
 		
 		$this->hosts->update_host($host_id, $hostname, $ip, $role, $ssh_user = '', $ssh_pass = '', $rack);
+		
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
+	}
+	
+	public function GetMountPoint($host_id)
+	{
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		$this->load->model('ehm_installation_model', 'install');
+		$arr = $this->install->get_mount_point($ip);
+		echo json_encode($arr);
+	}
+	
+	public function AddMountPoint()
+	{
+		$host_id = $this->input->post('host_id');
+		$mount_point = $this->input->post('mount_point');
+		
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		
+		$this->load->model('ehm_installation_model', 'install');
+		$str = $this->install->set_mount_point($host_id, $ip, $mount_point);
 		
 		$url = $this->input->server('HTTP_REFERER');
 		redirect($url);

@@ -16,9 +16,18 @@
 			<!--Index end-->
 			
 			<!--Install-->
-              <li <?php if($this->router->class == "install"){ echo "class=\"active\"";}?>>
-                <a href="<?php echo $this->config->base_url();?>index.php/install/index/" ><?php echo $common_install;?></a>
-              </li>
+			<li class="dropdown" <?php if($this->router->class == "install"){ echo "class=\"active\"";}?>>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $common_install?> <b class="caret"></b></a>
+				<ul class="dropdown-menu">
+				<li>
+					<a href="<?php echo $this->config->base_url();?>index.php/install/index/" ><?php echo $common_install_hadoop;?></a>
+				</li>
+				<li class="divider"></li>
+				<li>
+					<a href="<?php echo $this->config->base_url();?>index.php/install/index/" ><?php echo $common_install_hbase;?></a>
+				</li>
+				</ul>
+			</li>
 			<!--Install end-->
 			
 			<!--Settings-->

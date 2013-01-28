@@ -51,13 +51,14 @@ function push_general_settings_status(host_id, set_id)
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<li><a href="<?php echo $this->config->base_url();?>index.php/settings/hadoopsettings/" data-toggle="modal" target="_blank">配置生成工具</a></li>
 						<li><a href="#add_node_settings" data-toggle="modal">添加节点配置</a></li>
 						<li class="divider"></li>
 						<li><a href="#push_node_settings" data-toggle="modal">推送节点配置</a></li>
 					</ul>
 				</div>-
 			</div>
-			<br />
+			<br /><br /><br />
 			<table class="table table-striped table_hover">
 				<thead>
 					<th>#</th>
@@ -147,6 +148,7 @@ function push_general_settings_status(host_id, set_id)
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
+						<li><a href="<?php echo $this->config->base_url();?>index.php/settings/hadoopsettings/" data-toggle="modal" target="_blank">配置生成工具</a></li>
 						<li><a href="#add_general_settings" data-toggle="modal">添加全局配置</a></li>
 						<li class="divider"></li>
 						<li><a href="#push_general_settings" data-toggle="modal">推送全局配置</a></li>
@@ -175,7 +177,7 @@ function push_general_settings_status(host_id, set_id)
 					</ul>
 				</div>
 			</div>
-			<br />
+			<br /><br /><br />
 			<table class="table table-striped table_hover">
 				<thead>
 					<tr>

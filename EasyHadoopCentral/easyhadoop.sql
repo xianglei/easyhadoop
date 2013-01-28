@@ -1,8 +1,8 @@
 DROP TABLE IF EXISTS `ehm_hadoop_settings`;
 CREATE TABLE IF NOT EXISTS `ehm_hadoop_settings` (
   `set_id` int(11) NOT NULL auto_increment,
-  `name` varchar(200) NOT NULL,
-  `value` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `value` TEXT NULL,
   `description` text NOT NULL,
   `filename` varchar(255) NOT NULL,
   PRIMARY KEY  (`set_id`),
@@ -18,8 +18,8 @@ CREATE TABLE IF NOT EXISTS `ehm_hadoop_settings` (
 DROP TABLE IF EXISTS `ehm_hive_settings`;
 CREATE TABLE IF NOT EXISTS `ehm_hive_settings` (
   `set_id` int(11) NOT NULL auto_increment,
-  `name` varchar(200) NOT NULL,
-  `value` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `value` TEXT NOT NULL,
   `description` text NOT NULL,
   `filename` varchar(255) NOT NULL,
   PRIMARY KEY  (`set_id`),
@@ -42,6 +42,11 @@ CREATE TABLE IF NOT EXISTS `ehm_hosts` (
   `ssh_pass` varchar(100) NULL,
   `create_time` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `rack` int(10) NOT NULL default '1',
+  `mount_name` TEXT NULL,
+  `mount_data` TEXT NULL,
+  `mount_mrlocal` TEXT NULL,
+  `mount_mrsystem` TEXT NULL,
+  `mount_snn` TEXT NULL,
   PRIMARY KEY  (`host_id`),
   UNIQUE KEY `hostname_2` (`hostname`),
   KEY `hostname` (`hostname`,`ip`)
@@ -75,8 +80,8 @@ CREATE TABLE IF NOT EXISTS `ehm_host_settings` (
 DROP TABLE IF EXISTS `ehm_pig_settings`;
 CREATE TABLE IF NOT EXISTS `ehm_pig_settings` (
   `set_id` int(11) NOT NULL auto_increment,
-  `name` varchar(200) NOT NULL,
-  `value` varchar(255) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `value` TEXT NULL,
   `description` text NOT NULL,
   `filename` varchar(255) NOT NULL,
   PRIMARY KEY  (`set_id`),

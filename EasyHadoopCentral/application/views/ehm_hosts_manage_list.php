@@ -17,6 +17,30 @@ function ping(host_id)
 		$('#ping_node_'+host_id).html(html);
 	});
 }
+
+function get_mount_point(host_id)
+{
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/manage/getmountpoint/' + host_id, function(json){
+		var i = json.file_system.length;
+		html = '<table class="table table-bordered table-hover">';
+		html += '<tr>';
+		html += '	<td>FileSystem:</td><td>Size</td><td>Used</td><td>Mounted:</td><td>Selection:</td>';
+		html += '</tr>';
+		for(var i = 0; i < json.file_system.length; i++)
+		{
+			html += '<tr>';
+			html += '<td>'+ json.file_system[i] +'</td>';
+			html += '<td>'+ json.size[i] +'</td>';
+			html += '<td>'+ json.used_percent[i] +'</td>';
+			html += '<td>'+ json.mounted_on[i] +'</td>';
+			html += '<td><input type=checkbox name="mount_point[]" value="' + json.mounted_on[i] + '" /> </td>';
+			html += '</tr>';
+		}
+		html += '</table>';
+		
+		$('#hdd_status_' + host_id).html(html);
+	});
+}
 </script>
 	<!--<div class="alert alert-error"><?php echo $common_add_node_tips?></div>-->
 	<table class="table table-striped table_hover">
@@ -47,17 +71,25 @@ function ping(host_id)
 				<td><?php echo $item->create_time;?></td>
 				<td>
 				<div class="btn-group">
-					<button class="btn" id="ping_node_<?php echo $item->host_id;?>"><i class=icon-refresh></i><?php echo $common_ping_node;?></button>
-					<script>
-					
+					<button class="btn" id="ping_node_<?php echo $item->host_id;?>"><i class="icon-refresh"></i><?php echo $common_ping_node;?></button>
+					<a class="btn" href="#setup_hdd_<?php echo $item->host_id;?>" data-toggle="modal" rel="tooltip" data-placement="left" title="设置HDFS存储硬盘"><i class="icon-hdd"></i> 存储设置</a>
+				</div>
+				<script>
 					ping(<?php echo $item->host_id;?>);
 					setInterval(function()
 					{
 						ping(<?php echo $item->host_id;?>)
 					},5000);
-					</script>
-					<a class="btn" href="#update_hadoop_node_<?php echo $item->host_id;?>" data-toggle="modal"><i class=icon-wrench></i><?php echo $common_modify_node;?></a>
-					<a class="btn btn-danger" href="#delete_hadoop_node_<?php echo $item->host_id;?>" data-toggle="modal"><i class=icon-remove></i><?php echo $common_remove_node;?></a>
+					
+					get_mount_point(<?php echo $item->host_id?>);
+				</script>
+				<div class="btn-group">
+					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown">节点操作 <span class="caret"></span></button>
+					<ul class="dropdown-menu">
+						<li><a href="#update_hadoop_node_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-wrench"></i><?php echo $common_modify_node;?></a></li>
+						<li class="divider"></li>
+						<li><a href="#delete_hadoop_node_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-remove"></i><?php echo $common_remove_node;?></a></li>
+					</ul>
 				</div>
 				
 <!--update modal-->
@@ -117,6 +149,29 @@ function ping(host_id)
 </form>
 </div>
 <!--update modal end-->
+
+
+<!--setup hdd modal-->
+<div id="setup_hdd_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<form action="<?php echo $this->config->base_url();?>index.php/manage/addmountpoint/" method="POST">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3 id="myModalLabel">存储设置</h3>
+	</div>
+	<div class="modal-body">
+			<label><?php echo $common_hostname;?> : <?php echo $item->hostname;?></label><br />
+			<label><?php echo $common_ip_addr;?> : <?php echo $item->ip;?></label><br />
+			<input type="hidden" name="host_id" value="<?php echo $item->host_id;?>" />
+			<div id="hdd_status_<?php echo $item->host_id;?>"></div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn" data-dismiss="modal">Close</button>
+		<button type="submit" class="btn btn-primary"><?php echo $common_submit;?></button>
+	</div>
+</form>
+</div>
+<!--setup hadd modal end-->
+
 
 <!--delete modal-->
 <div id="delete_hadoop_node_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
