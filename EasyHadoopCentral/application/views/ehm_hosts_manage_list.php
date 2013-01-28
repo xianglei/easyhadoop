@@ -111,6 +111,7 @@ function get_mount_point(host_id)
 			</tr>
 			<tr>
 				<td><label><?php echo "ROOT 用户名(选填)";?></label><input type="text" name="ssh_user" placeholder="ssh_user" value="root" disabled />
+				<input type="hidden" name="ssh_user" value="root" />
 				</td>
 				<td><label><?php echo "ROOT 密  码(选填)";?></label><input type="text" name="ssh_pass" placeholder="ssh_pass" value="<?php echo $item->ssh_pass;?>" />
 				</td>
