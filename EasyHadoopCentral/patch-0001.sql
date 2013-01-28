@@ -38,6 +38,8 @@ insert ehm_hadoop_settings set name='topology.script.number.args', value='4000',
 insert ehm_hadoop_settings set name='fs.trash.interval', value='4320', description='HDFS回收站自动清空间隔/分钟', filename='core-site.xml';
 insert ehm_hadoop_settings set name='io.file.buffer.size', value='131072', description='序列化文件处理时读写buffer大小/字节', filename='core-site.xml';
 insert ehm_hadoop_settings set name='webinterface.private.actions', value='false', description='NN网页是否可以删除目录文件', filename='core-site.xml';
+insert ehm_hadoop_settings set name='hadoop.security.authorization', value='false', description='Hadoop服务层级验证安全验证，需配合hadoop-policy.xml使用', filename='core-site.xml';
+
 
 insert ehm_hadoop_settings set name='dfs.name.dir', value='{mount_name}', description='Namenode元数据存储位置', filename='hdfs-site.xml';
 insert ehm_hadoop_settings set name='dfs.data.dir', value='{mount_data}', description='HDFS数据存储路径', filename='hdfs-site.xml';
@@ -70,8 +72,19 @@ insert ehm_hadoop_settings set name='mapred.tasktracker.expiry.interval', value=
 insert ehm_hadoop_settings set name='mapred.local.dir.minspacestart', value='1073741824', description='硬盘空间小于该大小则不在本地做计算/字节', filename='mapred-site.xml';
 insert ehm_hadoop_settings set name='mapred.local.dir.minspacekill', value='1073741824', description='硬盘空间小于该大小则不再申请新任务/字节', filename='mapred-site.xml';
 
+insert ehm_hadoop_settings set name='security.client.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.client.datanode.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.datanode.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.inter.datanode.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.namenode.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.inter.tracker.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.job.submission.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.task.umbilical.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.refresh.policy.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
+insert ehm_hadoop_settings set name='security.admin.operations.protocol.acl', value='*', description='', filename='hadoop-policy.xml';
 
-
+insert ehm_hadoop_settings set name='mapred.queue.default.acl-submit-job', value='', description='', filename='mapred-queue-acls.xml';
+insert ehm_hadoop_settings set name='mapred.queue.default.acl-administer-jobs', value='', description='', filename='mapred-queue-acls.xml';
 
 
 
