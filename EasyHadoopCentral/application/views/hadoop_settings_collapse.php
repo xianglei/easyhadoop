@@ -2,14 +2,15 @@
 
 <div class="accordion" id="accordion_hadoop_settings">
 <?php $i = 0; foreach($category as $cate):?>
-	<form method="post" action="<?php echo $this->config->base_url();?>index.php/settings/generatesettings/">
+	
 	<div class="accordion-group">
+	<form method="post" action="<?php echo $this->config->base_url();?>index.php/settings/generatesettings/">
 		<div class="accordion-heading">
-			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_hadoop_settings" href="#collapse_<?php echo $i;?>">
+			<a class="accordion-toggle  alert alert-error" data-toggle="collapse" data-parent="#accordion_hadoop_settings" href="#collapse<?php echo $i;?>">
 				<?php echo $cate->filename;?>
 			</a>
 		</div>
-		<div id="collapse_<?php echo $i;?>" class="accordion-body collapse">
+		<div id="collapse<?php echo $i;?>" class="accordion-body collapse <?php echo ($i == 0) ? "in" : "";?>">
 			<div class="accordion-inner">
 				<table class="table table-hover table-bordered table-striped">
 					<?php
@@ -48,8 +49,9 @@
 				</table>
 			</div>
 		</div>
-	</div>
 	</form>
+	</div>
+	
 <?php $i++; endforeach;?>
 
 </div>
