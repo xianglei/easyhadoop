@@ -5,6 +5,6 @@
 
 $configure['language'] = 'chinese';
 
-$configure['packages_source_address'] = '113.11.199.230';
+$configure['packages_source_address'] = '42.96.141.99';
 
 ?>
