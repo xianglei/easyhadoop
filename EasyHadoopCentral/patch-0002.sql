@@ -1,3 +1,13 @@
+CREATE TABLE IF NOT EXISTS `ehm_hbase_settings` (
+  `set_id` int(11) NOT NULL auto_increment,
+  `name` varchar(100) NOT NULL,
+  `value` TEXT NULL,
+  `description` text NOT NULL,
+  `filename` varchar(100) NOT NULL,
+  PRIMARY KEY  (`set_id`),
+  KEY `filename` (`filename`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
 ALTER TABLE ehm_hadoop_settings MODIFY COLUMN `value` TEXT NULL;
 ALTER TABLE ehm_hive_settings MODIFY COLUMN `value` TEXT NOT NULL;
 ALTER TABLE ehm_pig_settings MODIFY COLUMN `value` TEXT NOT NULL;
@@ -9,16 +19,6 @@ ALTER TABLE ehm_pig_settings MODIFY COLUMN `filename` VARCHAR(100) NULL;
 ALTER TABLE ehm_hadoop_settings MODIFY COLUMN `name` VARCHAR(100) NOT NULL;
 ALTER TABLE ehm_hive_settings MODIFY COLUMN `name` VARCHAR(100) NOT NULL;
 ALTER TABLE ehm_hbase_settings MODIFY COLUMN `name` VARCHAR(100) NOT NULL;
-
-CREATE TABLE IF NOT EXISTS `ehm_hbase_settings` (
-  `set_id` int(11) NOT NULL auto_increment,
-  `name` varchar(100) NOT NULL,
-  `value` TEXT NULL,
-  `description` text NOT NULL,
-  `filename` varchar(100) NOT NULL,
-  PRIMARY KEY  (`set_id`),
-  KEY `filename` (`filename`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 insert ehm_hadoop_settings set name='fs.default.name', value='hdfs://{namenode}:9000', description='HDFS主节点访问地址和端口', filename='core-site.xml';
 insert ehm_hadoop_settings set name='fs.checkpoint.dir', value='{mount_snn}', description='HDFS元数据备份点路径设置(SNN)', filename='core-site.xml';
