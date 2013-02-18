@@ -10,7 +10,7 @@ class User extends CI_Controller
 	
 	public function Index()
 	{
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		redirect($this->config->base_url() . 'manage/index/');
 	}
 	
 	public function Login()
@@ -29,7 +29,7 @@ class User extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$this->user->login($username, $password);
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		redirect($this->config->base_url() . 'manage/index/');
 	}
 	
 	public function Logout()

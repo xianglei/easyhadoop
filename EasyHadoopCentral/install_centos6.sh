@@ -3,6 +3,8 @@ yum install -y php php-cli php-devel php-common httpd httpd-devel php-mbstring p
 service mysqld start
 mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"
 mysql easyhadoop < easyhadoop.sql
+mysql easyhadoop < patch-0001.sql
+mysql easyhadoop < patch-0002.sql
 chmod 777 /var/www/html/expect.py
 
 echo "/*************************************************************/"

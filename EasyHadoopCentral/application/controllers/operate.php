@@ -8,7 +8,7 @@ class Operate extends CI_Controller
 		parent::__construct();
 		if(!$this->session->userdata('login') || $this->session->userdata('login') == FALSE)
 		{
-			redirect($this->config->base_url() . 'index.php/user/login/');
+			redirect($this->config->base_url() . 'user/login/');
 		}
 	}
 
@@ -153,7 +153,7 @@ class Operate extends CI_Controller
 		
 		$this->manage->kill_job($job_id);
 		
-		redirect($this->config->base_url() . 'index.php/operate/job/');
+		redirect($this->config->base_url() . 'operate/job/');
 	}
 	
 	public function Job()
@@ -210,7 +210,7 @@ class Operate extends CI_Controller
 		$job_id = $this->input->post('job_id');
 		$this->load->model('ehm_management_model', 'manage');
 		$this->manage->kill_job($job_id);
-		redirect($this->config->base_url() . 'index.php/operate/job/');
+		redirect($this->config->base_url() . 'operate/job/');
 	}
 }
 

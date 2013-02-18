@@ -2,7 +2,7 @@
 <script>
 function check_online(role, host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/'+host_id+'/'+role, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/getpid/'+host_id+'/'+role, function(json){
 		if(json.status == 'online')
 		{
 			html = '<span class="label label-success"><i class="icon-ok"></i>' + json.role + '</span>';
@@ -16,7 +16,7 @@ function check_online(role, host_id)
 }
 function mem_stat(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/memstats/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/memstats/' + host_id, function(json){
 		//alert(json.mem_free_percent);
 		//alert(json.mem_used_percent);
 		$('#mem_stats_'+host_id+'_free').attr("style", "width: "+json.mem_free_percent+"%");

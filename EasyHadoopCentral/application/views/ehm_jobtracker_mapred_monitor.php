@@ -2,7 +2,7 @@
 <script>
 function jobtracker_abbr()
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/jobtrackerstats/<?php echo $jobtracker_host_id;?>', function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/jobtrackerstats/<?php echo $jobtracker_host_id;?>', function(json){
 	var freeMapSlots = json.map_slots - json.running_maps;
 	var freeReduceSlots = json.reduce_slots - json.running_reduces
 	html = 'Total Map Slots: ' + json.map_slots + '<br />';
@@ -25,7 +25,7 @@ setInterval(jobtracker_abbr, 2000);
 
 function tasktracker_use(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/tasktrackerstats/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/tasktrackerstats/' + host_id, function(json){
 		//alert(json.mem_free_percent);
 		//alert(json.mem_used_percent);
 		$('#mapred_tasktracker_map_free_' + host_id).attr("style", "width: "+json.percent_map_remain+"%;");

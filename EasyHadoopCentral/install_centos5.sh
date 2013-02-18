@@ -3,6 +3,8 @@ yum install -y php53 php53-cli php53-devel php53-common httpd httpd-devel php53-
 service mysqld start
 mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"
 mysql easyhadoop < easyhadoop.sql
+mysql easyhadoop < patch-0001.sql
+mysql easyhadoop < patch-0002.sql
 chmod 777 /var/www/html/expect.py
 
 echo "/*************************************************************/"

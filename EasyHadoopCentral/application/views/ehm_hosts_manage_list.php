@@ -2,7 +2,7 @@
 <script>
 function ping(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/manage/pingnode/'+host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>manage/pingnode/'+host_id, function(json){
 		if(json.status == "TRUE")
 		{
 			$('#ping_node_'+host_id).addClass('btn-success');
@@ -20,7 +20,7 @@ function ping(host_id)
 
 function get_mount_point(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/manage/getmountpoint/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>manage/getmountpoint/' + host_id, function(json){
 		var i = json.file_system.length;
 		html = '<table class="table table-bordered table-hover">';
 		html += '<tr>';
@@ -94,7 +94,7 @@ function get_mount_point(host_id)
 				
 <!--update modal-->
 <div id="update_hadoop_node_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>index.php/manage/updatehadoopnode/" method="POST">
+<form action="<?php echo $this->config->base_url();?>manage/updatehadoopnode/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel">修改节点</h3>
@@ -154,7 +154,7 @@ function get_mount_point(host_id)
 
 <!--setup hdd modal-->
 <div id="setup_hdd_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>index.php/manage/addmountpoint/" method="POST">
+<form action="<?php echo $this->config->base_url();?>manage/addmountpoint/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel">存储设置</h3>
@@ -176,7 +176,7 @@ function get_mount_point(host_id)
 
 <!--delete modal-->
 <div id="delete_hadoop_node_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>index.php/manage/deletehadoopnode/" method="POST">
+<form action="<?php echo $this->config->base_url();?>manage/deletehadoopnode/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel">删除节点</h3>

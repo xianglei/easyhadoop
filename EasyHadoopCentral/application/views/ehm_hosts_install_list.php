@@ -3,7 +3,7 @@
 <script>
 function push_install_files_action(host_id)
 {
-	$.get('<?php echo $this->config->base_url();?>index.php/install/pushfiles/' + host_id,{}, function(data){
+	$.get('<?php echo $this->config->base_url();?>install/pushfiles/' + host_id,{}, function(data){
 		var html = data;
 		$('#push_install_files_status_' + host_id).html(html);
 	});
@@ -17,7 +17,7 @@ function install_hadoop_action(host_id)
 function install_environment(host_id)
 {
 	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/environment/' + host_id,
+		url: '<?php echo $this->config->base_url();?>install/environment/' + host_id,
 		async: true,
 		success: function(data)
 		{
@@ -32,7 +32,7 @@ function install_environment(host_id)
 function install_lzorpm(host_id)
 {
 	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/lzorpm/' + host_id,
+		url: '<?php echo $this->config->base_url();?>install/lzorpm/' + host_id,
 		async: true,
 		success: function(data)
 		{
@@ -48,7 +48,7 @@ function install_lzorpm(host_id)
 function install_lzo(host_id)
 {
 	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/lzo/' + host_id,
+		url: '<?php echo $this->config->base_url();?>install/lzo/' + host_id,
 		async: true,
 		success: function(data)
 		{
@@ -64,7 +64,7 @@ function install_lzo(host_id)
 function install_lzop(host_id)
 {
 	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/lzop/' +host_id,
+		url: '<?php echo $this->config->base_url();?>install/lzop/' +host_id,
 		async: true,
 		success: function(data)
 		{
@@ -80,7 +80,7 @@ function install_lzop(host_id)
 function install_jdk(host_id)
 {
 	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/jdk/' + host_id,
+		url: '<?php echo $this->config->base_url();?>install/jdk/' + host_id,
 		async: true,
 		success: function(data)
 		{
@@ -96,7 +96,7 @@ function install_jdk(host_id)
 function install_hadoop(host_id)
 {
 	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/hadoop/' + host_id,
+		url: '<?php echo $this->config->base_url();?>install/hadoop/' + host_id,
 		async: true,
 		success: function(data)
 		{
@@ -112,7 +112,7 @@ function install_hadoop(host_id)
 function install_gpl(host_id)
 {
 	$.ajax({
-		url: '<?php echo $this->config->base_url();?>index.php/install/gpl/'+host_id,
+		url: '<?php echo $this->config->base_url();?>install/gpl/'+host_id,
 		async: true,
 		success: function(data)
 		{
