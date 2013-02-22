@@ -43,6 +43,8 @@ class Ehm_user_model extends CI_Model
 	
 	public function login($username, $password)
 	{
+		$username = htmlspecialchars($username);
+		$password = htmlspecialchars($password);
 		$sql = "select * from ehm_user where username='".$username."' and password='".md5($password)."'";
 		$result = $this->db->query($sql);
 		$query = $result->result();
