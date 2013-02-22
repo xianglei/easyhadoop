@@ -43,12 +43,12 @@ class Ehm_user_model extends CI_Model
 	
 	public function login($username, $password)
 	{
-		$sql = "select * from ehm_user where username='".$username."' and password='".md5($password)."'";
+		$sql = "select * from ehm_user where username='".mysql_real_escape_string($username)."' and password='".md5($password)."'";
 		$result = $this->db->query($sql);
 		$query = $result->result();
 		if($result->num_rows() > 0)
 		{
-			$user_array = array('role'=>$query->role, 'login'=>TRUE);
+			$user_array = array('role'=>$query[0]->role, 'login'=>TRUE);
 			$this->session->set_userdata($user_array);
 			return TRUE;
 		}
