@@ -82,7 +82,7 @@ class Ehm_settings_model extends CI_Model
 	public function insert_settings($filename, $content, $ip = '0')
 	{
 		$sql = "insert ehm_host_settings set filename='".$filename."', content='".str_replace("'", "\'", $content)."', ip='".$ip."'";
-		if($this->db->simle_query($sql)):
+		if($this->db->simple_query($sql)):
 			return TRUE;
 		else:
 			return FALSE;
