@@ -63,7 +63,7 @@ class Ehm_user_model extends CI_Model
 		$query = $result->result();
 		if($result->num_rows() > 0)
 		{
-			$user_array = array('role'=>$query->role, 'login'=>TRUE);
+			$user_array = array('role'=>$query[0]->role, 'login'=>TRUE);
 			$this->session->set_userdata($user_array);
 			return TRUE;
 		}

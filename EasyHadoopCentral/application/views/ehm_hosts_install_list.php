@@ -120,8 +120,14 @@ function install_gpl(host_id)
 			$('#install_progress_'+host_id).attr("style", "width: 100%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
+			install_done(host_id);
 		}
 	});
+}
+
+function install_done(host_id)
+{
+	$('#install_hadoop_action_status_'+host_id).html("感谢您的耐心等待，本节点安装完毕。");
 }
 </script>
 	<!--<div class="alert alert-error"><?php echo $common_add_node_tips?></div>-->

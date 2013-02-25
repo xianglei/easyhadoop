@@ -16,7 +16,7 @@ or install your HADOOP cluster very quickly with just one mouse click on Managem
 
 coming soon
 ##Community  
-website [easyhadoop.org](http://www.easyhadoop.org/)
+website [phphiveadmin](http://www.phphiveadmin.net/)
 ## Contributing
 
 I love to see people contributing to Easyhadoop, whether it's a bug report, feature suggestion or a pull request. At the moment, I try to keep the core slick and lean, focusing on basic  needs, so some of your suggestions might not find their way into Easyhadoop. For those ideas, we started a list of 3rd party plug-ins, where you can link your own plug-in repositories. For the future, I'm thinking about ways to easier add them them into our main releases.
