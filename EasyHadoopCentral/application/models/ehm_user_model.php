@@ -8,6 +8,19 @@ class Ehm_user_model extends CI_Model
 		parent::__construct();
 	}
 	
+	public function check_login($value)
+	{
+		if(get_magic_quotes_gpc())
+		{
+			$value = stripslashes($value);
+		}
+		if(!is_numeric($value))
+		{
+			$value = "'" . mysql_real_escape_string($value) . "'";
+		}
+		return $value;
+	}
+	
 	public function update_password()
 	{
 		$old_password = $this->input->post('old_password');
@@ -43,9 +56,9 @@ class Ehm_user_model extends CI_Model
 	
 	public function login($username, $password)
 	{
-		$username = htmlspecialchars($username);
-		$password = htmlspecialchars($password);
-		$sql = "select * from ehm_user where username='".$username."' and password='".md5($password)."'";
+		$username = self::check_login(htmlspecialchars($username));
+		$password = self::check_login(htmlspecialchars($password));
+		$sql = "select * from ehm_user where username=".$username." and password='".md5($password)."'";
 		$result = $this->db->query($sql);
 		$query = $result->result();
 		if($result->num_rows() > 0)
