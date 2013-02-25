@@ -95,7 +95,8 @@ class User extends CI_Controller
 	public function UpdatePasswordAction()
 	{
 		$this->load->model('ehm_user_model', 'user');
-		echo $this->user->update_password();
+		$login = $this->session->userdata('login');
+		echo $this->user->update_password($login);
 	}
 }
 

@@ -21,31 +21,38 @@ class Ehm_user_model extends CI_Model
 		return $value;
 	}
 	
-	public function update_password()
+	public function update_password($login)
 	{
-		$old_password = $this->input->post('old_password');
-		$new_password1 = $this->input->post('new_password1');
-		$new_password2 = $this->input->post('new_password2');
-		$sql = "select * from ehm_user where username='admin' and password='".md5($old_password)."'";
-		$result = $this->db->query($sql);
-		if($result->num_rows() == 0)
+		if($login == TRUE)
 		{
-			return '{"status":"Old password not matched"}';
-		}
-		else
-		{
-			if($new_password1 != $new_password2)
+			$old_password = $this->input->post('old_password');
+			$new_password1 = $this->input->post('new_password1');
+			$new_password2 = $this->input->post('new_password2');
+			$sql = "select * from ehm_user where username='admin' and password='".md5($old_password)."'";
+			$result = $this->db->query($sql);
+			if($result->num_rows() == 0)
 			{
-				return '{"status":"New password not matched"}';
+				return '{"status":"Old password not matched"}';
 			}
 			else
 			{
-				$sql = "update ehm_user set password='".md5($new_password1)."' where username='admin'";
-				if($this->db->simple_query($sql))
-					return '{"status":"Update success"}';
+				if($new_password1 != $new_password2)
+				{
+					return '{"status":"New password not matched"}';
+				}
 				else
-					return '{"status":"Update failed"}';
+				{
+					$sql = "update ehm_user set password='".md5($new_password1)."' where username='admin'";
+					if($this->db->simple_query($sql))
+						return '{"status":"Update success"}';
+					else
+						return '{"status":"Update failed"}';
+				}
 			}
+		}
+		else
+		{
+			return '{"status":"Not logged in}';
 		}
 	}
 	

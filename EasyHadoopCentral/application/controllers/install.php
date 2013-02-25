@@ -25,7 +25,7 @@ class Install extends CI_Controller
 		$data['common_role_name'] = $this->lang->line('common_role_name');
 		$data['common_remove_node_tips'] = $this->lang->line('common_remove_node_tips');
 		$this->load->view('header',$data);
-		
+
 		#generate navigation bar
 		$data['common_index_page'] = $this->lang->line('common_index_page');
 		$data['common_node_manager'] = $this->lang->line('common_node_manager');
