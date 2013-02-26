@@ -65,7 +65,7 @@ class Ehm_user_model extends CI_Model
 	{
 		$username = self::check_login(htmlspecialchars($username));
 		$password = self::check_login(htmlspecialchars($password));
-		$sql = "select * from ehm_user where username=".$username." and password='".md5($password)."'";
+		$sql = "select * from ehm_user where username=".$username." and password=".md5($password);
 		$result = $this->db->query($sql);
 		$query = $result->result();
 		if($result->num_rows() > 0)
