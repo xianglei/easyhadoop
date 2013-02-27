@@ -16,7 +16,7 @@ class Ehm_user_model extends CI_Model
 		}
 		if(!is_numeric($value))
 		{
-			$value = "'" . mysql_real_escape_string($value) . "'";
+			$value = mysql_real_escape_string($value);
 		}
 		return $value;
 	}
