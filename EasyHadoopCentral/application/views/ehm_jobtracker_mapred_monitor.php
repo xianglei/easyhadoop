@@ -163,7 +163,7 @@ line_mapred();
 		</pre>
 	</div>
 	<div class="span8">
-		<div id="mapred_slots_lines" style="min-width: 200px; height: 180px; margin: 0 auto"></div>
+		<div id="mapred_slots_lines" style="min-width: 200px; height: 200px; margin: 0 auto"></div>
 	</div>
 </div>
 Map:

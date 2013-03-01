@@ -130,7 +130,7 @@ function pie_hdfs()
 }
 namenode_abbr();
 pie_hdfs();
-setInterval(namenode_abbr, 3000);
+setInterval(namenode_abbr, 30000);
 </script>
 <div class="row">
 	<div class="span4">
