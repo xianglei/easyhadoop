@@ -629,8 +629,10 @@ class Ehm_installation_model extends CI_Model
 				$mount_data .= $mount_list[$i] . "/hdfs/data,";
 				$mount_mrlocal .= $mount_list[$i] . "/hdfs/mrlocal,";
 				$mount_mrsystem .= $mount_list[$i] . "/hdfs/mrsystem,";
-				$cmd .= "mkdir -p ".$mount_list[$i]."/hdfs;" . "chown -R hadoop:hadoop ".$mount_list[$i]. "/hdfs;";
+				$cmd .= "mkdir -p ".$mount_list[$i]."/hdfs; " . "chown -R hadoop:hadoop ".$mount_list[$i]. "/hdfs;";
 			}
+			
+			$cmd = "groupadd hadoop; useradd -g hadoop hadoop; " . $cmd;
 			
 			$mount_name = substr($mount_name,0,-1);
 			$mount_sname = substr($mount_sname,0,-1);
