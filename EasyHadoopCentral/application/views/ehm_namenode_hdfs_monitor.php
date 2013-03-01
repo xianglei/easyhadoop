@@ -3,27 +3,24 @@
 function namenode_abbr()
 {
 	$.getJSON('<?php echo $this->config->base_url();?>monitor/namenodestats/<?php echo @$namenode_host_id;?>', function(json){
-	html = 'Total DFS Space: ' + json.total_abbr + '<br />';
-	html += 'Free DFS Space: ' + json.free_abbr + '<br />';
-	html += 'NonDFS Space: ' + json.nondfs_abbr + '<br />';
-	html += 'DFS Space: ' + json.dfs_abbr + '<br />';
-	html += 'Free precent: ' + json.percent_free + ' %<br />';
-	html += 'NonDFS precent: ' + json.percent_nondfs + ' %<br />';
-	html += 'DFS precent: ' + json.percent_dfs + ' %<br />';
-	$('#namenode_abbr').html(html);
-	$('#namenode_progress_free').attr('style', "width: "+json.percent_free+"%;");
-	$('#namenode_progress_nondfs').attr('style', "width: "+json.percent_nondfs+"%;");
-	$('#namenode_progress_dfs').attr('style', "width: "+json.percent_dfs+"%;");
+				html = 'HDFS Counter<br /><br />';
+				html += 'Total DFS Space: ' + json.total_abbr + '<br />';
+				html += 'Free DFS Space: ' + json.free_abbr + '<br />';
+				html += 'NonDFS Space: ' + json.nondfs_abbr + '<br />';
+				html += 'DFS Space: ' + json.dfs_abbr + '<br />';
+				html += 'Free precent: ' + json.percent_free + ' %<br />';
+				html += 'NonDFS precent: ' + json.percent_nondfs + ' %<br />';
+				html += 'DFS precent: ' + json.percent_dfs + ' %<br />';
+				$('#namenode_abbr').html(html);
+				$('#namenode_progress_free').attr('style', "width: "+json.percent_free+"%;");
+				$('#namenode_progress_nondfs').attr('style', "width: "+json.percent_nondfs+"%;");
+				$('#namenode_progress_dfs').attr('style', "width: "+json.percent_dfs+"%;");
 	});
 }
-namenode_abbr();
-setInterval(namenode_abbr, 30000);
 
 function datanode_use(host_id)
 {
 	$.getJSON('<?php echo $this->config->base_url();?>monitor/datanodestats/' + host_id, function(json){
-		//alert(json.mem_free_percent);
-		//alert(json.mem_used_percent);
 		$('#datanode_free_'+host_id).attr("style", "width: "+json.percent_remain+"%;");
 		$('#datanode_dfs_'+host_id).attr('style', "width: "+json.percent_used+"%;");
 		html = 'Used: ' + json.used_abbr + ' / Total: ' + json.total_abbr;
@@ -57,10 +54,97 @@ function datanode_use(host_id)
 		$('#datanode_modal_mountpoint_'+host_id).html(html);
 		});
 }
+
+function pie_hdfs()
+{
+	$(function () {
+		var chart;
+		$(document).ready(function() {
+			// Radialize the colors
+			Highcharts.getOptions().colors = $.map(Highcharts.getOptions().colors, function(color) {
+				return {
+					radialGradient: { cx: 0.5, cy: 0.3, r: 0.7 },
+					stops: [
+						[0, color],
+						[1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+					]
+				};
+			});
+			//----------------------
+			$.getJSON('<?php echo $this->config->base_url();?>monitor/namenodestats/<?php echo @$namenode_host_id;?>', function(json){
+			//----------------------
+			// Build the chart
+			chart = new Highcharts.Chart({
+				chart: {
+					renderTo: 'pie_hdfs',
+					plotBackgroundColor: null,
+					plotBorderWidth: null,
+					plotShadow: false,
+					events: {
+						load: function() {
+							var series = this.series[0];
+							setInterval(function() {  
+								var data = [];  
+								data.push(['DFS', json.percent_dfs]);  
+								data.push(['NonDfs', json.percent_nondfs]);  
+								data.push(['Free', json.percent_free]);  
+								series.setData(data);  
+							}, 30000);
+						}
+					}
+				},
+				title: {
+					text: "HDFS Usages"
+				},
+				tooltip: {
+					pointFormat: '{series.name}: <b>{point.percentage}%</b>',
+					percentageDecimals: 1
+				},
+				plotOptions: {
+					pie: {
+						allowPointSelect: true,
+						cursor: 'pointer',
+						dataLabels: {
+							enabled: true,
+							color: '#000000',
+							connectorColor: '#000000',
+							formatter: function() {
+								return '<b>'+ this.point.name +'</b>: '+ this.percentage +' %';
+							}
+						}
+					}
+				},
+				series: [{
+					type: 'pie',
+					name: 'HDFS Usage',
+					data: [
+						['DFS',   json.percent_dfs],
+						['NonDfs',       json.percent_nondfs],
+						['Free', json.percent_free]
+					]
+				}]
+			});
+			});
+		});
+	});
+}
+namenode_abbr();
+pie_hdfs();
+setInterval(namenode_abbr, 3000);
 </script>
-<pre id="namenode_abbr">
-	
-</pre>
+<div class="row">
+	<div class="span4">
+		<pre id="namenode_abbr">
+		
+		
+		</pre>
+	</div>
+	<div class="span6">
+		<div id="pie_hdfs" style="min-width: 200px; height: 200px; margin: 0 auto"></div>
+	</div>
+</div>
+
+
 <div class="progress" id="namenode_progress">
 	<div class="bar bar-success" style="" id="namenode_progress_free">Free</div>
 	<div class="bar bar-warning" style="" id="namenode_progress_nondfs">NonDFS</div>

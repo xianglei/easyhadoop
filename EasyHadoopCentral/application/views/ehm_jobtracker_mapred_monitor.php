@@ -3,21 +3,23 @@
 function jobtracker_abbr()
 {
 	$.getJSON('<?php echo $this->config->base_url();?>monitor/jobtrackerstats/<?php echo $jobtracker_host_id;?>', function(json){
-	var freeMapSlots = json.map_slots - json.running_maps;
-	var freeReduceSlots = json.reduce_slots - json.running_reduces
-	html = 'Total Map Slots: ' + json.map_slots + '<br />';
-	html += 'Total Reduce Slots: ' + json.reduce_slots + '<br />';
-	html += 'Running Map Slots: ' + json.running_maps + '<br />';
-	html += 'Running Reduce Slots: ' + json.running_reduces + '<br />';
-	$('#jobtracker_mapred').html(html);
-	$('#mapred_jobtracker_map_free').attr('style', "width: "+json.percent_map_not_running+"%;");
-	$('#mapred_jobtracker_map_free').html('Free: ' + freeMapSlots);
-	$('#mapred_jobtracker_map_running').html('Running: ' + json.running_maps);
-	$('#mapred_jobtracker_map_running').attr('style', "width: "+json.percent_map_running+"%;");
-	$('#mapred_jobtracker_reduce_free').attr('style', "width: "+json.percent_reduce_not_running+"%;");
-	$('#mapred_jobtracker_reduce_free').html('Free:' + freeReduceSlots);
-	$('#mapred_jobtracker_reduce_running').attr('style', "width: "+json.percent_reduce_running+"%;");
-	$('#mapred_jobtracker_reduce_running').html('Running:' + json.running_reduces);
+		var freeMapSlots = json.map_slots - json.running_maps;
+		var freeReduceSlots = json.reduce_slots - json.running_reduces
+		
+		html = "Map/Reduce real time monitoring. <br/><br/><br/>";
+		html += 'Total Map Slots: ' + json.map_slots + '<br />';
+		html += 'Total Reduce Slots: ' + json.reduce_slots + '<br />';
+		html += 'Running Map Slots: ' + json.running_maps + '<br />';
+		html += 'Running Reduce Slots: ' + json.running_reduces + '<br />';
+		$('#jobtracker_mapred').html(html);
+		$('#mapred_jobtracker_map_free').attr('style', "width: "+json.percent_map_not_running+"%;");
+		$('#mapred_jobtracker_map_free').html('Free: ' + freeMapSlots);
+		$('#mapred_jobtracker_map_running').html('Running: ' + json.running_maps);
+		$('#mapred_jobtracker_map_running').attr('style', "width: "+json.percent_map_running+"%;");
+		$('#mapred_jobtracker_reduce_free').attr('style', "width: "+json.percent_reduce_not_running+"%;");
+		$('#mapred_jobtracker_reduce_free').html('Free:' + freeReduceSlots);
+		$('#mapred_jobtracker_reduce_running').attr('style', "width: "+json.percent_reduce_running+"%;");
+		$('#mapred_jobtracker_reduce_running').html('Running:' + json.running_reduces);
 	});
 }
 jobtracker_abbr();
@@ -38,10 +40,132 @@ function tasktracker_use(host_id)
 		$('#mapred_tasktracker_reduce_detail_' + host_id).html(html);
 	});
 }
-</script>
-<pre id="jobtracker_mapred">
+
+function line_mapred()
+{
+var map=0;
+var reduce=0;
+
+$(function () {
+	$(document).ready(function() {
+		Highcharts.setOptions({
+			global: {
+				useUTC: false
+			}
+		});
+
+		var chart;
+		chart = new Highcharts.Chart({
+			chart: {
+				backgroundColor: "#FFFFFF",
+				renderTo: 'mapred_slots_lines',
+				type: 'spline',
+				marginRight: 10,
+				events: {
+					load: function() {
+
+						// set up the updating of the chart each second
+						var maps = this.series[0];
+						var reduces = this.series[1];
+						setInterval(function() {
+							var x1 = (new Date()).getTime(), // current time
+								y1 = map;
+							var x2 = (new Date()).getTime(),
+								y2 = reduce;
+								
+							maps.addPoint([x1, y1], true, true);
+							reduces.addPoint([x2, y2], true, true);
+							$.getJSON("<?php echo $this->config->base_url();?>monitor/jobtrackerstats/<?php echo $jobtracker_host_id;?>", function(data){
+								map=data.running_maps;
+								reduce = data.running_reduces;
+							});
+						}, 2000);
+					}
+				}
+			},
+			title: {
+				text: 'Map/Reduce'
+			},
+			xAxis: {
+				type: 'datetime',
+				tickPixelInterval: 120
+			},
+			yAxis: {
+				title: {
+					text: 'Map/Reduce'
+				},
+				plotLines: [{
+					value: 0,
+					width: 1,
+					color: '#808080'
+				}
+				]
+			},
+			tooltip: {
+				formatter: function() {
+						return '<b>'+ this.series.name +'</b><br/>'+
+						Highcharts.dateFormat('%Y-%m-%d %H:%M:%S', this.x) +'<br/>'+
+						Highcharts.numberFormat(this.y, 2);
+				}
+			},
+			legend: {
+				enabled: true
+			},
+			exporting: {
+				enabled: false
+			},
+			series: [{
+				name: 'Map slots',
+				data: (function() {
+					// generate an array of random data
+					var map = [],
+						time = (new Date()).getTime(),
+						i;
 	
-</pre>
+					for (i = -19; i <= 0; i++) {
+						map.push({
+							x: time + i * 1000,
+							y: 0//Math.random()
+						});
+					}
+					return map;
+				})()
+			},
+			{
+				name: 'Reduce slots',
+				data: (function() {
+					// generate an array of random data
+					var reduce = [],
+						time = (new Date()).getTime(),
+						i;
+	
+					for (i = -19; i <= 0; i++) {
+						reduce.push({
+							x: time + i * 1000,
+							y: 0//Math.random()
+						});
+					}
+					return reduce;
+				})()
+			}
+			]
+		});
+	});
+	
+});
+}
+line_mapred();
+</script>
+<div class="row">
+	<div class="span4">
+		<pre id="jobtracker_mapred">
+	
+		</pre>
+	</div>
+	<div class="span8">
+		<div id="mapred_slots_lines" style="min-width: 200px; height: 180px; margin: 0 auto"></div>
+	</div>
+</div>
 Map:
 <div class="progress" id="jobtracker_map_progress">
 	<div class="bar bar-success" style="" id="mapred_jobtracker_map_free">Free</div>
