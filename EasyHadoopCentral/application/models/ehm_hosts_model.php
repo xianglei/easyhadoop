@@ -190,7 +190,7 @@ class Ehm_hosts_model extends CI_Model
 		$command="";
 		//get config port daemon from netstat 
 		$servers=exec($cmd);
-		$cmd = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "python ~/NodeAgent.py -s restart -b '.$ip.'" -d '.$ip;
+		$cmd = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "python '. __DIR__ .'/../../NodeAgent.py -s restart -b '.$ip.'" -d '.$ip;
 		
 		$status = '{"status":"FALSE"}';
 		if(!strstr($servers,":"))
