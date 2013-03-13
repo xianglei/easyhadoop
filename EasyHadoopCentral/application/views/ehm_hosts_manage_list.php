@@ -18,6 +18,29 @@ function ping(host_id)
 	});
 }
 
+function ping_admin()
+{
+	$.getJSON('<?php echo $this->config->base_url();?>manage/pingadminnode/', function(json){
+		if(json.status == "TRUE")
+		{
+		// role="button" data-toggle="modal"
+			$('#start_server').removeAttr("href").attr("class","btn btn-warning");
+			$('#add_node').attr('class','btn btn-info');
+			
+
+		}
+		else
+		{
+				
+			$('#add_node').removeAttr("href").attr("class","btn btn-warning");
+			$('#start_server').attr('class','btn btn-info');
+
+
+		}
+
+	});
+}
+
 function get_mount_point(host_id)
 {
 	$.getJSON('<?php echo $this->config->base_url();?>manage/getmountpoint/' + host_id, function(json){
@@ -76,9 +99,11 @@ function get_mount_point(host_id)
 				</div>
 				<script>
 					ping(<?php echo $item->host_id;?>);
+					ping_admin();
 					setInterval(function()
 					{
-						ping(<?php echo $item->host_id;?>)
+						ping(<?php echo $item->host_id;?>);
+						ping_admin()
 					},5000);
 					
 					get_mount_point(<?php echo $item->host_id?>);

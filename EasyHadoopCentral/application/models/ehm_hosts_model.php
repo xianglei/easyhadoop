@@ -10,12 +10,42 @@ class Ehm_hosts_model extends CI_Model
 	public $ssh_pass;
 	public $table_name = 'ehm_hosts';
 
+	public $ehm_host;
+	public $ehm_port;
+	public $socket;
+	public $transport;
+	public $protocol;
+	public $ehm;
+	
+
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->database();
 	}
-
+    	public function execute_shell_script($host, $commands)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('ehm_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(300000);
+		$this->socket->setRecvTimeout(300000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		try
+		{
+			$this->transport->open();
+			$str = $this->ehm->RunCommand($commands);
+			$this->transport->close();
+		}
+		catch(Exception $e)
+		{
+			$str = 'Caught exception: '.  $e->getMessage(). "\n";
+		}
+		return $str;
+	}
 	public function get_hosts_list($limit = "20", $offset = "0")
 	{
 		if ($query = $this->db->get($this->table_name, $limit, $offset)):
@@ -153,9 +183,41 @@ class Ehm_hosts_model extends CI_Model
 			return FALSE;
 		endif;
 	}
-
+	public function start_admin_server($ssh_user,$ssh_pass)
+	{
+	    $ip=$_SERVER["SERVER_ADDR"];
+	    $cmd="netstat -na | awk '{print $4}' |grep ':".$this->config->item('ehm_port')."'";
+		$command="";
+		//get config port daemon from netstat 
+		$servers=exec($cmd);
+		$cmd = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "python ~/NodeAgent.py -s restart -b '.$ip.'" -d '.$ip;
+		
+		$status = '{"status":"FALSE"}';
+		if(!strstr($servers,":"))
+		{
+			$command = $cmd;
+		}
+		else
+		{
+			if ($fp = @fsockopen($ip, $this->config->item('ehm_port'), $errstr, $errno, 5))
+			{
+				$status = '{"status":"TRUE"}';
+			}
+			else
+			{
+				$command = $cmd;
+			}
+		}
+		if(strlen($command)>4)
+		{
+			exec($command);
+			$status = '{"status":"TRUE"}';
+		}
+		return $cmd.$status;
+	}
 	public function insert_host($hostname, $host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
+		$admin_ip=$_SERVER["SERVER_ADDR"];
 		$sql = "insert ehm_hosts set hostname='".$hostname."', ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."', rack='".$rack."'";
 		$str = "";
 		if($ssh_pass != "")
@@ -165,9 +227,10 @@ class Ehm_hosts_model extends CI_Model
 				$this->load->model('ehm_management_model','manage');
 				$ip = $host;
 				$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent.py -d '.$ip;
-				$str = exec($command);
+				$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
 				$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "python ~/NodeAgent.py -s start -b '.$ip.'" -d '.$ip;
-				$str .= exec($command);
+				//$str .= exec($command);
+				$str .= $this->execute_shell_script($admin_ip,$command);//exec($command);
 			}
 			catch(Exception $e)
 			{
@@ -203,6 +266,17 @@ class Ehm_hosts_model extends CI_Model
 
 	public function __destruct()
 	{
+	}
+	public function ping_admin_host()
+	{
+		$ip=$_SERVER["SERVER_ADDR"];
+		if ($fp = @fsockopen($ip, $this->config->item('ehm_port'), $errstr, $errno, 5)):
+			fclose($fp);
+			$status = '{"status":"TRUE", "ip":"'.$ip.'"}';
+		else:
+			$status = '{"status":"FALSE", "ip":"'.$ip.'"}';
+		endif;
+		return $status;
 	}
 
 	public function ping_host($host_id)

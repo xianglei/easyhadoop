@@ -45,6 +45,8 @@ class Manage extends CI_Controller
 		#getnarate host manager left bar
 		$data['common_ping_node'] = $this->lang->line('common_ping_node');
 		$data['common_add_node'] = $this->lang->line('common_add_node');
+		$data['common_start_admin_server'] = $this->lang->line('common_start_admin_server');
+		
 		$data['common_remove_node'] = $this->lang->line('common_remove_node');
 		$data['common_modify_node'] = $this->lang->line('common_modify_node');
 		$data['common_add_node_tips'] = $this->lang->line('common_add_node_tips');
@@ -83,6 +85,7 @@ class Manage extends CI_Controller
 		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
 		$data['common_role_name'] = $this->lang->line('common_role_name');
 		$this->load->view('add_hadoop_modal',$data);
+		$this->load->view('start_admin_server_modal');
 		
 		$this->load->view('div_end');
 		$this->load->view('div_end');
@@ -90,7 +93,18 @@ class Manage extends CI_Controller
 		#generaet footer
 		$this->load->view('footer', $data);
 	}
-
+	public function  StartAdminServer()
+	{
+		$this->load->model('ehm_hosts_model','hosts');
+		$status = $this->hosts->start_admin_server($this->input->post('ssh_user'),$this->input->post('ssh_pass'));	
+		redirect($this->config->base_url() . 'manage/index/');
+	
+	}
+	public function PingAdminNode()
+	{
+		$this->load->model('ehm_hosts_model','hosts');
+		echo $this->hosts->ping_admin_host();
+	}
 	public function PingNode()
 	{
 		$host_id = $this->uri->segment(3,0);

@@ -6,6 +6,7 @@ $lang['common_node_manager'] = "节点管理";
 $lang['common_node_monitor'] = "节点监控";
 $lang['common_welcome'] = "欢迎来到EasyHadoop";
 $lang['common_add_node'] = "添加Hadoop节点";
+$lang['common_start_admin_server']="启动管理服务器";
 $lang['common_remove_node'] = "删除节点";
 $lang['common_modify_node'] = "修改节点";
 $lang['common_node_added'] = '节点已添加';
