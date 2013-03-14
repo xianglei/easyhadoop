@@ -25,7 +25,7 @@ function ping_admin()
 		{
 		// role="button" data-toggle="modal"
 			$('#start_server').removeAttr("href").attr("class","btn btn-warning");
-			$('#add_node').attr('class','btn btn-info');
+			$('#add_node').attr('class','btn btn-info').attr("href","#add_hadoop_node");
 			
 
 		}
@@ -33,7 +33,7 @@ function ping_admin()
 		{
 				
 			$('#add_node').removeAttr("href").attr("class","btn btn-warning");
-			$('#start_server').attr('class','btn btn-info');
+			$('#start_server').attr('class','btn btn-info').attr("href","#start_admin_server");
 
 
 		}
