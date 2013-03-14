@@ -46,6 +46,8 @@ fi
 
 cd ..
 cp -R * /var/www/html/
+cd /var/www/html
+python NodeAgent -s start
 echo "/*************************************************************/"
 echo "Download Hadoop installation and runtime libaries complete."
 echo "Do not forget to start your NodeAgent.py"
