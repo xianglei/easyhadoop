@@ -1,11 +1,19 @@
 1.1.1-3
-Fix a security problem that can cause XSS attack
+Fix a security problem that can cause XSS attack and SQL injection attack
 update JDK to 6u39
 modify source repo to another IP
-add two meta sql patch with sotrage sets and hadoop settings
+add two meta sql patch with storage sets and hadoop settings
 add rackaware sets.
 add hadoop setting templates
 and other code fixes
+
+修正XSS攻击和SQL注入攻击的漏洞
+JDK更新为6u39
+修改了下载hadoop安装包的IP地址
+增加了两个元数据的补丁和存储设置以及hadoop的设置
+增加机架感知脚本相关
+增加了hadoop设置的模板
+其他大量的代码修正
 
 1.03 alpha2
 Reconstruct with thrift!!!
