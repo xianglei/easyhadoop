@@ -24,6 +24,8 @@ function ping_admin()
 		if(json.status == "TRUE")
 		{
 		// role="button" data-toggle="modal"
+			
+			$('#hdfs_nav_node').attr("href","<?php echo $this->config->base_url();?>hdfs/index/");
 			$('#start_server').removeAttr("href").attr("class","btn btn-warning");
 			$('#add_node').attr('class','btn btn-info').attr("href","#add_hadoop_node");
 			
@@ -31,7 +33,8 @@ function ping_admin()
 		}
 		else
 		{
-				
+			
+			$('#hdfs_nav_node').removeAttr("href");	
 			$('#add_node').removeAttr("href").attr("class","btn btn-warning");
 			$('#start_server').attr('class','btn btn-info').attr("href","#start_admin_server");
 
