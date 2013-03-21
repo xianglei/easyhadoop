@@ -18,7 +18,7 @@
 
 			
 <div class=span10>
-			<div id="demo" class="controls" style="height:300px;width:480px;background-color:#FFFFFF;"></div>
+			<div id="demo" class="controls" style="height:800px;width:480px;background-color:#FFFFFF;"></div>
 </div>
 
 
