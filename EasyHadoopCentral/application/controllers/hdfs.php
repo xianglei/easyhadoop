@@ -10,6 +10,7 @@ class Hdfs extends CI_Controller
 			"right"		=> false,
 			"level"		=> false
 		);
+	//protected $hadoop = "sudo -u hadoop /usr/java/hadoop/bin/hadoop";
 	protected $hadoop = "sudo -u hadoop hadoop";
 	public  $cmd;
 
@@ -55,19 +56,37 @@ class Hdfs extends CI_Controller
 	}
 	public function get_children()
 	{
+		$k=1;
+		$state="closed";
+		
 		$data["id"]=$this->input->get('id');
 		$data["id"]=urldecode($data["id"]);
 		$data["id"]=stripcslashes($data["id"]);
+		if(!$data["id"] ||($data["id"]==1) )
+		{
+			$result[] = array(
+				"attr" => array("id" => "node_/", "rel" => "drive"),
+				"data" => "/",
+				"state" => $state//((int)$v[$this->fields["right"]] - (int)$v[$this->fields["left"]] > 1) ? "closed" : "",
+				//"root"=>$this->cmd
+			);		
+			exit(json_encode($result));				
+		}
+		
 		if($data["id"]==1)
 		$data["id"]="/";
+		
+		
+		
 		$tmp=$this->hdfs_scandir($data["id"]);
 		if(!$tmp)
 		return null;
+		
 		foreach($tmp as $k => $v) {
 			//if($v["type"]=="default")
 			//$state="";
 			//else
-			$state="closed";
+			
 			$result[] = array(
 				"attr" => array("id" => "node_".$k, "rel" => $v["type"]),
 				"data" => $k,
@@ -106,7 +125,17 @@ class Hdfs extends CI_Controller
 		$this->promptJson(1,$this->exec($this->cmd));
 	
 	
-	
+	}
+	public function remove_sub()
+	{
+		$id=$this->input->post('id');
+		if((int)$id === "/") { return false; }
+		$this->cmd=$this->hadoop." fs -rmr ".$id;
+		$msg=$this->exec($this->cmd);
+		$this->cmd=$this->hadoop." fs -mkdir ".$id;
+		$msg.=$this->exec($this->cmd);
+		$this->promptJson(1,"sucess!");
+
 	}
 	public function promptJson($code,$msg,$id="/")
 	{

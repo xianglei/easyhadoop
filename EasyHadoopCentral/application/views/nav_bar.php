@@ -51,6 +51,7 @@
 				<ul class="dropdown-menu">
 					<li>
 						<a href="<?php echo $this->config->base_url();?>operate/index/"><?php echo $common_hadoop_node_operate;?></a>
+						  <a  id="hdfs_nav_node" href="<?php echo $this->config->base_url();?>hdfs/index/"><?php echo "HDFS管理"?></a>
 					</li>
 					<li class="divider"></li>
 					<li>
@@ -68,9 +69,9 @@
                 <a href="<?php echo $this->config->base_url();?>user/updatepassword/"><?php echo $common_user_admin?></a>
               </li>
 			<!--Monitor end-->
-              <li <?php if($this->router->class == "user"){ echo "class=\"active\"";}?>>
-                <a  id="hdfs_nav_node" href="<?php echo $this->config->base_url();?>hdfs/index/"><?php echo "HDFS管理"?></a>
-              </li>
+              
+              
+              
 			
 			
 			  <!--<li class="">

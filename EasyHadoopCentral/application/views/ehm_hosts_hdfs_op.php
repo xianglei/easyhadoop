@@ -1,28 +1,54 @@
 <div class="modal hide fade" id="myModal">
     <div class="modal-header" id="modal-title">
+	<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>	
         <h3></h3>
 	
 	</div>
-    <div class="modal-body" id="modalshow">
-		<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>	
-		<div class="progress progress-info" style="display:none"id="remove_progress_show">
+	
+	<div class="progress progress-info" style="display:none"id="remove_progress_show">
 				<div class="bar" style="" id="remove_progress" ></div>
-			</div>	
+			</div>		
+    <div class="modal-body" id="modalshow">
+		
 
 			</div>
+		
 		
     <div class="modal-footer">
     </div>
  </div>
 
-
+<style type="text/css">
+.scroll { 
+width: 400%; /*宽度*/ 
+height: 800px; /*高度*/ 
+color: ; /*颜色*/ 
+font-family: ; /*字体*/ 
+padding-left: 10px; /*层内左边距*/ 
+padding-right: 10px; /*层内右边距*/ 
+padding-top: 10px; /*层内上边距*/ 
+padding-bottom: 10px; /*层内下边距*/ 
+overflow-x: scroll; /*横向滚动条(scroll:始终出现;auto:必要时出现;具体参考CSS文档)*/ 
+overflow-y: scroll; /*竖向滚动条*/ 
+scrollbar-face-color: #D4D4D4; /*滚动条滑块颜色*/ 
+scrollbar-hightlight-color: #ffffff; /*滚动条3D界面的亮边颜色*/ 
+scrollbar-shadow-color: #919192; /*滚动条3D界面的暗边颜色*/ 
+scrollbar-3dlight-color: #ffffff; /*滚动条亮边框颜色*/ 
+scrollbar-arrow-color: #919192; /*箭头颜色*/ 
+scrollbar-track-color: #ffffff; /*滚动条底色*/ 
+scrollbar-darkshadow-color: #ffffff; /*滚动条暗边框颜色*/ 
+} 
+</style>
 			
 <div class=span10>
-			<div id="demo" class="controls" style="height:800px;width:480px;background-color:#FFFFFF;"></div>
+			<div id="demo" class="scroll" style="height:800px;width:600px;background-color:#FFFFFF"></div>
 </div>
 
 
 
+<div id="confirmDiv" >
+   
+</div> 
 
 
 <script type="text/javascript" class="source below">
@@ -45,7 +71,7 @@ $("#demo")
 			// All the options are almost the same as jQuery's AJAX (read the docs)
 			"ajax" : {
 				// the URL to fetch the data
-				"url" : "/hdfs/get_children/",
+				"url" : "<?php echo $this->config->base_url();?>hdfs/get_children/",
 				// the `data` function is executed in the instance's scope
 				// the parameter is the node being loaded 
 				// (may be -1, 0, or undefined when loading the root nodes)
@@ -63,7 +89,7 @@ $("#demo")
 			// As this has been a common question - async search
 			// Same as above - the `ajax` config option is actually jQuery's AJAX object
 			"ajax" : {
-				"url" : "/hdfs/search/",
+				"url" : "<?php echo $this->config->base_url();?>hdfs/search/",
 				// You get the search string as a parameter
 				"data" : function (str) {
 					return { 
@@ -91,7 +117,7 @@ $("#demo")
 					"valid_children" : "none",
 					// If we specify an icon for the default type it WILL OVERRIDE the theme icons
 					"icon" : {
-						"image" : "/img/file.png"
+						"image" : "<?php echo $this->config->base_url();?>img/file.png"
 					}
 				},
 				// The `folder` type
@@ -99,7 +125,7 @@ $("#demo")
 					// can have files and other folders inside of it, but NOT `drive` nodes
 					"valid_children" : [ "default", "folder" ],
 					"icon" : {
-						"image" : "/img/folder.png"
+						"image" : "<?php echo $this->config->base_url();?>img/folder.png"
 					}
 				},
 				// The `drive` nodes 
@@ -107,7 +133,7 @@ $("#demo")
 					// can have files and folders inside, but NOT other `drive` nodes
 					"valid_children" : [ "default", "folder" ],
 					"icon" : {
-						"image" : "/img/root.png"
+						"image" : "<?php echo $this->config->base_url();?>img/root.png"
 					},
 					// those prevent the functions with the same name to be used on `drive` nodes
 					// internally the `before` event is used
@@ -135,7 +161,7 @@ $("#demo")
 	.bind("create.jstree", function (e, data) {
 		
 		$.post(
-			"/hdfs/create/", 
+			"<?php echo $this->config->base_url();?>hdfs/create/", 
 			{ 
 				"operation" : "create_node", 
 				"id" : data.rslt.parent.attr("id").replace("node_",""), 
@@ -169,7 +195,7 @@ $("#demo")
 			$.ajax({
 				async : false,
 				type: 'POST',
-				url: "/hdfs/remove/",
+				url: "<?php echo $this->config->base_url();?>hdfs/remove/",
 				data : { 
 					"operation" : "remove_node", 
 					"id" : this.id.replace("node_","")
@@ -193,11 +219,34 @@ $("#demo")
 	})
 	.bind("rename.jstree", function (e, data) {
 		$.post(
-			"/hdfs/rename/", 
+			"<?php echo $this->config->base_url();?>hdfs/rename/", 
 			{ 
 				"operation" : "rename_node", 
 				"id" : data.rslt.obj.attr("id").replace("node_",""),
 				"title" : data.rslt.new_name
+			}, 
+			function (r) {
+
+					var r=eval("("+r+")");
+					if(r.msg.length >0)
+					{
+						$('#modalshow').html(r.msg);
+						$("#myModal").modal();
+					}
+					if(!r.status) {
+					$.jstree.rollback(data.rlbk);
+				}
+			}
+		);
+		$('#demo').jstree('refresh',-1);
+	})
+	.bind("remove_sub.jstree", function (e, data) {
+		$.post(
+			"<?php echo $this->config->base_url();?>hdfs/remove_sub/", 
+			{ 
+				"operation" : "remove_sub", 
+				"id" : data.rslt.obj.attr("id").replace("node_","")
+
 			}, 
 			function (r) {
 

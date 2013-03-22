@@ -36,6 +36,8 @@
     <script src="<?php echo $this->config->base_url();?>js/application.js"></script>
 	<script src="<?php echo $this->config->base_url();?>js/highcharts.js"></script>
 	<script src="<?php echo $this->config->base_url();?>js/highcharts-more.js"></script>
+	<script src="<?php echo $this->config->base_url();?>js/bootstrap-confirm.js"></script>
+	
 
 	<script type="text/javascript" src="<?php echo $this->config->base_url();?>js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<?php echo $this->config->base_url();?>js/jquery.hotkeys.js"></script>
