@@ -1347,6 +1347,13 @@
 				});
 				return t;
 			},
+			remove_sub: function (obj) {
+				obj = this._get_node(obj, true);
+				var p = this._get_parent(obj), prev = this._get_prev(obj);
+				this.__rollback();
+				//obj = this.delete_node(obj);
+				if(obj !== false) { this.__callback({ "obj" : obj, "prev" : prev, "parent" : p }); }
+			},
 			remove : function (obj) {
 				obj = this._get_node(obj, true);
 				var p = this._get_parent(obj), prev = this._get_prev(obj);
@@ -3720,8 +3727,44 @@
 					"icon"				: false,
 					"separator_after"	: false,
 					"label"				: "Delete",
-					"action"			: function (obj) { if(this.is_selected(obj)) { this.remove(); } else { this.remove(obj); } }
+					"action"			: function (ob) { 
+							 var node=this;
+							 var obj=ob;
+							 $('#confirmDiv').hide();
+							$('#confirmDiv').confirmModal({
+								heading:'删除确定',
+								body:'删除操作请确认?',
+								callback: function() {
+										if(node.is_selected(obj)) { node.remove(); } else { node.remove(obj); } 
+								}
+							});					
+					
+					
+					
+					}
 				}
+				,
+				"remove_only_sub" : {
+					"separator_before"	: false,
+					"separator_after"	: false,
+					"label"				: "RemoveSub",
+					"action"			: function (ob) { 
+									var node=this;
+									var obj=ob;
+									$('#confirmDiv').hide();
+									$('#confirmDiv').confirmModal({
+										heading:'删除确定',
+										body:'删除操作请确认?',
+										callback: function() {
+											//if(node.is_selected(obj)) { 
+											node.remove_sub(obj);  
+											//} 
+										}
+									});											
+								
+								
+					}
+				}				
 				/*,
 				"ccp" : {
 					"separator_before"	: true,
