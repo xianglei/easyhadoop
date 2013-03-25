@@ -1,7 +1,7 @@
 <div class=span10>
 	<div class="container">
 		<h2>变更密码</h2>
-		<form class="form-horizontal" method="post" action="<?php echo $this->config->base_url();?>user/updatepasswordaction/">
+		<form class="form-horizontal" method="post" action="<?php echo $this->config->base_url();?>index.php/user/updatepasswordaction/">
 		<div class="control-group">
 			<label class="control-label">当前密码</label>
 			<div class="controls">

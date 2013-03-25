@@ -3,13 +3,13 @@
 function push_node_settings_status(set_id)
 {
 	var set_id = set_id;
-	$.get('<?php echo $this->config->base_url();?>settings/pushnodesettings/'+set_id, function(html){
+	$.get('<?php echo $this->config->base_url();?>index.php/settings/pushnodesettings/'+set_id, function(html){
 		$('#push_node_settings_status').append(html + '<br />');
 	});
 }
 function push_etc_hosts_status(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>settings/pushetchost/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/settings/pushetchost/' + host_id, function(json){
 		var node = json.node;
 		var status = json.status;
 		var filename = json.filename;
@@ -20,14 +20,14 @@ function push_etc_hosts_status(host_id)
 }
 function push_rackaware_status()
 {
-	$.get('<?php echo $this->config->base_url();?>settings/pushrackaware/', function(html){
+	$.get('<?php echo $this->config->base_url();?>index.php/settings/pushrackaware/', function(html){
 		$('#push_rackaware_status').empty();
 		$('#push_rackaware_status').append(html);
 	});
 }
 function push_general_settings_status(host_id, set_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>settings/pushgeneralsettings/'+host_id+'/'+set_id+'/', function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/settings/pushgeneralsettings/'+host_id+'/'+set_id+'/', function(json){
 		var node = json.node;
 		var status = json.status;
 		var filename = json.filename;
@@ -51,7 +51,7 @@ function push_general_settings_status(host_id, set_id)
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="<?php echo $this->config->base_url();?>settings/hadoopsettings/" data-toggle="modal" target="_blank">配置生成工具</a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/settings/hadoopsettings/" data-toggle="modal" target="_blank">配置生成工具</a></li>
 						<li><a href="#add_node_settings" data-toggle="modal">添加节点配置</a></li>
 						<li class="divider"></li>
 						<li><a href="#push_node_settings" data-toggle="modal">推送节点配置</a></li>
@@ -83,7 +83,7 @@ function push_general_settings_status(host_id, set_id)
 								</div>
 								<!--edit node settings area-->
 							<div id="edit_node_settings_<?php echo $node->set_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>settings/updatenodesettings/" method="POST">
+<form action="<?php echo $this->config->base_url();?>index.php/settings/updatenodesettings/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h4 id="myModalLabel">修改配置 > <?php echo $node->ip;?> > <?php echo $node->filename;?></h4>
@@ -111,7 +111,7 @@ function push_general_settings_status(host_id, set_id)
 						<!-- edit node settings area end-->
 						<!--delete node settings area-->
 						<div id="delete_node_settings_<?php echo $node->set_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>settings/deletesettings/" method="POST">
+<form action="<?php echo $this->config->base_url();?>index.php/settings/deletesettings/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel">删除配置</h3>
@@ -148,7 +148,7 @@ function push_general_settings_status(host_id, set_id)
 						<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="<?php echo $this->config->base_url();?>settings/hadoopsettings/" data-toggle="modal" target="_blank">配置生成工具</a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/settings/hadoopsettings/" data-toggle="modal" target="_blank">配置生成工具</a></li>
 						<li><a href="#add_general_settings" data-toggle="modal">添加全局配置</a></li>
 						<li class="divider"></li>
 						<li><a href="#push_general_settings" data-toggle="modal">推送全局配置</a></li>
@@ -204,7 +204,7 @@ function push_general_settings_status(host_id, set_id)
 						
 							<!--edit general settings area-->
 							<div id="edit_general_settings_<?php echo $item->set_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>settings/updategeneralsettings/" method="POST">
+<form action="<?php echo $this->config->base_url();?>index.php/settings/updategeneralsettings/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel">修改配置</h3>
@@ -228,7 +228,7 @@ function push_general_settings_status(host_id, set_id)
 						
 						<!--delete general settings area-->
 						<div id="delete_general_settings_<?php echo $item->set_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>settings/deletesettings/" method="POST">
+<form action="<?php echo $this->config->base_url();?>index.php/settings/deletesettings/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel">删除配置</h3>

@@ -3,14 +3,14 @@
 <script>
 function viewlogs(role, host_id)
 {
-	$.get('<?php echo $this->config->base_url();?>operate/viewlogs/'+host_id+'/'+role+'/', {}, function(html){
+	$.get('<?php echo $this->config->base_url();?>index.php/operate/viewlogs/'+host_id+'/'+role+'/', {}, function(html){
 		html = html;
 		$('#viewlogs_'+role+'_'+host_id).html('<small>'+html+'</small>');
 	});
 }
 function check_online(role, host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>monitor/getpid/'+host_id+'/' + role, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/'+host_id+'/' + role, function(json){
 		if(json.status == 'online')
 		{
 			$('#status_'+ role +'_'+host_id).removeClass("btn");
@@ -58,9 +58,9 @@ foreach($tmp as $k => $v):
 					<ul class="dropdown-menu">
 						<li><a data-toggle="modal" href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><i class="icon-search"></i>查看日志</a></li>
 						<li class="divider"></li>
-						<li><a href="<?php echo $this->config->base_url();?>operate/start/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-play"></i>启动 <?php echo $v;?></a></li>
-						<li><a href="<?php echo $this->config->base_url();?>operate/stop/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-stop"></i>停止 <?php echo $v;?></a></li>
-						<li><a href="<?php echo $this->config->base_url();?>operate/restart/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-refresh"></i>重启 <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/start/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-play"></i>启动 <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/stop/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-stop"></i>停止 <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/restart/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-refresh"></i>重启 <?php echo $v;?></a></li>
 					</ul>
 				</div>
 				</th>

@@ -13,7 +13,7 @@
 <script>
 function hosts_content()
 {
-	$.get('<?php echo $this->config->base_url();?>settings/viewhosts/', {}, function(html){
+	$.get('<?php echo $this->config->base_url();?>index.php/settings/viewhosts/', {}, function(html){
 		html = html;
 		$('#hosts_content').html(html);
 	});
