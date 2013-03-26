@@ -23,10 +23,23 @@ function check_online(role, host_id)
 		}
 	});
 }
+function autoSubmit(val)
+{
+	if(val && (val.length>0))
+	this.location="/operate/index/?q="+val;
+
+}
 </script>
 
 <table class="table table-striped">
 	<thead>
+		<tr>
+			<th><input class="test" type="text" name="searchKey" placeholder="输入主机名或ip"  value="<?php echo $q;?>"/> <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" onClick="autoSubmit($('input[name=searchKey]').val());">提交查询</button></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	
 		<tr>
 			<th>#</th>
 			<th>主机名称</th>

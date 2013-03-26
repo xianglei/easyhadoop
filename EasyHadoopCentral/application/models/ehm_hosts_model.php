@@ -46,13 +46,30 @@ class Ehm_hosts_model extends CI_Model
 		}
 		return $str;
 	}
-	public function get_hosts_list($limit = "20", $offset = "0")
+	public function get_hosts_list($limit = "20", $offset = "0",$q="")
 	{
-		if ($query = $this->db->get($this->table_name, $limit, $offset)):
-			return $query->result(); // Return value is an objected matrix
-		else:
-			return FALSE;
-		endif;
+		if($q=="")
+		{
+			if ($query = $this->db->get($this->table_name, $limit, $offset)):
+				return $query->result(); // Return value is an objected matrix
+			else:
+				return FALSE;
+			endif;
+		}
+		else
+		{
+
+			$sql = "select * from ehm_hosts where hostname like '%$q%' or ip like '%$q%' limit  $offset, $limit";
+			
+			if ($num = $this->db->query($sql))
+			{
+				return $num->result();
+			}
+			else
+			{
+				return FALSE;
+			}
+		}
 	}
 	
 	public function get_all_hosts()
@@ -65,13 +82,45 @@ class Ehm_hosts_model extends CI_Model
 		endif;
 	}
 	
-	public function count_hosts()
+	public function count_hosts($q="")
 	{
-		if ($num = $this->db->count_all($this->table_name)):
-			return $num;
-		else:
-			return FALSE;
-		endif;
+		if($q=="")
+		{
+		
+			if ($num = $this->db->count_all($this->table_name)):
+				return $num;
+			else:
+				return FALSE;
+			endif;
+		}
+		else
+		{
+			$sql = "select * from ehm_hosts where hostname like '%$q%' or ip like '%$q%'";
+			if ($num = $this->db->query($sql)):
+				return $num->num_rows();
+			else:
+				return FALSE;	
+			endif;		
+			
+		}
+
+	}
+	//for tear test data
+	public function tear_insert()
+	{
+		for($i=0;$i<30;$i++)
+		{
+		$sql="select * from ehm_hosts ";
+		$query = $this->db->query($sql);
+		$result = $query->result_array();
+		
+		foreach($result as $row)
+		{
+			$row['host_id']='';
+			$row['hostname']=$row['hostname'].$i;
+			$this->db->insert('ehm_hosts', $row); 
+		}
+		}
 	}
 	
 	public function count_hosts_by_role($role)
