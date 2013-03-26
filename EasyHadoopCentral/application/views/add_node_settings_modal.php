@@ -1,5 +1,5 @@
 <div id="add_node_settings" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>index.php/settings/addsettings/" method="POST">
+<form action="<?php echo $this->config->base_url();?>settings/addsettings/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel">添加配置</h3>

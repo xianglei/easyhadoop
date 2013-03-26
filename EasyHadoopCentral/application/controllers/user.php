@@ -12,9 +12,9 @@ class User extends CI_Controller
 	{
 		if(!$this->session->userdata('login') || $this->session->userdata('login') == FALSE)
 		{
-			redirect($this->config->base_url() . 'index.php/user/login/');
+			redirect($this->config->base_url() . 'user/login/');
 		}
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		redirect($this->config->base_url() . 'manage/index/');
 	}
 	
 	public function Login()
@@ -33,7 +33,7 @@ class User extends CI_Controller
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
 		$this->user->login($username, $password);
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		redirect($this->config->base_url() . 'manage/index/');
 	}
 	
 	public function Logout()

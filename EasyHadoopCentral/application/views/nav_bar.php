@@ -11,7 +11,7 @@
             <ul class="nav">
 			<!--Index-->
               <li <?php if($this->router->class == "manage"){ echo "class=\"active\"";}?>>
-                <a href="<?php echo $this->config->base_url();?>index.php/manage/index/"><?php echo $common_index_page;?></a>
+                <a href="<?php echo $this->config->base_url();?>manage/index/"><?php echo $common_index_page;?></a>
               </li>
 			<!--Index end-->
 			
@@ -20,11 +20,11 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $common_install?> <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 				<li>
-					<a href="<?php echo $this->config->base_url();?>index.php/install/index/" ><?php echo $common_install_hadoop;?></a>
+					<a href="<?php echo $this->config->base_url();?>install/index/" ><?php echo $common_install_hadoop;?></a>
 				</li>
 				<li class="divider"></li>
 				<li>
-					<a href="<?php echo $this->config->base_url();?>index.php/install/index/" ><?php echo $common_install_hbase;?></a>
+					<a href="<?php echo $this->config->base_url();?>install/index/" ><?php echo $common_install_hbase;?></a>
 				</li>
 				</ul>
 			</li>
@@ -35,11 +35,11 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $common_host_settings?> <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 				<li>
-					<a href="<?php echo $this->config->base_url();?>index.php/settings/index/"><?php echo $common_hadoop_host_settings?></a>
+					<a href="<?php echo $this->config->base_url();?>settings/index/"><?php echo $common_hadoop_host_settings?></a>
 				</li>
 				<li class="divider"></li>
 				<li>
-					<a href="<?php echo $this->config->base_url();?>index.php/settings/index/"><?php echo $common_hbase_host_settings?></a>
+					<a href="<?php echo $this->config->base_url();?>settings/index/"><?php echo $common_hbase_host_settings?></a>
 				</li>
 				</ul>
 			  </li>
@@ -50,12 +50,12 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?php echo $common_node_operate;?> <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li>
-						<a href="<?php echo $this->config->base_url();?>index.php/operate/index/"><?php echo $common_hadoop_node_operate;?></a>
-						  <a  id="hdfs_nav_node" href="<?php echo $this->config->base_url();?>index.php/hdfs/index/"><?php echo "HDFS管理"?></a>
+						<a href="<?php echo $this->config->base_url();?>operate/index/"><?php echo $common_hadoop_node_operate;?></a>
+						  <a  id="hdfs_nav_node" href="<?php echo $this->config->base_url();?>hdfs/index/"><?php echo "HDFS管理"?></a>
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="<?php echo $this->config->base_url();?>index.php/operate/index/"><?php echo $common_hbase_node_operate;?></a>
+						<a href="<?php echo $this->config->base_url();?>operate/index/"><?php echo $common_hbase_node_operate;?></a>
 					</li>
 				</ul>
 			  </li>
@@ -63,10 +63,10 @@
 			
 			<!--Monitor-->
               <li <?php if($this->router->class == "monitor"){ echo "class=\"active\"";}?>>
-                <a href="<?php echo $this->config->base_url();?>index.php/monitor/index/"><?php echo $common_node_monitor;?></a>
+                <a href="<?php echo $this->config->base_url();?>monitor/index/"><?php echo $common_node_monitor;?></a>
               </li>
               <li <?php if($this->router->class == "user"){ echo "class=\"active\"";}?>>
-                <a href="<?php echo $this->config->base_url();?>index.php/user/updatepassword/"><?php echo $common_user_admin?></a>
+                <a href="<?php echo $this->config->base_url();?>user/updatepassword/"><?php echo $common_user_admin?></a>
               </li>
 			<!--Monitor end-->
               

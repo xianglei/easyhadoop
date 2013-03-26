@@ -11,7 +11,7 @@ class Install extends CI_Controller
 		parent::__construct();
 		if(!$this->session->userdata('login') || $this->session->userdata('login') == FALSE)
 		{
-			redirect($this->config->base_url() . 'index.php/user/login/');
+			redirect($this->config->base_url() . 'user/login/');
 		}
 	}
 	
@@ -58,7 +58,7 @@ class Install extends CI_Controller
 		$data['common_action'] = $this->lang->line('common_action');
 		#genarate pagination
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . 'index.php/install/index/';
+		$config['base_url'] = $this->config->base_url() . 'install/index/';
 		$config['total_rows'] = $this->hosts->count_hosts();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);

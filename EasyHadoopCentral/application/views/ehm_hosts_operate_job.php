@@ -61,7 +61,7 @@
 			</table>
 		</div>
 		<div class="tab-pane fade" id="kill_job">
-			<form method=post action="<?php echo $this->config->base_url();?>index.php/operate/killjobbyid/">
+			<form method=post action="<?php echo $this->config->base_url();?>operate/killjobbyid/">
 				<fieldset>
 					<legend>杀任务</legend>
 					<label>任务ID</label>

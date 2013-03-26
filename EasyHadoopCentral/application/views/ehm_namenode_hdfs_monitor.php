@@ -2,7 +2,7 @@
 <script>
 function namenode_abbr()
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/namenodestats/<?php echo @$namenode_host_id;?>', function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/namenodestats/<?php echo @$namenode_host_id;?>', function(json){
 				html = 'HDFS Counter<br /><br />';
 				html += 'Total DFS Space: ' + json.total_abbr + '<br />';
 				html += 'Free DFS Space: ' + json.free_abbr + '<br />';
@@ -20,7 +20,7 @@ function namenode_abbr()
 
 function datanode_use(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/datanodestats/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/datanodestats/' + host_id, function(json){
 		$('#datanode_free_'+host_id).attr("style", "width: "+json.percent_remain+"%;");
 		$('#datanode_dfs_'+host_id).attr('style', "width: "+json.percent_used+"%;");
 		html = 'Used: ' + json.used_abbr + ' / Total: ' + json.total_abbr;
@@ -71,7 +71,7 @@ function pie_hdfs()
 				};
 			});
 			//----------------------
-			$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/namenodestats/<?php echo @$namenode_host_id;?>', function(json){
+			$.getJSON('<?php echo $this->config->base_url();?>monitor/namenodestats/<?php echo @$namenode_host_id;?>', function(json){
 			//----------------------
 			// Build the chart
 			chart = new Highcharts.Chart({

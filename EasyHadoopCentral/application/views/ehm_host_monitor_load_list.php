@@ -3,7 +3,7 @@
 <script>
 function host_load(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getloadavg/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/getloadavg/' + host_id, function(json){
 		load1 = parseFloat(json.lavg_1);
 		load5 = parseFloat(json.lavg_5);
 		load15 = parseFloat(json.lavg_15);

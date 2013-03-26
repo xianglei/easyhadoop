@@ -7,7 +7,7 @@ class Monitor extends CI_Controller
 		parent::__construct();
 		if(!$this->session->userdata('login') || $this->session->userdata('login') == FALSE)
 		{
-			redirect($this->config->base_url() . 'index.php/user/login/');
+			redirect($this->config->base_url() . 'user/login/');
 		}
 	}
 	
@@ -68,7 +68,7 @@ class Monitor extends CI_Controller
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . 'index.php/monitor/index/';
+		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/index/';
 		$config['total_rows'] = $this->hosts->count_hosts();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);
@@ -243,7 +243,7 @@ class Monitor extends CI_Controller
 		
 		#generate pagination
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . 'index.php/monitor/hdfsstats/';
+		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/hdfsstats/';
 		$config['total_rows'] = $this->hosts->count_hosts_by_role("datanode")->num_rows();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);
@@ -319,7 +319,7 @@ class Monitor extends CI_Controller
 		
 		#generate pagination
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . 'index.php/monitor/mapredstats/';
+		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/mapredstats/';
 		$config['total_rows'] = $this->hosts->count_hosts_by_role("tasktracker")->num_rows();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);
@@ -397,7 +397,7 @@ class Monitor extends CI_Controller
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . 'index.php/monitor/loadavgstats/';
+		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/loadavgstats/';
 		$config['total_rows'] = $this->hosts->count_hosts();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);
@@ -477,7 +477,7 @@ class Monitor extends CI_Controller
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . 'index.php/monitor/cpustats/';
+		$config['base_url'] = $this->config->base_url() . '/index.php/monitor/cpustats/';
 		$config['total_rows'] = $this->hosts->count_hosts();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);

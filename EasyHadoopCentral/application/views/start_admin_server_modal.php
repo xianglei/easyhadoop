@@ -7,7 +7,7 @@
 </style>
 
 <div id="start_admin_server" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>index.php/manage/startadminserver/" method="POST">
+<form action="<?php echo $this->config->base_url();?>manage/startadminserver/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel"><?php echo "启动管理服务器"?></h3>

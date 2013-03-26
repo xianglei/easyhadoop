@@ -3,7 +3,7 @@
 <script>
 function cpu_info(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuinfo/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/getcpuinfo/' + host_id, function(json){
 		model_name = json.model_name;
 		processor = (Number(json.processor) + 1).toString();;
 
@@ -13,7 +13,7 @@ function cpu_info(host_id)
 }
 function cpu_usage(host_id)
 {
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getcpuusage/' + host_id, function(json){
+	$.getJSON('<?php echo $this->config->base_url();?>monitor/getcpuusage/' + host_id, function(json){
 		user = Math.round(json.user);
 		sys = Math.round(json.sys);
 		io = Math.round( Number(json.nice) + Number(json.iowait) + Number(json.irq) + Number(json.soft) + Number(json.steal));

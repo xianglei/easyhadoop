@@ -71,7 +71,7 @@ $("#demo")
 			// All the options are almost the same as jQuery's AJAX (read the docs)
 			"ajax" : {
 				// the URL to fetch the data
-				"url" : "<?php echo $this->config->base_url();?>index.php/hdfs/get_children/",
+				"url" : "<?php echo $this->config->base_url();?>hdfs/get_children/",
 				// the `data` function is executed in the instance's scope
 				// the parameter is the node being loaded 
 				// (may be -1, 0, or undefined when loading the root nodes)
@@ -89,7 +89,7 @@ $("#demo")
 			// As this has been a common question - async search
 			// Same as above - the `ajax` config option is actually jQuery's AJAX object
 			"ajax" : {
-				"url" : "<?php echo $this->config->base_url();?>index.php/hdfs/search/",
+				"url" : "<?php echo $this->config->base_url();?>hdfs/search/",
 				// You get the search string as a parameter
 				"data" : function (str) {
 					return { 
@@ -161,7 +161,7 @@ $("#demo")
 	.bind("create.jstree", function (e, data) {
 		
 		$.post(
-			"<?php echo $this->config->base_url();?>index.php/hdfs/create/", 
+			"<?php echo $this->config->base_url();?>hdfs/create/", 
 			{ 
 				"operation" : "create_node", 
 				"id" : data.rslt.parent.attr("id").replace("node_",""), 
@@ -195,7 +195,7 @@ $("#demo")
 			$.ajax({
 				async : false,
 				type: 'POST',
-				url: "<?php echo $this->config->base_url();?>index.php/hdfs/remove/",
+				url: "<?php echo $this->config->base_url();?>hdfs/remove/",
 				data : { 
 					"operation" : "remove_node", 
 					"id" : this.id.replace("node_","")
@@ -219,7 +219,7 @@ $("#demo")
 	})
 	.bind("rename.jstree", function (e, data) {
 		$.post(
-			"<?php echo $this->config->base_url();?>index.php/hdfs/rename/", 
+			"<?php echo $this->config->base_url();?>hdfs/rename/", 
 			{ 
 				"operation" : "rename_node", 
 				"id" : data.rslt.obj.attr("id").replace("node_",""),
@@ -242,7 +242,7 @@ $("#demo")
 	})
 	.bind("remove_sub.jstree", function (e, data) {
 		$.post(
-			"<?php echo $this->config->base_url();?>index.php/hdfs/remove_sub/", 
+			"<?php echo $this->config->base_url();?>hdfs/remove_sub/", 
 			{ 
 				"operation" : "remove_sub", 
 				"id" : data.rslt.obj.attr("id").replace("node_","")
