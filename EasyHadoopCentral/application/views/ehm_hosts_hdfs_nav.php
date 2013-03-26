@@ -38,7 +38,7 @@ function remove_all()
 	                                     	$.ajax({
 	                                     			async : true,
 	                                     			type: 'POST',
-	                                     			url: "<?php echo $this->config->base_url();?>hdfs/remove/",
+	                                     			url: "<?php echo $this->config->base_url();?>index.php/hdfs/remove/",
 	                                     			data : { 
 	                                     				"operation" : "remove_node", 
 	                                     				"id" : $("#demo").jstree("get_text",$(n))

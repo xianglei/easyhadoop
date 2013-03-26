@@ -8,7 +8,7 @@ class Settings extends CI_Controller
 		parent::__construct();
 		if(!$this->session->userdata('login') || $this->session->userdata('login') == FALSE)
 		{
-			redirect($this->config->base_url() . 'user/login/');
+			redirect($this->config->base_url() . 'index.php/user/login/');
 		}
 	}
 
@@ -61,7 +61,7 @@ class Settings extends CI_Controller
 		#generate node setting tab
 		$this->load->model('ehm_settings_model','sets');
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . '/index.php/settings/index/';
+		$config['base_url'] = $this->config->base_url() . 'index.php/settings/index/';
 		$config['total_rows'] = $this->sets->count_node_settings();
 		$config['per_page'] = 20;
 		$offset = $this->uri->segment(3,0);
@@ -153,7 +153,7 @@ class Settings extends CI_Controller
 		$this->load->model('ehm_settings_model', 'sets');
 		$this->sets->update_settings($set_id, $filename, $content, $ip);
 		
-		redirect($this->config->base_url() . 'settings/index/');
+		redirect($this->config->base_url() . 'index.php/settings/index/');
 	}
 	
 	public function DeleteSettings()
@@ -162,7 +162,7 @@ class Settings extends CI_Controller
 		$this->load->model('ehm_settings_model', 'sets');
 		$this->sets->delete_settings($set_id);
 		
-		redirect($this->config->base_url() . 'settings/index/');
+		redirect($this->config->base_url() . 'index.php/settings/index/');
 	}
 	
 	public function UpdateNodeSettings()
@@ -175,7 +175,7 @@ class Settings extends CI_Controller
 		$this->load->model('ehm_settings_model', 'sets');
 		$this->sets->update_settings($set_id, $filename, $content, $ip);
 		
-		redirect($this->config->base_url() . 'settings/index/');
+		redirect($this->config->base_url() . 'index.php/settings/index/');
 	}
 	
 	public function ViewHosts()
@@ -204,7 +204,7 @@ class Settings extends CI_Controller
 		$this->load->model('ehm_settings_model', 'sets');
 		$this->sets->insert_settings($filename, $content, $ip);
 		
-		redirect($this->config->base_url() . 'settings/index/');
+		redirect($this->config->base_url() . 'index.php/settings/index/');
 	}
 	
 	public function PushEtcHost()

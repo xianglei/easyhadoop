@@ -13,7 +13,7 @@
 <script>
 function rackaware_content()
 {
-	$.get('<?php echo $this->config->base_url();?>settings/viewrackaware/', {}, function(html){
+	$.get('<?php echo $this->config->base_url();?>index.php/settings/viewrackaware/', {}, function(html){
 		html = html;
 		$('#rackaware_content').html(html);
 	});
