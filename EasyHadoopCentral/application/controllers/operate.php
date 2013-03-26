@@ -52,8 +52,11 @@ class Operate extends CI_Controller
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
 		$config['base_url'] = $this->config->base_url() . '/index.php/operate/index/';
-		$config['total_rows'] = $this->hosts->count_hosts();
+		$config['total_rows'] = $this->hosts->count_hosts($this->input->get('q',""));
 		$config['per_page'] = 10;
+		if($this->input->get('q',"")!="")
+		$config['suffix'] = "?q=".$this->input->get('q',"");
+		
 		$offset = $this->uri->segment(3,0);
 		if($offset == 0):
 			$offset = 0;
@@ -62,7 +65,9 @@ class Operate extends CI_Controller
 		endif;
 		$this->pagination->initialize($config);
 		$data['pagination'] = $this->pagination->create_links();
-		$data['results'] = $this->hosts->get_hosts_list($config['per_page'], $offset);
+		
+		$data['results'] = $this->hosts->get_hosts_list($config['per_page'], $offset,$this->input->get('q',""));
+		$data['q']=$this->input->get('q',"");
 		
 		$this->load->view('ehm_hosts_operate_list',$data);
 		
