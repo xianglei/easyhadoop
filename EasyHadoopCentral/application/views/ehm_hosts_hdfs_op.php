@@ -71,7 +71,7 @@ $("#demo")
 			// All the options are almost the same as jQuery's AJAX (read the docs)
 			"ajax" : {
 				// the URL to fetch the data
-				"url" : "<?php echo $this->config->base_url();?>hdfs/get_children/",
+				"url" : "<?php echo $this->config->base_url();?>index.php/hdfs/get_children/",
 				// the `data` function is executed in the instance's scope
 				// the parameter is the node being loaded 
 				// (may be -1, 0, or undefined when loading the root nodes)
@@ -89,7 +89,7 @@ $("#demo")
 			// As this has been a common question - async search
 			// Same as above - the `ajax` config option is actually jQuery's AJAX object
 			"ajax" : {
-				"url" : "<?php echo $this->config->base_url();?>hdfs/search/",
+				"url" : "<?php echo $this->config->base_url();?>index.php/hdfs/search/",
 				// You get the search string as a parameter
 				"data" : function (str) {
 					return { 

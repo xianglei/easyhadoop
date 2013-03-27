@@ -7,7 +7,7 @@ class Manage extends CI_Controller
 		parent::__construct();
 		if(!$this->session->userdata('login') || $this->session->userdata('login') == FALSE)
 		{
-			redirect($this->config->base_url() . 'user/login/');
+			redirect($this->config->base_url() . 'index.php/user/login/');
 		}
 	}
 	
@@ -64,7 +64,7 @@ class Manage extends CI_Controller
 		$data['common_offline'] = $this->lang->line('common_offline');
 		#genarate pagination
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . '/index.php/manage/index/';
+		$config['base_url'] = $this->config->base_url() . 'index.php/manage/index/';
 		$config['total_rows'] = $this->hosts->count_hosts();
 		$config['per_page'] = 10;
 		$offset = $this->uri->segment(3,0);
@@ -97,7 +97,7 @@ class Manage extends CI_Controller
 	{
 		$this->load->model('ehm_hosts_model','hosts');
 		$status = $this->hosts->start_admin_server($this->input->post('ssh_user'),$this->input->post('ssh_pass'));	
-		redirect($this->config->base_url() . 'manage/index/');
+		redirect($this->config->base_url() . 'index.php/manage/index/');
 	
 	}
 	public function PingAdminNode()
@@ -131,7 +131,7 @@ class Manage extends CI_Controller
 		$rack = $this->input->post('rack');
 		$this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);
 
-		redirect($this->config->base_url() . 'manage/index/');
+		redirect($this->config->base_url() . 'index.php/manage/index/');
 	}
 	
 	public function DeleteHadoopNode()

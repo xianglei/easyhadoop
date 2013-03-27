@@ -4,7 +4,7 @@
 <?php $i = 0; foreach($category as $cate):?>
 	
 	<div class="accordion-group">
-	<form method="post" action="<?php echo $this->config->base_url();?>settings/generatesettings/">
+	<form method="post" action="<?php echo $this->config->base_url();?>index.php/settings/generatesettings/">
 		<div class="accordion-heading">
 			<a class="accordion-toggle  alert alert-error" data-toggle="collapse" data-parent="#accordion_hadoop_settings" href="#collapse<?php echo $i;?>">
 				<?php echo $cate->filename;?>

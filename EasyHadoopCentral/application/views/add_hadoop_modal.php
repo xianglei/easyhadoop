@@ -7,7 +7,7 @@
 </style>
 
 <div id="add_hadoop_node" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-<form action="<?php echo $this->config->base_url();?>manage/addhadoopnode/" method="POST">
+<form action="<?php echo $this->config->base_url();?>index.php/manage/addhadoopnode/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 		<h3 id="myModalLabel"><?php echo $common_add_node?></h3>

@@ -51,7 +51,7 @@ class Operate extends CI_Controller
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
-		$config['base_url'] = $this->config->base_url() . '/index.php/operate/index/';
+		$config['base_url'] = $this->config->base_url() . 'index.php/operate/index/';
 		$config['total_rows'] = $this->hosts->count_hosts($this->input->get('q',""));
 		$config['per_page'] = 10;
 		if($this->input->get('q',"")!="")
