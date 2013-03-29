@@ -118,7 +118,7 @@ class Operate extends CI_Controller
 		$this->load->library('pagination');
 		$config['base_url'] = $this->config->base_url() . 'index.php/operate/index/';
 		$config['total_rows'] = $this->hosts->count_hosts($this->input->get('q',""));
-		$config['per_page'] = 20;
+		$config['per_page'] = 2000;
 		if($this->input->get('q',"")!="")
 		$config['suffix'] = "?q=".$this->input->get('q',"");
 		
