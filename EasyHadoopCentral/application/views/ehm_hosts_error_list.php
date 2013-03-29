@@ -10,16 +10,19 @@ function viewlogs(role, host_id)
 }
 function check_online(role, host_id)
 {
+	$.ajaxSettings.async = false;
 	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getpid/'+host_id+'/' + role, function(json){
 		if(json.status == 'online')
 		{
 			$('#status_'+ role +'_'+host_id).removeClass("btn");
 			$('#status_'+ role +'_'+host_id).addClass("btn btn-success");
+			//$('#show_node_'+host_id).css("display","none");
 		}
 		else
 		{
 			$('#status_'+role+'_'+host_id).removeClass("btn");
 			$('#status_'+role+'_'+host_id).addClass("btn btn-danger");
+			$('#show_node_'+host_id).css("display","block");
 		}
 	});
 }
@@ -32,13 +35,8 @@ function autoSubmit(val)
 </script>
 
 <table class="table table-striped">
-	<thead>
-		<tr>
-			<th><input class="test" type="text" name="searchKey" placeholder="输入主机名或ip"  value="<?php echo $q;?>"/> <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" onClick="autoSubmit($('input[name=searchKey]').val());">提交查询</button></th>
-			<th><a  target="_blank" href="<?php echo $this->config->base_url();?>index.php/operate/errorpage/">查看故障节点列表</a></th>
-			<th></th>
-			<th></th>
-		</tr>
+	<!--<thead>
+		
 	
 		<tr>
 			<th>#</th>
@@ -46,17 +44,17 @@ function autoSubmit(val)
 			<th>IP地址</th>
 			<th>操作</th>
 		</tr>
-	</thead>
+	</thead>-->
 	<tbody>
 <?php $i = 1; foreach($results as $item):?>
-		<tr>
+		<tr  id="show_node_<?php echo $item->host_id;?>" style="display:none">
 			<td><?php echo $i;?></td>
 			<td><?php echo $item->hostname;?>
 			</td>
 			<td><?php echo $item->ip;?>
 			</td>
 			<td>
-			<table border="0" class="table-condensed">
+			<table border="0" class="table-condensed" >
 			<thead>
 				<tr>
 					
@@ -65,7 +63,7 @@ $tmp = explode(",", $item->role);
 foreach($tmp as $k => $v):
 ?>
 					<th>
-				<div class="btn-group">
+				<div class="btn-group"  >
 					<a class="btn" id="status_<?php echo $v;?>_<?php echo $item->host_id;?>" data-toggle="modal"  href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><?php echo $v;?> </a>
 					<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu">
@@ -92,18 +90,9 @@ foreach($tmp as $k => $v):
 				<!--modal end-->
 
 				<script>
-				
-				viewlogs('<?php echo $v?>', <?php echo $item->host_id?>);
-				setInterval(function()
-				{
-					viewlogs('<?php echo $v?>', <?php echo $item->host_id?>)
-				}, 2000);
-				
+			
 				check_online('<?php echo $v?>', <?php echo $item->host_id?>);
-				setInterval(function()
-				{
-					check_online('<?php echo $v?>', <?php echo $item->host_id?>)
-				}, 2000);
+				
 				</script>
 			
 <?php
@@ -119,7 +108,7 @@ endforeach;
 </table>
 
 <div>
-		<h3><?php echo $pagination;?></h3>
+		<h3></h3>
 	</div>
 
 </div>
