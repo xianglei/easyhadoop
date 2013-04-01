@@ -118,6 +118,9 @@ class Operate extends CI_Controller
 		$this->load->view('div_fluid');
 		$this->load->view('div_row_fluid');
 		
+		$data['common_hadoop_operating'] = $this->lang->line('common_hadoop_operating');
+		$data['common_job_operating'] = $this->lang->line('common_job_operating');
+		
 		$this->load->view('ehm_hosts_operate_nav', $data);
 		
 		$data['common_hostname'] = $this->lang->line('common_hostname');
@@ -267,6 +270,9 @@ class Operate extends CI_Controller
 		
 		$this->load->view('div_fluid');
 		$this->load->view('div_row_fluid');
+		
+		$data['common_hadoop_operating'] = $this->lang->line('common_hadoop_operating');
+		$data['common_job_operating'] = $this->lang->line('common_job_operating');
 		
 		$this->load->view('ehm_hosts_operate_nav', $data);
 		
