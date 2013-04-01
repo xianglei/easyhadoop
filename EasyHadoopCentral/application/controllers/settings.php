@@ -70,7 +70,8 @@ class Settings extends CI_Controller
 		$data['common_close'] = $this->lang->line('common_close');
 		$data['common_edit'] = $this->lang->line('common_edit');
 		$data['common_remove'] = $this->lang->line('common_remove');
-		
+		$data['common_modify_settings'] = $this->lang->line('common_modify_settings');
+		$data['common_remove_settings'] = $this->lang->line('common_remove_settings');
 		
 		#generate settings lists
 		$this->load->model('ehm_settings_model','sets');
@@ -148,6 +149,8 @@ class Settings extends CI_Controller
 		
 		$this->load->view('div_fluid');
 		$this->load->view('div_row_fluid');
+		
+		$data['common_hadoop_settings'] = $this->lang->line('common_hadoop_settings');
 		
 		$this->load->view('ehm_hosts_settings_nav', $data);
 		
