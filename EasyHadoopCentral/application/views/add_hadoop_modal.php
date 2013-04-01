@@ -24,10 +24,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td><label><?php echo "ROOT 用户名(选填)";?></label><input type="text" name="ssh_user" value="root" disabled />
+				<td><label><?php echo $common_root_user;?></label><input type="text" name="ssh_user" value="root" disabled />
 				<input type="hidden" name="ssh_user" value="root" />
 				</td>
-				<td><label><?php echo "ROOT 密  码(选填)";?></label><input type="text" name="ssh_pass" placeholder="ssh_pass" />
+				<td><label><?php echo $common_root_pass;?></label><input type="text" name="ssh_pass" placeholder="ssh_pass" />
 				</td>
 			</tr>
 			<tr>
@@ -35,7 +35,7 @@
 				<label><?php echo $common_role_name;?></label>
 				</td>
 				<td>
-					<label><?php echo "机架位置(选填)";?></label>
+					<label><?php echo $common_rackaware_position;?></label>
 				</td>
 			</tr>
 			<tr>
@@ -48,7 +48,7 @@
 				</td>
 				<td>
 					<input type="text" name="rack" id="rack" placeholder="Rack number" /><br />
-					<span id="error_rack"><?php echo "需要数字";?></span>
+					<span id="error_rack"><?php echo "Need numeric";?></span>
 					<script type="text/javascript">
 					$(document).ready(function () {
 						$("#error_rack").hide();
@@ -73,7 +73,7 @@
 		</table>
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
 		<button type="submit" class="btn btn-primary"><?php echo $common_submit;?></button>
 	</div>
 </form>

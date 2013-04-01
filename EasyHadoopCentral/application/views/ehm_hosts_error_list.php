@@ -67,11 +67,11 @@ foreach($tmp as $k => $v):
 					<a class="btn" id="status_<?php echo $v;?>_<?php echo $item->host_id;?>" data-toggle="modal"  href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><?php echo $v;?> </a>
 					<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a data-toggle="modal" href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><i class="icon-search"></i>查看日志</a></li>
+						<li><a data-toggle="modal" href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><i class="icon-search"></i><?php echo $common_view_logs;?></a></li>
 						<li class="divider"></li>
-						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/start/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-play"></i>启动 <?php echo $v;?></a></li>
-						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/stop/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-stop"></i>停止 <?php echo $v;?></a></li>
-						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/restart/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-refresh"></i>重启 <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/start/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-play"></i><?php echo $common_start;?> <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/stop/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-stop"></i><?php echo $common_stop;?> <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/restart/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-refresh"></i><?php echo $common_restart;?> <?php echo $v;?></a></li>
 					</ul>
 				</div>
 				</th>
@@ -84,7 +84,7 @@ foreach($tmp as $k => $v):
 						<div class="modal-body" id="viewlogs_<?php echo $v?>_<?php echo $item->host_id?>">
 						</div>
 						<div class="modal-footer">
-							<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+							<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $common_close;?></button>
 						</div>
 					</div>
 				<!--modal end-->

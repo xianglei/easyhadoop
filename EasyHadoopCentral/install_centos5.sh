@@ -5,7 +5,6 @@ mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"
 mysql easyhadoop < easyhadoop.sql
 mysql easyhadoop < patch-0001.sql
 mysql easyhadoop < patch-0002.sql
-chmod 777 /var/www/html/expect.py
 
 echo "/*************************************************************/"
 echo "Install basic environment complete, starting download from"
@@ -16,8 +15,8 @@ mkdir -p ./hadoop
 
 cd ./hadoop && rm -rf *
 
-if [ ! -f "hadoop-1.1.1-1.x86_64.rpm" ]; then
-	wget http://42.96.141.99/hadoop/hadoop-1.1.1-1.x86_64.rpm
+if [ ! -f "hadoop-1.0.4-1.x86_64.rpm" ]; then
+	wget http://42.96.141.99/hadoop/hadoop-1.0.4-1.x86_64.rpm
 fi
 if [ ! -f "jdk-6u39-linux-x64.rpm" ]; then
 	wget http://42.96.141.99/jdk/jdk-6u39-linux-amd64.rpm
@@ -47,6 +46,7 @@ fi
 cd ..
 cp -R * /var/www/html/
 cd /var/www/html
+chmod 777 /var/www/html/expect.py
 python NodeAgent.py -s start
 echo "/*************************************************************/"
 echo "Download Hadoop installation and runtime libaries complete."

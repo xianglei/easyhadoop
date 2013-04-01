@@ -40,6 +40,8 @@ class Settings extends CI_Controller
 		$this->load->view('div_fluid');
 		$this->load->view('div_row_fluid');
 		
+		$data['common_hadoop_settings'] = $this->lang->line('common_hadoop_settings');
+		
 		$this->load->view('ehm_hosts_settings_nav', $data);
 		
 		$data['common_hostname'] = $this->lang->line('common_hostname');
@@ -47,6 +49,28 @@ class Settings extends CI_Controller
 		$data['common_node_role'] = $this->lang->line('common_node_role');
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_action'] = $this->lang->line('common_action');
+		
+		$data['common_golbal_settings'] = $this->lang->line('common_golbal_settings');
+		$data['common_node_settings'] = $this->lang->line('common_node_settings');
+		$data['common_gs_comment'] = $this->lang->line('common_gs_comment');
+		$data['common_ns_comment'] = $this->lang->line('common_ns_comment');
+		$data['common_ns_manage'] = $this->lang->line('common_ns_manage');
+		$data['common_gs_manage'] = $this->lang->line('common_gs_manage');
+		$data['common_setting_generate_tool'] = $this->lang->line('common_setting_generate_tool');
+		$data['common_push_global_settings'] = $this->lang->line('common_push_global_settings');
+		$data['common_push_node_settings'] = $this->lang->line('common_push_node_settings');
+		$data['common_add_gs_settings'] = $this->lang->line('common_add_gs_settings');
+		$data['common_add_ns_settings'] = $this->lang->line('common_add_ns_settings');
+		$data['common_view_rackaware'] = $this->lang->line('common_view_rackaware');
+		$data['common_rackaware'] = $this->lang->line('common_rackaware');
+		$data['common_push_rackaware'] = $this->lang->line('common_push_rackaware');
+		$data['common_view_hosts'] = $this->lang->line('common_view_hosts');
+		$data['common_push_hosts'] = $this->lang->line('common_push_hosts');
+		$data['common_edit_time'] = $this->lang->line('common_edit_time');
+		$data['common_close'] = $this->lang->line('common_close');
+		$data['common_edit'] = $this->lang->line('common_edit');
+		$data['common_remove'] = $this->lang->line('common_remove');
+		
 		
 		#generate settings lists
 		$this->load->model('ehm_settings_model','sets');
@@ -57,6 +81,10 @@ class Settings extends CI_Controller
 		$data['common_submit'] = $this->lang->line('common_submit');
 		$data['common_global_setting_tips'] = $this->lang->line('common_global_setting_tips');
 		$data['common_node_setting_tips'] = $this->lang->line('common_node_setting_tips');
+		$data['common_add_settings'] = $this->lang->line('common_add_settings');
+		$data['common_filename'] = $this->lang->line('common_filename');
+		$data['common_content'] = $this->lang->line('common_content');
+		$data['common_close'] = $this->lang->line('common_close');
 		
 		#generate node setting tab
 		$this->load->model('ehm_settings_model','sets');
@@ -128,6 +156,10 @@ class Settings extends CI_Controller
 		$data['common_node_role'] = $this->lang->line('common_node_role');
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_action'] = $this->lang->line('common_action');
+		$data['common_add_settings'] = $this->lang->line('common_add_settings');
+		$data['common_filename'] = $this->lang->line('common_filename');
+		$data['common_content'] = $this->lang->line('common_content');
+		$data['common_close'] = $this->lang->line('common_close');
 		
 		#generate settings lists
 		$this->load->model('ehm_settings_model', 'sets');

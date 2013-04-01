@@ -155,9 +155,9 @@ setInterval(namenode_abbr, 30000);
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>主机名称</th>
-			<th>IP地址</th>
-			<th>存储状态</th>
+			<th><?php echo $common_hostname;?></th>
+			<th><?php echo $common_ip_addr;?></th>
+			<th><?php echo $common_storage_status;?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -191,7 +191,7 @@ setInterval(namenode_abbr, 30000);
 				<div class="modal-body" id="datanode_modal_mountpoint_<?php echo $item->host_id;?>">
 				</div>
 				<div class="modal-footer">
-					<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+					<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $common_close;?></button>
 				</div>
 			</div>
 			<!--modal end-->

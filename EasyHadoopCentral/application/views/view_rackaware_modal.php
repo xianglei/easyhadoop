@@ -7,7 +7,7 @@
 		<div id="rackaware_content"></div>
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
 	</div>
 </div>
 <script>

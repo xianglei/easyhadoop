@@ -365,7 +365,7 @@ $config['conf_folder'] = '/etc/hadoop/';
 
 $config['hadoop_user'] = 'hadoop';
 $config['hadoop_group'] = 'hadoop';
-$config['hadoop_filename'] = 'hadoop-1.1.1-1.x86_64.rpm';
+$config['hadoop_filename'] = 'hadoop-1.0.4-1.x86_64.rpm';
 $config['jdk_filename'] = 'jdk-6u39-linux-amd64.rpm';
 $config['gpl_filename'] = 'hadoop-gpl-packaging-0.5.4-1.x86_64.rpm';
 $config['lzop_filename'] = 'lzop-1.03.tar.gz';

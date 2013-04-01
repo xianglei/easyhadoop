@@ -65,6 +65,12 @@ class Monitor extends CI_Controller
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_action'] = $this->lang->line('common_action');
 		
+		$data['common_mem_free'] = $this->lang->line('common_mem_free');
+		$data['common_mem_cached'] = $this->lang->line('common_mem_cached');
+		$data['common_mem_buffers'] = $this->lang->line('common_mem_buffers');
+		$data['common_mem_used'] = $this->lang->line('common_mem_used');
+		$data['common_sample'] = $this->lang->line('common_sample');
+		
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
@@ -229,6 +235,7 @@ class Monitor extends CI_Controller
 		$data['common_node_role'] = $this->lang->line('common_node_role');
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_storage_status'] = $this->lang->line('common_storage_status');
+		$data['common_close'] = $this->lang->line('common_close');
 		
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
@@ -302,9 +309,8 @@ class Monitor extends CI_Controller
 		
 		$data['common_hostname'] = $this->lang->line('common_hostname');
 		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
-		$data['common_node_role'] = $this->lang->line('common_node_role');
-		$data['common_create_time'] = $this->lang->line('common_create_time');
-		$data['common_storage_status'] = $this->lang->line('common_storage_status');
+		$data['common_map_status'] = $this->lang->line('common_map_status');
+		$data['common_reduce_status'] = $this->lang->line('common_reduce_status');
 		
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
@@ -394,6 +400,11 @@ class Monitor extends CI_Controller
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_action'] = $this->lang->line('common_action');
 		
+		$data['common_hostname'] = $this->lang->line('common_hostname');
+		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
+		$data['common_active_pid'] = $this->lang->line('common_active_pid');
+		$data['common_load_avg'] = $this->lang->line('common_load_avg');
+		
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$this->load->library('pagination');
@@ -473,6 +484,11 @@ class Monitor extends CI_Controller
 		$data['common_node_role'] = $this->lang->line('common_node_role');
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_action'] = $this->lang->line('common_action');
+		
+		$data['common_hostname'] = $this->lang->line('common_hostname');
+		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
+		$data['common_cpu_info'] = $this->lang->line('common_cpu_info');
+		$data['common_cpu_usage'] = $this->lang->line('common_cpu_usage');
 		
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');

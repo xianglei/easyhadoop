@@ -4,8 +4,8 @@
 			<!--<a  id="add_folder"  href="#" class="btn btn-info"><i class="icon-thumbs-up"></i>建立目录</a><br>
 			<a id="rename" href="#" class="btn btn-info"><i class="icon-thumbs-up"></i>重命名</a><br>
 			<a id="remove"  href="#" class="btn btn-info"><i class="icon-thumbs-up"></i> 删除文件 </a><br>-->
-			<a href="#"  onclick="$('#demo').jstree('refresh',-1);" class="btn btn-info"><i class="icon-thumbs-up"></i>刷新目录</a><br>
-			<a href="#"   class="btn btn-info" onclick="remove_all();"><i class="icon-thumbs-up"></i>批量删除</a><br>
+			<a href="#"  onclick="$('#demo').jstree('refresh',-1);" class="btn btn-info"><i class="icon-thumbs-up"></i><?php echo $common_refresh_dir;?></a><br>
+			<a href="#"   class="btn btn-info" onclick="remove_all();"><i class="icon-thumbs-up"></i><?php echo $common_batch_rm;?></a><br>
 	</div>
 </div>
 <script type="text/javascript">
@@ -21,18 +21,18 @@ function remove_all()
 	var w =0;
 	if(c<1)
 	{
-		alter("请选择删除文件");
+		alter("<?php echo $common_choose_file_to_rm;?>");
 		return;
 	}
 	
 	$('#confirmDiv').confirmModal({
-								heading:'删除确定',
-								body:'删除操作请确认?',
+								heading:'<?php echo $common_rm_confirm;?>',
+								body:'<?php echo $common_rm_confirmed;?>?',
 								callback: function() {
 										 $('#confirmDiv').hide();
 	                                     var msg='';
 	                                     $("#myModal").modal();
-	                                     $("#modalshow").html("批量删除中...");
+	                                     $("#modalshow").html("<?php echo $common_removing;?>...");
 	                                     $.each(nodes, function(i, n) {  
 	                                         per=i/c*100;	
 	                                     	$.ajax({

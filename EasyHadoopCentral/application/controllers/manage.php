@@ -37,6 +37,10 @@ class Manage extends CI_Controller
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
 		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
 		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$data['common_close'] = $this->lang->line('common_close');
+		$data['common_local_root_user'] = $this->lang->line('common_local_root_user');
+		$data['common_local_root_pass'] = $this->lang->line('common_local_root_pass');
+		$data['common_start_admin_server'] = $this->lang->line('common_start_admin_server');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');
@@ -62,6 +66,19 @@ class Manage extends CI_Controller
 		$data['common_action'] = $this->lang->line('common_action');
 		$data['common_online'] = $this->lang->line('common_online');
 		$data['common_offline'] = $this->lang->line('common_offline');
+		
+		$data['common_modify_node'] = $this->lang->line('common_modify_node');
+		$data['common_remove_node'] = $this->lang->line('common_remove_node');
+		$data['common_node_operating'] = $this->lang->line('common_node_operating');
+		$data['common_set_hdfs_storage'] = $this->lang->line('common_set_hdfs_storage');
+		$data['common_storage_setting'] = $this->lang->line('common_storage_setting');
+		$data['common_hostname'] = $this->lang->line('common_hostname');
+		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
+		$data['common_role_name'] = $this->lang->line('common_role_name');
+		$data['common_root_user'] = $this->lang->line('common_root_user');
+		$data['common_root_pass'] = $this->lang->line('common_root_pass');
+		$data['common_rackaware_position'] = $this->lang->line('common_rackaware_position');
+		
 		#genarate pagination
 		$this->load->library('pagination');
 		$config['base_url'] = $this->config->base_url() . 'index.php/manage/index/';
@@ -79,11 +96,7 @@ class Manage extends CI_Controller
 		
 		$this->load->view('ehm_hosts_manage_list',$data);
 		
-		
 		$data['common_submit'] = $this->lang->line('common_submit');
-		$data['common_hostname'] = $this->lang->line('common_hostname');
-		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
-		$data['common_role_name'] = $this->lang->line('common_role_name');
 		$this->load->view('add_hadoop_modal',$data);
 		$this->load->view('start_admin_server_modal');
 		

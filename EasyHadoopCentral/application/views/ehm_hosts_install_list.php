@@ -21,7 +21,7 @@ function install_environment(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_' + host_id).html('安装hadoop所需环境');
+			$('#install_name_' + host_id).html('<?php echo $common_install_environment;?>');
 			$('#install_progress_' + host_id).attr("style", "width: 10%;");
 			$('#install_hadoop_action_status_' + host_id).html(data);
 			install_lzorpm(host_id);
@@ -36,7 +36,7 @@ function install_lzorpm(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_'+host_id).html('安装Lzo依赖');
+			$('#install_name_'+host_id).html('<?php echo $common_install_lzo;?>');
 			$('#install_progress_'+host_id).attr("style", "width: 25%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
@@ -52,7 +52,7 @@ function install_lzo(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_'+host_id).html('安装lzo依赖');
+			$('#install_name_'+host_id).html('<?php echo $common_install_lzo;?>');
 			$('#install_progress_'+host_id).attr("style", "width: 40%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
@@ -68,7 +68,7 @@ function install_lzop(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_'+host_id).html('安装lzop');
+			$('#install_name_'+host_id).html('<?php echo $common_install_lzop;?>');
 			$('#install_progress_'+host_id).attr("style", "width: 60%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
@@ -84,7 +84,7 @@ function install_jdk(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_'+host_id).html('安装Sun JDK');
+			$('#install_name_'+host_id).html('<?php echo $common_install_java;?>');
 			$('#install_progress_'+host_id).attr("style", "width: 70%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
@@ -100,7 +100,7 @@ function install_hadoop(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_' +host_id).html('安装Hadoop');
+			$('#install_name_' +host_id).html('<?php echo $common_install_hadoop?>');
 			$('#install_progress_'+host_id).attr("style", "width: 85%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
@@ -116,7 +116,7 @@ function install_gpl(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_'+host_id).html('安装LZO解码器');
+			$('#install_name_'+host_id).html('<?php echo $common_install_hadoopgpl;?>');
 			$('#install_progress_'+host_id).attr("style", "width: 100%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
@@ -127,7 +127,7 @@ function install_gpl(host_id)
 
 function install_done(host_id)
 {
-	$('#install_hadoop_action_status_'+host_id).html("感谢您的耐心等待，本节点安装完毕。");
+	$('#install_hadoop_action_status_'+host_id).html("<?php echo $common_install_complete;?>");
 }
 </script>
 	<!--<div class="alert alert-error"><?php echo $common_add_node_tips?></div>-->
@@ -159,8 +159,8 @@ function install_done(host_id)
 				<td><?php echo $item->create_time;?></td>
 				<td>
 				<div class="btn-group">
-					<a class="btn" href="#push_install_files_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-hand-right"></i> 推送安装文件 </a>
-					<a class="btn btn-inverse" href="#install_hadoop_action_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-cog icon-white"></i>  安装 Hadoop</a>
+					<a class="btn" href="#push_install_files_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-hand-right"></i> <?php echo $common_push_hadoop_files;?> </a>
+					<a class="btn btn-inverse" href="#install_hadoop_action_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-cog icon-white"></i>  <?php echo $common_install_hadoop;?></a>
 				</div>
 				
 				<!--push file entry-->
@@ -168,7 +168,7 @@ function install_done(host_id)
 <div id="push_install_files_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="myModalLabel">推送安装文件 <?php echo $item->ip;?></h3>
+		<h3 id="myModalLabel"><?php echo $common_push_hadoop_files;?> <?php echo $item->ip;?></h3>
 	</div>
 	<div class="modal-body">
 
@@ -176,7 +176,7 @@ function install_done(host_id)
 
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
 		<button class="btn btn-primary" onclick="push_install_files_action(<?php echo $item->host_id;?>)"><?php echo $common_submit;?></button>
 	</div>
 </div>
@@ -187,10 +187,10 @@ function install_done(host_id)
 <div id="install_hadoop_action_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="install_name_<?php echo $item->host_id;?>">安装 Hadoop <?php echo $item->ip;?></h3>
+		<h3 id="install_name_<?php echo $item->host_id;?>"><?php echo $common_install_hadoop;?> <?php echo $item->ip;?></h3>
 	</div>
 	<div class="modal-body">
-		<pre>  点击提交开始安装，请耐心等待</pre>
+		<pre>  <?php echo $common_submit_to_install;?></pre>
 			<div class="progress progress-info">
 				<div class="bar" style=""  id="install_progress_<?php echo $item->host_id;?>"></div>
 			</div>
@@ -199,7 +199,7 @@ function install_done(host_id)
 
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
 		<button class="btn btn-primary" onclick="install_hadoop_action(<?php echo $item->host_id;?>)"><?php echo $common_submit;?></button>
 	</div>
 </div>

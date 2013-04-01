@@ -40,6 +40,9 @@ class Operate extends CI_Controller
 		$this->load->view('div_fluid');
 		$this->load->view('div_row_fluid');
 		
+		$data['common_hadoop_operating'] = $this->lang->line('common_hadoop_operating');
+		$data['common_job_operating'] = $this->lang->line('common_job_operating');
+		
 		$this->load->view('ehm_hosts_operate_nav', $data);
 		
 		$data['common_hostname'] = $this->lang->line('common_hostname');
@@ -47,6 +50,16 @@ class Operate extends CI_Controller
 		$data['common_node_role'] = $this->lang->line('common_node_role');
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_action'] = $this->lang->line('common_action');
+		
+		$data['common_view_logs'] = $this->lang->line('common_view_logs');
+		$data['common_start'] = $this->lang->line('common_start');
+		$data['common_stop'] = $this->lang->line('common_stop');
+		$data['common_restart'] = $this->lang->line('common_restart');
+		$data['common_close'] = $this->lang->line('common_close');
+		
+		$data['common_input_ip_hostname'] = $this->lang->line('common_input_ip_hostname');
+		$data['common_submit_search'] = $this->lang->line('common_submit_search');
+		$data['common_view_failed_nodes'] = $this->lang->line('common_view_failed_nodes');
 		
 		#generate pagination
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -262,6 +275,11 @@ class Operate extends CI_Controller
 		$data['common_node_role'] = $this->lang->line('common_node_role');
 		$data['common_create_time'] = $this->lang->line('common_create_time');
 		$data['common_action'] = $this->lang->line('common_action');
+		
+		$data['common_active_job'] = $this->lang->line('common_active_job');
+		$data['common_kill_job'] = $this->lang->line('common_kill_job');
+		$data['common_job_id'] = $this->lang->line('common_job_id');
+		$data['common_not_found_jobtracker'] = $this->lang->line('common_not_found_jobtracker');
 		
 		$this->load->model('ehm_management_model', 'manage');
 		$data['job_list'] = $this->manage->get_job_list();

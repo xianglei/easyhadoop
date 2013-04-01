@@ -44,10 +44,10 @@ function host_load(host_id)
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>主机名称</th>
-			<th>IP地址</th>
-			<th>活跃PID</th>
-			<th>负载状态</th>
+			<th><?php echo $common_hostname;?></th>
+			<th><?php echo $common_ip_addr;?></th>
+			<th><?php echo $common_active_pid;?></th>
+			<th><?php echo $common_load_avg;?></th>
 		</tr>
 	</thead>
 	<tbody>

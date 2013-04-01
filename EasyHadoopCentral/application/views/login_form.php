@@ -2,15 +2,15 @@
 	<h2>EasyHadoopManager 1.1.1-1 Beta1</h2>
 	<form class="form-horizontal" method="post" action="<?php echo $this->config->base_url();?>index.php/user/loginaction/">
 		<div class="control-group">
-			<label class="control-label">用户名</label>
+			<label class="control-label"><?php echo $common_username;?></label>
 			<div class="controls">
-				<input type="text" name="username" placeholder="用户名">
+				<input type="text" name="username" placeholder="<?php echo $common_username;?>">
 			</div>
 		</div>
 		<div class="control-group">
-			<label class="control-label">密码</label>
+			<label class="control-label"><?php echo $common_password;?></label>
 			<div class="controls">
-				<input type="password" name="password" placeholder="密码">
+				<input type="password" name="password" placeholder="<?php echo $common_password;?>">
 			</div>
 		</div>
 		<div class="control-group">

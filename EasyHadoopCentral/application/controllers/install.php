@@ -49,6 +49,17 @@ class Install extends CI_Controller
 		#getnarate host manager left bar
 		$this->load->view('ehm_hosts_install_nav', $data);
 		
+		$data['common_install_environment'] = $this->lang->line('common_install_environment');
+		$data['common_install_java'] = $this->lang->line('common_install_java');
+		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
+		$data['common_install_lzo'] = $this->lang->line('common_install_lzo');
+		$data['common_install_lzop'] = $this->lang->line('common_install_lzop');
+		$data['common_install_hadoopgpl'] = $this->lang->line('common_install_hadoopgpl');
+		$data['common_install_complete'] = $this->lang->line('common_install_complete');
+		$data['common_close'] = $this->lang->line('common_close');
+		$data['common_push_hadoop_files'] = $this->lang->line('common_push_hadoop_files');
+		$data['common_submit_to_install'] = $this->lang->line('common_submit_to_install');
+		
 		#generate host manager right list
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$data['common_hostname'] = $this->lang->line('common_hostname');

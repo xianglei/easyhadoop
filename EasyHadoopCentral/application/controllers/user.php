@@ -22,6 +22,8 @@ class User extends CI_Controller
 		$this->lang->load('commons');
 		$data['common_lang_set'] = $this->lang->line('common_lang_set');
 		$data['common_title'] = $this->lang->line('common_title');
+		$data['common_username'] = $this->lang->line('common_username');
+		$data['common_password'] = $this->lang->line('common_password');
 		$this->load->view('header',$data);
 		$this->load->view('login_form');
 		$this->load->view('footer');
@@ -70,13 +72,15 @@ class User extends CI_Controller
 		$this->load->view('div_fluid');
 		$this->load->view('div_row_fluid');
 		
+		$data['common_user_admin'] = $this->lang->line('common_user_admin');
 		$this->load->view('ehm_hosts_user_nav', $data);
 		
-		$data['common_hostname'] = $this->lang->line('common_hostname');
-		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
-		$data['common_node_role'] = $this->lang->line('common_node_role');
-		$data['common_create_time'] = $this->lang->line('common_create_time');
-		$data['common_action'] = $this->lang->line('common_action');
+		$data['common_change_passwd'] = $this->lang->line('common_change_passwd');
+		$data['common_current_passwd'] = $this->lang->line('common_current_passwd');
+		$data['common_input_passwd'] = $this->lang->line('common_input_passwd');
+		$data['common_reinput_passwd'] = $this->lang->line('common_reinput_passwd');
+		$data['common_submit'] = $this->lang->line('common_submit');
+		
 		
 		#generate settings lists
 		

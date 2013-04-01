@@ -182,12 +182,12 @@ Reduce:
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>主机名称</th>
-			<th>IP地址</th>
-			<th>Map状态</th>
-			<th>Map状态</th>
-			<th>Reduce状态</th>
-			<th>Reduce状态</th>
+			<th><?php echo $common_hostname;?></th>
+			<th><?php echo $common_ip_addr;?></th>
+			<th><?php echo $common_map_status;?></th>
+			<th><?php echo $common_map_status;?></th>
+			<th><?php echo $common_reduce_status;?></th>
+			<th><?php echo $common_reduce_status;?></th>
 		</tr>
 	</thead>
 	<tbody>

@@ -49,10 +49,10 @@ Sample:<br />
 	<thead>
 		<tr>
 			<th>#</th>
-			<th>主机名称</th>
-			<th>IP地址</th>
-			<th>CPU信息</th>
-			<th>CPU使用率</td>
+			<th><?php echo $common_hostname;?></th>
+			<th><?php echo $common_ip_addr;?></th>
+			<th><?php echo $common_cpu_info;?></th>
+			<th><?php echo $common_cpu_usage;?></td>
 		</tr>
 	</thead>
 	<tbody>

@@ -34,17 +34,17 @@ function autoSubmit(val)
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<th><input class="test" type="text" name="searchKey" placeholder="输入主机名或ip"  value="<?php echo $q;?>"/> <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" onClick="autoSubmit($('input[name=searchKey]').val());">提交查询</button></th>
-			<th><a  target="_blank" href="<?php echo $this->config->base_url();?>index.php/operate/errorpage/">查看故障节点列表</a></th>
+			<th><input class="test" type="text" name="searchKey" placeholder="<?php echo $common_input_ip_hostname;?>"  value="<?php echo $q;?>"/> <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" onClick="autoSubmit($('input[name=searchKey]').val());"><?php echo $common_submit_search;?></button></th>
+			<th><a  target="_blank" href="<?php echo $this->config->base_url();?>index.php/operate/errorpage/"><?php echo $common_view_failed_nodes;?></a></th>
 			<th></th>
 			<th></th>
 		</tr>
 	
 		<tr>
 			<th>#</th>
-			<th>主机名称</th>
-			<th>IP地址</th>
-			<th>操作</th>
+			<th><?php echo $common_hostname;?></th>
+			<th><?php echo $common_ip_addr;?></th>
+			<th><?php echo $common_action;?></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -69,11 +69,11 @@ foreach($tmp as $k => $v):
 					<a class="btn" id="status_<?php echo $v;?>_<?php echo $item->host_id;?>" data-toggle="modal"  href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><?php echo $v;?> </a>
 					<button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
 					<ul class="dropdown-menu">
-						<li><a data-toggle="modal" href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><i class="icon-search"></i>查看日志</a></li>
+						<li><a data-toggle="modal" href="#view_<?php echo $v?>_<?php echo $item->host_id?>_modal"><i class="icon-search"></i><?php echo $common_view_logs;?></a></li>
 						<li class="divider"></li>
-						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/start/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-play"></i>启动 <?php echo $v;?></a></li>
-						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/stop/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-stop"></i>停止 <?php echo $v;?></a></li>
-						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/restart/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-refresh"></i>重启 <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/start/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-play"></i><?php echo $common_start;?> <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/stop/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-stop"></i><?php echo $common_stop;?> <?php echo $v;?></a></li>
+						<li><a href="<?php echo $this->config->base_url();?>index.php/operate/restart/<?php echo $item->host_id?>/<?php echo $v?>"><i class="icon-refresh"></i><?php echo $common_restart;?> <?php echo $v;?></a></li>
 					</ul>
 				</div>
 				</th>
@@ -86,7 +86,7 @@ foreach($tmp as $k => $v):
 						<div class="modal-body" id="viewlogs_<?php echo $v?>_<?php echo $item->host_id?>">
 						</div>
 						<div class="modal-footer">
-							<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+							<button class="btn" data-dismiss="modal" aria-hidden="true"><?php echo $common_close;?></button>
 						</div>
 					</div>
 				<!--modal end-->

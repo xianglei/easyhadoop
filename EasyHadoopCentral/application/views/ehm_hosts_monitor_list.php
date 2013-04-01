@@ -34,12 +34,12 @@ function mem_stat(host_id)
 	});
 }
 </script>
-Sample:<br />
+<?php echo $common_sample;?> : <br />
 	<div class="progress">
-		<div class="bar bar-success" style="" id="sample_free">Free</div>
-		<div class="bar bar-info" style="" id="sample_buffers">Buffers</div>
-		<div class="bar bar-warning" style="" id="sample_cached">Cached</div>
-		<div class="bar bar-danger" style="" id="sample_used">Used</div>
+		<div class="bar bar-success" style="" id="sample_free"><?php echo $common_mem_free;?></div>
+		<div class="bar bar-info" style="" id="sample_buffers"><?php echo $common_mem_buffers;?></div>
+		<div class="bar bar-warning" style="" id="sample_cached"><?php echo $common_mem_cached;?></div>
+		<div class="bar bar-danger" style="" id="sample_used"><?php echo $common_mem_used;?></div>
 	</div>
 	<script>
 	function sample()
@@ -90,10 +90,10 @@ Sample:<br />
 				</td>
 				<td>
 					<div class="progress">
-						<div class="bar bar-success" style="" id="mem_stats_<?php echo $item->host_id;?>_free">Free</div>
-						<div class="bar bar-info" style="" id="mem_stats_<?php echo $item->host_id;?>_buffers">Buffers</div>
-						<div class="bar bar-warning" style="" id="mem_stats_<?php echo $item->host_id;?>_cached">Cached</div>
-						<div class="bar bar-danger" style="" id="mem_stats_<?php echo $item->host_id;?>_used">Used</div>
+						<div class="bar bar-success" style="" id="mem_stats_<?php echo $item->host_id;?>_free"><?php echo $common_mem_free;?></div>
+						<div class="bar bar-info" style="" id="mem_stats_<?php echo $item->host_id;?>_buffers"><?php echo $common_mem_buffers;?></div>
+						<div class="bar bar-warning" style="" id="mem_stats_<?php echo $item->host_id;?>_cached"><?php echo $common_mem_cached;?></div>
+						<div class="bar bar-danger" style="" id="mem_stats_<?php echo $item->host_id;?>_used"><?php echo $common_mem_used;?></div>
 					</div>
 					<script>
 					mem_stat(<?php echo $item->host_id;?>);

@@ -98,7 +98,7 @@ function get_mount_point(host_id)
 				<td>
 				<div class="btn-group">
 					<button class="btn" id="ping_node_<?php echo $item->host_id;?>"><i class="icon-refresh"></i><?php echo $common_ping_node;?></button>
-					<a class="btn" href="#setup_hdd_<?php echo $item->host_id;?>" data-toggle="modal" rel="tooltip" data-placement="left" title="设置HDFS存储硬盘"><i class="icon-hdd"></i> 存储设置</a>
+					<a class="btn" href="#setup_hdd_<?php echo $item->host_id;?>" data-toggle="modal" rel="tooltip" data-placement="left" title="<?php echo $common_set_hdfs_storage;?>"><i class="icon-hdd"></i> <?php echo $common_storage_setting;?></a>
 				</div>
 				<script>
 					ping(<?php echo $item->host_id;?>);
@@ -112,7 +112,7 @@ function get_mount_point(host_id)
 					get_mount_point(<?php echo $item->host_id?>);
 				</script>
 				<div class="btn-group">
-					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown">节点操作 <span class="caret"></span></button>
+					<button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><?php echo $common_node_operating;?> <span class="caret"></span></button>
 					<ul class="dropdown-menu">
 						<li><a href="#update_hadoop_node_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-wrench"></i><?php echo $common_modify_node;?></a></li>
 						<li class="divider"></li>
@@ -125,7 +125,7 @@ function get_mount_point(host_id)
 <form action="<?php echo $this->config->base_url();?>index.php/manage/updatehadoopnode/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="myModalLabel">修改节点</h3>
+		<h3 id="myModalLabel"><?php echo $common_modify_node;?></h3>
 	</div>
 	<div class="modal-body">
 		<table>
@@ -138,10 +138,10 @@ function get_mount_point(host_id)
 				</td>
 			</tr>
 			<tr>
-				<td><label><?php echo "ROOT 用户名(选填)";?></label><input type="text" name="ssh_user" placeholder="ssh_user" value="root" disabled />
+				<td><label><?php echo $common_root_user;?></label><input type="text" name="ssh_user" placeholder="ssh_user" value="root" disabled />
 				<input type="hidden" name="ssh_user" value="root" />
 				</td>
-				<td><label><?php echo "ROOT 密  码(选填)";?></label><input type="text" name="ssh_pass" placeholder="ssh_pass" value="<?php echo $item->ssh_pass;?>" />
+				<td><label><?php echo $common_root_pass;?></label><input type="text" name="ssh_pass" placeholder="ssh_pass" value="<?php echo $item->ssh_pass;?>" />
 				</td>
 			</tr>
 			<tr>
@@ -149,7 +149,7 @@ function get_mount_point(host_id)
 				<label><?php echo $common_role_name;?></label>
 				</td>
 				<td>
-					<label><?php echo "机架位置(选填)";?></label>
+					<label><?php echo $common_rackaware_position;?></label>
 				</td>
 			</tr>
 			<tr>
@@ -172,7 +172,7 @@ function get_mount_point(host_id)
 		<input type="hidden" name="host_id" value="<?php echo $item->host_id;?>" />
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
 		<button type="submit" class="btn btn-primary"><?php echo $common_submit;?></button>
 	</div>
 </form>
@@ -185,7 +185,7 @@ function get_mount_point(host_id)
 <form action="<?php echo $this->config->base_url();?>index.php/manage/addmountpoint/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="myModalLabel">存储设置</h3>
+		<h3 id="myModalLabel"><?php echo $common_storage_setting;?></h3>
 	</div>
 	<div class="modal-body">
 			<label><?php echo $common_hostname;?> : <?php echo $item->hostname;?></label><br />
@@ -194,7 +194,7 @@ function get_mount_point(host_id)
 			<div id="hdd_status_<?php echo $item->host_id;?>"></div>
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
 		<button type="submit" class="btn btn-primary"><?php echo $common_submit;?></button>
 	</div>
 </form>
@@ -207,7 +207,7 @@ function get_mount_point(host_id)
 <form action="<?php echo $this->config->base_url();?>index.php/manage/deletehadoopnode/" method="POST">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="myModalLabel">删除节点</h3>
+		<h3 id="myModalLabel"><?php echo $common_remove_node;?></h3>
 	</div>
 	<div class="modal-body">
 			<label><?php echo $common_hostname;?> : <?php echo $item->hostname;?></label><br />
@@ -216,7 +216,7 @@ function get_mount_point(host_id)
 			<input type="hidden" name="host_id" value="<?php echo $item->host_id;?>" />
 	</div>
 	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal">Close</button>
+		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
 		<button type="submit" class="btn btn-danger"><?php echo $common_submit;?></button>
 	</div>
 </form>

@@ -44,6 +44,14 @@ class Hdfs extends CI_Controller
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
 		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
 		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		
+		$data['common_refresh_dir'] = $this->lang->line('common_refresh_dir');
+		$data['common_batch_rm'] = $this->lang->line('common_batch_rm');
+		$data['common_choose_file_to_rm'] = $this->lang->line('common_choose_file_to_rm');
+		$data['common_rm_confirm'] = $this->lang->line('common_rm_confirm');
+		$data['common_rm_confirmed'] = $this->lang->line('common_rm_confirmed');
+		$data['common_removing'] = $this->lang->line('common_removing');
+		
 		$this->load->view('nav_bar', $data);	
 		$this->load->view('div_fluid');
 		$this->load->view('div_row_fluid');

@@ -19,7 +19,7 @@
 
     <!-- Le fav and touch icons -->
     <script src="<?php echo $this->config->base_url();?>js/bootstrap.min.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/jquery-1.8.3.min.js"></script>
+    <script src="<?php echo $this->config->base_url();?>js/jquery-1.9.1.min.js"></script>
     <script src="<?php echo $this->config->base_url();?>js/bootstrap-transition.js"></script>
     <script src="<?php echo $this->config->base_url();?>js/bootstrap-alert.js"></script>
     <script src="<?php echo $this->config->base_url();?>js/bootstrap-modal.js"></script>
