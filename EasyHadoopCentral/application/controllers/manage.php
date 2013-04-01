@@ -41,6 +41,7 @@ class Manage extends CI_Controller
 		$data['common_local_root_user'] = $this->lang->line('common_local_root_user');
 		$data['common_local_root_pass'] = $this->lang->line('common_local_root_pass');
 		$data['common_start_admin_server'] = $this->lang->line('common_start_admin_server');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');

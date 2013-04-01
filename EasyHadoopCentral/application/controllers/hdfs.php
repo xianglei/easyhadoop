@@ -51,6 +51,7 @@ class Hdfs extends CI_Controller
 		$data['common_rm_confirm'] = $this->lang->line('common_rm_confirm');
 		$data['common_rm_confirmed'] = $this->lang->line('common_rm_confirmed');
 		$data['common_removing'] = $this->lang->line('common_removing');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		
 		$this->load->view('nav_bar', $data);	
 		$this->load->view('div_fluid');

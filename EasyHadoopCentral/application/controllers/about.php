@@ -22,6 +22,7 @@ class About extends CI_Controller
 		$data['common_node_operate'] = $this->lang->line('common_node_operate');
 		$data['common_user_admin'] = $this->lang->line('common_user_admin');
 		$data['common_log_out'] = $this->lang->line('common_log_out');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');

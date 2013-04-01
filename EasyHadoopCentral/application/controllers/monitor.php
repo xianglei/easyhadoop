@@ -47,6 +47,7 @@ class Monitor extends CI_Controller
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
 		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
 		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');
@@ -218,6 +219,7 @@ class Monitor extends CI_Controller
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
 		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
 		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');
@@ -295,6 +297,7 @@ class Monitor extends CI_Controller
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
 		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
 		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');
@@ -382,6 +385,7 @@ class Monitor extends CI_Controller
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
 		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
 		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');
@@ -467,6 +471,7 @@ class Monitor extends CI_Controller
 		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
 		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
 		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
 		$this->load->view('nav_bar', $data);
 		
 		$this->load->view('div_fluid');

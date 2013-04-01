@@ -51,7 +51,7 @@
 				<ul class="dropdown-menu">
 					<li>
 						<a href="<?php echo $this->config->base_url();?>index.php/operate/index/"><?php echo $common_hadoop_node_operate;?></a>
-						  <a  id="hdfs_nav_node" href="<?php echo $this->config->base_url();?>index.php/hdfs/index/"><?php echo "HDFS管理"?></a>
+						  <a  id="hdfs_nav_node" href="<?php echo $this->config->base_url();?>index.php/hdfs/index/"><?php echo $common_hdfs_manage;?></a>
 					</li>
 					<li class="divider"></li>
 					<li>

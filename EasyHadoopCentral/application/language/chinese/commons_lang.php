@@ -65,6 +65,7 @@ $lang['common_edit_time'] = '编辑时间';
 $lang['common_set_hdfs_storage'] = '设置HDFS存储硬盘';
 $lang['common_storage_setting'] = '存储设置';
 $lang['common_node_operating'] = '节点操作';
+$lang['common_hdfs_manage'] = 'HDFS管理';
 
 $lang['common_mem_free'] = '空闲';
 $lang['common_mem_cached'] = '缓冲';
