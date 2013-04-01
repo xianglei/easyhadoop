@@ -48,6 +48,7 @@ cp -R * /var/www/html/
 cd /var/www/html
 chmod 777 /var/www/html/expect.py
 python NodeAgent.py -s start
+service httpd restart
 echo "/*************************************************************/"
 echo "Download Hadoop installation and runtime libaries complete."
 echo "Do not forget to start your NodeAgent.py"
