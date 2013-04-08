@@ -217,6 +217,22 @@ class Ehm_hosts_model extends CI_Model
 	{
 		if($query = $this->db->query("select * from ehm_hosts where role like '%tasktracker%' limit ".$offset.", ".$limit)):
 			$result = $query->result();
+			
+			return $result;
+		else:
+			return FALSE;
+		endif;
+	}
+
+	public function get_dead_tasktracker_list($where)
+	{
+		if($query = $this->db->query("select * from ehm_hosts where role like '%tasktracker%'  and hostname not in $where")):
+			$result=array();
+			foreach ($query->result() as $row)
+			{
+				$result[]= $row->hostname;
+			}
+			
 			return $result;
 		else:
 			return FALSE;

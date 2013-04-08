@@ -161,19 +161,14 @@ class Monitor extends CI_Controller
 		$role = "namenode";
 		$this->load->model('ehm_monitor_model', 'monitor');
 		
-		if($type=="d")
+		if($type=="d")#datanode
 		{
-		$json = $this->monitor->get_namenode_jmx($ip);
-		}
-		else
-		{
-		$json = $this->monitor->get_jobtracker_jmx($ip);
-		}
-		$jmx=json_decode($json,true);
-		$array=array();
-		//LiveNodes DeadNodes
-        foreach($jmx['beans']  as $obj)
-        {
+			$json = $this->monitor->get_namenode_jmx($ip);
+			$jmx=json_decode($json,true);
+			$array=array();
+			//LiveNodes DeadNodes
+			foreach($jmx['beans']  as $obj)
+			{
 				if($obj&&array_key_exists('DeadNodes',$obj))
                 {
 					$str=json_decode($obj["DeadNodes"],true );
@@ -184,7 +179,42 @@ class Monitor extends CI_Controller
 
                 }
 
-        }		
+			}		
+				
+		}
+		else
+		{//tasktracker
+		
+			$json = $this->monitor->get_jobtracker_jmx($ip);
+			$jmx=json_decode($json,true);
+			$array=array();
+			
+			//LiveNodes DeadNodes
+			foreach($jmx['beans']  as $obj)
+			{
+				
+				if($obj&&array_key_exists('AliveNodesInfoJson',$obj))
+                {
+					
+					$str=json_decode($obj["AliveNodesInfoJson"],true );
+					$map='';
+					foreach($str as $k=>$v)
+					{
+                      $map.=sprintf("'%s',",$v['hostname']);
+					}
+					$map="($map '') ";
+					break;
+					
+
+                }
+
+			}		
+		
+		}
+		if(strlen($map)>2)
+		{
+		  $array=$this->hosts->get_dead_tasktracker_list($map);
+		}
 		
 		//$array[]="slave";
 		//$array[]="localhost.localdomain";
