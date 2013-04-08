@@ -35,7 +35,7 @@ function autoSubmit(val)
 	<thead>
 		<tr>
 			<th><input class="test" type="text" name="searchKey" placeholder="<?php echo $common_input_ip_hostname;?>"  value="<?php echo $q;?>"/> <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" onClick="autoSubmit($('input[name=searchKey]').val());"><?php echo $common_submit_search;?></button></th>
-			<th><a  target="_blank" href="<?php echo $this->config->base_url();?>index.php/operate/errorpage/"><?php echo $common_view_failed_nodes;?></a></th>
+			<th><a  target="_blank" href="<?php echo $this->config->base_url();?>index.php/operate/failedlist/"><?php echo $common_view_failed_nodes;?></a></th>
 			<th></th>
 			<th></th>
 		</tr>

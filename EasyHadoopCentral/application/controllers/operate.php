@@ -91,7 +91,7 @@ class Operate extends CI_Controller
 		#generaet footer
 		$this->load->view('footer', $data);		
 	}
-	public function ErrorPage()
+	public function FailedList()
 	{
 		#Generate header
 		$this->lang->load('commons');
