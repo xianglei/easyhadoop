@@ -179,4 +179,4 @@ $lang['common_choose_file_to_rm'] = 'Please choose file to remove';
 $lang['common_rm_confirm'] = 'Confirm remove?';
 $lang['common_rm_confirmed'] = 'Remove please confirm';
 $lang['common_removing'] = 'Batch removing';
-$lang['common_hadoop_refresh_fail']='Refresh FailList';
+$lang['common_hadoop_refresh_fail']='Refresh Fail ';

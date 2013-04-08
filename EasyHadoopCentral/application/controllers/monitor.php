@@ -149,6 +149,7 @@ class Monitor extends CI_Controller
 	}
 	public function GetAllStats()
 	{
+		$type = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
 		$result = $this->hosts->get_namenode_list();
 		if(@$result[0]->host_id != "")
@@ -160,8 +161,14 @@ class Monitor extends CI_Controller
 		$role = "namenode";
 		$this->load->model('ehm_monitor_model', 'monitor');
 		
-		
+		if($type=="d")
+		{
 		$json = $this->monitor->get_namenode_jmx($ip);
+		}
+		else
+		{
+		$json = $this->monitor->get_jobtracker_jmx($ip);
+		}
 		$jmx=json_decode($json,true);
 		$array=array();
 		//LiveNodes DeadNodes
