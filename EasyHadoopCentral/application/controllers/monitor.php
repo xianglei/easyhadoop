@@ -209,11 +209,11 @@ class Monitor extends CI_Controller
                 }
 
 			}		
+			if(strlen($map)>2)
+			{
+				$array=$this->hosts->get_dead_tasktracker_list($map);
+			}
 		
-		}
-		if(strlen($map)>2)
-		{
-		  $array=$this->hosts->get_dead_tasktracker_list($map);
 		}
 		
 		//$array[]="slave";
