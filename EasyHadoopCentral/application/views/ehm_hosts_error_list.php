@@ -8,10 +8,11 @@ function viewlogs(role, host_id)
 		$('#viewlogs_'+role+'_'+host_id).html('<small>'+html+'</small>');
 	});
 }
-function check_online()
+function check_online(kind)
 {
 	$.ajaxSettings.async = false;
-	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getallstats/', function(json){
+	
+	$.getJSON('<?php echo $this->config->base_url();?>index.php/monitor/getallstats/'+kind, function(json){
 		
 		var deads=eval(json);
 	
@@ -32,15 +33,29 @@ function autoSubmit(val)
 	this.location="<?php echo $this->config->base_url();?>index.php/operate/index/?q="+val;
 
 }
-function refresh_fail_list()
+function refresh_fai_datanode()
 {
-$("tr[id^='show_node_']").each(function() {
+	$("tr[id^='show_node_']").each(function() {
+               $(this).css("display","none");    
+              });
+	check_online("d");		
+   $('#data_list').tab('show'); 	
+}
+function refresh_fail_tasknode()
+{
+	$("tr[id^='show_node_']").each(function() {
                $(this).css("display","none");    
                 });
-check_online();				
+	check_online("t");	
+	$('#task_list').tab('show'); 	
 }
-</script>
 
+</script>
+<ul id="mytab" class="nav nav-tabs">
+    <li id="data_list" class="active"><a href="#home" data-toggle="tab"  onclick ='refresh_fai_datanode();'>DataNode</a></li>
+    <li id="task_list"><a href="#profile" data-toggle="tab" onclick ='refresh_fail_tasknode();'>TaskTracker</a></li>
+    
+</ul>
 <table class="table table-striped">
 	<!--<thead>
 		
@@ -70,7 +85,7 @@ check_online();
 </table>
 <script>
 			
-				check_online();
+				check_online("d");
 </script>
 <div>
 		<h3></h3>
