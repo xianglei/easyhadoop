@@ -147,7 +147,42 @@ class Monitor extends CI_Controller
 		
 		echo $json;
 	}
-	
+	public function GetAllStats()
+	{
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_namenode_list();
+		if(@$result[0]->host_id != "")
+			$host_id  = $result[0]->host_id;
+		else
+			$host_id  = "0";		
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		$role = "namenode";
+		$this->load->model('ehm_monitor_model', 'monitor');
+		
+		
+		$json = $this->monitor->get_namenode_jmx($ip);
+		$jmx=json_decode($json,true);
+		$array=array();
+		//LiveNodes DeadNodes
+        foreach($jmx['beans']  as $obj)
+        {
+				if($obj&&array_key_exists('DeadNodes',$obj))
+                {
+					$str=json_decode($obj["DeadNodes"],true );
+					foreach($str as $k=>$v)
+					{
+                      $array[]=$k;
+					}
+
+                }
+
+        }		
+		
+		//$array[]="slave";
+		//$array[]="localhost.localdomain";
+		echo json_encode($array);
+	}
 	public function NamenodeStats()
 	{
 		$host_id = $this->uri->segment(3,0);

@@ -97,6 +97,7 @@ class Operate extends CI_Controller
 		$this->lang->load('commons');
 		$data['common_lang_set'] = $this->lang->line('common_lang_set');
 		$data['common_title'] = $this->lang->line('common_title');
+		$data['common_hadoop_refresh_fail'] = $this->lang->line('common_hadoop_refresh_fail');
 		$this->load->view('header',$data);
 		
 		#generate navigation bar
@@ -123,7 +124,7 @@ class Operate extends CI_Controller
 		$data['common_hadoop_operating'] = $this->lang->line('common_hadoop_operating');
 		$data['common_job_operating'] = $this->lang->line('common_job_operating');
 		
-		$this->load->view('ehm_hosts_operate_nav', $data);
+		$this->load->view('ehm_refresh_fail_operate_nav', $data);
 		
 		$data['common_hostname'] = $this->lang->line('common_hostname');
 		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');

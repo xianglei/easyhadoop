@@ -181,3 +181,4 @@ $lang['common_choose_file_to_rm'] = '请选择需要删除的文件或文件夹'
 $lang['common_rm_confirm'] = '确认删除？';
 $lang['common_rm_confirmed'] = '删除操作请确认';
 $lang['common_removing'] = '批量删除中';
+$lang['common_hadoop_refresh_fail']='重新刷新失败节点';
