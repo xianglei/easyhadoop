@@ -1544,11 +1544,12 @@ class Iface:
     """
     pass
 
-  def GetJmx(self, host, port):
+  def GetJmx(self, host, port, qry):
     """
     Parameters:
      - host
      - port
+     - qry
     """
     pass
 
@@ -1676,20 +1677,22 @@ class Client(Iface):
       return result.success
     raise TApplicationException(TApplicationException.MISSING_RESULT, "FileExists failed: unknown result");
 
-  def GetJmx(self, host, port):
+  def GetJmx(self, host, port, qry):
     """
     Parameters:
      - host
      - port
+     - qry
     """
-    self.send_GetJmx(host, port)
+    self.send_GetJmx(host, port, qry)
     return self.recv_GetJmx()
 
-  def send_GetJmx(self, host, port):
+  def send_GetJmx(self, host, port, qry):
     self._oprot.writeMessageBegin('GetJmx', TMessageType.CALL, self._seqid)
     args = GetJmx_args()
     args.host = host
     args.port = port
+    args.qry = qry
     args.write(self._oprot)
     self._oprot.writeMessageEnd()
     self._oprot.trans.flush()
@@ -1936,7 +1939,7 @@ class Processor(Iface, TProcessor):
     args.read(iprot)
     iprot.readMessageEnd()
     result = GetJmx_result()
-    result.success = self._handler.GetJmx(args.host, args.port)
+    result.success = self._handler.GetJmx(args.host, args.port, args.qry)
     oprot.writeMessageBegin("GetJmx", TMessageType.REPLY, seqid)
     result.write(oprot)
     oprot.writeMessageEnd()
@@ -2026,7 +2029,7 @@ class RunCommand_args:
     self.command = command
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2045,7 +2048,7 @@ class RunCommand_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('RunCommand_args')
@@ -2085,7 +2088,7 @@ class RunCommand_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2104,7 +2107,7 @@ class RunCommand_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('RunCommand_result')
@@ -2148,7 +2151,7 @@ class FileTransfer_args:
     self.content = content
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2172,7 +2175,7 @@ class FileTransfer_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('FileTransfer_args')
@@ -2216,7 +2219,7 @@ class FileTransfer_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2235,7 +2238,7 @@ class FileTransfer_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('FileTransfer_result')
@@ -2276,7 +2279,7 @@ class FileExists_args:
     self.filename = filename
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2295,7 +2298,7 @@ class FileExists_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('FileExists_args')
@@ -2335,7 +2338,7 @@ class FileExists_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2354,7 +2357,7 @@ class FileExists_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('FileExists_result')
@@ -2385,20 +2388,23 @@ class GetJmx_args:
   Attributes:
    - host
    - port
+   - qry
   """
 
   thrift_spec = (
     None, # 0
     (1, TType.STRING, 'host', None, None, ), # 1
     (2, TType.STRING, 'port', None, None, ), # 2
+    (3, TType.STRING, 'qry', None, None, ), # 3
   )
 
-  def __init__(self, host=None, port=None,):
+  def __init__(self, host=None, port=None, qry=None,):
     self.host = host
     self.port = port
+    self.qry = qry
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2416,13 +2422,18 @@ class GetJmx_args:
           self.port = iprot.readString();
         else:
           iprot.skip(ftype)
+      elif fid == 3:
+        if ftype == TType.STRING:
+          self.qry = iprot.readString();
+        else:
+          iprot.skip(ftype)
       else:
         iprot.skip(ftype)
       iprot.readFieldEnd()
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetJmx_args')
@@ -2433,6 +2444,10 @@ class GetJmx_args:
     if self.port is not None:
       oprot.writeFieldBegin('port', TType.STRING, 2)
       oprot.writeString(self.port)
+      oprot.writeFieldEnd()
+    if self.qry is not None:
+      oprot.writeFieldBegin('qry', TType.STRING, 3)
+      oprot.writeString(self.qry)
       oprot.writeFieldEnd()
     oprot.writeFieldStop()
     oprot.writeStructEnd()
@@ -2466,7 +2481,7 @@ class GetJmx_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2485,7 +2500,7 @@ class GetJmx_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetJmx_result')
@@ -2517,7 +2532,7 @@ class GetSysVer_args:
   )
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2531,7 +2546,7 @@ class GetSysVer_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetSysVer_args')
@@ -2567,7 +2582,7 @@ class GetSysVer_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2586,7 +2601,7 @@ class GetSysVer_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetSysVer_result')
@@ -2618,7 +2633,7 @@ class GetMemInfo_args:
   )
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2632,7 +2647,7 @@ class GetMemInfo_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetMemInfo_args')
@@ -2668,7 +2683,7 @@ class GetMemInfo_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2687,7 +2702,7 @@ class GetMemInfo_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetMemInfo_result')
@@ -2719,7 +2734,7 @@ class GetCpuInfo_args:
   )
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2733,7 +2748,7 @@ class GetCpuInfo_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetCpuInfo_args')
@@ -2769,7 +2784,7 @@ class GetCpuInfo_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2788,7 +2803,7 @@ class GetCpuInfo_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetCpuInfo_result')
@@ -2820,7 +2835,7 @@ class GetIfInfo_args:
   )
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2834,7 +2849,7 @@ class GetIfInfo_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetIfInfo_args')
@@ -2870,7 +2885,7 @@ class GetIfInfo_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2889,7 +2904,7 @@ class GetIfInfo_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetIfInfo_result')
@@ -2921,7 +2936,7 @@ class GetLoadAvg_args:
   )
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2935,7 +2950,7 @@ class GetLoadAvg_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetLoadAvg_args')
@@ -2971,7 +2986,7 @@ class GetLoadAvg_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -2990,7 +3005,7 @@ class GetLoadAvg_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetLoadAvg_result')
@@ -3037,7 +3052,7 @@ class GetTrakerHtml_args:
     self.url = url
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -3066,7 +3081,7 @@ class GetTrakerHtml_args:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetTrakerHtml_args')
@@ -3114,7 +3129,7 @@ class GetTrakerHtml_result:
     self.success = success
 
   def read(self, iprot):
-    if iprot.__class__ == TBinaryProtocolAccelerated and isinstance(iprot.trans, CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
+    if iprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and isinstance(iprot.trans, TTransport.CReadableTransport) and self.thrift_spec is not None and fastbinary is not None:
       fastbinary.decode_binary(self, iprot.trans, (self.__class__, self.thrift_spec))
       return
     iprot.readStructBegin()
@@ -3133,7 +3148,7 @@ class GetTrakerHtml_result:
     iprot.readStructEnd()
 
   def write(self, oprot):
-    if oprot.__class__ == TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
+    if oprot.__class__ == TBinaryProtocol.TBinaryProtocolAccelerated and self.thrift_spec is not None and fastbinary is not None:
       oprot.trans.write(fastbinary.encode_binary(self, (self.__class__, self.thrift_spec)))
       return
     oprot.writeStructBegin('GetTrakerHtml_result')
@@ -3214,8 +3229,8 @@ class EasyHadoopHandler:
 			errstr = "Cannot open file:"+filename+". Exception:"+e+os.linesep
 		return errstr
 		
-	def GetJmx(self,host,port):
-		url = 'http://'+host+':'+port+'/jmx'
+	def GetJmx(self,host,port,qry):
+		url = 'http://'+host+':'+port+'/jmx?qry='+qry
 		jmx = urllib.urlopen(url)
 		json = jmx.read().replace('\n','')
 		jmx.close()

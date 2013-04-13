@@ -142,7 +142,7 @@ class Monitor extends CI_Controller
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
 		
-		$json = $this->monitor->get_datanode_jmx($ip);
+		$json = $this->monitor->get_datanode_jmx($ip, $qry="");
 		$json = $this->aux->parse_jmx_json($json, $role);
 		
 		echo $json;
@@ -163,7 +163,7 @@ class Monitor extends CI_Controller
 		
 		if($type=="d")#datanode
 		{
-			$json = $this->monitor->get_namenode_jmx($ip);
+			$json = $this->monitor->get_namenode_jmx($ip, $qry="");
 			$jmx=json_decode($json,true);
 			$array=array();
 			//LiveNodes DeadNodes
@@ -185,7 +185,7 @@ class Monitor extends CI_Controller
 		else
 		{//tasktracker
 		
-			$json = $this->monitor->get_jobtracker_jmx($ip);
+			$json = $this->monitor->get_jobtracker_jmx($ip, $qry="");
 			$jmx=json_decode($json,true);
 			$array=array();
 			
@@ -230,7 +230,7 @@ class Monitor extends CI_Controller
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
 		
-		$json = $this->monitor->get_namenode_jmx($ip);
+		$json = $this->monitor->get_namenode_jmx($ip, $qry="");
 		$json = $this->aux->parse_jmx_json($json, $role);
 		
 		echo $json;
@@ -246,7 +246,7 @@ class Monitor extends CI_Controller
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
 		
-		$json = $this->monitor->get_jobtracker_jmx($ip);
+		$json = $this->monitor->get_jobtracker_jmx($ip, $qry="");
 		$json = $this->aux->parse_jmx_json($json, $role);
 		
 		echo $json;
@@ -262,7 +262,7 @@ class Monitor extends CI_Controller
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
 		
-		$json = $this->monitor->get_tasktracker_jmx($ip);
+		$json = $this->monitor->get_tasktracker_jmx($ip, $qry="");
 		$json = $this->aux->parse_jmx_json($json, $role);
 		
 		echo $json;

@@ -13,7 +13,7 @@ interface EasyHadoopIf {
   public function RunCommand($command);
   public function FileTransfer($filename, $content);
   public function FileExists($filename);
-  public function GetJmx($host, $port);
+  public function GetJmx($host, $port, $qry);
   public function GetSysVer();
   public function GetMemInfo();
   public function GetCpuInfo();
@@ -187,17 +187,18 @@ class EasyHadoopClient implements EasyHadoopIf {
     throw new Exception("FileExists failed: unknown result");
   }
 
-  public function GetJmx($host, $port)
+  public function GetJmx($host, $port, $qry)
   {
-    $this->send_GetJmx($host, $port);
+    $this->send_GetJmx($host, $port, $qry);
     return $this->recv_GetJmx();
   }
 
-  public function send_GetJmx($host, $port)
+  public function send_GetJmx($host, $port, $qry)
   {
     $args = new EasyHadoop_GetJmx_args();
     $args->host = $host;
     $args->port = $port;
+    $args->qry = $qry;
     $bin_accel = ($this->output_ instanceof TProtocol::$TBINARYPROTOCOLACCELERATED) && function_exists('thrift_protocol_write_binary');
     if ($bin_accel)
     {
@@ -1003,6 +1004,7 @@ class EasyHadoop_GetJmx_args {
 
   public $host = null;
   public $port = null;
+  public $qry = null;
 
   public function __construct($vals=null) {
     if (!isset(self::$_TSPEC)) {
@@ -1015,6 +1017,10 @@ class EasyHadoop_GetJmx_args {
           'var' => 'port',
           'type' => TType::STRING,
           ),
+        3 => array(
+          'var' => 'qry',
+          'type' => TType::STRING,
+          ),
         );
     }
     if (is_array($vals)) {
@@ -1023,6 +1029,9 @@ class EasyHadoop_GetJmx_args {
       }
       if (isset($vals['port'])) {
         $this->port = $vals['port'];
+      }
+      if (isset($vals['qry'])) {
+        $this->qry = $vals['qry'];
       }
     }
   }
@@ -1060,6 +1069,13 @@ class EasyHadoop_GetJmx_args {
             $xfer += $input->skip($ftype);
           }
           break;
+        case 3:
+          if ($ftype == TType::STRING) {
+            $xfer += $input->readString($this->qry);
+          } else {
+            $xfer += $input->skip($ftype);
+          }
+          break;
         default:
           $xfer += $input->skip($ftype);
           break;
@@ -1081,6 +1097,11 @@ class EasyHadoop_GetJmx_args {
     if ($this->port !== null) {
       $xfer += $output->writeFieldBegin('port', TType::STRING, 2);
       $xfer += $output->writeString($this->port);
+      $xfer += $output->writeFieldEnd();
+    }
+    if ($this->qry !== null) {
+      $xfer += $output->writeFieldBegin('qry', TType::STRING, 3);
+      $xfer += $output->writeString($this->qry);
       $xfer += $output->writeFieldEnd();
     }
     $xfer += $output->writeFieldStop();

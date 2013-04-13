@@ -19,7 +19,7 @@ class Ehm_monitor_model extends CI_Model
 		include_once $GLOBALS['THRIFT_ROOT'] . 'protocol/TBinaryProtocol.php';
 	}
 	
-	public function get_jobtracker_jmx($host)
+	public function get_jobtracker_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
@@ -33,7 +33,7 @@ class Ehm_monitor_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('jobtracker_port'));
+			$str = $this->ehm->GetJmx($host, $this->config->item('jobtracker_port'), $qry);
 			$this->transport->close();
 		}
 		catch(Exception $e)
@@ -43,7 +43,7 @@ class Ehm_monitor_model extends CI_Model
 		return $str;
 	}
 	
-	public function get_tasktracker_jmx($host)
+	public function get_tasktracker_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
@@ -57,7 +57,7 @@ class Ehm_monitor_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('tasktracker_port'));
+			$str = $this->ehm->GetJmx($host, $this->config->item('tasktracker_port'), $qry);
 			$this->transport->close();
 		}
 		catch(Exception $e)
@@ -67,7 +67,7 @@ class Ehm_monitor_model extends CI_Model
 		return $str;
 	}
 	
-	public function get_namenode_jmx($host)
+	public function get_namenode_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
@@ -81,7 +81,7 @@ class Ehm_monitor_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('namenode_port'));
+			$str = $this->ehm->GetJmx($host, $this->config->item('namenode_port'), $qry);
 			$this->transport->close();
 		}
 		catch(Exception $e)
@@ -91,7 +91,7 @@ class Ehm_monitor_model extends CI_Model
 		return $str;
 	}
 
-	public function get_datanode_jmx($host)
+	public function get_datanode_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
@@ -105,7 +105,7 @@ class Ehm_monitor_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('datanode_port'));
+			$str = $this->ehm->GetJmx($host, $this->config->item('datanode_port'), $qry);
 			$this->transport->close();
 		}
 		catch(Exception $e)
@@ -115,7 +115,7 @@ class Ehm_monitor_model extends CI_Model
 		return $str;
 	}
 
-	public function get_secondarynamenode_jmx($host)
+	public function get_secondarynamenode_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('ehm_port');
@@ -129,7 +129,7 @@ class Ehm_monitor_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('secondarynamenode_port'));
+			$str = $this->ehm->GetJmx($host, $this->config->item('secondarynamenode_port'), $qry);
 			$this->transport->close();
 		}
 		catch(Exception $e)
