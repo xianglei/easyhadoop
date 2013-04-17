@@ -103,6 +103,7 @@ class Ehm_installation_model extends CI_Model
 		try
 		{
 			$this->transport->open();
+			$content = htmlspecialchars_decode($content);
 			$str = $this->ehm->FileTransfer($filename, $content);
 			if (trim($str) == ""):
 				$str = '{"filename":"'.$filename.'","status":"success","node":"'.$host.'"}';
