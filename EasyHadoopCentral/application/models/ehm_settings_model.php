@@ -113,6 +113,14 @@ class Ehm_settings_model extends CI_Model
 		endif;
 	}
 	
+	private function  get_hosts_field($data,$field,$default=''){
+		if(!count($data)){
+			return $default;
+		}
+		$obj = $data[0];
+		return $obj->$field;
+	}
+	
 	public function convert_hadoop_settings($value = "")
 	{
 		if(preg_match('/(?<=\{)([^\}]*?)(?=\})/', $value))
@@ -123,50 +131,43 @@ class Ehm_settings_model extends CI_Model
 					$sql = "select hostname from ehm_hosts where role like 'namenode%'";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$result = $result[0];
-					$return = "hdfs://".$result->hostname.":9000";
+					$return = "hdfs://".$this->get_hosts_field($result,'hostname','localhost').":9000";
 					break;
 				case "{jobtracker}:9001":
 					$sql = "select hostname from ehm_hosts where role like '%jobtracker%'";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$result = $result[0];
-					$return = $result->hostname. ":9001";
+					$return = $this->get_hosts_field($result,'hostname','localhost'). ":9001";
 					break;
 				case "{mount_snn}":
 					$sql = "select * from ehm_hosts where mount_snn != ''";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$result = $result[0];
-					$return = $result->mount_snn;
+					$return = $this->get_hosts_field($result,'mount_snn');
 					break;
 				case "{mount_name}":
 					$sql = "select * from ehm_hosts where mount_name != ''";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$result = $result[0];
-					$return = $result->mount_name;
+					$return = $this->get_hosts_field($result,'mount_name');
 					break;
 				case "{mount_data}":
 					$sql = "select * from ehm_hosts where mount_data != ''";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$result = $result[0];
-					$return = $result->mount_data;
+					$return = $this->get_hosts_field($result,'mount_data');
 					break;
 				case "{mount_mrlocal}":
 					$sql = "select * from ehm_hosts where mount_mrlocal != ''";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$result = $result[0];
-					$return = $result->mount_mrlocal;
+					$return = $this->get_hosts_field($result,'mount_mrlocal');
 					break;
 				case "{mount_mrsystem}":
 					$sql = "select * from ehm_hosts where mount_mrsystem != ''";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$result = $result[0];
-					$return = $result->mount_mrsystem;
+					$return = $this->get_hosts_field($result,'mount_mrsystem');
 					break;
 			}
 		}
