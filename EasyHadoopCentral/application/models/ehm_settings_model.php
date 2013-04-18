@@ -61,7 +61,7 @@ class Ehm_settings_model extends CI_Model
 	
 	public function update_settings($set_id, $filename, $content, $ip = '0')
 	{
-		echo $sql = "update ehm_host_settings set filename='".$filename."', content='".$content."', ip='".$ip."' where set_id='".$set_id."'";
+		$sql = "update ehm_host_settings set filename='".$filename."', content='".$content."', ip='".$ip."' where set_id='".$set_id."'";
 		if($this->db->simple_query($sql)):
 			return TRUE;
 		else:
