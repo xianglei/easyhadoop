@@ -4,6 +4,7 @@ add failed node list (commit by foxmoon)
 update all fixed language to vars in all views
 update jquery from 1.8.3 to 1.9.1
 update hadoop rpm from 1.1.1 beta release to 1.0.4 stable release
+bug fix(pull request from momodev)
 
 增加HDFS管理界面(commit by foxmoon)
 增加失效主机列表(commit by foxmoon)
