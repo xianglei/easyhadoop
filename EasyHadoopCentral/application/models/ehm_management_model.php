@@ -106,7 +106,7 @@ class Ehm_management_model extends CI_Model
 		
 		if($operate == 'start' || $operate == 'stop')
 		{
-			$command = 'sudo -u hadoop hadoop-daemon.sh ' . $operate . ' ' . $role;
+			$command = 'sudo -u hadoop /usr/sbin/hadoop-daemon.sh ' . $operate . ' ' . $role;
 			try
 			{
 				$this->transport->open();
@@ -123,10 +123,10 @@ class Ehm_management_model extends CI_Model
 			try
 			{
 				$this->transport->open();
-				$command = 'sudo -u hadoop hadoop-daemon.sh stop ' . $role;
+				$command = 'sudo -u hadoop /usr/sbin/hadoop-daemon.sh stop ' . $role;
 				$str = $this->ehm->RunCommand($command);
 				sleep(1);
-				$command = 'sudo -u hadoop hadoop-daemon.sh start ' . $role;
+				$command = 'sudo -u hadoop /usr/sbin/hadoop-daemon.sh start ' . $role;
 				$str .= $this->ehm->RunCommand($command);
 				$this->transport->close();
 			}
@@ -217,7 +217,7 @@ class Ehm_management_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			$command = "Y | sudo -u hadoop hadoop namenode -format";
+			$command = "Y | sudo -u hadoop /usr/bin/hadoop namenode -format";
 			$str = $this->ehm->RunCommand($command);
 			$this->transport->close();
 		}
