@@ -5,12 +5,17 @@ update all fixed language to vars in all views
 update jquery from 1.8.3 to 1.9.1
 update hadoop rpm from 1.1.1 beta release to 1.0.4 stable release
 bug fix(pull request from momodev)
+use sudo command with full command path to prevent sudo no command fault.
+add a Thrifted remote command execute tester
 
 增加HDFS管理界面(commit by foxmoon)
 增加失效主机列表(commit by foxmoon)
 将所有views里面的固定语言书写变为了变量书写
 将jquery从1.8.3更新到了1.9.1
 将hadoop安装包从1.1.1测试版更新为1.0.4稳定版
+bug修复(从momodev提交)
+在sudo命令中使用完整路径以阻止出现无法找到命令的错误。
+增加了一个基于thrift的远程命令测试工具。
 
 
 1.1.1b3
