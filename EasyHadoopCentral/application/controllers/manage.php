@@ -99,7 +99,8 @@ class Manage extends CI_Controller
 		
 		$data['common_submit'] = $this->lang->line('common_submit');
 		$this->load->view('add_hadoop_modal',$data);
-		$this->load->view('start_admin_server_modal');
+		$this->load->view('start_admin_server_modal', $data);
+		$this->load->view('batch_add_hadoop_modal', $data);
 		
 		$this->load->view('div_end');
 		$this->load->view('div_end');
@@ -110,8 +111,10 @@ class Manage extends CI_Controller
 	public function  StartAdminServer()
 	{
 		$this->load->model('ehm_hosts_model','hosts');
-		$status = $this->hosts->start_admin_server($this->input->post('ssh_user'),$this->input->post('ssh_pass'));	
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		$status = $this->hosts->start_admin_server($this->input->post('ssh_user'),$this->input->post('ssh_pass'));
+		
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
 	
 	}
 	public function PingAdminNode()
@@ -143,9 +146,44 @@ class Manage extends CI_Controller
 		$ssh_user = $this->input->post('ssh_user');
 		$ssh_pass = $this->input->post('ssh_pass');
 		$rack = $this->input->post('rack');
-		$this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);
-
-		redirect($this->config->base_url() . 'index.php/manage/index/');
+		$str = $this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);echo $str;
+		
+		$token = $this->config->item('token');
+		$url = 'http://'.$ip.':'.$this->config->item('agent_http_port').'/token/CreateToken/'.$token; //create token file on client node
+		$str = file_get_contents($url);
+		echo $str;
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
+	}
+	
+	public function BatchAddHadoopNode()
+	{
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$ips = $this->input->post('ipaddr');
+		$ip_arr = explode("\n", $ips);
+		
+		$role = join(',', $this->input->post('role'));
+		$ssh_user = $this->input->post('ssh_user');
+		$ssh_pass = $this->input->post('ssh_pass');
+		$rack = $this->input->post('rack');
+		
+		$i = 0;
+		foreach($ip_arr as $k => $v)
+		{
+			$json = $this->hosts->get_node_dist(trim($v));
+			$tmp = json_decode($json, TRUE);
+			$hostname = $tmp['os.hostname'];
+			
+			$str = $this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);echo $str;
+		
+			$token = $this->config->item('token');
+			$url = 'http://'.$ip.':'.$this->config->item('agent_http_port').'/token/CreateToken/'.$token; //create token file on client node
+			$str = file_get_contents($url);
+			echo $str;
+			$i++;
+		}
+		$url = $this->input->server('HTTP_REFERER');
+		redirect($url);
 	}
 	
 	public function DeleteHadoopNode()
@@ -190,8 +228,8 @@ class Manage extends CI_Controller
 		$result = $this->hosts->get_host_by_host_id($host_id);
 		$ip = $result->ip;
 		$this->load->model('ehm_installation_model', 'install');
-		$arr = $this->install->get_mount_point($ip);
-		echo json_encode($arr);
+		$json = $this->install->get_mount_point($ip);
+		echo $json;
 	}
 	
 	public function AddMountPoint()

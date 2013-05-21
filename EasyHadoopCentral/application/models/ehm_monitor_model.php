@@ -22,19 +22,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_jobtracker_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('jobtracker_port').'/Hadoop:service=JobTracker,name=JobTrackerMetrics';
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('jobtracker_port'), $qry);
-			$this->transport->close();
+			$str = file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -46,19 +40,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_tasktracker_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('tasktracker_port').'/';
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('tasktracker_port'), $qry);
-			$this->transport->close();
+			$str = file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -70,19 +58,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_namenode_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('namenode_port').'/Hadoop:service=NameNode,name=NameNodeInfo';
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('namenode_port'), $qry);
-			$this->transport->close();
+			$str = file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -94,19 +76,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_datanode_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
-
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
+		
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('datanode_port').'/';
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('datanode_port'), $qry);
-			$this->transport->close();
+			$str = file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -118,19 +94,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_secondarynamenode_jmx($host, $qry = "")
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('secondarynamenode_port').'/';
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetJmx($host, $this->config->item('secondarynamenode_port'), $qry);
-			$this->transport->close();
+			$str = file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -142,19 +112,12 @@ class Ehm_monitor_model extends CI_Model
 	public function get_host_meminfo($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
-		
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetMemInfo();
-			$this->transport->close();
+			$url = 'http://'.$host.':'.$this->ehm_port.'/node/GetMemInfo/'.$token;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -166,19 +129,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_host_cpuinfo($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetCpuInfo();
-			$this->transport->close();
+			$url = 'http://'.$host.':'.$this->ehm_port.'/node/GetCpuInfo/'.$token;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -190,38 +147,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_host_cpuinfo_detail($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
-		$this->load->model('ehm_installation_model', 'install');
-		$ver = $this->install->get_sys_version($host);
-		
-		if($ver == "5")
-		{
-			$command = 'mpstat 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
-		}
-		elseif($ver == "6")
-		{
-			$command = 'mpstat 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
-		}
-		elseif($ver == "ubuntu")
-		{
-			$command = 'mpstat 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
-		}
-		else
-		{
-			return "False";
-		}
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->RunCommand($command);
-			$this->transport->close();
+			$url = 'http://'.$host.':'.$this->ehm_port.'/node/GetCpuDetail/'.$token;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -233,43 +165,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_host_cpuinfo_core_detail($host, $cores)//CPU cores total number
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
-		
-		$this->load->model('ehm_installation_model', 'install');
-		$ver = $this->install->get_sys_version($host);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
 		try
 		{
-			$this->transport->open();
-			for($i = 0; $i < $cores; $i++)
-			{
-				if($ver == "5")
-				{
-					$command = 'mpstat -P '.$i.' 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"idle\":"$10",\"intrs\":"$11"}"}\'';
-				}
-				elseif($ver == "6")
-				{
-					$command = 'mpstat -P '.$i.' 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
-				}
-				elseif($ver == "ubuntu")
-				{
-					$command = 'mpstat -P '.$i.' 1 1 | tail -n 1 | awk \'{print "{\"user\":"$3",\"nice\":"$4",\"sys\":"$5",\"iowait\":"$6",\"irq\":"$7",\"soft\":"$8",\"steal\":"$9",\"guest\":"$10",\"idle\":"$11"}"}\'';
-				}
-				else
-				{
-					return "False";
-				}
-				$str = $this->ehm->RunCommand($command);
-				$cpu[$i] = $str;
-			}
-			$this->transport->close();
-			$str = json_encode($cpu);
+			$url = 'http://'.$host.':'.$this->ehm_port.'/node/GetCpuCoreDetail/'.$token;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -281,25 +183,19 @@ class Ehm_monitor_model extends CI_Model
 	public function get_host_loadavginfo($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetLoadAvg();
-			$this->transport->close();
+			$url = 'http://'.$host.':'.$this->ehm_port.'/node/GetLoadAvg/'.$token;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
 			$str = '{"Exception":"' . $e->getMessage() . '"}';
 		}
-		return str_replace("'","\"",$str);
+		return $str;
 	}
 	
 	//NetInfo still can not be used on centos 5.x yet, but can be used on centos 6.x
@@ -330,30 +226,13 @@ class Ehm_monitor_model extends CI_Model
 	public function get_process_id($host, $role)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(30000);
-		$this->socket->setRecvTimeout(30000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
-		
-		$grep = "proc_".$role;
-		$command = "ps aux | grep ".$grep." | grep -v grep | awk '{print $2}'";
 		try
 		{
-			$this->transport->open();
-			$process_id = $this->ehm->RunCommand($command);
-			if($process_id > 0)
-			{
-				$str = '{"role":"'.$role.'","process_id":"'.trim($process_id).'","status":"online"}';
-			}
-			else
-			{
-				$str = '{"role":"'.$role.'","process_id":0, "status":"offline"}';
-			}
-			$this->transport->close();
+			$url = 'http://'.$host.':'.$this->ehm_port.'/node/GetRolePID/'.$token.'/'.$role;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -364,7 +243,7 @@ class Ehm_monitor_model extends CI_Model
 	
 	public function check_agent_alive($host)
 	{
-		if(@$fp = fsockopen($host,$this->config->item('ehm_port'),$errstr,$errno,5))
+		if(@$fp = fsockopen($host,$this->config->item('agent_thrift_port'),$errstr,$errno,5))
 		{
 			@fclose($fp);
 			return TRUE;
@@ -379,7 +258,7 @@ class Ehm_monitor_model extends CI_Model
 	public function get_tracker_html($host, $port, $url)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_http_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(30000);
 		$this->socket->setRecvTimeout(30000);
@@ -398,6 +277,24 @@ class Ehm_monitor_model extends CI_Model
 			$str = '{"Exception":"' . $e->getMessage() . '"}';
 		}
 		return $str;
+	}
+	
+	public function get_network_traffic($host)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
+		
+		try
+		{
+			$url = 'http://'.$host.':'.$this->ehm_port.'/node/GetIfTraffic/'.$token.'/';
+			$str = @file_get_contents($url);
+		}
+		catch(Exception $e)
+		{
+			$str = '{"Exception":"' . $e->getMessage() . '"}';
+		}
+		return $str;// json
 	}
 }
 

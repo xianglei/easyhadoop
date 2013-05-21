@@ -11,7 +11,7 @@ class Hdfs extends CI_Controller
 			"level"		=> false
 		);
 	//protected $hadoop = "sudo -u hadoop /usr/java/hadoop/bin/hadoop";
-	protected $hadoop = "sudo -u hadoop hadoop";
+	protected $hadoop = "sudo -u hdfs hadoop";
 	public  $cmd;
 
 	public function __construct()

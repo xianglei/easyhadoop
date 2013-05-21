@@ -23,7 +23,7 @@ function jobtracker_abbr()
 	});
 }
 jobtracker_abbr();
-setInterval(jobtracker_abbr, 2000);
+setInterval(jobtracker_abbr, 1000);
 
 function tasktracker_use(host_id)
 {
@@ -79,7 +79,7 @@ $(function () {
 								map=data.running_maps;
 								reduce = data.running_reduces;
 							});
-						}, 2000);
+						}, 1000);
 					}
 				}
 			},
@@ -206,7 +206,7 @@ Reduce:
 				setInterval(function()
 				{
 					tasktracker_use(<?php echo $item->host_id;?>)
-				}, 2000);
+				}, 1000);
 				</script>
 				</div>
 			</td>

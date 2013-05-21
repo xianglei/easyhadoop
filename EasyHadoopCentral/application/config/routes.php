@@ -37,6 +37,7 @@
 | in the URL cannot be matched to a valid route.
 |
 */
+
 $route['monitor'] = 'Monitor';
 $route['operate'] = 'Operate';
 $route['manage'] = 'Manage';
@@ -44,6 +45,7 @@ $route['settings'] = 'Settings';
 $route['user'] = 'User';
 $route['install']  = 'Install';
 $route['default_controller'] = "Manage";
+$route['404_override'] = '';
 $route['404_override'] = '';
 
 

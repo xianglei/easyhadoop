@@ -26,7 +26,7 @@ class Ehm_hosts_model extends CI_Model
     	public function execute_shell_script($host, $commands)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -251,7 +251,7 @@ class Ehm_hosts_model extends CI_Model
 	public function start_admin_server($ssh_user,$ssh_pass)
 	{
 	    $ip=$_SERVER["SERVER_ADDR"];
-	    $cmd="netstat -na | awk '{print $4}' |grep ':".$this->config->item('ehm_port')."'";
+	    $cmd="netstat -na | awk '{print $4}' |grep ':".$this->config->item('agent_thrift_port')."'";
 		$command="";
 		//get config port daemon from netstat 
 		$servers=exec($cmd);
@@ -280,6 +280,24 @@ class Ehm_hosts_model extends CI_Model
 		}
 		return $cmd.$status;
 	}
+	
+	public function get_node_dist($host)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
+		$url = 'http://'.$this->ehm_host.':'.$this->ehm_port.'/node/dist/'.$token;
+		try
+		{
+			$str = file_get_contents($url);
+		}
+		catch(Exception $e)
+		{
+			$str = '{"Exception":"' . $e->getMessage() . '"}';
+		}
+		return $str;
+	}
+	
 	public function insert_host($hostname, $host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
 		$admin_ip=$_SERVER["SERVER_ADDR"];
@@ -291,9 +309,9 @@ class Ehm_hosts_model extends CI_Model
 			{
 				$this->load->model('ehm_management_model','manage');
 				$ip = $host;
-				$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent.py -d '.$ip;
+				$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm -d '.$ip;
 				$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
-				$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "python ~/NodeAgent.py -s start -b '.$ip.'" -d '.$ip;
+				$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "rpm -ivh ~/NodeAgent-1.2.0-1.x86_64.rpm" -d '.$ip;
 				//$str .= exec($command);
 				$str .= $this->execute_shell_script($admin_ip,$command);//exec($command);
 			}
@@ -335,7 +353,7 @@ class Ehm_hosts_model extends CI_Model
 	public function ping_admin_host()
 	{
 		$ip=$_SERVER["SERVER_ADDR"];
-		if ($fp = @fsockopen($ip, $this->config->item('ehm_port'), $errstr, $errno, 5)):
+		if ($fp = @fsockopen($ip, $this->config->item('agent_http_port'), $errstr, $errno, 5)):
 			fclose($fp);
 			$status = '{"status":"TRUE", "ip":"'.$ip.'"}';
 		else:
@@ -348,7 +366,7 @@ class Ehm_hosts_model extends CI_Model
 	{
 		$query = $this->db->get_where($this->table_name, array('host_id'=>$host_id));
 		$result = $query->result();
-		if ($fp = @fsockopen($result[0]->ip, $this->config->item('ehm_port'), $errstr, $errno, 5)):
+		if ($fp = @fsockopen($result[0]->ip, $this->config->item('agent_thrift_port'), $errstr, $errno, 5)):
 			fclose($fp);
 			$status = '{"status":"TRUE", "ip":"'.$result[0]->ip.'"}';
 		else:
@@ -377,7 +395,7 @@ if __name__==\"__main__\":
 	print \"/\" + rack.get(sys.argv[1],\"rack0\")\n";
 		unset($str);
 		$str = "";
-		$str['filename'] = $this->config->item('conf_folder') . "RackAware.py";
+		$str['filename'] = $this->config->item('hadoop_conf_folder') . "RackAware.py";
 		$str['chmod'] = "777";
 		$str['content'] = $rack;
 		

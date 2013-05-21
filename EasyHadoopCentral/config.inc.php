@@ -7,4 +7,5 @@ $configure['language'] = 'english';
 
 $configure['packages_source_address'] = '42.96.141.99';
 
+$configure['token'] = '7757987562';
 ?>

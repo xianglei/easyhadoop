@@ -158,16 +158,16 @@ class Ehm_settings_model extends CI_Model
 					$return = $this->get_hosts_field($result,'mount_data');
 					break;
 				case "{mount_mrlocal}":
-					$sql = "select * from ehm_hosts where mount_mrlocal != ''";
+					$sql = "select * from ehm_hosts where mount_local != ''";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$return = $this->get_hosts_field($result,'mount_mrlocal');
+					$return = $this->get_hosts_field($result,'mount_local');
 					break;
 				case "{mount_mrsystem}":
-					$sql = "select * from ehm_hosts where mount_mrsystem != ''";
+					$sql = "select * from ehm_hosts where mount_system != ''";
 					$query = $this->db->query($sql);
 					$result = $query->result();
-					$return = $this->get_hosts_field($result,'mount_mrsystem');
+					$return = $this->get_hosts_field($result,'mount_system');
 					break;
 			}
 		}

@@ -357,17 +357,26 @@ $config['proxy_ips'] = '';
 /* Location: ./application/config/config.php */
 
 
-$config['ehm_port'] = '30050';
+$config['agent_http_port'] = '30051';
+$config['agent_thrift_port'] = '30050';
 
 $config['src_folder'] = __DIR__ . '/../../hadoop/';
-$config['dest_folder'] = '/home/hadoop/';
-$config['conf_folder'] = '/etc/hadoop/';
+$config['dest_folder'] = '/tmp/';
+$config['hadoop_conf_folder'] = '/etc/hadoop/';
+$config['agent_path'] = '/usr/local/ehm/';
 
-$config['hadoop_user'] = 'hadoop';
+$config['hadoop_hdfs_user'] = 'hdfs';
+$config['hadoop_mapred_user'] = 'mapred';
+$config['hadoop_hbase_user'] = 'hbase';
+$config['hadoop_hive_user'] = 'hive';
+$config['hadoop_hadoop_user'] = 'hadoop';
+
 $config['hadoop_group'] = 'hadoop';
-$config['hadoop_filename'] = 'hadoop-1.0.4-1.x86_64.rpm';
-$config['jdk_filename'] = 'jdk-6u39-linux-amd64.rpm';
-$config['gpl_filename'] = 'hadoop-gpl-packaging-0.5.4-1.x86_64.rpm';
+
+$config['agent_filename'] = 'NodeAgent-1.2.0-1.x86_64.rpm';
+$config['hadoop_filename'] = 'hadoop-1.1.2-1.x86_64.rpm';
+$config['jdk_filename'] = 'jdk-6u45-linux-amd64.rpm';
+$config['gpl_filename'] = 'hadoop-gpl-packaging-0.6.1-1.x86_64.rpm';
 $config['lzop_filename'] = 'lzop-1.03.tar.gz';
 $config['lzo_el5_rpm_filename'] = 'lzo-2.06-1.el5.rf.x86_64.rpm';
 $config['lzo_el5_rpm_devel_filename'] = 'lzo-devel-2.06-1.el5.rf.x86_64.rpm';
@@ -375,11 +384,22 @@ $config['lzo_el6_rpm_filename'] = 'lzo-2.06-1.el6.rfx.x86_64.rpm';
 $config['lzo_el6_rpm_devel_filename'] = 'lzo-devel-2.06-1.el6.rfx.x86_64.rpm';
 $config['lzo_filename'] = 'lzo-2.06.tar.gz';
 
+$config['jobtracker'] = 'jobtracker';
+$config['tasktracker'] = 'tasktracker';
+$config['namenode'] = 'namenode';
+$config['datanode'] = 'datanode';
+$config['secondarynamenode'] = 'secondarynamenode';
+$config['token'] = $configure['token'];
 
 $config['jobtracker_port'] = '50030';
 $config['tasktracker_port'] = '50060';
 $config['namenode_port'] = '50070';
 $config['datanode_port'] = '50075';
 $config['secondarynamenode_port'] = '50090';
+$config['ssh_port'] = '22';
 
 $config['packages_source_address'] = $configure['packages_source_address'];
+
+$config['centos_5_lzo_rpm_list'] = array('lzo-2.06-1.el5.rf.x86_64.rpm','lzo-devel-2.06-1.el5.rf.x86_64.rpm');
+$config['centos_6_lzo_rpm_list'] = array('lzo-2.06-1.el6.rfx.x86_64.rpm','lzo-devel-2.06-1.el6.rfx.x86_64.rpm');
+$config['ubuntu_x_lzo_deb_list'] = array();

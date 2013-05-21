@@ -106,7 +106,6 @@ class Install extends CI_Controller
 		
 		$file_list_array = $this->install->get_file_list();
 		$json = "";
-		$this->install->user_add_group_add($ip);
 		sleep(1);
 		foreach ($file_list_array as $v):
 			$json .= $this->install->push_installation_file($ip, $v)."<br />";

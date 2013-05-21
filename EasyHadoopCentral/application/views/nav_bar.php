@@ -75,13 +75,13 @@
 			
 			
 			  <!--<li class="">
-                <a href="<?php echo $this->config->base_url();?>about/index/">About</a>
+                <a href="<?php echo $this->config->base_url();?>index.php/about/index/">About</a>
               </li>-->
               
             </ul>
 			<ul class="nav pull-right">
 				<li class="">
-                <a href="<?php echo $this->config->base_url();?>user/logout/"><?php echo $common_log_out;?></a>
+                <a href="<?php echo $this->config->base_url();?>index.php/user/logout/"><?php echo $common_log_out;?></a>
 				</li>
 			</ul>
           </div>

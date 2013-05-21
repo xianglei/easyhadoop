@@ -69,7 +69,7 @@ function host_load(host_id)
 			setInterval(function()
 			{
 				host_load(<?php echo $item->host_id;?>)
-			}, 2000);
+			}, 1000);
 			</script>
 			</td>
 		</tr>

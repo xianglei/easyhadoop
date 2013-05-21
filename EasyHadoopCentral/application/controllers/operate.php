@@ -84,6 +84,7 @@ class Operate extends CI_Controller
 		$data['q']=$this->input->get('q',"");
 		
 		$this->load->view('ehm_hosts_operate_list',$data);
+		$this->load->view('format_namenode_modal', $data);
 		
 		$this->load->view('div_end');
 		$this->load->view('div_end');
@@ -160,7 +161,14 @@ class Operate extends CI_Controller
 		
 		#generaet footer
 		$this->load->view('footer', $data);		
-	}	
+	}
+	
+	public function FormatNamenode()
+	{
+		$this->load->model('ehm_installation_model', 'install');
+		$html = $this->install->format_namenode();
+		echo str_replace("\n","<br />",$html);
+	}
 	
 	public function ViewLogs()
 	{
@@ -195,6 +203,12 @@ class Operate extends CI_Controller
 		
 		$str = $this->manage->control_hadoop($ip, $role, "start");
 		$url = $this->input->server('HTTP_REFERER');
+		if($role == "namenode")
+		{
+			$str .= $this->manage->hdfs_mkdir($ip, '/tmp', 'hdfs', 'hadoop', '777');
+			$str .= $this->manage->hdfs_mkdir($ip, '/user', 'hdfs', 'hadoop', 'ugo+w');
+		}
+		echo $str;
 		redirect($url);
 	}
 	

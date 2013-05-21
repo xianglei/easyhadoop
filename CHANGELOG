@@ -1,3 +1,33 @@
+1.1.2-beta1
+Reconstruct agent and frontend, caution: not compatible with previous version
+Add random token authenticate from central to agent
+System info moved from thrift RPC to cherrypy embedded web server
+Add batch node add
+Add network interface real monitoring
+System hadoop user had been deprecated, instead with hdfs and mapred user, hadoop group
+Agent packaged into rpm
+install script changed from bash to python
+hadoop update to 1.1.2
+jdk update to 6u45
+Add network interface traffic loads monitoring
+Add code support for ubuntu and debian and suse for future update
+Rpm/deb packaged personal fixed Apache Hive 0.10.0 and HBase 0.94.4 for future installation support
+
+重构了代理与前端，注意：与之前版本不兼容
+在中央控制端与代理之间增加了随机令牌验证
+系统监控由thrift RPC迁移为了嵌入式web服务器方式
+增加了批量添加主机
+增加了网卡的实时监控
+系统的hadoop用户被废弃，使用hdfs用户和mapred用户（hadoop组）来代替。
+代理端打包为rpm方式安装
+安装脚本由bash方式改为了python方式
+hadoop更新为1.1.2稳定版
+jdk更新为6u45
+增加网卡流量的实时监控
+增加未来更新对ubuntu, debian和suse安装的代码支持。
+将apache hive 0.10.0和Hbase 0.94.4的个人修订版打包为rpm/deb，以方便未来增加安装选项
+
+
 1.1.1beta4
 add HDFS manage function (commit by foxmoon)
 add failed node list (commit by foxmoon)
@@ -6,7 +36,8 @@ update jquery from 1.8.3 to 1.9.1
 update hadoop rpm from 1.1.1 beta release to 1.0.4 stable release
 bug fix(pull request from momodev)
 use sudo command with full command path to prevent sudo no command fault.
-add a Thrifted remote command execute tester
+add a Thrift based remote command execute tester
+fix http url rewrite bug
 
 增加HDFS管理界面(commit by foxmoon)
 增加失效主机列表(commit by foxmoon)
@@ -15,7 +46,8 @@ add a Thrifted remote command execute tester
 将hadoop安装包从1.1.1测试版更新为1.0.4稳定版
 bug修复(从momodev提交)
 在sudo命令中使用完整路径以阻止出现无法找到命令的错误。
-增加了一个基于thrift的远程命令测试工具。
+增加了一个基于thrift的远程命令测试和提交工具。
+修正了http 重定向地址不可用问题
 
 
 1.1.1b3

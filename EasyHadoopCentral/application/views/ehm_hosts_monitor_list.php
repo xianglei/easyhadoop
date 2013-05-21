@@ -100,7 +100,7 @@ function mem_stat(host_id)
 					setInterval(function()
 					{
 						mem_stat(<?php echo $item->host_id;?>)
-					}, 2000
+					}, 1000
 					);
 					</script>
 				</td>

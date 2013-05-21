@@ -1,17 +1,21 @@
 <div class=span10>
 
 <script>
+function install_hadoop_action(host_id)
+{
+	push_install_files_action(host_id);
+}
+
 function push_install_files_action(host_id)
 {
 	$.get('<?php echo $this->config->base_url();?>index.php/install/pushfiles/' + host_id,{}, function(data){
 		var html = data;
-		$('#push_install_files_status_' + host_id).html(html);
+		$('#install_name_'+host_id).html('<?php echo $common_push_hadoop_files;?>');
+		$('#install_progress_'+host_id).attr("style", "width: 5%;");
+		$('#install_hadoop_action_status_' + host_id).html(html);
+		//$('#push_install_files_status_' + host_id).html(json);
+		install_environment(host_id);
 	});
-}
-
-function install_hadoop_action(host_id)
-{
-	install_environment(host_id);
 }
 
 function install_environment(host_id)
@@ -130,7 +134,7 @@ function install_done(host_id)
 	$('#install_hadoop_action_status_'+host_id).html("<?php echo $common_install_complete;?>");
 }
 </script>
-	<!--<div class="alert alert-error"><?php echo $common_add_node_tips?></div>-->
+	<!--<div class="alert alert-error"><?php //echo $common_add_node_tips?></div>-->
 	<table class="table table-striped table_hover">
 		<thead>
 			<tr>
@@ -159,31 +163,10 @@ function install_done(host_id)
 				<td><?php echo $item->create_time;?></td>
 				<td>
 				<div class="btn-group">
-					<a class="btn" href="#push_install_files_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-hand-right"></i> <?php echo $common_push_hadoop_files;?> </a>
 					<a class="btn btn-inverse" href="#install_hadoop_action_<?php echo $item->host_id;?>" data-toggle="modal"><i class="icon-cog icon-white"></i>  <?php echo $common_install_hadoop;?></a>
 				</div>
 				
-				<!--push file entry-->
-				
-<div id="push_install_files_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-		<h3 id="myModalLabel"><?php echo $common_push_hadoop_files;?> <?php echo $item->ip;?></h3>
-	</div>
-	<div class="modal-body">
 
-			<div id="push_install_files_status_<?php echo $item->host_id;?>"></div>
-
-	</div>
-	<div class="modal-footer">
-		<button class="btn" data-dismiss="modal"><?php echo $common_close;?></button>
-		<button class="btn btn-primary" onclick="push_install_files_action(<?php echo $item->host_id;?>)"><?php echo $common_submit;?></button>
-	</div>
-</div>
-				<!--end push file entry-->
-				
-				<!--push file entry-->
-				
 <div id="install_hadoop_action_<?php echo $item->host_id;?>" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -194,7 +177,7 @@ function install_done(host_id)
 			<div class="progress progress-info">
 				<div class="bar" style=""  id="install_progress_<?php echo $item->host_id;?>"></div>
 			</div>
-
+			
 			<div id="install_hadoop_action_status_<?php echo $item->host_id;?>"></div>
 
 	</div>
@@ -203,16 +186,6 @@ function install_done(host_id)
 		<button class="btn btn-primary" onclick="install_hadoop_action(<?php echo $item->host_id;?>)"><?php echo $common_submit;?></button>
 	</div>
 </div>
-				<!--end push file entry-->
-<script>
-
-
-
-</script>
-				
-				
-				
-				
 				</td>
 			</tr>
 		<?php $i++; endforeach;?>

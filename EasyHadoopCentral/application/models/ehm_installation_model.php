@@ -25,7 +25,7 @@ class Ehm_installation_model extends CI_Model
 	public function push_installation_file($host, $filename)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -41,9 +41,9 @@ class Ehm_installation_model extends CI_Model
 			$str = $this->ehm->FileTransfer($this->config->item('dest_folder') . $filename, $content);
 			unset ($content);
 			if (trim($str) == ""):
-				$str = '{"filename":"'.$this->config->item('dest_folder') . $filename.'","status":"success","node":"'.$host.'"}';
+				$str = 'filename: '.$this->config->item('dest_folder') . $filename.' ==> status: success" ==> node: '.$host;
 			else:
-				$str = '{"filename":"'.$this->config->item('dest_folder') . $filename.'","status":"'.$str.'","node":"'.$host.'"}';
+				$str = 'filename: '.$this->config->item('dest_folder') . $filename.' ==> status: '.$str.' ==> node: '.$host;
 			endif;
 			$this->transport->close();
 		}
@@ -57,7 +57,7 @@ class Ehm_installation_model extends CI_Model
 	public function push_rackaware($host, $rack)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -92,7 +92,7 @@ class Ehm_installation_model extends CI_Model
 	public function push_setting_files($host, $filename, $content)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(100000);
 		$this->socket->setRecvTimeout(100000);
@@ -100,6 +100,14 @@ class Ehm_installation_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
+		if(preg_match("/\/etc\/hadoop/i",$filename))
+		{
+			$filename = $filename;
+		}
+		else
+		{
+			$filename = "/etc/hadoop/" . $filename;
+		}
 		try
 		{
 			$this->transport->open();
@@ -122,7 +130,7 @@ class Ehm_installation_model extends CI_Model
 	public function execute_shell_script($host, $commands)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$socket->setSendTimeout(300000);
 		$socket->setRecvTimeout(300000);
@@ -146,7 +154,7 @@ class Ehm_installation_model extends CI_Model
 	public function user_add_group_add($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -176,7 +184,7 @@ class Ehm_installation_model extends CI_Model
 	public function install_hadoop($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -186,24 +194,11 @@ class Ehm_installation_model extends CI_Model
 
 		try{
 			$this->transport->open();
-			if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('hadoop_filename')))
-			{
-				$command = "cd ".$this->config->item('dest_folder')."
-							rpm -Uvh ".$this->config->item('hadoop_filename')."
-							echo 'export HADOOP_HOME=/usr' >> /etc/profile
-							source /etc/profile
-							";
-			}
-			else
-			{
-				$command = "mkdir -p ".$this->config->item('dest_folder')."
-							cd ".$this->config->item('dest_folder')."
-							wget http://".$this->config->item('packages_source_address')."/hadoop/".$this->config->item('hadoop_filename')."
-							rpm -Uvh ". $this->config->item('hadoop_filename') ."
-							echo 'export HADOOP_HOME=/usr' >> /etc/profile
-							source /etc/profile
-							";
-			}
+			$command = "cd ".$this->config->item('dest_folder')."
+						rpm -Uvh ".$this->config->item('hadoop_filename')."
+						echo 'export HADOOP_HOME=/usr' >> /etc/profile
+						source /etc/profile
+						";
 			$str = $this->ehm->RunCommand($command);
 			$this->transport->close();
 		}
@@ -218,7 +213,7 @@ class Ehm_installation_model extends CI_Model
 	public function install_java($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -229,22 +224,10 @@ class Ehm_installation_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('jdk_filename')))
-			{
-				$command = "cd ".$this->config->item('dest_folder')."
-							rpm -Uvh ".$this->config->item('jdk_filename')."
-							echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile
-							";
-			}
-			else
-			{
-				$command = "mkdir -p ".$this->config->item('dest_folder')."
-							cd ".$this->config->item('dest_folder')."
-							wget http://".$this->config->item('packages_source_address')."/jdk/".$this->config->item('jdk_filename')."
-							rpm -Uvh ".$this->config->item('jdk_filename')."
-							echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile
-							";
-			}
+			$command = "cd ".$this->config->item('dest_folder')."
+						rpm -Uvh ".$this->config->item('jdk_filename')."
+						echo 'export JAVA_HOME=/usr/java/default' >> /etc/profile && source /etc/profile
+						";
 			$str = $this->ehm->RunCommand($command);
 			$this->transport->close();
 		}
@@ -259,7 +242,7 @@ class Ehm_installation_model extends CI_Model
 	public function install_lzop($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -270,28 +253,13 @@ class Ehm_installation_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('lzop_filename')))
-			{
-				$command = "cd ".$this->config->item('dest_folder')."
-							tar zxf ".$this->config->item('lzop_filename')."
-							cd lzop-1.03
-							./configure
-							make
-							make install clean
-							";
-			}
-			else
-			{
-				$command = "mkdir -p ".$this->config->item('dest_folder')."
-							cd ".$this->config->item('dest_folder')."
-							wget http://".$this->config->item('packages_source_address')."/resources/".$this->config->item('lzop_filename')."
-							tar zxf ".$this->config->item('lzop_filename')."
-							cd lzop-1.03 
-							./configure 
-							make 
-							make install clean
-							";
-			}
+			$command = "cd ".$this->config->item('dest_folder')."
+						tar zxf ".$this->config->item('lzop_filename')."
+						cd lzop-1.03
+						./configure
+						make
+						make install clean
+						";
 			$str = $this->ehm->RunCommand($command);
 			$this->transport->close();
 		}
@@ -306,7 +274,7 @@ class Ehm_installation_model extends CI_Model
 	public function install_hadoopgpl($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -317,32 +285,15 @@ class Ehm_installation_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('gpl_filename')))
-			{
-				$command = "cd ".$this->config->item('dest_folder')."
-							rpm -Uvh ".$this->config->item('gpl_filename')."
-							cp -rf /opt/hadoopgpl/lib/* /usr/lib/
-							cp -rf /opt/hadoopgpl/lib/* /usr/lib64/
-							cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/
-							cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/
-							cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib
-							cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64
-							";
-			}
-			else
-			{
-				$command = "mkdir -p ".$this->config->item('dest_folder')."
-							cd ".$this->config->item('dest_folder')."
-							wget http://".$this->config->item('packages_source_address')."/resources/x64/".$this->config->item('gpl_filename')."
-							rpm -Uvh ".$this->config->item('gpl_filename')."
-							cp -rf /opt/hadoopgpl/lib/* /usr/lib/
-							cp -rf /opt/hadoopgpl/lib/* /usr/lib64/
-							cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/
-							cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/
-							cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib
-							cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64
-							";
-			}
+			$command = "cd ".$this->config->item('dest_folder')."
+						rpm -Uvh ".$this->config->item('gpl_filename')."
+						cp -rf /opt/hadoopgpl/lib/* /usr/lib/
+						cp -rf /opt/hadoopgpl/lib/* /usr/lib64/
+						cp -rf /opt/hadoopgpl/lib/* /usr/share/hadoop/lib/
+						cp -rf /opt/hadoopgpl/native /usr/share/hadoop/lib/
+						cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib
+						cp -f /opt/hadoopgpl/native/Linux-amd64-64/* /usr/lib64
+						";
 			$str = $this->ehm->RunCommand($command);
 			$this->transport->close();
 		}
@@ -357,90 +308,65 @@ class Ehm_installation_model extends CI_Model
 	public function install_lzo_rpm($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		$token = $this->config->item('token');
 
-		try
+		$sys_json = $this->get_sys_version($host);
+		$json = json_decode($sys_json,TRUE);
+		
+		$cmd_lib = "";
+		$cmd_lib_dev = "";
+		if($json['os.system'] == "centos" || $json['os.system'] == "redhat" || $json['os.system'] == "CentOS")
 		{
-			$this->transport->open();
-			$ver = $this->ehm->GetSysVer();
-			if(trim($ver) == "5")
+			if(intval($json['os.version']) < 6)
 			{
-				if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('lzo_el5_rpm_filename')))
-				{
-					$command = "cd ".$this->config->item('dest_folder')."
+				$cmd_lib = "cd ".$this->config->item('dest_folder')."
 								rpm -Uvh ".$this->config->item('lzo_el5_rpm_filename')
 								."";
-				}
-				else
-				{
-					$command = "mkdir -p ".$this->config->item('dest_folder')."
-								cd ".$this->config->item('dest_folder')."
-								wget http://".$this->config->item('packages_source_address')."/resources/x64/".$this->config->item('lzo_el5_rpm_filename')."
-								rpm -Uvh ".$this->config->item('lzo_el5_rpm_filename')
-								."";
-				}
-				$str = $this->ehm->RunCommand($command);
-
-				if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('lzo_el5_rpm_devel_filename')))
-				{
-					$command = "cd ".$this->config->item('dest_folder')."
+				$cmd_lib_dev = "cd ".$this->config->item('dest_folder')."
 								rpm -Uvh ".$this->config->item('lzo_el5_rpm_devel_filename')
 								."";
-				}
-				else
-				{
-					$command = "mkdir -p ".$this->config->item('dest_folder')."
-								cd ".$this->config->item('dest_folder')."
-								wget http://".$this->config->item('packages_source_address')."/resources/x64/".$this->config->item('lzo_el5_rpm_devel_filename')."
-								rpm -Uvh ".$this->config->item('lzo_el5_rpm_devel_filename')
-								."";
-				}
-				$str .=$this->ehm->RunCommand($command);
 			}
-			elseif(trim($ver) == "6")
+			elseif(intval($json['os.version']) >= 6)
 			{
-				if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('lzo_el6_rpm_filename')))
-				{
-					$command = "cd ".$this->config->item('dest_folder')."
+				$cmd_lib = "cd ".$this->config->item('dest_folder')."
 								rpm -Uvh ". $this->config->item('lzo_el6_rpm_filename')
 								."";
-				}
-				else
-				{
-					$command = "mkdir -p ".$this->config->item('dest_folder')."
-								cd ".$this->config->item('dest_folder')."
-								wget http://".$this->config->item('packages_source_address')."/resources/x64/".$this->config->item('lzo_el6_rpm_filename')."
-								rpm -Uvh ".$this->config->item('lzo_el6_rpm_filename')
-								."";
-				}
-				$str = $this->ehm->RunCommand($command);
-
-				if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('lzo_el6_rpm_devel_filename')))
-				{
-					$command = "cd ".$this->config->item('dest_folder')."
+				$cmd_lib_dev = "cd ".$this->config->item('dest_folder')."
 								rpm -Uvh ".$this->config->item('lzo_el6_rpm_devel_filename')
 								."";
-				}
-				else
-				{
-					$command = "mkdir -p ".$this->config->item('dest_folder')."
-								cd ".$this->config->item('dest_folder')."
-								wget http://".$this->config->item('packages_source_address')."/resources/x64/".$this->config->item('lzo_el6_rpm_devel_filename')."
-								rpm -Uvh ".$this->config->item('lzo_el6_rpm_devel_filename')
-								."";
-				}
-				$str .= $this->ehm->RunCommand($command);
 			}
 			else
 			{
-				$str =  "Unknown Operation System";
+				return "Unsupport system version";
 			}
+		}
+		elseif($json['os.system'] == "ubuntu" || $json['os.system'] == 'debian' || $json['os.system'] == "Ubuntu")
+		{
+			$cmd_lib = "apt-get -y install liblzo2-2";
+			$cmd_lib_dev = "apt-get -y install liblzo2-dev";
+		}
+		elseif($json['os.system'] == "suse" || $json['os.system'] == "SuSE")
+		{
+			$cmd_lib = "zypper -y install lzo";
+			$cmd_lib_dev = "zypper -y install lzo-devel";
+		}
+		else
+		{
+			return "Unknown system";
+		}
+		try
+		{
+			$this->transport->open();
+			$str = $this->ehm->RunCommand($cmd_lib);
+			$str .=$this->ehm->RunCommand($cmd_lib_dev);
 			$this->transport->close();
 		}
 		catch(Exception $e)
@@ -454,7 +380,7 @@ class Ehm_installation_model extends CI_Model
 	public function install_lzo($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -465,28 +391,13 @@ class Ehm_installation_model extends CI_Model
 		try
 		{
 			$this->transport->open();
-			if($this->ehm->FileExists($this->config->item('dest_folder') . $this->config->item('lzo_filename')))
-			{
-				$command = "cd ".$this->config->item('dest_folder')."
-							tar zxf ".$this->config->item('lzo_filename')."
-							cd lzo-2.06
-							./configure
-							make
-							make install clean
-							";
-			}
-			else
-			{
-				$command = "mkdir -p ".$this->config->item('dest_folder')."
-							cd ".$this->config->item('dest_folder')."
-							wget http://".$this->config->item('packages_source_address')."/resources/".$this->config->item('lzo_filename')."
-							tar zxf ".$this->config->item('lzo_filename')."
-							cd lzo-2.06
-							./configure
-							make
-							make install clean
-							";
-			}
+			$command = "cd ".$this->config->item('dest_folder')."
+						tar zxf ".$this->config->item('lzo_filename')."
+						cd lzo-2.06
+						./configure
+						make
+						make install clean
+						";
 			$str = $this->ehm->RunCommand($command);
 			$this->transport->close();
 		}
@@ -501,10 +412,10 @@ class Ehm_installation_model extends CI_Model
 	public function install_environment($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
+		$this->socket->setSendTimeout(3000000);
+		$this->socket->setRecvTimeout(3000000);
 		$this->transport = new TBufferedTransport($this->socket);
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
@@ -533,19 +444,13 @@ class Ehm_installation_model extends CI_Model
 	public function get_sys_version($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->GetSysVer();// 5 or 6
-			$this->transport->close();
+			$url = 'http://'.$this->ehm_host.':'.$this->ehm_port.'/node/dist/'.$token;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -564,38 +469,13 @@ class Ehm_installation_model extends CI_Model
 	public function get_mount_point($host)
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
-		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
-		$this->socket->setSendTimeout(300000);
-		$this->socket->setRecvTimeout(300000);
-		$this->transport = new TBufferedTransport($this->socket);
-		$this->protocol = new TBinaryProtocol($this->transport);
-		$this->ehm = new EasyHadoopClient($this->protocol);
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
 		
-		$cmd = ' df -lhT  | grep -v tmpfs | grep -v boot | grep -v usr | grep -v tmp | sed \'1d;/ /!N;s/\n//;s/[ ]*[ ]/\t/g;\' ';
+		$url = 'http://'.$this->ehm_host.':'.$this->ehm_port.'/node/GetHddInfo/'.$token;
 		try
 		{
-			$this->transport->open();
-			$str = $this->ehm->RunCommand($cmd);
-			$this->transport->close();
-			
-			$tmp1 = explode("\n", $str);
-			$arr = array();
-			for ($i = 0; $i < count($tmp1); $i++)
-			{
-				if($tmp1[$i] != "")
-				{
-					$tmp2 = explode("\t", $tmp1[$i]);
-					$arr['file_system'][$i] = $tmp2[0];
-					$arr['type'][$i] = $tmp2[1];
-					$arr['size'][$i] = $tmp2[2];
-					$arr['used'][$i] = $tmp2[3];
-					$arr['avail'][$i] = $tmp2[4];
-					$arr['used_percent'][$i] = $tmp2[5];
-					$arr['mounted_on'][$i] = $tmp2[6];
-				}
-			}
-			$str = $arr;
+			$str = @file_get_contents($url);
 		}
 		catch(Exception $e)
 		{
@@ -607,7 +487,7 @@ class Ehm_installation_model extends CI_Model
 	public function set_mount_point($host_id, $host, $mount_list = array())
 	{
 		$this->ehm_host = $host;
-		$this->ehm_port = $this->config->item('ehm_port');
+		$this->ehm_port = $this->config->item('agent_thrift_port');
 		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
 		$this->socket->setSendTimeout(300000);
 		$this->socket->setRecvTimeout(300000);
@@ -618,6 +498,8 @@ class Ehm_installation_model extends CI_Model
 		if($mount_list[0] != "")
 		{
 			$cmd = "";
+			$cmd_hdfs = "";
+			$cmd_mapred = "";
 			$mount_name = "";
 			$mount_sname = "";
 			$mount_data = "";
@@ -625,15 +507,28 @@ class Ehm_installation_model extends CI_Model
 			$mount_mrsystem = "";
 			for($i = 0; $i < count($mount_list); $i++)
 			{
-				$mount_name .= $mount_list[$i] . "/hdfs/name,";
-				$mount_sname .= $mount_list[$i] . "/hdfs/snn,";
-				$mount_data .= $mount_list[$i] . "/hdfs/data,";
-				$mount_mrlocal .= $mount_list[$i] . "/hdfs/mrlocal,";
-				$mount_mrsystem .= $mount_list[$i] . "/hdfs/mrsystem,";
-				$cmd .= "mkdir -p ".$mount_list[$i]."/hdfs; " . "chown -R hadoop:hadoop ".$mount_list[$i]. "/hdfs;";
+				if($mount_list[$i] == "/")
+				{
+					$mount_list[$i] = '';
+				}
+				$mount_name .= $mount_list[$i] . "/dfs/name,";
+				$mount_sname .= $mount_list[$i] . "/dfs/snn,";
+				$mount_data .= $mount_list[$i] . "/dfs/data,";
+				$cmd_hdfs .= "mkdir -p ".$mount_list[$i]."/dfs; " . "chown -R hdfs:hadoop ".$mount_list[$i]. "/dfs;";
 			}
 			
-			$cmd = "groupadd hadoop; useradd -g hadoop hadoop; " . $cmd;
+			for($i = 0; $i < count($mount_list); $i++)
+			{
+				if($mount_list[$i] == "/")
+				{
+					$mount_list[$i] = '';
+				}
+				$mount_mrlocal .= $mount_list[$i] . "/mapred/local,";
+				$mount_mrsystem .= $mount_list[$i] . "/mapred/system,";
+				$cmd_mapred .= "mkdir -p ".$mount_list[$i]."/mapred; " . "chown -R mapred:hadoop ".$mount_list[$i]. "/mapred;";
+			}
+			
+			$cmd = $cmd_hdfs . $cmd_mapred;
 			
 			$mount_name = substr($mount_name,0,-1);
 			$mount_sname = substr($mount_sname,0,-1);
@@ -641,13 +536,13 @@ class Ehm_installation_model extends CI_Model
 			$mount_mrlocal = substr($mount_mrlocal,0,-1);
 			$mount_mrsystem = substr($mount_mrsystem,0,-1);
 			
-			$sql = "update ehm_hosts set mount_name = '".$mount_name."', mount_data = '".$mount_data."', mount_mrlocal = '". $mount_mrlocal ."', mount_mrsystem = '". $mount_mrsystem ."', mount_snn = '". $mount_sname ."' where host_id='".$host_id."'";
+			$sql = "update ehm_hosts set mount_name = '".$mount_name."', mount_data = '".$mount_data."', mount_local = '". $mount_mrlocal ."', mount_system = '". $mount_mrsystem ."', mount_snn = '". $mount_sname ."' where host_id='".$host_id."'";
 			$this->db->simple_query($sql);
 			
 			try
 			{
 				$this->transport->open();
-				$str = $this->ehm->RunCommand($cmd);
+				echo $str = $this->ehm->RunCommand($cmd);
 				$this->transport->close();
 			}
 			catch(Exception $e)
@@ -662,4 +557,56 @@ class Ehm_installation_model extends CI_Model
 		return $str;
 	}
 	
+	public function check_namenode_formatted()
+	{
+		$sql = "select ip, is_formatted from ehm_hosts where role like 'namenode%'";
+		$query = $this->db->query($sql);
+		$result = $query->result();
+		$is_formatted = $result[0]->is_formatted;
+		$ip = $result[0]->ip;
+		if($is_formatted == 1)
+		{
+			return '{"status":"1","ip":"'.$ip.'"}';
+		}
+		else
+		{
+			return '{"status":"0","ip":"'.$ip.'"}';
+		}
+	}
+	public function format_namenode()
+	{
+		$is_formatted = $this->check_namenode_formatted();
+		$json = json_decode($is_formatted, TRUE);
+		
+		if($json['status'] == "0")
+		{
+			$this->ehm_host = $json['ip'];
+			$this->ehm_port = $this->config->item('agent_thrift_port');
+			$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+			$this->socket->setSendTimeout(30000);
+			$this->socket->setRecvTimeout(30000);
+			$this->transport = new TBufferedTransport($this->socket);
+			$this->protocol = new TBinaryProtocol($this->transport);
+			$this->ehm = new EasyHadoopClient($this->protocol);
+		
+			$cmd = "sudo -u hdfs hadoop namenode -format";
+			try
+			{
+				$this->transport->open();
+				$str = $this->ehm->RunCommand($cmd);
+				$this->transport->close();
+			}
+			catch(Exception $e)
+			{
+				$str = 'Caught exception: '.  $e->getMessage(). "\n";
+			}
+			$sql = "update ehm_hosts set is_formatted = 1 where ip = '".$json['ip']."'";
+			$this->db->simple_query($sql);
+		}
+		else
+		{
+			$str = "Already formatted";
+		}
+		return $str;
+	}
 }
