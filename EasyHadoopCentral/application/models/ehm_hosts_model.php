@@ -298,10 +298,10 @@ class Ehm_hosts_model extends CI_Model
 		return $str;
 	}
 	
-	public function insert_host($hostname, $host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
+	public function insert_host($host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
 		$admin_ip=$_SERVER["SERVER_ADDR"];
-		$sql = "insert ehm_hosts set hostname='".$hostname."', ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."', rack='".$rack."'";
+		
 		$str = "";
 		if($ssh_pass != "")
 		{
@@ -320,6 +320,12 @@ class Ehm_hosts_model extends CI_Model
 				$str = 'Caught exception: '.  $e->getMessage(). "\n";
 			}
 		}
+		
+		$json = $this->hosts->get_node_dist(trim($v));
+		$tmp = json_decode($json, TRUE);
+		$hostname = $tmp['os.hostname'];
+		
+		$sql = "insert ehm_hosts set hostname='".$hostname."', ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."', rack='".$rack."'";
 		if($this->db->simple_query($sql)):
 			return $str;
 		else:

@@ -255,7 +255,7 @@ class Settings extends CI_Controller
 		$str = $this->sets->get_etc_hosts_list();
 		
 		$this->load->model('ehm_installation_model', 'install');
-		echo $this->install->push_setting_files($ip, '/etc/hosts', $str); #full path of /etc/hosts
+		echo $this->install->push_files($ip, '/etc/hosts', $str); #full path of /etc/hosts
 	}
 	
 	public function PushGeneralSettings()

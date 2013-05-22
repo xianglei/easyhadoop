@@ -127,6 +127,36 @@ class Ehm_installation_model extends CI_Model
 		return $str;
 	}
 	
+	public function push_files($host, $filename, $content)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('agent_thrift_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(100000);
+		$this->socket->setRecvTimeout(100000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		try
+		{
+			$this->transport->open();
+			$content = htmlspecialchars_decode($content);
+			$str = $this->ehm->FileTransfer($filename, $content);
+			if (trim($str) == ""):
+				$str = '{"filename":"'.$filename.'","status":"success","node":"'.$host.'"}';
+			else:
+				$str = '{"filename":"'.$filename.'","status":"'.$str.'","node":"'.$host.'"}';
+			endif;
+			$this->transport->close();
+		}
+		catch(Exception $e)
+		{
+			$str = 'Caught exception: '.  $e->getMessage(). "\n";
+		}
+		return $str;
+	}
+	
 	public function execute_shell_script($host, $commands)
 	{
 		$this->ehm_host = $host;

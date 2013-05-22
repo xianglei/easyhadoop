@@ -146,7 +146,7 @@ class Manage extends CI_Controller
 		$ssh_user = $this->input->post('ssh_user');
 		$ssh_pass = $this->input->post('ssh_pass');
 		$rack = $this->input->post('rack');
-		$str = $this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);echo $str;
+		$str = $this->hosts->insert_host($ip, $role, $ssh_user, $ssh_pass, $rack);echo $str;
 		
 		$token = $this->config->item('token');
 		$url = 'http://'.$ip.':'.$this->config->item('agent_http_port').'/token/CreateToken/'.$token; //create token file on client node
@@ -174,7 +174,7 @@ class Manage extends CI_Controller
 			$tmp = json_decode($json, TRUE);
 			$hostname = $tmp['os.hostname'];
 			
-			$str = $this->hosts->insert_host($hostname, $ip, $role, $ssh_user, $ssh_pass, $rack);echo $str;
+			$str = $this->hosts->insert_host($ip, $role, $ssh_user, $ssh_pass, $rack);echo $str;
 		
 			$token = $this->config->item('token');
 			$url = 'http://'.$ip.':'.$this->config->item('agent_http_port').'/token/CreateToken/'.$token; //create token file on client node
