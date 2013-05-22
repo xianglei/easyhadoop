@@ -32,7 +32,7 @@ class Token:
 repo = 'http://42.96.141.99/'
 
 os.system('yum install -y php53 php53-cli php53-devel php53-common httpd httpd-devel php53-mbstring php53-mysql php53-pdo php53-process mysql mysql-devel mysql-server wget lrzsz dos2unix pexpect libxml2 libxml2-devel MySQL-python')
-os.system('service mysqld start')
+os.system('/sbin/service mysqld start')
 os.system('mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"')
 os.system('mysql -hlocalhost -uroot easyhadoop < easyhadoop.sql')
 os.system('mysql -hlocalhost -uroot easyhadoop < patch-0001.sql')
@@ -69,7 +69,12 @@ if(os.path.isfile('./hadoop/lzo-devel-2.06-1.el6.rfx.x86_64.rpm')) == False:
 	
 os.system('rpm -Uvh ./NodeAgent-1.2.0-1.x86_64.rpm')
 os.system('cp -R * /var/www/html')
-os.system('service httpd start')
+os.system('/sbin/service httpd start')
+os.system('echo "service httpd start" >> /etc/rc.local')
+os.system('echo "service mysqld start" >> /etc/rc.local')
+os.system('echo "python /usr/local/ehm_agent/NodeAgent.py -s restart" >> /etc/rc.local')
+os.system('/sbin/service iptables stop')
+os.system('/sbin/chkconfig --del iptables')
 print "/*************************************************************/"
 print "Download Hadoop installation and runtime libaries complete."
 print "Generate token key..."
@@ -89,7 +94,5 @@ f = open(filename, 'w')
 f.write(config_php)
 f.close()
 print '/var/www/html/config.inc.php complete'
-print 'Starting agent...'
-os.system('python /usr/local/ehm_agent/NodeAgent.py -s start')
 print "Access EasyHadoopCentral from your web browser."
 print "/*************************************************************/"

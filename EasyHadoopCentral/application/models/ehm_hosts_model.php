@@ -264,7 +264,7 @@ class Ehm_hosts_model extends CI_Model
 		}
 		else
 		{
-			if ($fp = @fsockopen($ip, $this->config->item('ehm_port'), $errstr, $errno, 5))
+			if ($fp = @fsockopen($ip, $this->config->item('agent_thrift_port'), $errstr, $errno, 5))
 			{
 				$status = '{"status":"TRUE"}';
 			}
@@ -311,7 +311,7 @@ class Ehm_hosts_model extends CI_Model
 				$ip = $host;
 				$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm -d '.$ip;
 				$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
-				$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "rpm -ivh ~/NodeAgent-1.2.0-1.x86_64.rpm" -d '.$ip;
+				$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "rpm -ivh ~/NodeAgent-1.2.0-1.x86_64.rpm --replacepkgs" -d '.$ip;
 				//$str .= exec($command);
 				$str .= $this->execute_shell_script($admin_ip,$command);//exec($command);
 			}
@@ -321,7 +321,7 @@ class Ehm_hosts_model extends CI_Model
 			}
 		}
 		
-		$json = $this->hosts->get_node_dist(trim($v));
+		$json = $this->hosts->get_node_dist(trim($ip));
 		$tmp = json_decode($json, TRUE);
 		$hostname = $tmp['os.hostname'];
 		
