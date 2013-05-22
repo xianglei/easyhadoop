@@ -335,6 +335,11 @@ class Ehm_hosts_model extends CI_Model
 	
 	public function update_host($host_id, $hostname, $host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
+	
+		$json = $this->hosts->get_node_dist(trim($host));
+		$tmp = json_decode($json, TRUE);
+		$hostname = $tmp['os.hostname'];
+		
 		$sql = "update ehm_hosts set hostname='".$hostname."' , ip='".$host."', role='".$role."', ssh_user='".$ssh_user."', ssh_pass='".$ssh_pass."', rack='".$rack."' where host_id='".$host_id."'";
 		if ($this->db->simple_query($sql)):
 			return TRUE;

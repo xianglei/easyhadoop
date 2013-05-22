@@ -130,9 +130,9 @@ function get_mount_point(host_id)
 	<div class="modal-body">
 		<table>
 			<tr>
-				<td>
+				<!--<td>
 				<label><?php echo $common_hostname;?></label><input type="text" placeholder="<?php echo $common_hostname;?>" name="hostname" value="<?php echo $item->hostname;?>" /><br />
-				</td>
+				</td>-->
 				<td>
 				<label><?php echo $common_ip_addr;?></label><input type="text" placeholder="<?php echo $common_ip_addr;?>" name="ipaddr" value="<?php echo $item->ip;?>" /><br />
 				</td>

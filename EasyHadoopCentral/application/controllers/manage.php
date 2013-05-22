@@ -170,14 +170,10 @@ class Manage extends CI_Controller
 		$i = 0;
 		foreach($ip_arr as $k => $v)
 		{
-			$json = $this->hosts->get_node_dist(trim($v));
-			$tmp = json_decode($json, TRUE);
-			$hostname = $tmp['os.hostname'];
-			
-			$str = $this->hosts->insert_host($ip, $role, $ssh_user, $ssh_pass, $rack);echo $str;
+			$str = $this->hosts->insert_host($v, $role, $ssh_user, $ssh_pass, $rack);echo $str;
 		
 			$token = $this->config->item('token');
-			$url = 'http://'.$ip.':'.$this->config->item('agent_http_port').'/token/CreateToken/'.$token; //create token file on client node
+			$url = 'http://'.$v.':'.$this->config->item('agent_http_port').'/token/CreateToken/'.$token; //create token file on client node
 			$str = file_get_contents($url);
 			echo $str;
 			$i++;
