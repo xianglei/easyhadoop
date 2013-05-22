@@ -16,9 +16,9 @@
 		<div class="alert alert-error"><?php echo $common_add_node_tips?></div>
 		<table>
 			<tr>
-				<td>
+				<!--<td>
 				<label><?php echo $common_hostname;?></label><input type="text" placeholder="<?php echo $common_hostname;?>" name="hostname" /><br />
-				</td>
+				</td>-->
 				<td>
 				<label><?php echo $common_ip_addr;?></label><input type="text" placeholder="<?php echo $common_ip_addr;?>" name="ipaddr" /><br />
 				</td>
