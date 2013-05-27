@@ -113,7 +113,7 @@ class Install extends CI_Controller
 		echo $json;
 	}
 	
-	public function Environment()
+	/*public function Environment()
 	{
 		$host_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -123,9 +123,9 @@ class Install extends CI_Controller
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_environment($ip);
 		echo str_replace("\n","<br />",$html);
-	}
+	}*/
 	
-	public function LzoRpm()
+	/*public function LzoRpm()
 	{
 		$host_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -135,9 +135,9 @@ class Install extends CI_Controller
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_lzo_rpm($ip);
 		echo str_replace("\n","<br />",$html);
-	}
+	}*/
 	
-	public function Lzo()
+	/*public function Lzo()
 	{
 		$host_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -147,9 +147,9 @@ class Install extends CI_Controller
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_lzo($ip);
 		echo str_replace("\n","<br />",$html);
-	}
+	}*/
 	
-	public function Jdk()
+	/*public function Jdk()
 	{
 		$host_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -159,9 +159,9 @@ class Install extends CI_Controller
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_java($ip);
 		echo str_replace("\n","<br />",$html);
-	}
+	}*/
 	
-	public function Lzop()
+	/*public function Lzop()
 	{
 		$host_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -171,9 +171,9 @@ class Install extends CI_Controller
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_lzop($ip);
 		echo str_replace("\n","<br />",$html);
-	}
+	}*/
 	
-	public function Hadoop()
+	/*public function Hadoop()
 	{
 		$host_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -183,9 +183,9 @@ class Install extends CI_Controller
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_hadoop($ip);
 		echo str_replace("\n","<br />",$html);
-	}
+	}*/
 	
-	public function Gpl()
+	/*public function Gpl()
 	{
 		$host_id = $this->uri->segment(3,0);
 		$this->load->model('ehm_hosts_model', 'hosts');
@@ -194,6 +194,18 @@ class Install extends CI_Controller
 		
 		$this->load->model('ehm_installation_model', 'install');
 		$html = $this->install->install_hadoopgpl($ip);
+		echo str_replace("\n","<br />",$html);
+	}*/
+	
+	public function Bin()
+	{
+		$host_id = $this->uri->segment(3,0);
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		
+		$this->load->model('ehm_installation_model', 'install');
+		$html = $this->install->install_bin($ip);
 		echo str_replace("\n","<br />",$html);
 	}
 }

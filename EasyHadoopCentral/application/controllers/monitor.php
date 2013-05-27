@@ -230,7 +230,7 @@ class Monitor extends CI_Controller
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
 		
-		$json = $this->monitor->get_namenode_jmx($ip, $qry="");
+		$json = $this->monitor->get_namenode_jmx($ip, $qry="Hadoop:service=NameNode,name=NameNodeInfo");
 		$json = $this->aux->parse_jmx_json($json, $role);
 		
 		echo $json;
@@ -246,7 +246,7 @@ class Monitor extends CI_Controller
 		$this->load->model('ehm_monitor_model', 'monitor');
 		$this->load->model('ehm_auxiliary_model', 'aux');
 		
-		$json = $this->monitor->get_jobtracker_jmx($ip, $qry="");
+		$json = $this->monitor->get_jobtracker_jmx($ip, $qry="Hadoop:service=JobTracker,name=JobTrackerMetrics");
 		$json = $this->aux->parse_jmx_json($json, $role);
 		
 		echo $json;
@@ -703,6 +703,119 @@ class Monitor extends CI_Controller
 		$this->load->model('ehm_monitor_model', 'monitor');
 		
 		echo $json = str_replace(' ','',$this->monitor->get_network_traffic($ip));
+	}
+	
+	public function RoleJVM()
+	{
+		#Generate header
+		$this->lang->load('commons');
+		$data['common_lang_set'] = $this->lang->line('common_lang_set');
+		$data['common_title'] = $this->lang->line('common_title');
+		$this->load->view('header',$data);
+		
+		#generate navigation bar
+		$data['common_index_page'] = $this->lang->line('common_index_page');
+		$data['common_node_manager'] = $this->lang->line('common_node_manager');
+		$data['common_node_monitor'] = $this->lang->line('common_node_monitor');
+		$data['common_install'] = $this->lang->line('common_install');
+		$data['common_host_settings'] = $this->lang->line('common_host_settings');
+		$data['common_node_operate'] = $this->lang->line('common_node_operate');
+		$data['common_user_admin'] = $this->lang->line('common_user_admin');
+		$data['common_log_out'] = $this->lang->line('common_log_out');
+		$data['common_hadoop_node_operate'] = $this->lang->line('common_hadoop_node_operate');
+		$data['common_hbase_node_operate'] = $this->lang->line('common_hbase_node_operate');
+		$data['common_hadoop_host_settings'] = $this->lang->line('common_hadoop_host_settings');
+		$data['common_hbase_host_settings'] = $this->lang->line('common_hbase_host_settings');
+		$data['common_install_hadoop'] = $this->lang->line('common_install_hadoop');
+		$data['common_install_hbase'] = $this->lang->line('common_install_hbase');
+		$data['common_hdfs_manage'] = $this->lang->line('common_hdfs_manage');
+		$data['common_node_role'] = $this->lang->line('common_node_role');
+		$this->load->view('nav_bar', $data);
+		
+		$this->load->view('div_fluid');
+		$this->load->view('div_row_fluid');
+		
+		$data['common_storage_status'] = $this->lang->line('common_storage_status');
+		$data['common_mem_status'] = $this->lang->line('common_mem_status');
+		$data['common_cpu_status'] = $this->lang->line('common_cpu_status');
+		$data['common_loadavg_status'] = $this->lang->line('common_loadavg_status');
+		$data['common_mapred_status'] = $this->lang->line('common_mapred_status');
+		$this->load->view('ehm_hosts_monitor_nav', $data);
+		
+		$data['common_hostname'] = $this->lang->line('common_hostname');
+		$data['common_ip_addr'] = $this->lang->line('common_ip_addr');
+		$data['common_map_status'] = $this->lang->line('common_map_status');
+		$data['common_reduce_status'] = $this->lang->line('common_reduce_status');
+		
+		$this->load->model('ehm_monitor_model', 'monitor');
+		$this->load->model('ehm_auxiliary_model', 'aux');
+		$this->load->model('ehm_hosts_model', 'hosts');
+		
+		$result = $this->hosts->get_jobtracker_list();
+		if(@$result[0]->host_id != "")
+			$data['jobtracker_host_id'] = $result[0]->host_id;
+		else
+			$data['jobtracker_host_id'] = "0";
+		unset ($result);
+		
+		#generate pagination
+		$this->load->library('pagination');
+		$config['base_url'] = $this->config->base_url() . 'index.php/monitor/rolejvm/';
+		$config['total_rows'] = $this->hosts->count_hosts_by_role("tasktracker")->num_rows();
+		$config['per_page'] = 10;
+		$offset = $this->uri->segment(3,0);
+		if($offset == 0):
+			$offset = 0;
+		else:
+			$offset = ($offset / $config['per_page']) * $config['per_page'];
+		endif;
+		$this->pagination->initialize($config);
+		$data['pagination'] = $this->pagination->create_links();
+		$data['results'] = $this->hosts->get_datanode_list($config['per_page'], $offset);
+		
+		$this->load->view('ehm_role_jvm_monitor', $data);
+		
+		$this->load->view('div_end');
+		$this->load->view('div_end');
+		
+		#generaet footer
+		$this->load->view('footer', $data);
+	}
+	
+	public function GetRoleJVM()
+	{
+		$host_id = $this->uri->segment(3,0);
+		$role = $this->uri->segment(4,0);
+		$this->load->model('ehm_hosts_model', 'hosts');
+		$result = $this->hosts->get_host_by_host_id($host_id);
+		$ip = $result->ip;
+		$this->load->model('ehm_monitor_model', 'monitor');
+		
+		switch($role)
+		{
+			case "namenode":
+				$qry = "Hadoop:service=NameNode,name=jvm";
+				$str = $this->monitor->get_namenode_jmx($ip, $qry);
+				break;
+			case "jobtracker":
+				$qry = "Hadoop:service=JobTracker,name=jvm";
+				$str = $this->monitor->get_jobtracker_jmx($ip, $qry);
+				break;
+			case "secondarynamenode":
+				$qry = "Hadoop:service=SecondaryNameNode,name=jvm";
+				$str = $this->monitor->get_secondarynamenode_jmx($ip, $qry);
+				break;
+			case "datanode":
+				$qry = "Hadoop:service=DataNode,name=jvm";
+				$str = $this->monitor->get_datanode_jmx($ip, $qry);
+				break;
+			case "tasktracker":
+				$qry = "Hadoop:service=TaskTracker,name=jvm";
+				$str = $this->monitor->get_tasktracker_jmx($ip, $qry);
+				break;
+		}
+		$json = json_decode($str,TRUE);
+		echo json_encode($json['beans'][0]);
 	}
 }
 

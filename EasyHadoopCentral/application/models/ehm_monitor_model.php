@@ -25,7 +25,7 @@ class Ehm_monitor_model extends CI_Model
 		$this->ehm_port = $this->config->item('agent_http_port');
 		$token = $this->config->item('token');
 		
-		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('jobtracker_port').'/Hadoop:service=JobTracker,name=JobTrackerMetrics';
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('jobtracker_port').'/'.$qry;
 		try
 		{
 			$str = file_get_contents($url);
@@ -43,7 +43,7 @@ class Ehm_monitor_model extends CI_Model
 		$this->ehm_port = $this->config->item('agent_http_port');
 		$token = $this->config->item('token');
 		
-		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('tasktracker_port').'/';
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('tasktracker_port').'/'.$qry;
 		try
 		{
 			$str = file_get_contents($url);
@@ -61,7 +61,7 @@ class Ehm_monitor_model extends CI_Model
 		$this->ehm_port = $this->config->item('agent_http_port');
 		$token = $this->config->item('token');
 
-		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('namenode_port').'/Hadoop:service=NameNode,name=NameNodeInfo';
+		$url = 'http://'.$host.':'.$this->ehm_port.'/jmx/GetJmx/'.$token.'/'.$host.'/'.$this->config->item('namenode_port').'/'.$qry;
 		try
 		{
 			$str = file_get_contents($url);

@@ -11,14 +11,14 @@ function push_install_files_action(host_id)
 	$.get('<?php echo $this->config->base_url();?>index.php/install/pushfiles/' + host_id,{}, function(data){
 		var html = data;
 		$('#install_name_'+host_id).html('<?php echo $common_push_hadoop_files;?>');
-		$('#install_progress_'+host_id).attr("style", "width: 5%;");
+		$('#install_progress_'+host_id).attr("style", "width: 30%;");
 		$('#install_hadoop_action_status_' + host_id).html(html);
 		//$('#push_install_files_status_' + host_id).html(json);
-		install_environment(host_id);
+		install_bin(host_id);
 	});
 }
 
-function install_environment(host_id)
+/*function install_environment(host_id)
 {
 	$.ajax({
 		url: '<?php echo $this->config->base_url();?>index.php/install/environment/' + host_id,
@@ -31,9 +31,9 @@ function install_environment(host_id)
 			install_lzorpm(host_id);
 		}
 	});
-}
+}*/
 
-function install_lzorpm(host_id)
+/*function install_lzorpm(host_id)
 {
 	$.ajax({
 		url: '<?php echo $this->config->base_url();?>index.php/install/lzorpm/' + host_id,
@@ -47,9 +47,9 @@ function install_lzorpm(host_id)
 			install_lzo(host_id);
 		}
 	});
-}
+}*/
 
-function install_lzo(host_id)
+/*function install_lzo(host_id)
 {
 	$.ajax({
 		url: '<?php echo $this->config->base_url();?>index.php/install/lzo/' + host_id,
@@ -63,9 +63,9 @@ function install_lzo(host_id)
 			install_lzop(host_id);
 		}
 	});
-}
+}*/
 
-function install_lzop(host_id)
+/*function install_lzop(host_id)
 {
 	$.ajax({
 		url: '<?php echo $this->config->base_url();?>index.php/install/lzop/' +host_id,
@@ -79,9 +79,9 @@ function install_lzop(host_id)
 			install_jdk(host_id);
 		}
 	});
-}
+}*/
 
-function install_jdk(host_id)
+/*function install_jdk(host_id)
 {
 	$.ajax({
 		url: '<?php echo $this->config->base_url();?>index.php/install/jdk/' + host_id,
@@ -95,9 +95,9 @@ function install_jdk(host_id)
 			install_hadoop(host_id);
 		}
 	});
-}
+}*/
 
-function install_hadoop(host_id)
+/*function install_hadoop(host_id)
 {
 	$.ajax({
 		url: '<?php echo $this->config->base_url();?>index.php/install/hadoop/' + host_id,
@@ -111,12 +111,28 @@ function install_hadoop(host_id)
 			install_gpl(host_id)
 		}
 	});
-}
+}*/
 
-function install_gpl(host_id)
+/*function install_gpl(host_id)
 {
 	$.ajax({
 		url: '<?php echo $this->config->base_url();?>index.php/install/gpl/'+host_id,
+		async: true,
+		success: function(data)
+		{
+			$('#install_name_'+host_id).html('<?php echo $common_install_hadoopgpl;?>');
+			$('#install_progress_'+host_id).attr("style", "width: 100%;");
+			$('#install_hadoop_action_status_'+host_id).empty();
+			$('#install_hadoop_action_status_'+host_id).html(data);
+			install_done(host_id);
+		}
+	});
+}*/
+
+function install_bin(host_id)
+{
+	$.ajax({
+		url: '<?php echo $this->config->base_url();?>index.php/install/bin/'+host_id,
 		async: true,
 		success: function(data)
 		{

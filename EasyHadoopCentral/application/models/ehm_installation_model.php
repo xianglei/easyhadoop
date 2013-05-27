@@ -181,7 +181,7 @@ class Ehm_installation_model extends CI_Model
 		return $str;
 	}
 
-	public function user_add_group_add($host)
+	/*public function user_add_group_add($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -209,9 +209,10 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
-	}
+	}*/
+	
 
-	public function install_hadoop($host)
+	/*public function install_hadoop($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -238,9 +239,9 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
-	}
+	}*/
 	
-	public function install_java($host)
+	/*public function install_java($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -267,9 +268,9 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
-	}
+	}*/
 	
-	public function install_lzop($host)
+	/*public function install_lzop($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -299,9 +300,9 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
-	}
+	}*/
 	
-	public function install_hadoopgpl($host)
+	/*public function install_hadoopgpl($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -333,9 +334,75 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
+	}*/
+	
+	public function install_bin($host)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('agent_thrift_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(300000);
+		$this->socket->setRecvTimeout(300000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		$token = $this->config->item('token');
+		
+		$sys_json = $this->get_sys_version($host);
+		$json = json_decode($sys_json,TRUE);
+		
+		$cmd = "";
+		if($json['os.system'] == "centos" || $json['os.system'] == "redhat" || $json['os.system'] == "CentOS")
+		{
+			if(intval($json['os.version']) < 6)
+			{
+				$cmd = "cd ".$this->config->item('dest_folder')."
+				chmod +x ".$this->config->item('bin_el5_filename')."
+				".$this->config->item('dest_folder')."/".$this->config->item('bin_el5_filename')."
+				rm -f ".$this->config->item('dest_folder')."/".$this->config->item('bin_el5_filename')
+				."";
+			}
+			elseif(intval($json['os.version']) >= 6)
+			{
+				$cmd = "cd ".$this->config->item('dest_folder')."
+				chmod +x ".$this->config->item('bin_el6_filename')."
+				".$this->config->item('dest_folder')."/".$this->config->item('bin_el6_filename')."
+				rm -f ".$this->config->item('dest_folder')."/".$this->config->item('bin_el6_filename')
+				."";
+			}
+			else
+			{
+				return "Unsupport system version";
+			}
+		}
+		elseif($json['os.system'] == "ubuntu" || $json['os.system'] == 'debian' || $json['os.system'] == "Ubuntu")
+		{
+			return "Will be supported soon";
+		}
+		elseif($json['os.system'] == "suse" || $json['os.system'] == "SuSE")
+		{
+			return "Will be supported soon";
+		}
+		else
+		{
+			return "Unknown system";
+		}
+		try
+		{
+			$this->transport->open();
+			$str = $this->ehm->RunCommand($cmd);
+			$this->transport->close();
+		}
+		catch(Exception $e)
+		{
+			$str = 'Caught exception: '.  $e->getMessage(). "\n";
+		}
+		sleep(1);
+		return $str;
 	}
 	
-	public function install_lzo_rpm($host)
+	/*public function install_lzo_rpm($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -405,9 +472,9 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
-	}
+	}*/
 	
-	public function install_lzo($host)
+	/*public function install_lzo($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -437,9 +504,9 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
-	}
+	}*/
 	
-	public function install_environment($host)
+	/*public function install_environment($host)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
@@ -469,7 +536,7 @@ class Ehm_installation_model extends CI_Model
 		}
 		sleep(1);
 		return $str;
-	}
+	}*/
 	
 	public function get_sys_version($host)
 	{

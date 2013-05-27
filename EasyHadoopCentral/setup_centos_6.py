@@ -46,27 +46,9 @@ print "/*************************************************************/"
 
 os.system('mkdir -p ./hadoop')
 #os.system('rm -f ./hadoop/*')
-if(os.path.isfile('./hadoop/hadoop-1.1.2-1.x86_64.rpm')) == False: #hadoop-1.0.4-1
-	os.system('wget '+repo+'hadoop/hadoop-1.1.2-1.x86_64.rpm -P ./hadoop/')
-	
-if(os.path.isfile('./hadoop/jdk-6u45-linux-amd64.rpm')) == False: #jdk-6u39
-	os.system('wget '+repo+'jdk/jdk-6u45-linux-amd64.rpm -P ./hadoop/')
-	
-if(os.path.isfile('./hadoop/hadoop-gpl-packaging-0.6.1-1.x86_64.rpm')) == False:
-	os.system('wget '+repo+'resources/x64/hadoop-gpl-packaging-0.6.1-1.x86_64.rpm -P ./hadoop/')
-	
-if(os.path.isfile('./hadoop/lzo-2.06.tar.gz')) == False:
-	os.system('wget '+repo+'resources/lzo-2.06.tar.gz -P ./hadoop/')
-	
-if(os.path.isfile('./hadoop/lzop-1.03.tar.gz')) == False:
-	os.system('wget '+repo+'resources/lzop-1.03.tar.gz -P ./hadoop/')
-	
-if(os.path.isfile('./hadoop/lzo-2.06-1.el6.rfx.x86_64.rpm')) == False:
-	os.system('wget '+repo+'resources/x64/lzo-2.06-1.el6.rfx.x86_64.rpm -P ./hadoop/')
-	
-if(os.path.isfile('./hadoop/lzo-devel-2.06-1.el6.rfx.x86_64.rpm')) == False:
-	os.system('wget '+repo+'resources/x64/lzo-devel-2.06-1.el6.rfx.x86_64.rpm -P ./hadoop/')
-	
+if(os.path.isfile('./hadoop/centos_6.bin')) == False: #hadoop-1.0.4-1
+	os.system('wget '+repo+'centos_6.bin -P ./hadoop/')
+
 os.system('rpm -Uvh ./NodeAgent-1.2.0-1.x86_64.rpm')
 os.system('cp -R * /var/www/html')
 os.system('/sbin/service httpd start')
