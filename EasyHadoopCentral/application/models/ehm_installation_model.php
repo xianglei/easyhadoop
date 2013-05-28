@@ -33,6 +33,7 @@ class Ehm_installation_model extends CI_Model
 		$this->protocol = new TBinaryProtocol($this->transport);
 		$this->ehm = new EasyHadoopClient($this->protocol);
 		
+		@ini_set('memory_limit', '-1');
 		$content = read_file($this->config->item('src_folder') . $filename);
 		
 		try

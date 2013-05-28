@@ -136,7 +136,7 @@ function install_bin(host_id)
 		async: true,
 		success: function(data)
 		{
-			$('#install_name_'+host_id).html('<?php echo $common_install_hadoopgpl;?>');
+			$('#install_name_'+host_id).html('<?php echo $common_install_hadoop;?>');
 			$('#install_progress_'+host_id).attr("style", "width: 100%;");
 			$('#install_hadoop_action_status_'+host_id).empty();
 			$('#install_hadoop_action_status_'+host_id).html(data);
@@ -147,7 +147,7 @@ function install_bin(host_id)
 
 function install_done(host_id)
 {
-	$('#install_hadoop_action_status_'+host_id).html("<?php echo $common_install_complete;?>");
+	$('#install_hadoop_action_status_'+host_id).append("<?php echo $common_install_complete;?>");
 }
 </script>
 	<!--<div class="alert alert-error"><?php //echo $common_add_node_tips?></div>-->
