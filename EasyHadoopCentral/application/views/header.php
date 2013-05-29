@@ -19,20 +19,8 @@
 
     <!-- Le fav and touch icons -->
     <script src="<?php echo $this->config->base_url();?>js/bootstrap.min.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/jquery-1.9.1.min.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-transition.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-alert.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-modal.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-dropdown.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-scrollspy.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-tab.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-tooltip.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-popover.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-button.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-collapse.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-carousel.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-typeahead.js"></script>
-    <script src="<?php echo $this->config->base_url();?>js/bootstrap-affix.js"></script>
+    <script src="<?php echo $this->config->base_url();?>js/jquery-1.10.0.min.js"></script>
+    <script src="<?php echo $this->config->base_url();?>js/bootstrap.js"></script>
     <script src="<?php echo $this->config->base_url();?>js/application.js"></script>
 	<script src="<?php echo $this->config->base_url();?>js/highcharts.js"></script>
 	<script src="<?php echo $this->config->base_url();?>js/highcharts-more.js"></script>
