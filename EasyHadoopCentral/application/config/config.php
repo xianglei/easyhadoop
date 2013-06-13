@@ -385,6 +385,7 @@ $config['lzo_el6_rpm_devel_filename'] = 'lzo-devel-2.06-1.el6.rfx.x86_64.rpm';
 $config['lzo_filename'] = 'lzo-2.06.tar.gz';*/
 $config['bin_el6_filename'] = 'centos_6.bin';
 $config['bin_el5_filename'] = 'centos_5.bin';
+$config['bin_ubuntu_filename'] = 'ubuntu.bin';
 
 $config['jobtracker'] = 'jobtracker';
 $config['tasktracker'] = 'tasktracker';

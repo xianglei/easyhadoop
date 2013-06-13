@@ -31,8 +31,7 @@ class Token:
 
 repo = 'http://42.96.141.99/'
 
-os.system('yum install -y php php-cli php-devel php-common httpd httpd-devel php-mbstring php-mysql php-pdo php-process mysql mysql-devel mysql-server mysql-libs wget lrzsz dos2unix pexpect libxml2 libxml2-devel MySQL-python curl curl-devel')
-os.system('/sbin/service mysqld start')
+os.system('apt-get install apache2 apache2-mpm-prefork libapache2-mod-php5 php5 php5-dev php5-cgi php5-cli php5-common php5-mysql mysql-client mysql-server mysql-common')
 os.system('mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"')
 os.system('mysql -hlocalhost -uroot easyhadoop < easyhadoop.sql')
 os.system('mysql -hlocalhost -uroot easyhadoop < patch-0001.sql')
@@ -46,14 +45,14 @@ print "/*************************************************************/"
 
 os.system('mkdir -p ./hadoop')
 #os.system('rm -f ./hadoop/*')
-if(os.path.isfile('./hadoop/centos_6.bin')) == False: #hadoop-1.1.2-1
-	os.system('wget '+repo+'centos_6.bin -P ./hadoop/')
-if(os.path.isfile('./NodeAgent-1.2.0-1.x86_64.rpm')) == False:
-	os.system('wget '+repo+'/agent/NodeAgent-1.2.0-1.x86_64.rpm')
+if(os.path.isfile('./hadoop/ubuntu.bin')) == False: #hadoop-1.0.4-1
+	os.system('wget '+repo+'ubuntu.bin -P ./hadoop/')
+if(os.path.isfile('./NodeAgent_1.2.0-2_amd64.deb')) == False:
+	os.system('wget '+repo+'/agent/NodeAgent_1.2.0-2_amd64.deb')
 
-os.system('rpm -Uvh ./NodeAgent-1.2.0-1.x86_64.rpm')
-os.system('cp -R * /var/www/html')
-os.system('/sbin/service httpd start')
+os.system('dpkg -i ./NodeAgent_1.2.0-2_amd64.deb')
+os.system('cp -R * /var/www')
+os.system('rm -f /var/www/index.html')
 os.system('echo "service httpd start" >> /etc/rc.local')
 os.system('echo "service mysqld start" >> /etc/rc.local')
 os.system('echo "python /usr/local/ehm_agent/NodeAgent.py -s restart" >> /etc/rc.local')
@@ -65,7 +64,7 @@ print "Generate token key..."
 token = Token()
 t = token.CreateToken()
 print "token key complete"
-print "Generate /var/www/html/config.inc.php..."
+print "Generate /var/www/config.inc.php..."
 config_php = ''
 config_php += '<?php\n\n'
 config_php += '#this is user definable area\n#这里是用户定义区域\n'
@@ -73,10 +72,10 @@ config_php += '$configure[\'language\'] = \'english\';\n\n'
 config_php += '$configure[\'packages_source_address\'] = \'42.96.141.99\';\n\n'
 config_php += '$configure[\'token\'] = \'%s\';\n\n' % t
 config_php += '?>'
-filename = '/var/www/html/config.inc.php'
+filename = '/var/www/config.inc.php'
 f = open(filename, 'w')
 f.write(config_php)
 f.close()
-print '/var/www/html/config.inc.php complete'
+print '/var/www/config.inc.php complete'
 print "Access EasyHadoopCentral from your web browser."
 print "/*************************************************************/"

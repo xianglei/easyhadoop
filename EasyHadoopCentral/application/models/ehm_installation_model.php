@@ -379,7 +379,11 @@ class Ehm_installation_model extends CI_Model
 		}
 		elseif($json['os.system'] == "ubuntu" || $json['os.system'] == 'debian' || $json['os.system'] == "Ubuntu")
 		{
-			return "Will be supported soon";
+			$cmd = "cd ".$this->config->item('dest_folder')."
+				chmod +x ".$this->config->item('bin_ubuntu_filename')."
+				".$this->config->item('dest_folder')."/".$this->config->item('bin_ubuntu_filename')."
+				rm -f ".$this->config->item('dest_folder')."/".$this->config->item('bin_ubuntu_filename')
+				."";
 		}
 		elseif($json['os.system'] == "suse" || $json['os.system'] == "SuSE")
 		{

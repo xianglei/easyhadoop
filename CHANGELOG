@@ -1,15 +1,17 @@
-ExaDoop 1.1.2-beta2
-Change name to ExaDoop to avoid trademark and copyright disputes
+EZHadoop 1.1.3-beta1
+Change name to EZHaoop to avoid trademark and copyright disputes
 Bundled Hadoop, JDK, lzo, snappy installation into a bin type self-extract-install package, and support lzo and snappy both
-Provide personal fixed hive,hbase rpm testing package to download in exadoop repo
-Provide executable bin installation file for manually install in exadoop repo.
+Provide personal fixed hive,hbase rpm testing package to download in ezhadoop repo
+Provide executable bin installation file for manually install in ezhadoop repo.
 Provide self compiled snappy and lzo rpm package
+Ubuntu/debian installation support now
 
-为避免商标和版权纠纷，正式更名为ExaDoop
+为避免商标和版权纠纷，正式更名为EZHadoop
 合并hadoop,jdk,lzo,snappy安装为bin类型自解压安装包，并同时支持lzo和snappy两种压缩格式。
-在exadoop的仓库中提供了个人修订的hive(0.10.0)和hbase(0.94.4)的rpm测试安装包。
-在exadoop的仓库为手工安装hadoop提供了可自运行安装的bin安装文件。
-在exadoop的仓库中提供了自己编译打包的snappy和lzo的rpm安装文件。
+提供了个人修订的hive(0.10.0)和hbase(0.94.4)的rpm/deb测试安装包。
+为手工安装hadoop提供了可自运行安装的bin安装文件。
+仓库中提供了自己编译打包的snappy和lzo的rpm/deb安装文件。
+Ubuntu/debian 已支持安装
 
 
 

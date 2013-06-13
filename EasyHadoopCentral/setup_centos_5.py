@@ -48,6 +48,8 @@ os.system('mkdir -p ./hadoop')
 #os.system('rm -f ./hadoop/*')
 if(os.path.isfile('./hadoop/centos_5.bin')) == False: #hadoop-1.0.4-1
 	os.system('wget '+repo+'centos_5.bin -P ./hadoop/')
+if(os.path.isfile('./NodeAgent-1.2.0-1.x86_64.rpm')) == False:
+	os.system('wget '+repo+'/agent/NodeAgent-1.2.0-1.x86_64.rpm')
 	
 os.system('rpm -Uvh ./NodeAgent-1.2.0-1.x86_64.rpm')
 os.system('cp -R * /var/www/html')
