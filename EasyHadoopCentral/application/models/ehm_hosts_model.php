@@ -22,8 +22,14 @@ class Ehm_hosts_model extends CI_Model
 	{
 		parent::__construct();
 		$this->load->database();
+
+		$GLOBALS['THRIFT_ROOT'] = __DIR__ . "/../../libs/";
+		include_once $GLOBALS['THRIFT_ROOT'] . 'packages/EasyHadoop/EasyHadoop.php';
+		include_once $GLOBALS['THRIFT_ROOT'] . 'transport/TSocket.php';
+		include_once $GLOBALS['THRIFT_ROOT'] . 'transport/TTransport.php';
+		include_once $GLOBALS['THRIFT_ROOT'] . 'protocol/TBinaryProtocol.php';
 	}
-    	public function execute_shell_script($host, $commands)
+	public function execute_shell_script($host, $commands)
 	{
 		$this->ehm_host = $host;
 		$this->ehm_port = $this->config->item('agent_thrift_port');
