@@ -58,6 +58,7 @@ os.system('echo "service mysqld start" >> /etc/rc.local')
 os.system('echo "python /usr/local/ehm_agent/NodeAgent.py -s restart" >> /etc/rc.local')
 os.system('service iptables stop')
 os.system("sed -i 's/display_errors = On/display_errors = Off/g' /etc/php5/apache2/php.ini")
+os.system("sed -i 's/memory_limit = 128M/memory_limit = 256M/g' /etc/php5/apache2/php.ini")
 print "/*************************************************************/"
 print "Download Hadoop installation and runtime libaries complete."
 print "Generate token key..."
