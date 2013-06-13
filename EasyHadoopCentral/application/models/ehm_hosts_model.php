@@ -333,14 +333,14 @@ class Ehm_hosts_model extends CI_Model
 				{
 					$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm -d '.$ip;
 					$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
-					$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "rpm -ivh ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm --replacepkgs" -d '.$ip;
+					$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "rpm -ivh ~/NodeAgent-1.2.0-1.x86_64.rpm --replacepkgs" -d '.$ip;
 				//$str .= exec($command);
 				}
 				elseif(preg_match('/ubuntu/i',$_SERVER['SERVER_SOFTWARE']))
 				{
 					$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent_1.2.0-2_amd64.deb -d '.$ip;
 					$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
-					$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "dpkg -i ' . __DIR__ . '/../../NodeAgent_1.2.0-2_amd64.deb" -d '.$ip;
+					$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "dpkg -i ~/NodeAgent_1.2.0-2_amd64.deb" -d '.$ip;
 				}
 				else
 				{
