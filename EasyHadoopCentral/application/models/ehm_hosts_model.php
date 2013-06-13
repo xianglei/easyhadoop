@@ -445,6 +445,24 @@ if __name__==\"__main__\":
 		
 		return $str;
 	}
+	
+	public function get_sys_version($host)
+	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('agent_http_port');
+		$token = $this->config->item('token');
+
+		try
+		{
+			$url = 'http://'.$this->ehm_host.':'.$this->ehm_port.'/node/dist/'.$token;
+			$str = @file_get_contents($url);
+		}
+		catch(Exception $e)
+		{
+			$str = 'Caught exception: '.  $e->getMessage(). "\n";
+		}
+		return $str;
+	}
 }
 
 ?>
