@@ -31,7 +31,7 @@ class Token:
 
 repo = 'http://42.96.141.99/'
 
-os.system('apt-get install apache2 apache2-mpm-prefork libapache2-mod-php5 php5 php5-dev php5-cgi php5-cli php5-common php5-mysql mysql-client mysql-server mysql-common')
+os.system('apt-get install apache2 apache2-mpm-prefork libapache2-mod-php5 php5 php5-dev php5-cgi php5-cli php5-common php5-mysql mysql-client mysql-server mysql-common python-pexpect')
 os.system('mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"')
 os.system('mysql -hlocalhost -uroot easyhadoop < easyhadoop.sql')
 os.system('mysql -hlocalhost -uroot easyhadoop < patch-0001.sql')
@@ -56,8 +56,8 @@ os.system('rm -f /var/www/index.html')
 os.system('echo "service httpd start" >> /etc/rc.local')
 os.system('echo "service mysqld start" >> /etc/rc.local')
 os.system('echo "python /usr/local/ehm_agent/NodeAgent.py -s restart" >> /etc/rc.local')
-os.system('/sbin/service iptables stop')
-os.system('/sbin/chkconfig --del iptables')
+os.system('service iptables stop')
+os.system("sed -i 's/display_errors = On/display_errors = Off/g' /etc/php5/apache2/php.ini")
 print "/*************************************************************/"
 print "Download Hadoop installation and runtime libaries complete."
 print "Generate token key..."

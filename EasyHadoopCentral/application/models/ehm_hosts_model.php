@@ -300,6 +300,20 @@ class Ehm_hosts_model extends CI_Model
 	
 	public function insert_host($host, $role, $ssh_user = '', $ssh_pass = '', $rack = '1')
 	{
+		$this->ehm_host = $host;
+		$this->ehm_port = $this->config->item('agent_thrift_port');
+		$this->socket = new TSocket($this->ehm_host, $this->ehm_port);
+		$this->socket->setSendTimeout(300000);
+		$this->socket->setRecvTimeout(300000);
+		$this->transport = new TBufferedTransport($this->socket);
+		$this->protocol = new TBinaryProtocol($this->transport);
+		$this->ehm = new EasyHadoopClient($this->protocol);
+		
+		$token = $this->config->item('token');
+		
+		$sys_json = $this->get_sys_version($host);
+		$json = json_decode($sys_json,TRUE);
+	
 		$admin_ip=$_SERVER["SERVER_ADDR"];
 		
 		$str = "";
@@ -309,10 +323,23 @@ class Ehm_hosts_model extends CI_Model
 			{
 				$this->load->model('ehm_management_model','manage');
 				$ip = $host;
-				$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm -d '.$ip;
-				$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
-				$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "rpm -ivh ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm --replacepkgs" -d '.$ip;
+				if($json['os.system'] == "centos" || $json['os.system'] == "redhat" || $json['os.system'] == "CentOS")
+				{
+					$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm -d '.$ip;
+					$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
+					$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "rpm -ivh ' . __DIR__ . '/../../NodeAgent-1.2.0-1.x86_64.rpm --replacepkgs" -d '.$ip;
 				//$str .= exec($command);
+				}
+				elseif($json['os.system'] == "ubuntu" || $json['os.system'] == 'debian' || $json['os.system'] == "Ubuntu")
+				{
+					$command = 'python '. __DIR__ .'/../../expect.py -m scp -u '. $ssh_user .' -p '. $ssh_pass. ' -f ' . __DIR__ . '/../../NodeAgent_1.2.0-2_amd64.deb -d '.$ip;
+					$str = $this->execute_shell_script($admin_ip,$command);//exec($command);
+					$command = 'python '. __DIR__ .'/../../expect.py -m ssh -u '. $ssh_user .' -p '. $ssh_pass. ' -c "dpkg -i ' . __DIR__ . '/../../NodeAgent_1.2.0-2_amd64.deb" -d '.$ip;
+				}
+				else
+				{
+					return "Unknown system";
+				}
 				$str .= $this->execute_shell_script($admin_ip,$command);//exec($command);
 			}
 			catch(Exception $e)
