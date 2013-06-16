@@ -31,7 +31,7 @@ class Token:
 
 repo = 'http://42.96.141.99/'
 
-os.system('apt-get install apache2 apache2-mpm-prefork libapache2-mod-php5 php5 php5-dev php5-cgi php5-cli php5-common php5-mysql mysql-client mysql-server mysql-common python-pexpect')
+os.system('apt-get -y install apache2 apache2-mpm-prefork libapache2-mod-php5 php5 php5-dev php5-cgi php5-cli php5-common php5-mysql mysql-client mysql-server mysql-common python-pexpect')
 os.system('mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"')
 os.system('mysql -hlocalhost -uroot easyhadoop < easyhadoop.sql')
 os.system('mysql -hlocalhost -uroot easyhadoop < patch-0001.sql')
