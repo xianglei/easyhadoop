@@ -1,17 +1,17 @@
-EZHadoop 1.1.3-beta1
-Change name to EZHaoop to avoid trademark and copyright disputes
-Bundled Hadoop, JDK, lzo, snappy installation into a bin type self-extract-install package, and support lzo and snappy both
-Provide personal fixed hive,hbase rpm testing package to download in ezhadoop repo
-Provide executable bin installation file for manually install in ezhadoop repo.
+1.1.2-beta2
+Fix node add without agent start bug.
+Bundled Hadoop, JDK, lzo, snappy installation into a bin type self-extract-install package, and support lzo and snappy both(For test only)
+Provide personal fixed hive,hbase rpm testing package to download in repo
+Provide executable bin installation file for manually install in repo.
 Provide self compiled snappy and lzo rpm package
-Ubuntu/debian installation support now
+Ubuntu/debian installation supported now
 
-为避免商标和版权纠纷，正式更名为EZHadoop
-合并hadoop,jdk,lzo,snappy安装为bin类型自解压安装包，并同时支持lzo和snappy两种压缩格式。
-提供了个人修订的hive(0.10.0)和hbase(0.94.4)的rpm/deb测试安装包。
+修正节点添加时无法启动agent的bug
+合并hadoop,jdk,lzo,snappy安装为bin类型自解压安装包，并同时支持lzo和snappy两种压缩格式(仅为测试功能)。
+在仓库中提供了个人修订的hive(0.10.0)和hbase(0.94.4)的rpm/deb测试安装包。
 为手工安装hadoop提供了可自运行安装的bin安装文件。
 仓库中提供了自己编译打包的snappy和lzo的rpm/deb安装文件。
-Ubuntu/debian 已支持安装
+已支持 Ubuntu/debian 安装
 
 
 
