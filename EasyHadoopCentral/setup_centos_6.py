@@ -34,10 +34,10 @@ repo = 'http://42.96.141.99/'
 os.system('yum install -y php php-cli php-devel php-common httpd httpd-devel php-mbstring php-mysql php-pdo php-process mysql mysql-devel mysql-server mysql-libs wget lrzsz dos2unix pexpect libxml2 libxml2-devel MySQL-python curl curl-devel')
 os.system('/sbin/service mysqld start')
 os.system('mysql -hlocalhost -uroot -e"create database if not exists easyhadoop"')
-os.system('mysql -hlocalhost -uroot easyhadoop < easyhadoop.sql')
-os.system('mysql -hlocalhost -uroot easyhadoop < patch-0001.sql')
-os.system('mysql -hlocalhost -uroot easyhadoop < patch-0002.sql')
-os.system('mysql -hlocalhost -uroot easyhadoop < patch-0003.sql')
+os.system('mysql -hlocalhost -uroot --default-character-set=utf8 easyhadoop < easyhadoop.sql')
+os.system('mysql -hlocalhost -uroot --default-character-set=utf8 easyhadoop < patch-0001.sql')
+os.system('mysql -hlocalhost -uroot --default-character-set=utf8 easyhadoop < patch-0002.sql')
+os.system('mysql -hlocalhost -uroot --default-character-set=utf8 easyhadoop < patch-0003.sql')
 
 print "/*************************************************************/"
 print "Install basic environment complete, starting download from"

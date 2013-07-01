@@ -24,14 +24,15 @@ from multiprocessing import  Process, Value, Condition, reduction
 from TServer import TServer
 from thrift.transport.TTransport import TTransportException
 
-
 class TProcessPoolServer(TServer):
-    """Server with a fixed size pool of worker subprocesses to service requests
 
+    """
+    Server with a fixed size pool of worker subprocesses which service requests.
     Note that if you need shared state between the handlers - it's up to you!
     Written by Dvir Volk, doat.com
     """
-    def __init__(self, *args):
+
+    def __init__(self, * args):
         TServer.__init__(self, *args)
         self.numWorkers = 10
         self.workers = []
@@ -49,17 +50,18 @@ class TProcessPoolServer(TServer):
         self.numWorkers = num
 
     def workerProcess(self):
-        """Loop getting clients from the shared queue and process them"""
+        """Loop around getting clients from the shared queue and process them."""
+
         if self.postForkCallback:
             self.postForkCallback()
 
-        while self.isRunning.value:
+        while self.isRunning.value == True:
             try:
                 client = self.serverTransport.accept()
                 self.serveClient(client)
             except (KeyboardInterrupt, SystemExit):
                 return 0
-            except Exception as x:
+            except Exception, x:
                 logging.exception(x)
 
     def serveClient(self, client):
@@ -74,21 +76,23 @@ class TProcessPoolServer(TServer):
                 self.processor.process(iprot, oprot)
         except TTransportException, tx:
             pass
-        except Exception as x:
+        except Exception, x:
             logging.exception(x)
 
         itrans.close()
         otrans.close()
 
+
     def serve(self):
-        """Start workers and put into queue"""
-        # this is a shared state that can tell the workers to exit when False
+        """Start a fixed number of worker threads and put client into a queue"""
+
+        #this is a shared state that can tell the workers to exit when set as false
         self.isRunning.value = True
 
-        # first bind and listen to the port
+        #first bind and listen to the port
         self.serverTransport.listen()
 
-        # fork the children
+        #fork the children
         for i in range(self.numWorkers):
             try:
                 w = Process(target=self.workerProcess)
@@ -98,15 +102,17 @@ class TProcessPoolServer(TServer):
             except Exception, x:
                 logging.exception(x)
 
-        # wait until the condition is set by stop()
+        #wait until the condition is set by stop()
+
         while True:
+
             self.stopCondition.acquire()
             try:
                 self.stopCondition.wait()
                 break
             except (SystemExit, KeyboardInterrupt):
-                break
-            except Exception as x:
+		break
+            except Exception, x:
                 logging.exception(x)
 
         self.isRunning.value = False
@@ -116,3 +122,4 @@ class TProcessPoolServer(TServer):
         self.stopCondition.acquire()
         self.stopCondition.notify()
         self.stopCondition.release()
+

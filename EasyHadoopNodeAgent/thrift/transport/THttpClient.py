@@ -17,20 +17,16 @@
 # under the License.
 #
 
-import httplib
-import os
-import socket
-import sys
-import urllib
-import urlparse
-import warnings
-
+from TTransport import *
 from cStringIO import StringIO
 
-from TTransport import *
-
+import urlparse
+import httplib
+import warnings
+import socket
 
 class THttpClient(TTransportBase):
+
   """Http implementation of TTransport base."""
 
   def __init__(self, uri_or_host, port=None, path=None):
@@ -39,13 +35,10 @@ class THttpClient(TTransportBase):
     THttpClient(host, port, path) - deprecated
     THttpClient(uri)
 
-    Only the second supports https.
-    """
+    Only the second supports https."""
+
     if port is not None:
-      warnings.warn(
-        "Please use the THttpClient('http://host:port/path') syntax",
-        DeprecationWarning,
-        stacklevel=2)
+      warnings.warn("Please use the THttpClient('http://host:port/path') syntax", DeprecationWarning, stacklevel=2)
       self.host = uri_or_host
       self.port = port
       assert path
@@ -66,7 +59,6 @@ class THttpClient(TTransportBase):
     self.__wbuf = StringIO()
     self.__http = None
     self.__timeout = None
-    self.__custom_headers = None
 
   def open(self):
     if self.scheme == 'http':
@@ -79,7 +71,7 @@ class THttpClient(TTransportBase):
     self.__http = None
 
   def isOpen(self):
-    return self.__http is not None
+    return self.__http != None
 
   def setTimeout(self, ms):
     if not hasattr(socket, 'getdefaulttimeout'):
@@ -88,10 +80,7 @@ class THttpClient(TTransportBase):
     if ms is None:
       self.__timeout = None
     else:
-      self.__timeout = ms / 1000.0
-
-  def setCustomHeaders(self, headers):
-    self.__custom_headers = headers
+      self.__timeout = ms/1000.0
 
   def read(self, sz):
     return self.__http.file.read(sz)
@@ -111,7 +100,7 @@ class THttpClient(TTransportBase):
   def flush(self):
     if self.isOpen():
       self.close()
-    self.open()
+    self.open();
 
     # Pull data out of buffer
     data = self.__wbuf.getvalue()
@@ -124,18 +113,6 @@ class THttpClient(TTransportBase):
     self.__http.putheader('Host', self.host)
     self.__http.putheader('Content-Type', 'application/x-thrift')
     self.__http.putheader('Content-Length', str(len(data)))
-
-    if not self.__custom_headers or 'User-Agent' not in self.__custom_headers:
-      user_agent = 'Python/THttpClient'
-      script = os.path.basename(sys.argv[0])
-      if script:
-        user_agent = '%s (%s)' % (user_agent, urllib.quote(script))
-      self.__http.putheader('User-Agent', user_agent)
-
-    if self.__custom_headers:
-        for key, val in self.__custom_headers.iteritems():
-            self.__http.putheader(key, val)
-
     self.__http.endheaders()
 
     # Write payload

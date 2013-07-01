@@ -4,14 +4,14 @@ Bundled Hadoop, JDK, lzo, snappy installation into a bin type self-extract-insta
 Provide personal fixed hive,hbase rpm testing package to download in repo
 Provide executable bin installation file for manually install in repo.
 Provide self compiled snappy and lzo rpm package
-Ubuntu/debian installation supported now
+Ubuntu/debian installation supported now(For test only)
 
 修正节点添加时无法启动agent的bug
 合并hadoop,jdk,lzo,snappy安装为bin类型自解压安装包，并同时支持lzo和snappy两种压缩格式(仅为测试功能)。
 在仓库中提供了个人修订的hive(0.10.0)和hbase(0.94.4)的rpm/deb测试安装包。
 为手工安装hadoop提供了可自运行安装的bin安装文件。
 仓库中提供了自己编译打包的snappy和lzo的rpm/deb安装文件。
-已支持 Ubuntu/debian 安装
+已支持 Ubuntu/debian 安装(仅供测试)
 
 
 

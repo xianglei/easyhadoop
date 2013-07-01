@@ -46,7 +46,10 @@ import sys
 import cherrypy
 import platform
 import os
-import pickle
+try:
+	import cPickle as pickle
+except:
+	import pickle
 import urllib
 import socket
 import atexit
@@ -389,6 +392,19 @@ class Token(object):
 				return '{"Exception":"' + e + '"}'
 		else:
 			return '{"Exception":"token exists"}'
+			
+			
+class Sudo:
+	@cherrypy.expose
+	def Sudoing(self, passwd, command):
+		tokenizer = Token()
+		if tokenizer.AuthToken(token) == True:
+			ret = {}
+			p = subprocess.Popen(["sudo", "-S", command], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+			ret[result] = p.communicate(passwd + "\n")[0][:-1]
+			return json.dumps(ret)
+		else:
+			return '{"Exception":"Invalid token"}'
 
 '''
 
@@ -623,6 +639,7 @@ class Daemon:
 		cherrypy.tree.mount(Node(), '/node')
 		cherrypy.tree.mount(Jmx(), '/jmx')
 		cherrypy.tree.mount(Token(), '/token')
+		cherrypy.tree.mount(Sudo(), '/sudo')
 		#cherrypy.tree.mount(Expect(), '/expect')
 		cherrypy.engine.start()
 
