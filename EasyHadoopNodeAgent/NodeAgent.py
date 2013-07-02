@@ -58,10 +58,7 @@ import string
 import time
 import base64
 
-try:
-	import json
-except ImportError:
-	import simplejson as json
+import simplejson as json
 
 #sys.path.append('./thrift')
 from thrift.EasyHadoop import *
