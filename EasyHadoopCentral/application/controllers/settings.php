@@ -301,7 +301,7 @@ class Settings extends CI_Controller
 	public function PushRackAware()
 	{
 		$this->load->model('ehm_hosts_model', 'hosts');
-		$result = $this->hosts->get_namenode_list();
+		$result = $this->hosts->get_jobtracker_list();
 		$result = $result[0];
 		$ip = $result->ip;
 		$rack = $this->hosts->make_rackaware();
