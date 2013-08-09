@@ -1,4 +1,4 @@
-1.1.2-beta2
+﻿1.1.2-beta2
 Fix node add without agent start bug.
 Bundled Hadoop, JDK, lzo, snappy installation into a bin type self-extract-install package, and support lzo and snappy both(For test only)
 Provide personal fixed hive,hbase rpm testing package to download in repo
@@ -12,6 +12,7 @@ Ubuntu/debian installation supported now(For test only)
 为手工安装hadoop提供了可自运行安装的bin安装文件。
 仓库中提供了自己编译打包的snappy和lzo的rpm/deb安装文件。
 已支持 Ubuntu/debian 安装(仅供测试)
+提供EasyHadoopNodeAgent/changeHost.py，可以自动更改节点hostname为node-xxx-xx格式(xx-xx为ip后两段)，然后自动重启NodeAgent.py,为缺少ops的同学提供方便。最爽的使用是打开若干shell窗口，进行批处理。
 
 
 
