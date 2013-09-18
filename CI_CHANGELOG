@@ -1,0 +1,39 @@
+application/config/config.php
+	>>>>
+	$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+	--------------
+	$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-=';
+	<<<<
+	
+	>>>>
+	$config['encryption_key'] = '';
+	--------------
+	$config['encryption_key'] = 'Heavy Metal Will Never Die!!!';
+	<<<<
+	
+	>>>>
+	$config['global_xss_filtering'] = FALSE;
+	--------------
+	$config['global_xss_filtering'] = TRUE;
+	<<<<
+	
+application/config/autoload.php
+	>>>>
+	$autoload['libraries'] = array('');
+	--------------
+	$autoload['libraries'] = array('session','user_agent');
+	<<<<
+	
+system/helpers/number_helper.php
+	>>>>
+	--------------
+	$kb = 1024;			// Kilobyte
+	$mb = 1024 * $kb;	// Megabyte
+	$gb = 1024 * $mb;	// Gigabyte
+	$tb = 1024 * $gb;	// Terabyte
+	$pb = 1024 * $tb;	// Pettabyte
+	$eb = 1024 * $pb;	// Exabyte
+	$zb = 1024 * $eb;	// Zettabyte
+	$yb = 1024 * $zb;	// Yottabyte
+	$bb = 1024 * $yb;	// Brontobyte
+	<<<<

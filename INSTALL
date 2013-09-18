@@ -1,0 +1,9 @@
+1. git clone https://github.com/Exadoop/exadoop.git
+2. python exadoop/setup_(os)_(x).py
+3. Open browser and access http://your_ip/, the default user/pass : admin/123456
+
+Central requirement:
+	pkgconfig zlib automake autoconf make gcc gcc-c++ libtool sudo
+
+Hadoop node requirement
+	pkgconfig zlib sudo

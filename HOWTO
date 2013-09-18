@@ -1,0 +1,65 @@
+English operation manual
+
+1. Add Node(s)
+	a). click Nodes on nav
+	b). create node or create nodes
+	c). type in the nodes info and select the role of node.
+	d). click save(submit)
+	e). click HDD to set HDFS storage
+	f). done
+
+2. Install Hadoop
+	a). click Install on nav
+	b). click Install
+	c). done
+
+3. Make Hadoop(Ecosystem) settings
+	a). click Settings on nav
+	b). click Template to generate hadoop(or other) settings
+	c). click save to save global or node seperated settings
+	d). click Hadoop Settings button to manage settings or push them(/etc/hosts,rackawareness script) to all( or specified ) nodes
+	e). Manually format namenode just run "sudo -u hdfs hadoop namenode -format" on your namenode
+	f). done
+
+4. Start Hadoop (Ecosystem)
+	a). click Eco on nav
+	b). click the dropdown button to start or stop or view the hadoop log
+	c). done
+
+5. Monitor the cluster
+	a). click Monitor on nav
+	b). click the button group to monitor the cluster with real time monitoring.
+	c). hope you enjoy that
+
+中文操作手册
+
+1. 添加节点
+	a). 点击导航的节点(Nodes)
+	b). 点击添加节点或批量添加节点按钮
+	c). 输入节点的信息并选择节点所担负的角色
+	d). 点击保存或提交
+	e). 点击存储标签设置HDFS所使用的存储单元
+	f). 完成
+
+2. 安装hadoop
+	a). 点击导航的安装标签
+	b). 点击安装
+	c). 完成
+
+3. 创建Hadoop(及其生态系统)的配置文件
+	a). 点击导航的配置标签
+	b). 点击模板编辑hadoop或其他生态系统的配置项
+	c). 点击保存，并选择相对应的节点（或属于全局配置）
+	d). 点击Hadoop配置按钮来管理这些配置文件，或将它们包括主机列表，机架感知脚本在内推送到全部或对应的节点上
+	e). 进入Namenode节点的主机，通过ssh手工执行 "sudo -u hdfs hadoop namenode -format" 来格式化Namenode
+	f). 完成
+
+4. 启动Hadoop (或生态系统)
+	a). 点击导航的生态标签
+	b). 点击下拉按钮来启动或停止hadoop，或者查看hadoop最新200条日志
+	c). 完成
+
+5. 集群监控
+	a). 点击导航的监控标签
+	b). 点击按钮查看集群的实时状态监控
+	c). 希望你喜欢
