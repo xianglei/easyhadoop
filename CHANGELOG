@@ -1,3 +1,12 @@
+1.2.1-beta1
+Reconstruct all code
+More easy to deploy and manage hadoop cluster, and the hbase, hive and more is on the way...
+I am the hadoop user, so I know what is the hadoop administrator needs.
+
+重构了所有的代码
+更加容易管理和部署hadoop集群，hbase,hive与更多的管理系统已经在路上了。
+我是Hadoop的用户，所以我知道Hadoop管理员都需要些什么。
+
 ﻿1.1.2-beta2
 Fix node add without agent start bug.
 Bundled Hadoop, JDK, lzo, snappy installation into a bin type self-extract-install package, and support lzo and snappy both(For test only)
