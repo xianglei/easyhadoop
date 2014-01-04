@@ -432,6 +432,10 @@ class Daemon:
 
 	def start(self):
 		try:
+			if os.path.exists(self.pidfile):
+				os.remove(self.pidfile)
+			else:
+				print str(err)
 			pf = file(self.pidfile,'r')
 			pid = int(pf.read().strip())
 			pf.close()
