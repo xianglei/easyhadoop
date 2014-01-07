@@ -60,6 +60,8 @@ os.system('sed -i "s/^;date.timezone =/date.timezone = Asia\/Shanghai/g" /etc/ph
 os.system('/sbin/service httpd restart')
 os.system('echo "service httpd restart" >> /etc/rc.local')
 os.system('echo "service mysqld restart" >> /etc/rc.local')
+os.system('chkconfig --add httpd')
+os.system('chkconfig --add mysqld')
 os.system('echo "nohup /usr/local/exadoop/bin/python /usr/local/exadoop/agent/NodeAgent.py -s restart 2>/dev/null &" >> /etc/rc.local')
 os.system('sed -i "s/^SELINUX=enforcing/SELINUX=disabled/g" /etc/selinux/config')
 os.system('/sbin/service iptables stop')
