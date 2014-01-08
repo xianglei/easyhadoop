@@ -441,9 +441,14 @@ class Daemon:
 			pid = None
 
 		if pid: 
-			message = 'pidfile %s already exist. Daemon already running?\n'
-			sys.stderr.write(message % self.pidfile)
-			sys.exit(1)
+			exists = os.popen('ps -ef | grep exadoop | grep -v gre | grep python | wc -l').readline()
+			exists = int(exists)
+			if exists == 0:
+				self.delpid()
+			else:
+				message = 'pidfile %s already exist. Daemon already running?\n'
+				sys.stderr.write(message % self.pidfile)
+				sys.exit(1)
 
 		self._daemonize()
 		self._run()
