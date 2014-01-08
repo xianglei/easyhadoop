@@ -434,8 +434,6 @@ class Daemon:
 		try:
 			if os.path.exists(self.pidfile):
 				os.remove(self.pidfile)
-			else:
-				print str(err)
 			pf = file(self.pidfile,'r')
 			pid = int(pf.read().strip())
 			pf.close()
@@ -500,7 +498,7 @@ class Daemon:
 		cherrypy.tree.mount(Node(), '/node')
 		cherrypy.tree.mount(Jmx(), '/jmx')
 		cherrypy.tree.mount(Token(), '/token')
-		cherrypy.tree.mount(Sudo(), '/sudo')
+		#cherrypy.tree.mount(Sudo(), '/sudo')
 		#cherrypy.tree.mount(Expect(), '/expect')
 		cherrypy.engine.start()
 
