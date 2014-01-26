@@ -1,7 +1,7 @@
 #!/usr/bin/php -q
-<?
+<?php
 $GLOBALS['THRIFT_ROOT'] = __DIR__ . "/libs/";
-include_once $GLOBALS['THRIFT_ROOT'] . 'packages/EasyHadoop/EasyHadoop.php';
+include_once $GLOBALS['THRIFT_ROOT'] . 'packages/Exadoop/Exadoop.php';
 include_once $GLOBALS['THRIFT_ROOT'] . 'transport/TSocket.php';
 include_once $GLOBALS['THRIFT_ROOT'] . 'transport/TTransport.php';
 include_once $GLOBALS['THRIFT_ROOT'] . 'protocol/TBinaryProtocol.php';
@@ -20,7 +20,7 @@ else
 	$socket->setRecvTimeout(30000);
 	$transport = new TBufferedTransport($socket);
 	$protocol = new TBinaryProtocol($transport);
-	$ehm = new EasyHadoopClient($protocol);
+	$ehm = new ExadoopClient($protocol);
 	try
 	{
 		$transport->open();
@@ -31,5 +31,6 @@ else
 	{
 		$str = 'Caught exception: '.  $e->getMessage(). "\n";
 	}
+	echo $str;
 }
 ?>
