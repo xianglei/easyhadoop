@@ -54,7 +54,7 @@ if(os.path.isfile(work_dir + '/' + agent_file)) == False:
 	os.system('wget '+repo+'/agent/stable/' + agent_file)
 
 os.system('cd '+work_dir)
-os.system('rpm -Uvh ' + agent_file)
+os.system('rpm --nodeps -Uvh ' + agent_file)
 os.system('cp -R * /var/www/html')
 os.system('sed -i "s/^;date.timezone =/date.timezone = Asia\/Shanghai/g" /etc/php.ini')
 os.system('/sbin/service httpd start')
