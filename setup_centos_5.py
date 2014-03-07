@@ -31,7 +31,7 @@ class Token:
 
 repo = 'http://42.96.141.99/'
 
-os.system('yum install -y sudo php53 php53-cli php53-devel php53-common httpd httpd-devel php53-mbstring php53-mysql php53-pdo php53-process mysql mysql-devel mysql-server wget lrzsz dos2unix pexpect libxml2 libxml2-devel MySQL-python libssh2 libss2-devel automake autoconf make gcc gcc-c++ libstdc++ libstdc++-devel')
+os.system('yum install -y sudo php53 php53-cli php53-devel php53-common httpd httpd-devel php53-mbstring php53-mysql php53-pdo php53-process mysql mysql-devel mysql-server wget lrzsz dos2unix pexpect libxml2 libxml2-devel MySQL-python libssh2 libssh2-devel automake autoconf make gcc gcc-c++ libstdc++ libstdc++-devel')
 os.system('/sbin/service mysqld start')
 os.system('mysql -hlocalhost -uroot -e"create database if not exists exadoop"')
 os.system('mysql -hlocalhost -uroot --default-character-set=utf8 exadoop < xadoop.sql')
@@ -54,7 +54,7 @@ if(os.path.isfile(work_dir + '/' + agent_file)) == False:
 	os.system('wget '+repo+'/agent/stable/' + agent_file)
 
 os.system('cd '+work_dir)
-os.system('rpm -Uvh ' + agent_file)
+os.system('rpm --nodeps -Uvh ' + agent_file)
 os.system('cp -R * /var/www/html')
 os.system('sed -i "s/^;date.timezone =/date.timezone = Asia\/Shanghai/g" /etc/php.ini')
 os.system('/sbin/service httpd start')
