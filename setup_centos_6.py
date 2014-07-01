@@ -29,7 +29,7 @@ class Token:
 			except IOError, e:
 				return '{"Exception":"' + e + '"}'
 
-repo = 'http://42.96.141.99/'
+repo = 'http://42.96.141.99/old-release/'
 
 os.system('yum install -y sudo php php-cli php-devel php-common httpd httpd-devel php-mbstring php-mysql php-pdo php-process mysql mysql-devel mysql-server mysql-libs wget lrzsz dos2unix pexpect libxml2 libxml2-devel MySQL-python curl curl-devel libssh2 libssh2-devel automake autoconf make gcc gcc-c++ libstdc++ libstdc++-devel')
 os.system('/sbin/service mysqld start')
