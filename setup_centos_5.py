@@ -77,7 +77,7 @@ config_php = ''
 config_php += '<?php\n\n'
 config_php += '#this is user definable area\n#这里是用户定义区域\n'
 config_php += '$configure[\'language\'] = \'english\';\n\n'
-config_php += '$configure[\'packages_source_address\'] = \'42.96.141.99\';\n\n'
+config_php += '$configure[\'packages_source_address\'] = \'42.96.193.215/old-release\';\n\n'
 config_php += '$configure[\'token\'] = \'%s\';\n\n' % t
 config_php += '?>'
 filename = '/var/www/html/config.inc.php'
